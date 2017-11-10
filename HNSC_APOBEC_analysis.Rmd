@@ -495,6 +495,44 @@ for(i in 1:10){
 }
 ```
 
+
+## Ordering mutations by selection intensity
+
+We multiply the selection intensity we calculate for every recurrent mutation by the $\frac{\alpha}{\text{expected mutations}}$ calculated for every gene.
+
+```{r calculating selection and alpha/muE HPV+, echo=F}
+
+load("~/Documents/Selection_analysis/HNSC_HPVpos/selection_output/HNSC_HPVpos_selection_output.RData")
+load("genes_summary_TKW_HPVpos.RData")
+HPV.plus.selection <- selection.output$all_mutations[which(selection.output$all_mutations$freq>1),]
+HPV.plus.selection$selection_alpha <- NA
+HPV.plus.selection$APOBEC_enriched_p_value <- NA
+for(i in 1:nrow(HPV.plus.selection)){
+  if(HPV.plus.selection$Gene[i] %in% genes.summary$gene){
+    HPV.plus.selection$selection_alpha[i] <- HPV.plus.selection$gamma_epistasis[i]*
+      genes.summary$alpha_over_expected_muts[which(genes.summary$gene==HPV.plus.selection$Gene[i])]
+    HPV.plus.selection$APOBEC_enriched_p_value[i] <- round(genes.summary$binomial_test_p_greater[which(genes.summary$gene==HPV.plus.selection$Gene[i])],4)
+    
+  }
+  
+}
+
+HPV.plus.selection$selection_alpha <- round(HPV.plus.selection$selection_alpha,2)
+
+HPV.plus.selection$Name <- NA
+for(i in 1:nrow(HPV.plus.selection)){
+  HPV.plus.selection$Name[i] <- paste(HPV.plus.selection$Gene[i]," ",ifelse(!is.na(HPV.plus.selection$AA_Ref[i]),paste(HPV.plus.selection$AA_Ref[i],HPV.plus.selection$AA_Pos[i],HPV.plus.selection$AA_Change[i],sep=""),"NCSNV"),sep="")
+}
+
+datatable(data = HPV.plus.selection[order(HPV.plus.selection$selection_alpha,decreasing = T),c("Name","selection_alpha","APOBEC_enriched_p_value")])
+
+```
+
+
+
+
+
+
 ### The full dataset, ignoring the *P* value cutoff from the binomial test:
 
 The alpha here corresponds to "TCW -> TKW" mutations.
@@ -1015,6 +1053,40 @@ for(i in 1:20){
   print(this.plot)
 }
 ```
+
+
+## Ordering mutations by selection intensity
+
+We multiply the selection intensity we calculate for every recurrent mutation by the $\frac{\alpha}{\text{expected mutations}}$ calculated for every gene.
+
+```{r calculating selection and alpha/muE HPV-, echo=F}
+
+load("~/Documents/Selection_analysis/HNSC_HPVneg/selection_output/HNSC_HPVneg_selection_output.RData")
+load("genes_summary_TKW_HPVneg.RData")
+HPV.neg.selection <- selection.output$all_mutations[which(selection.output$all_mutations$freq>1),]
+HPV.neg.selection$selection_alpha <- NA
+HPV.neg.selection$APOBEC_enriched_p_value <- NA
+for(i in 1:nrow(HPV.neg.selection)){
+  if(HPV.neg.selection$Gene[i] %in% genes.summary$gene){
+    HPV.neg.selection$selection_alpha[i] <- HPV.neg.selection$gamma_epistasis[i]*
+      genes.summary$alpha_over_expected_muts[which(genes.summary$gene==HPV.neg.selection$Gene[i])]
+    HPV.neg.selection$APOBEC_enriched_p_value[i] <- round(genes.summary$binomial_test_p_greater[which(genes.summary$gene==HPV.neg.selection$Gene[i])],4)
+    
+  }
+  
+}
+
+HPV.neg.selection$selection_alpha <- round(HPV.neg.selection$selection_alpha,2)
+
+HPV.neg.selection$Name <- NA
+for(i in 1:nrow(HPV.neg.selection)){
+  HPV.neg.selection$Name[i] <- paste(HPV.neg.selection$Gene[i]," ",ifelse(!is.na(HPV.neg.selection$AA_Ref[i]),paste(HPV.neg.selection$AA_Ref[i],HPV.neg.selection$AA_Pos[i],HPV.neg.selection$AA_Change[i],sep=""),"NCSNV"),sep="")
+}
+
+datatable(data = HPV.neg.selection[order(HPV.neg.selection$selection_alpha,decreasing = T),c("Name","selection_alpha","APOBEC_enriched_p_value")])
+
+```
+
 
 ### The full dataset, ignoring the *P* value cutoff from the binomial test:
 

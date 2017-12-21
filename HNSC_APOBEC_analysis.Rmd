@@ -6,6 +6,8 @@ output:
   html_document:
     toc: true
     toc_depth: 3
+    toc_float: 
+      collapsed: false
 html_document: default
 pdf_document: default
 ---
@@ -62,10 +64,32 @@ if(length(which(list.files("~/Documents/manuscripts/APOBEC_HNSCC/")=="HNSC_MAF.R
   
   
 }else{
- load("~/Documents/manuscripts/APOBEC_HNSCC/HNSC_MAF.RData") 
+  load("~/Documents/manuscripts/APOBEC_HNSCC/HNSC_MAF.RData") 
   
 }
 ```
+
+
+```{r exporting apobec signatures, eval=FALSE, include=FALSE}
+
+# For the manuscript, exporting APOBEC signatures for the GISTIC analysis 
+
+library(feather)
+library(tidyverse)
+
+apobec_hnscc_df <- read_feather("~/Documents/manuscripts/APOBEC_HNSCC/nfkb.feather")
+
+head(apobec_hnscc_df)
+
+write.table(x = c("array",paste(pull(apobec_hnscc_df[which(apobec_hnscc_df$S2>0 | apobec_hnscc_df$S13>0),"patient_id"]),"-01",sep="")),file = "APOBEC_pos_array.txt",sep = "\n",quote = F,row.names = F,col.names = F)
+
+
+write.table(x = c("array",paste(pull(apobec_hnscc_df[which(apobec_hnscc_df$S2==0 & apobec_hnscc_df$S13==0),"patient_id"]),"-01",sep="")),file = "APOBEC_neg_array.txt",sep = "\n",quote = F,row.names = F,col.names = F)
+
+
+```
+
+
 
 
 HNSC data obtained from the NCI public repository. We perform the following steps to process the data:
@@ -161,6 +185,10 @@ weights.APOBEC$APOBEC_signature <- weights.APOBEC$Signature.2 + weights.APOBEC$S
 APOBEC.tumors <- weights.APOBEC[which(weights.APOBEC$APOBEC_signature>0),]
 
 
+# saving weights for use in GISTIC2
+write.table(x = c("array",paste(rownames(weights.APOBEC[which(weights.APOBEC$APOBEC_signature>0),]),"-01",sep="")),file = "APOBEC_pos_array.txt",quote = F,sep="\n",row.names = F,col.names = F)
+
+write.table(x = c("array",paste(rownames(weights.APOBEC[which(weights.APOBEC$APOBEC_signature==0),]),"-01",sep="")),file = "APOBEC_neg_array.txt",quote = F,sep="\n",row.names = F,col.names = F)
 ```
 
 
@@ -496,38 +524,6 @@ for(i in 1:10){
 ```
 
 
-## Ordering mutations by selection intensity
-
-We multiply the selection intensity we calculate for every recurrent mutation by the $\frac{\alpha}{\text{expected mutations}}$ calculated for every gene.
-
-```{r calculating selection and alpha/muE HPV+, echo=F}
-
-load("~/Documents/Selection_analysis/HNSC_HPVpos/selection_output/HNSC_HPVpos_selection_output.RData")
-load("genes_summary_TKW_HPVpos.RData")
-HPV.plus.selection <- selection.output$all_mutations[which(selection.output$all_mutations$freq>1),]
-HPV.plus.selection$selection_alpha <- NA
-HPV.plus.selection$APOBEC_enriched_p_value <- NA
-for(i in 1:nrow(HPV.plus.selection)){
-  if(HPV.plus.selection$Gene[i] %in% genes.summary$gene){
-    HPV.plus.selection$selection_alpha[i] <- HPV.plus.selection$gamma_epistasis[i]*
-      genes.summary$alpha_over_expected_muts[which(genes.summary$gene==HPV.plus.selection$Gene[i])]
-    HPV.plus.selection$APOBEC_enriched_p_value[i] <- round(genes.summary$binomial_test_p_greater[which(genes.summary$gene==HPV.plus.selection$Gene[i])],4)
-    
-  }
-  
-}
-
-HPV.plus.selection$selection_alpha <- round(HPV.plus.selection$selection_alpha,2)
-
-HPV.plus.selection$Name <- NA
-for(i in 1:nrow(HPV.plus.selection)){
-  HPV.plus.selection$Name[i] <- paste(HPV.plus.selection$Gene[i]," ",ifelse(!is.na(HPV.plus.selection$AA_Ref[i]),paste(HPV.plus.selection$AA_Ref[i],HPV.plus.selection$AA_Pos[i],HPV.plus.selection$AA_Change[i],sep=""),"NCSNV"),sep="")
-}
-
-datatable(data = HPV.plus.selection[order(HPV.plus.selection$selection_alpha,decreasing = T),c("Name","selection_alpha","APOBEC_enriched_p_value")])
-
-```
-
 
 
 
@@ -587,6 +583,49 @@ alpha_mu.p.scatter
 <!-- Now, the HPV_NEG case-->
 
 
+
+## Ordering mutations by selection intensity
+
+We multiply the selection intensity we calculate for every recurrent mutation by the $\frac{\alpha}{\text{expected mutations}}$ calculated for every gene.
+
+```{r calculating selection and alpha/muE HPV+, echo=F}
+
+load("~/Documents/Selection_analysis/HNSC_HPVpos/selection_output/HNSC_HPVpos_selection_output.RData")
+load("genes_summary_TKW_HPVpos.RData")
+load("~/Documents/manuscripts/APOBEC_HNSCC/weight.and.trinuc.df_TKW_HPVpos.RData")
+
+
+HPV.plus.selection <- selection.output$all_mutations[which(selection.output$all_mutations$freq>1),]
+HPV.plus.selection$selection_alpha <- NA
+HPV.plus.selection$APOBEC_enriched_p_value <- NA
+HPV.plus.selection$APOBEC_trinuc <- NA
+
+HPV.plus.selection$name <- paste(HPV.plus.selection$AA_Ref,HPV.plus.selection$AA_Pos,
+                                 HPV.plus.selection$AA_Change,sep="")
+
+for(i in 1:nrow(HPV.plus.selection)){
+  if(HPV.plus.selection$Gene[i] %in% genes.summary$gene){
+    HPV.plus.selection$selection_alpha[i] <- HPV.plus.selection$gamma_epistasis[i]*
+      genes.summary$alpha_over_expected_muts[which(genes.summary$gene==HPV.plus.selection$Gene[i])]
+    HPV.plus.selection$APOBEC_enriched_p_value[i] <- round(genes.summary$binomial_test_p_greater[which(genes.summary$gene==HPV.plus.selection$Gene[i])],4)
+    HPV.plus.selection$APOBEC_trinuc
+    HPV.plus.selection$APOBEC_trinuc[i] <- weight.and.trinuc.df$TCW_TKW[which(weight.and.trinuc.df$gene==HPV.plus.selection$Gene[i] & weight.and.trinuc.df$mutation==HPV.plus.selection$name[i])[1]]
+  }
+  
+}
+
+HPV.plus.selection$selection_alpha <- round(HPV.plus.selection$selection_alpha,2)
+
+HPV.plus.selection$Name <- NA
+for(i in 1:nrow(HPV.plus.selection)){
+  HPV.plus.selection$Name[i] <- paste(HPV.plus.selection$Gene[i]," ",ifelse(!is.na(HPV.plus.selection$AA_Ref[i]),paste(HPV.plus.selection$AA_Ref[i],HPV.plus.selection$AA_Pos[i],HPV.plus.selection$AA_Change[i],sep=""),"NCSNV"),sep="")
+}
+
+HPV.plus.selection <- HPV.plus.selection[which(HPV.plus.selection$APOBEC_trinuc==1),]
+
+datatable(data = HPV.plus.selection[order(HPV.plus.selection$selection_alpha,decreasing = T),c("Name","selection_alpha","APOBEC_enriched_p_value")])
+
+```
 
 # HPV Negative 
 
@@ -1055,37 +1094,6 @@ for(i in 1:20){
 ```
 
 
-## Ordering mutations by selection intensity
-
-We multiply the selection intensity we calculate for every recurrent mutation by the $\frac{\alpha}{\text{expected mutations}}$ calculated for every gene.
-
-```{r calculating selection and alpha/muE HPV-, echo=F}
-
-load("~/Documents/Selection_analysis/HNSC_HPVneg/selection_output/HNSC_HPVneg_selection_output.RData")
-load("genes_summary_TKW_HPVneg.RData")
-HPV.neg.selection <- selection.output$all_mutations[which(selection.output$all_mutations$freq>1),]
-HPV.neg.selection$selection_alpha <- NA
-HPV.neg.selection$APOBEC_enriched_p_value <- NA
-for(i in 1:nrow(HPV.neg.selection)){
-  if(HPV.neg.selection$Gene[i] %in% genes.summary$gene){
-    HPV.neg.selection$selection_alpha[i] <- HPV.neg.selection$gamma_epistasis[i]*
-      genes.summary$alpha_over_expected_muts[which(genes.summary$gene==HPV.neg.selection$Gene[i])]
-    HPV.neg.selection$APOBEC_enriched_p_value[i] <- round(genes.summary$binomial_test_p_greater[which(genes.summary$gene==HPV.neg.selection$Gene[i])],4)
-    
-  }
-  
-}
-
-HPV.neg.selection$selection_alpha <- round(HPV.neg.selection$selection_alpha,2)
-
-HPV.neg.selection$Name <- NA
-for(i in 1:nrow(HPV.neg.selection)){
-  HPV.neg.selection$Name[i] <- paste(HPV.neg.selection$Gene[i]," ",ifelse(!is.na(HPV.neg.selection$AA_Ref[i]),paste(HPV.neg.selection$AA_Ref[i],HPV.neg.selection$AA_Pos[i],HPV.neg.selection$AA_Change[i],sep=""),"NCSNV"),sep="")
-}
-
-datatable(data = HPV.neg.selection[order(HPV.neg.selection$selection_alpha,decreasing = T),c("Name","selection_alpha","APOBEC_enriched_p_value")])
-
-```
 
 
 ### The full dataset, ignoring the *P* value cutoff from the binomial test:
@@ -1128,6 +1136,448 @@ alpha_mu.p.scatter
 
 ```
 
+
+## Ordering mutations by selection intensity
+
+We multiply the selection intensity we calculate for every recurrent mutation by the $\frac{\alpha}{\text{expected mutations}}$ calculated for every gene.
+
+```{r calculating selection and alpha/muE HPV-, echo=F}
+
+load("~/Documents/Selection_analysis/HNSC_HPVneg/selection_output/HNSC_HPVneg_selection_output.RData")
+load("genes_summary_TKW_HPVneg.RData")
+load("~/Documents/manuscripts/APOBEC_HNSCC/weight.and.trinuc.df_TKW_HPVneg.RData")
+
+
+HPV.neg.selection <- selection.output$all_mutations[which(selection.output$all_mutations$freq>1),]
+HPV.neg.selection$selection_alpha <- NA
+HPV.neg.selection$APOBEC_enriched_p_value <- NA
+HPV.neg.selection$APOBEC_trinuc <- NA
+
+HPV.neg.selection$name <- paste(HPV.neg.selection$AA_Ref,HPV.neg.selection$AA_Pos,
+                                HPV.neg.selection$AA_Change,sep="")
+
+
+for(i in 1:nrow(HPV.neg.selection)){
+  if(HPV.neg.selection$Gene[i] %in% genes.summary$gene){
+    HPV.neg.selection$selection_alpha[i] <- HPV.neg.selection$gamma_epistasis[i]*
+      genes.summary$alpha_over_expected_muts[which(genes.summary$gene==HPV.neg.selection$Gene[i])]
+    HPV.neg.selection$APOBEC_enriched_p_value[i] <- round(genes.summary$binomial_test_p_greater[which(genes.summary$gene==HPV.neg.selection$Gene[i])],4)
+    HPV.neg.selection$APOBEC_trinuc[i] <- weight.and.trinuc.df$TCW_TKW[which(weight.and.trinuc.df$gene==HPV.neg.selection$Gene[i] & weight.and.trinuc.df$mutation==HPV.neg.selection$name[i])[1]]
+    
+  }
+  
+}
+
+HPV.neg.selection$selection_alpha <- round(HPV.neg.selection$selection_alpha,2)
+
+HPV.neg.selection$Name <- NA
+for(i in 1:nrow(HPV.neg.selection)){
+  HPV.neg.selection$Name[i] <- paste(HPV.neg.selection$Gene[i]," ",ifelse(!is.na(HPV.neg.selection$AA_Ref[i]),paste(HPV.neg.selection$AA_Ref[i],HPV.neg.selection$AA_Pos[i],HPV.neg.selection$AA_Change[i],sep=""),"NCSNV"),sep="")
+}
+
+HPV.neg.selection <- HPV.neg.selection[which(HPV.neg.selection$APOBEC_trinuc==1),]
+
+datatable(data = HPV.neg.selection[order(HPV.neg.selection$selection_alpha,decreasing = T),c("Name","selection_alpha","APOBEC_enriched_p_value")])
+
+```
+
+
+
+
+```{r, eval=F, echo=F}
+
+load("~/Documents/Selection_analysis/HNSC_HPVneg/selection_output/HNSC_HPVneg_selection_output.RData")
+
+PIK <- (selection.output$complete_mutation_data[which(selection.output$complete_mutation_data$Gene=="PIK3CA"),])
+
+HNSC.MAF <- read.csv(file = "~/Documents/Selection_analysis/HNSC/NCI/gdc_download_20170921_203751/84c7a87a-9dcc-48fb-bd69-ba9d6e6f3ca2/TCGA.HNSC.mutect.84c7a87a-9dcc-48fb-bd69-ba9d6e6f3ca2.DR-7.0.somatic.maf",skip=5,sep="\t",header = T,stringsAsFactors = F)
+
+head(HNSC.MAF)
+
+source("~/GitHub/site_specific_selection_intensity/functions_script.R")
+
+myseq <- paste(as.character(getSeq(Hsapiens,"chr3",start=178936090,end=178936092,strand="+")),collapse = "")
+
+```
+
+
+# All HPV data
+
+
+
+```{r r data_cleaning_all, echo=F, include=F}
+# load up HNSC.MAF and apobec_hnscc_df
+
+
+
+if(length(which(list.files("~/Documents/manuscripts/APOBEC_HNSCC/")=="HNSC_all_MAF.RData"))==0){
+  
+  HNSC.HPVall.MAF <- HNSC.MAF
+  
+  # HNSC.HPVp.MAF <- hg38.to.hg19.converter(chain = "~/Downloads/hg38ToHg19.over.chain",hg38_maf = HNSC.HPVp.MAF)
+  
+  HNSC.HPVall.MAF <- unique.tumor.addition.function(MAF.file = HNSC.HPVall.MAF,non.TCGA.characters.to.keep = 'all',figures=F)
+  
+  HNSC.HPVall.MAF <- DNP.remover(MAF = HNSC.HPVall.MAF)
+  
+  HNSC.HPVall.MAF$Tumor_Seq_Allele2 <- toupper(HNSC.HPVall.MAF$Tumor_Seq_Allele2)
+  HNSC.HPVall.MAF$Reference_Allele <- toupper(HNSC.HPVall.MAF$Reference_Allele)
+  HNSC.HPVall.MAF <- tumor.allele.adder(MAF = HNSC.HPVall.MAF)
+  
+  
+  
+  save(HNSC.HPVall.MAF,file = "~/Documents/manuscripts/APOBEC_HNSCC/HNSC_all_MAF.RData")
+}else{
+  load("~/Documents/manuscripts/APOBEC_HNSCC/HNSC_all_MAF.RData")
+}
+
+HPV_all_tumors <- length(which(startsWith(x = unique(HNSC.HPVall.MAF$Unique_patient_identifier),prefix = "TCGA")))
+
+
+
+
+```
+
+
+Total HNSCC tumors: `r HPV_all_tumors`
+
+
+```{r calculating_trinuc_all, echo=T,include=F,message=F}
+if(length(which(list.files("~/Documents/manuscripts/APOBEC_HNSCC/")=="trinuc_contexts_HPV_all.RData"))==0){
+  trinuc.contexts <- trinuc.profile.function_withweights(input.MAF = HNSC.HPVall.MAF,
+                                                         signature.choice = "signatures.cosmic", 
+                                                         minimum.mutations.per.tumor=50,save.figs=F)
+  
+  save(trinuc.contexts,file = "~/Documents/manuscripts/APOBEC_HNSCC/trinuc_contexts_HPV_all.RData")
+}else{
+  load("~/Documents/manuscripts/APOBEC_HNSCC/trinuc_contexts_HPV_all.RData")
+}
+
+```
+
+
+
+
+```{r Finding APOBEC signatures all, echo=F, message=F}
+
+tumor.name <- "HNSC_HPVall"
+
+
+dir.create(path = "Figures", showWarnings = FALSE)
+weights.df <- trinuc.contexts$signature.weights[[1]]$weights
+for(i in 2:length(trinuc.contexts$signature.weights)){
+  weights.df <- rbind(weights.df,trinuc.contexts$signature.weights[[i]]$weights)
+}
+
+weights.df.melt <- melt(weights.df)
+
+
+viol <- ggplot(data=weights.df.melt,aes(x=variable,y=value)) + geom_violin() + theme_bw() +  
+  theme(axis.text.x = element_text(angle=90,hjust = 1)) +
+  geom_jitter(width=0.25,aes(x=variable,y=value),alpha=0.2) + 
+  labs(x="Cosmic signature") + labs(y="Signature weight") + ggtitle(paste("The distribution of COSMIC signatures in ",tumor.name,sep="")) +
+  theme(plot.title = element_text(hjust = 0.5))
+viol
+# viol
+ggsave(plot = viol,filename = paste("Figures/Signature_Violin_plot_",tumor.name,".pdf",sep=""),units = "in",width = 11,height = 8)
+
+# APOBEC.pos.tumors <- weights.df[which(weights.df$Signature.2>0 | weights.df$Signature.13>0),]
+
+weights.APOBEC <- weights.df
+weights.APOBEC$APOBEC_signature <- weights.APOBEC$Signature.2 + weights.APOBEC$Signature.13
+
+APOBEC.tumors <- weights.APOBEC[which(weights.APOBEC$APOBEC_signature>0),]
+
+
+```
+
+## Determining genes enriched for APOBEC signature and APOBEC weight
+
+### For the TCW --> TKW case 
+
+APOBEC is associated with TC(A/T) --> T(G/T)(A/T).[^2]
+
+
+For each gene, we calculate the sum of weighted APOBEC point mutations $\alpha =\sum_{i=1}^n \big( \text{(APOBEC tumor weight)} \times \text{(TCW} \rightarrow \text{TKW)}\big)$, where $n$ is the number of point mutations for that gene and $\text{(TCW} \rightarrow \text{TKW)}$ is $0$ or $1$ if mutation $i$ is not or is that trinuceotide context, respectively. We divide $\alpha$ by the silent mutation rate calculated from `MutSigCV` for that gene $\times$ the number of nucleotides in the gene---normalizing $\alpha$ by the expected number of mutations in that gene. 
+
+We perform the same binomial test as the previous analysis, using the expanded set of trinucleotide contexts in this section. 
+
+
+```{r calculate_APOBEC_contribution_TKW_all, echo=F}
+load("~/Documents/Selection_analysis/HNSC/selection_output/HNSC_selection_output.RData")
+
+genes <- unique(selection.output$complete_mutation_data$Gene)
+
+if(length(which(list.files("~/Documents/manuscripts/APOBEC_HNSCC/")=="weight.and.trinuc.df_TKW_HPVall.RData"))==0){
+  
+  weight.and.trinuc.df <- as.data.frame(matrix(nrow=nrow(selection.output$complete_mutation_data),ncol=4,data=NA))
+  colnames(weight.and.trinuc.df) <- c("gene","mutation","APOBEC_weight","TCW_TKW")
+  
+  for(i in 1:length(genes)){
+    these.data <- selection.output$complete_mutation_data[which(selection.output$complete_mutation_data$Gene==genes[i]),]
+    for(j in 1:nrow(these.data)){
+      # for(j in 1:257){
+      # print(j)
+      this.row <- which(is.na(weight.and.trinuc.df$gene))[1]
+      weight.and.trinuc.df$gene[this.row] <- these.data$Gene[j]
+      weight.and.trinuc.df$mutation[this.row] <- paste(these.data$Amino_acid_reference[j],
+                                                       these.data$Amino_acid_position[j],
+                                                       these.data$Amino_acid_alternative[j],sep="")
+      if(length(which(rownames(weights.APOBEC)==these.data$Unique_patient_identifier[j]))>0){
+        weight.and.trinuc.df$APOBEC_weight[this.row] <- weights.APOBEC$APOBEC_signature[which(rownames(weights.APOBEC)==these.data$Unique_patient_identifier[j])]
+      }
+      
+      #trinucs are NA if it is a repeated mutation, need to grab from previous mutation
+      if(is.na(these.data$Nucleotide_trinuc_context[j])){
+        these.data$Nucleotide_trinuc_context[j] <- 
+          these.data$Nucleotide_trinuc_context[which(these.data$Nucleotide_chromosome_position==these.data$Nucleotide_chromosome_position[j] & 
+                                                       these.data$Alternative_Nucleotide==these.data$Alternative_Nucleotide[j] & 
+                                                       !is.na(these.data$Nucleotide_trinuc_context))[1]]
+      }
+      
+      if(((these.data$Nucleotide_trinuc_context[j]=="TCA" & these.data$Alternative_Nucleotide[j]=="T") | 
+          (these.data$Nucleotide_trinuc_context[j]=="TGA" & these.data$Alternative_Nucleotide[j]=="A")) | 
+         ((these.data$Nucleotide_trinuc_context[j]=="TCT" & these.data$Alternative_Nucleotide[j]=="T") | 
+          (these.data$Nucleotide_trinuc_context[j]=="AGA" & these.data$Alternative_Nucleotide[j]=="A")) |
+         ((these.data$Nucleotide_trinuc_context[j]=="TCA" & these.data$Alternative_Nucleotide[j]=="G") | 
+          (these.data$Nucleotide_trinuc_context[j]=="TGA" & these.data$Alternative_Nucleotide[j]=="C")) |
+         ((these.data$Nucleotide_trinuc_context[j]=="TCT" & these.data$Alternative_Nucleotide[j]=="G") | 
+          (these.data$Nucleotide_trinuc_context[j]=="AGA" & these.data$Alternative_Nucleotide[j]=="C"))){
+        weight.and.trinuc.df$TCW_TKW[this.row] <- 1
+      }else{
+        weight.and.trinuc.df$TCW_TKW[this.row] <- 0
+      }
+      # print(j)
+      
+    }
+  }
+  if(length(which(is.na(weight.and.trinuc.df$APOBEC_weight)))>0){
+    weight.and.trinuc.df <- weight.and.trinuc.df[-which(is.na(weight.and.trinuc.df$APOBEC_weight)),]
+  }
+  save(weight.and.trinuc.df,file = "~/Documents/manuscripts/APOBEC_HNSCC/weight.and.trinuc.df_TKW_HPVall.RData")
+}else{
+  load("~/Documents/manuscripts/APOBEC_HNSCC/weight.and.trinuc.df_TKW_HPVall.RData") 
+  if(length(which(is.na(weight.and.trinuc.df$APOBEC_weight)))>0){
+    weight.and.trinuc.df <- weight.and.trinuc.df[-which(is.na(weight.and.trinuc.df$APOBEC_weight)),]
+  }
+}
+
+```
+
+```{r binomial_test_TKW_all, echo=F}
+
+proportion.of.TCW_TKW <- length(which(weight.and.trinuc.df$TCW_TKW==1))/nrow(weight.and.trinuc.df)
+
+```
+
+
+
+
+```{r sum_up_APOBEC_trinuc_TKW_all, echo=F, fig.width=12}
+
+if(length(which(list.files("~/Documents/manuscripts/APOBEC_HNSCC/")=="genes_summary_TKW_HPVall.RData"))==0){
+  # delete the rows that are NA, i.e., from tumors with less than 50 mutations
+  if(length(which(is.na(weight.and.trinuc.df$APOBEC_weight)))>0){
+    weight.and.trinuc.df <- weight.and.trinuc.df[-which(is.na(weight.and.trinuc.df$APOBEC_weight)),]
+  }
+  
+  #removing all genes with only one mutation
+  weight.and.trinuc.df <- weight.and.trinuc.df[-which(weight.and.trinuc.df$gene %in% names(which(table(weight.and.trinuc.df$gene)==1))),]
+  
+  
+  genes.summary <- as.data.frame(matrix(data = NA,nrow = length(unique(weight.and.trinuc.df$gene)),ncol=8))
+  colnames(genes.summary) <- c("gene","alpha","alpha_over_n","binomial_test_p","binomial_test_p_greater","silent_mu","AA_size","alpha_over_expected_muts") 
+  
+  for(i in 1:length(unique(weight.and.trinuc.df$gene))){
+    genes.summary$gene[i] <- unique(weight.and.trinuc.df$gene)[i]
+    genes.summary$alpha[i] <- sum(weight.and.trinuc.df$APOBEC_weight[which(weight.and.trinuc.df$gene==unique(weight.and.trinuc.df$gene)[i])]*
+                                    weight.and.trinuc.df$TCW_TKW[which(weight.and.trinuc.df$gene==unique(weight.and.trinuc.df$gene)[i])])
+    genes.summary$alpha_over_n[i] <- genes.summary$alpha[i]/length(which(weight.and.trinuc.df$gene==genes.summary$gene[i]))
+    b_test_greater <- binom.test(x = length(which(weight.and.trinuc.df$TCW_TKW[which(weight.and.trinuc.df$gene==unique(weight.and.trinuc.df$gene)[i])]==1)),
+                                 n = length(weight.and.trinuc.df$TCW_TKW[which(weight.and.trinuc.df$gene==unique(weight.and.trinuc.df$gene)[i])]),
+                                 p = proportion.of.TCW_TKW,alternative = "greater")
+    b_test <- binom.test(x = length(which(weight.and.trinuc.df$TCW_TKW[which(weight.and.trinuc.df$gene==unique(weight.and.trinuc.df$gene)[i])]==1)),
+                         n = length(weight.and.trinuc.df$TCW_TKW[which(weight.and.trinuc.df$gene==unique(weight.and.trinuc.df$gene)[i])]),
+                         p = proportion.of.TCW_TKW,alternative = "two.sided")
+    genes.summary$binomial_test_p[i] <- b_test$p.value
+    genes.summary$binomial_test_p_greater[i] <- b_test_greater$p.value
+    genes.summary$silent_mu[i] <- selection.output$complete_mutation_data$synonymous.mu[which(selection.output$complete_mutation_data$Gene==genes.summary$gene[i])[1]]
+    genes.summary$AA_size[i] <- selection.output$complete_mutation_data$Gene_size[which(selection.output$complete_mutation_data$Gene==genes.summary$gene[i])[1]]
+    genes.summary$alpha_over_expected_muts[i] <- genes.summary$alpha[i]/(genes.summary$silent_mu[i]*genes.summary$AA_size[i])
+  }
+  
+  save(genes.summary,file="~/Documents/manuscripts/APOBEC_HNSCC/genes_summary_TKW_HPVall.RData")
+}else{
+  load("~/Documents/manuscripts/APOBEC_HNSCC/genes_summary_TKW_HPVall.RData")
+}
+
+genes.summary.sig <- genes.summary[which(genes.summary$binomial_test_p_greater <= 0.05),]
+genes.summary.sig$alpha <- round(genes.summary.sig$alpha,3)
+genes.summary.sig$alpha_over_expected_muts <- round(genes.summary.sig$alpha_over_expected_muts,3)
+genes.summary.sig$binomial_test_p_greater <- round(genes.summary.sig$binomial_test_p_greater,3)
+
+# message("Top 20 genes: ")
+# kable(head(genes.summary.sig[order(genes.summary.sig$alpha_over_expected_muts,decreasing = T),c("gene","alpha","alpha_over_n","alpha_over_expected_muts","binomial_test_p_greater")],30),
+#       caption="Ranked in descending order of alpha over expected mutations")
+# 
+# genes.summary.ordered <- genes.summary.sig[order(genes.summary.sig$alpha_over_expected_muts,decreasing = T),]
+p.limit <- 0.1
+alpha_mu.p.scatter <- ggplot(data = genes.summary, aes(x = binomial_test_p_greater,y=alpha_over_expected_muts)) + 
+  geom_point(alpha=0.2) + 
+  geom_text_repel(data = subset(genes.summary, alpha_over_expected_muts>3000 & binomial_test_p_greater < p.limit),aes(label=gene),color="red",fontface="bold") +
+  labs(x=expression(paste(italic("P")," value, binomial test")),
+       y="alpha / expected_mutations",
+       title=expression(paste("Alpha/expected_mutations vs. the ",italic("P"), " value from the binomial test.")),
+       subtitle="Points with alpha/expected_mutations > 3000 are labeled, black vertical line at 0.05") + 
+  coord_cartesian(xlim=c(0,p.limit),ylim=c(0,15000)) + 
+  geom_vline(xintercept = 0.05) + 
+  theme_bw()
+alpha_mu.p.scatter
+
+ggsave(plot = alpha_mu.p.scatter, filename = "Figures/alpha_mu_vs_p_scatter.png")
+
+genes.summary.ordered <- genes.summary.sig[order(genes.summary.sig$alpha_over_expected_muts,decreasing = T),]
+rownames(genes.summary.ordered) <- 1:nrow(genes.summary.ordered)
+
+datatable(data = genes.summary.ordered[,c("gene","alpha","alpha_over_expected_muts","binomial_test_p_greater")],
+          rownames = T,colnames = c("gene","alpha","alpha/expected_mutations","P value from binomial test"),
+          caption = "The genes with significantly enriched APOBEC trinuc mutations")
+
+```
+
+
+```{r plots_of_top_genes_TKW_all, echo=F,fig.width=3.5, fig.height=2.5}
+message("Top 20 alpha/expected_mutations genes:")
+for(i in 1:20){
+  this.gene <- genes.summary.ordered$gene[i]
+  this.plot <- ggplot(data = subset(weight.and.trinuc.df, gene==this.gene)) + 
+    geom_point(data = subset(weight.and.trinuc.df, gene==this.gene),aes(x=APOBEC_weight, y=TCW_TKW),alpha=0.7)+
+    ylim(0,1) + xlim(0,max(weight.and.trinuc.df$APOBEC_weight)) + 
+    ggtitle(this.gene) + labs(y="TCW --> TKW") + theme_bw()
+  print(this.plot)
+}
+this.gene <- "PIK3CA"
+this.plot <- ggplot(data = subset(weight.and.trinuc.df, gene==this.gene)) + 
+    geom_point(data = subset(weight.and.trinuc.df, gene==this.gene),aes(x=APOBEC_weight, y=TCW_TKW),alpha=0.7)+
+    ylim(0,1) + xlim(0,max(weight.and.trinuc.df$APOBEC_weight)) + 
+    ggtitle(this.gene) + labs(y="TCW --> TKW") + theme_bw()
+  print(this.plot)
+  
+  this.gene <- "OCLM"
+this.plot <- ggplot(data = subset(weight.and.trinuc.df, gene==this.gene)) + 
+    geom_point(data = subset(weight.and.trinuc.df, gene==this.gene),aes(x=APOBEC_weight, y=TCW_TKW),alpha=0.7)+
+    ylim(0,1) + xlim(0,max(weight.and.trinuc.df$APOBEC_weight)) + 
+    ggtitle(this.gene) + labs(y="TCW --> TKW") + theme_bw()
+  print(this.plot)
+subset(weight.and.trinuc.df, gene=="OCLM")
+```
+
+
+
+
+### The full dataset, ignoring the *P* value cutoff from the binomial test:
+
+The alpha here corresponds to "TCW -> TKW" mutations.
+
+```{r full_dataset_all, echo=F, warning=F}
+genes.summary_full <- genes.summary[order(genes.summary$alpha_over_expected_muts,decreasing = T),]
+rownames(genes.summary_full) <- 1:nrow(genes.summary_full)
+genes.summary_full$alpha_over_expected_muts <- round(genes.summary_full$alpha_over_expected_muts,2)
+genes.summary_full$alpha <- round(genes.summary_full$alpha,2)
+genes.summary_full$binomial_test_p_greater <- round(genes.summary_full$binomial_test_p_greater,2)
+datatable(data = genes.summary_full[,c("gene","alpha_over_expected_muts","binomial_test_p_greater")],
+          rownames = T,colnames = c("gene","alpha/expected_mutations","P value from binomial test"),
+          caption = "Full dataset")
+
+
+```
+
+
+
+
+Plot of the full data set, with genes that have high normalized $\alpha$ values labeled. If the points are greater than the $P$ value of $0.05$ then there is not a significant enrichment of APOBEC-specific trinucleotide mutations relative to other trinucleotide mutations. 
+
+```{r full_dataset_plot_all, echo=F, fig.width=12}
+
+p.limit <- 1
+alpha_mu.p.scatter <- ggplot(data = genes.summary, aes(x = binomial_test_p_greater,y=alpha_over_expected_muts)) + 
+  geom_point(alpha=0.2) + 
+  geom_text_repel(data = subset(genes.summary, alpha_over_expected_muts>2500 & binomial_test_p_greater < p.limit),
+                  aes(label=gene),color="red",fontface="bold") +
+  labs(x=expression(paste(italic("P")," value, binomial test")),
+       y="alpha / expected_mutations",
+       title=expression(paste("Alpha/expected_mutations vs. the ",italic("P"), " value from the binomial test.")),
+       subtitle="Points with alpha/expected_mutations > 2500 are labeled, black vertical line at 0.05") + 
+  coord_cartesian(xlim=c(0,p.limit)) + 
+  geom_vline(xintercept = 0.05) + 
+  theme_bw()
+alpha_mu.p.scatter
+
+```
+
+
+## Ordering mutations by selection intensity
+
+We multiply the selection intensity we calculate for every recurrent mutation by the $\frac{\alpha}{\text{expected mutations}}$ calculated for every gene.
+
+```{r calculating selection and alpha/muE HPV all, echo=F}
+
+load("~/Documents/Selection_analysis/HNSC/selection_output/HNSC_selection_output.RData")
+load("genes_summary_TKW_HPVall.RData")
+load("~/Documents/manuscripts/APOBEC_HNSCC/weight.and.trinuc.df_TKW_HPVall.RData")
+
+
+HPV.all.selection <- selection.output$all_mutations[which(selection.output$all_mutations$freq>1),]
+HPV.all.selection$selection_alpha <- NA
+HPV.all.selection$APOBEC_enriched_p_value <- NA
+HPV.all.selection$APOBEC_trinuc <- NA
+
+HPV.all.selection$name <- paste(HPV.all.selection$AA_Ref,HPV.all.selection$AA_Pos,
+                                HPV.all.selection$AA_Change,sep="")
+
+
+for(i in 1:nrow(HPV.all.selection)){
+  if(HPV.all.selection$Gene[i] %in% genes.summary$gene){
+    HPV.all.selection$selection_alpha[i] <- HPV.all.selection$gamma_epistasis[i]*
+      genes.summary$alpha_over_expected_muts[which(genes.summary$gene==HPV.all.selection$Gene[i])]
+    HPV.all.selection$APOBEC_enriched_p_value[i] <- round(genes.summary$binomial_test_p_greater[which(genes.summary$gene==HPV.all.selection$Gene[i])],4)
+    HPV.all.selection$APOBEC_trinuc[i] <- weight.and.trinuc.df$TCW_TKW[which(weight.and.trinuc.df$gene==HPV.all.selection$Gene[i] & weight.and.trinuc.df$mutation==HPV.all.selection$name[i])[1]]
+    
+  }
+  
+}
+
+HPV.all.selection$selection_alpha <- round(HPV.all.selection$selection_alpha,2)
+
+HPV.all.selection$Name <- NA
+for(i in 1:nrow(HPV.all.selection)){
+  HPV.all.selection$Name[i] <- paste(HPV.all.selection$Gene[i]," ",ifelse(!is.na(HPV.all.selection$AA_Ref[i]),paste(HPV.all.selection$AA_Ref[i],HPV.all.selection$AA_Pos[i],HPV.all.selection$AA_Change[i],sep=""),"NCSNV"),sep="")
+}
+
+HPV.all.selection <- HPV.all.selection[which(HPV.all.selection$APOBEC_trinuc==1),]
+
+datatable(data = HPV.all.selection[order(HPV.all.selection$selection_alpha,decreasing = T),c("Name","selection_alpha","APOBEC_enriched_p_value")])
+
+```
+
+```{r HPV all scatter plot}
+
+p.limit <- 0.25
+alpha_mu_selection.p.scatter <- ggplot(data = HPV.all.selection, aes(x = APOBEC_enriched_p_value,y=log10(selection_alpha))) + 
+  geom_point(alpha=0.2) + 
+  geom_text_repel(data = subset(HPV.all.selection, log10(selection_alpha)>6 & APOBEC_enriched_p_value < p.limit),
+                  aes(label=Name),color="red",fontface="bold") +
+  labs(x=expression(paste(italic("P")," value, binomial test")),
+       y="log10((alpha / expected_mutations) times selection intensity)",
+       title=expression(paste("Alpha/expected_mutations and selection vs. the ",italic("P"), " value from the binomial test.")),
+       subtitle="Points with Y-axis value > log10(6) are labeled, black vertical line at 0.05") + 
+  coord_cartesian(xlim=c(0,p.limit),ylim=c(4,9)) + 
+  geom_vline(xintercept = 0.05) + 
+  theme_bw()
+alpha_mu_selection.p.scatter
+
+ggsave(plot = alpha_mu_selection.p.scatter, filename = "Figures/alpha_mu_selection_p_scatter.png",height = 5,width = 10)
+```
 
 
 

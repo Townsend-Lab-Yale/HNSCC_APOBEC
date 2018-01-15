@@ -1,0 +1,220 @@
+---
+title: "HNSC_APOBEC_plots"
+output: html_notebook
+---
+
+
+
+```{r setup}
+library(tidyverse)
+```
+
+
+```{r import and combine data}
+dir.create("output_data")
+# Many created in HNSC_APOBEC_analysis.Rmd
+
+load("~/Documents/Selection_analysis/HNSC/selection_output/HNSC_selection_output.RData")
+HNSC.selection.output <- as.tibble(selection.output$complete_mutation_data) %>%
+  select(Gene, starts_with("Nucleo"), 
+         Chromosome, starts_with("Reference"),
+         starts_with("Alternative"), Tumor_origin, 
+         Unique_patient_identifier, starts_with("Amino"), Codon_position, synonymous.mu, trinucs, Gamma_epistasis)  
+# HNSC.selection.output
+
+# Assigning HPV status
+load("~/Documents/manuscripts/APOBEC_HNSCC/HNSC_MAF.RData") 
+HNSC.selection.output$HPV_call <- NA
+for(i in 1:length(unique(HNSC.selection.output$Unique_patient_identifier))){
+  HNSC.selection.output$HPV_call[which(HNSC.selection.output$Unique_patient_identifier == unique(HNSC.selection.output$Unique_patient_identifier)[i])] <- HNSC.MAF$HPV_call[which(HNSC.MAF$Unique_patient_identifier == unique(HNSC.selection.output$Unique_patient_identifier)[i])[1]]
+}
+
+
+load("~/Documents/manuscripts/APOBEC_HNSCC/trinuc_contexts_HPV_all.RData")
+
+weights.df <- trinuc.contexts$signature.weights[[1]]$weights
+for(i in 2:length(trinuc.contexts$signature.weights)){
+  weights.df <- rbind(weights.df,trinuc.contexts$signature.weights[[i]]$weights)
+}
+
+HNSC.selection.output$Sig_2 <- NA
+HNSC.selection.output$Sig_13 <- NA
+
+
+for(i in 1:length(unique(HNSC.selection.output$Unique_patient_identifier))){
+  if(length(which(rownames(weights.df) == unique(HNSC.selection.output$Unique_patient_identifier)[i]))>0){
+    HNSC.selection.output$Sig_2[which(HNSC.selection.output$Unique_patient_identifier == unique(HNSC.selection.output$Unique_patient_identifier)[i])] <- weights.df$Signature.2[which(rownames(weights.df) == unique(HNSC.selection.output$Unique_patient_identifier)[i])]
+    HNSC.selection.output$Sig_13[which(HNSC.selection.output$Unique_patient_identifier == unique(HNSC.selection.output$Unique_patient_identifier)[i])] <- weights.df$Signature.13[which(rownames(weights.df) == unique(HNSC.selection.output$Unique_patient_identifier)[i])]
+  }
+}
+
+
+HNSC.selection.output <- mutate(.data = HNSC.selection.output, APOBEC_weight = Sig_2 + Sig_13)
+
+head(HNSC.selection.output)
+
+
+HNSC.selection.output$TCW_TKW <- NA
+HNSC.selection.output$TCN_TKN <- NA
+
+for(j in 1:nrow(HNSC.selection.output)){
+  if(is.na(HNSC.selection.output$Nucleotide_trinuc_context[j])){
+    #need to make a call of the same nucleotide position and amino acid alternative, find which is NOT NA, and make this the new "j" 
+    matches <- which(HNSC.selection.output$Nucleotide_chromosome_position == HNSC.selection.output$Nucleotide_chromosome_position[j] &
+                       HNSC.selection.output$Alternative_Nucleotide == HNSC.selection.output$Alternative_Nucleotide[j])
+    
+    new.j <- matches[which(!is.na(HNSC.selection.output$Nucleotide_trinuc_context[matches]))]
+    if(((HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TCA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="T") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TGA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="A")) | 
+       ((HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TCT" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="T") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="AGA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="A")) |
+       ((HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TCA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="G") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TGA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="C")) |
+       ((HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TCT" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="G") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="AGA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="C"))){
+      HNSC.selection.output$TCW_TKW[j] <- 1
+    }else{
+      HNSC.selection.output$TCW_TKW[j] <- 0
+    }
+    
+  }else{
+    if(((HNSC.selection.output$Nucleotide_trinuc_context[j]=="TCA" & HNSC.selection.output$Alternative_Nucleotide[j]=="T") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[j]=="TGA" & HNSC.selection.output$Alternative_Nucleotide[j]=="A")) | 
+       ((HNSC.selection.output$Nucleotide_trinuc_context[j]=="TCT" & HNSC.selection.output$Alternative_Nucleotide[j]=="T") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[j]=="AGA" & HNSC.selection.output$Alternative_Nucleotide[j]=="A")) |
+       ((HNSC.selection.output$Nucleotide_trinuc_context[j]=="TCA" & HNSC.selection.output$Alternative_Nucleotide[j]=="G") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[j]=="TGA" & HNSC.selection.output$Alternative_Nucleotide[j]=="C")) |
+       ((HNSC.selection.output$Nucleotide_trinuc_context[j]=="TCT" & HNSC.selection.output$Alternative_Nucleotide[j]=="G") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[j]=="AGA" & HNSC.selection.output$Alternative_Nucleotide[j]=="C"))){
+      HNSC.selection.output$TCW_TKW[j] <- 1
+    }else{
+      HNSC.selection.output$TCW_TKW[j] <- 0
+    }
+  }
+}
+
+
+HNSC.selection.output$Name <- NA
+for(i in 1:nrow(HNSC.selection.output)){
+  HNSC.selection.output$Name[i] <- paste(HNSC.selection.output$Gene[i]," ",ifelse(!is.na(HNSC.selection.output$Amino_acid_reference[i]),paste(HNSC.selection.output$Amino_acid_reference[i],HNSC.selection.output$Amino_acid_position[i],HNSC.selection.output$Amino_acid_alternative[i],sep=""),paste(HNSC.selection.output$Reference_Nucleotide[i],HNSC.selection.output$Nucleotide_chromosome_position[i],HNSC.selection.output$Alternative_Nucleotide[i],"NCSNV")),sep="")
+}
+
+HNSC.selection.output
+save(HNSC.selection.output,file = "output_data/HNSC_selection_with_APOBEC_TCW.RData")
+
+HNSC.selection.output.recur <- subset(HNSC.selection.output, Nucleotide_change_tally>1)
+save(HNSC.selection.output.recur, file = "output_data/HNSC_selection_with_APOBEC_TCW_recur.RData")
+
+# HNSC.selection.output.recur[which(HNSC.selection.output.recur$Nucleotide_chromosome_position==7577017),]
+
+# View(HNSC.selection.output[which(HNSC.selection.output$Gene=="TP53" & HNSC.selection.output$Amino_acid_position==285),])
+# View(HNSC.selection.output.recur[which(HNSC.selection.output.recur$Gene=="TP53" & HNSC.selection.output.recur$Amino_acid_position==285),])
+
+# test <- subset(HNSC.selection.output.recur, TCW_TKW==1)
+
+```
+
+
+```{r plot gamma and APOBEC violin }
+HNSC.selection.output.recur <- HNSC.selection.output.recur[order(HNSC.selection.output.recur$Gamma_epistasis,decreasing = T),]
+# HNSC.selection.output.recur$Gamma_epistasis <- factor(HNSC.selection.output.recur$Gamma_epistasis, levels=unique(HNSC.selection.output.recur$Gamma_epistasis))
+HNSC.selection.output.recur$Name <- factor(HNSC.selection.output.recur$Name, levels= rev(unique(HNSC.selection.output.recur$Name)))
+
+
+
+library(ggplot2)
+
+full.plot <- ggplot(data = HNSC.selection.output.recur) + geom_point(aes(y=Name, x=APOBEC_weight,color=as.factor(TCW_TKW)),alpha=0.5) + theme_bw() + theme(legend.position = "none")
+
+ggsave(filename = "Figures/full_selection_and_APOBEC.pdf",plot = full.plot,height = 40)
+
+library(grid);library(gridExtra)
+
+# levels(HNSC.selection.output.recur$TCW_TKW)[levels(HNSC.selection.output.recur$TCW_TKW)==1] <- "TRUE"
+# levels(HNSC.selection.output.recur$TCW_TKW)[levels(HNSC.selection.output.recur$TCW_TKW)==0] <- "FALSE"
+HNSC.selection.output.recur$TCW_TKW[HNSC.selection.output.recur$TCW_TKW==0] <- "FALSE"
+HNSC.selection.output.recur$TCW_TKW[HNSC.selection.output.recur$TCW_TKW==1] <- "TRUE"
+
+selection.plot <- ggplot(data= HNSC.selection.output.recur) + geom_point(aes(x=Name, y=Gamma_epistasis,color=TCW_TKW)) + coord_flip() + theme_bw() 
+
+ggsave(selection.plot,  filename = "Figures/selection_desc.pdf",height=40)
+
+combined.plot <- grid.arrange(full.plot,selection.plot,ncol=2)
+
+ggsave(combined.plot,filename = "Figures/combined_selection_apobec.pdf", height = 40,width = 14)
+
+
+selection.plot.log <- ggplot(data= HNSC.selection.output.recur) + geom_point(aes(x=Name, y=log10(Gamma_epistasis),color=TCW_TKW)) + coord_flip() + theme_bw() 
+
+combined.plot.log <- grid.arrange(full.plot,selection.plot.log,ncol=2)
+ggsave(combined.plot.log,filename = "Figures/combined_selection_apobec_log.pdf", height = 40,width = 14)
+
+
+```
+
+
+
+```{r prevalence prevalence plot}
+# load("output_data/HNSC_selection_with_APOBEC_TCW_recur.RData")
+# head(HNSC.selection.output.recur)
+
+# load("~/Documents/Selection_analysis/HNSC/selection_output/HNSC_selection_output.RData")
+# 
+# selection.all.muts <- as.tibble(selection.output$all_mutations) %>%
+#   subset(freq>1)
+# 
+# selection.all.muts$Name <- NA
+# for(i in 1:nrow(selection.all.muts)){
+#   selection.all.muts$Name[i] <- paste(selection.all.muts$Gene[i]," ",ifelse(!is.na(selection.all.muts$AA_Ref[i]),paste(selection.all.muts$AA_Ref[i],selection.all.muts$AA_Pos[i],selection.all.muts$AA_Change[i],sep=""),paste(selection.all.muts$Nuc_Ref[i],selection.all.muts$Nucleotide_position[i],selection.all.muts$Nuc_Change[i],"NCSNV")),sep="")
+# }
+# # colnames(selection.all.muts)
+# 
+
+head(HNSC.selection.output.recur)
+
+#TODO: should we then delete the mutations that are not recurrent within these smaller datasets? 
+
+recur.hpv.pos <- subset(HNSC.selection.output.recur, HPV_call=="positive")
+hpv.pos.names <- unique(recur.hpv.pos$Name)
+
+recur.hpv.neg <- subset(HNSC.selection.output.recur, HPV_call=="negative")
+hpv.neg.names <- unique(recur.hpv.neg$Name)
+
+intersect(hpv.pos.names,hpv.neg.names)
+both.names <- union(hpv.neg.names,hpv.pos.names)
+
+#make a dataframe with nrows == union of names, and columnes the number in each type of tumor and then the prevalence in each type
+
+prevalence.df <- as.data.frame(matrix(data = NA, nrow = length(both.names), ncol=5))
+colnames(prevalence.df) <- c("Name","tally_HPVpos","tally_HPVneg","prev_HPVpos","prev_HPVneg")
+
+prevalence.df$Name <- both.names
+prevalence.df$tally_HPVpos <- 0
+prevalence.df$tally_HPVneg <- 0
+for(i in 1:nrow(prevalence.df)){
+  if(length(which(hpv.pos.names == prevalence.df$Name[i]))>0){
+    prevalence.df$tally_HPVpos[i] <- length(which(recur.hpv.pos$Name == prevalence.df$Name[i]))
+  }
+  if(length(which(hpv.neg.names == prevalence.df$Name[i]))>0){
+    prevalence.df$tally_HPVneg[i] <- length(which(recur.hpv.neg$Name == prevalence.df$Name[i]))
+  }  
+}
+
+prevalence.df$prev_HPVpos <- prevalence.df$tally_HPVpos/length(unique(HNSC.selection.output$Tumor_origin[which(HNSC.selection.output$HPV_call=="positive")]))
+prevalence.df$prev_HPVneg <- prevalence.df$tally_HPVneg/length(unique(HNSC.selection.output$Tumor_origin[which(HNSC.selection.output$HPV_call=="negative")])) #TODO why only 411? did one tumor have no SNP? 
+
+library(ggrepel)
+prev_plot <- ggplot(data = prevalence.df) + geom_point(aes(x = prev_HPVneg, y = prev_HPVpos),alpha=0.1,size=5) + geom_text_repel(data = subset(prevalence.df, (prev_HPVneg>0.02 | prev_HPVpos>0.025) | (prev_HPVneg>0.01 & prev_HPVpos>0)),aes(x = prev_HPVneg, y = prev_HPVpos,label=Name),box.padding = 0.8,size=5,color="darkred",fontface="bold") + theme_bw() + labs(x="Prevalence in HPV- tumors", y="Prevalence in HPV+ tumors") #+ geom_label(aes(x = prev_HPVneg, y = prev_HPVpos, label=Name))
+
+ggsave(filename = "Figures/prevalence_plot.png",plot = prev_plot,height = 7,width = 7)
+
+# recur.hpv.pos$prevalence <- recur.hpv.pos$Nucleotide_change_tally,
+
+# ggplot(data = HNSC.selection.output.recur) + geom_point(
+HNSC.selection.output[which(HNSC.selection.output$HPV_call=="positive" & HNSC.selection.output$Gene=="TP53"),]
+
+```
+
+
+
+

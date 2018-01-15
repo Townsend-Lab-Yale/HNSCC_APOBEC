@@ -620,7 +620,8 @@ HPV.plus.selection$Name <- NA
 for(i in 1:nrow(HPV.plus.selection)){
   HPV.plus.selection$Name[i] <- paste(HPV.plus.selection$Gene[i]," ",ifelse(!is.na(HPV.plus.selection$AA_Ref[i]),paste(HPV.plus.selection$AA_Ref[i],HPV.plus.selection$AA_Pos[i],HPV.plus.selection$AA_Change[i],sep=""),"NCSNV"),sep="")
 }
-
+HPV.plus.selection.all <- HPV.plus.selection
+save(HPV.plus.selection.all,file = "output_data/HPV.plus.selection.all")
 HPV.plus.selection <- HPV.plus.selection[which(HPV.plus.selection$APOBEC_trinuc==1),]
 
 datatable(data = HPV.plus.selection[order(HPV.plus.selection$selection_alpha,decreasing = T),c("Name","selection_alpha","APOBEC_enriched_p_value")])
@@ -1175,6 +1176,9 @@ for(i in 1:nrow(HPV.neg.selection)){
   HPV.neg.selection$Name[i] <- paste(HPV.neg.selection$Gene[i]," ",ifelse(!is.na(HPV.neg.selection$AA_Ref[i]),paste(HPV.neg.selection$AA_Ref[i],HPV.neg.selection$AA_Pos[i],HPV.neg.selection$AA_Change[i],sep=""),"NCSNV"),sep="")
 }
 
+HPV.neg.selection.all <- HPV.neg.selection
+save(HPV.neg.selection.all,file = "output_data/HPV.neg.selection.all")
+
 HPV.neg.selection <- HPV.neg.selection[which(HPV.neg.selection$APOBEC_trinuc==1),]
 
 datatable(data = HPV.neg.selection[order(HPV.neg.selection$selection_alpha,decreasing = T),c("Name","selection_alpha","APOBEC_enriched_p_value")])
@@ -1554,18 +1558,21 @@ for(i in 1:nrow(HPV.all.selection)){
   HPV.all.selection$Name[i] <- paste(HPV.all.selection$Gene[i]," ",ifelse(!is.na(HPV.all.selection$AA_Ref[i]),paste(HPV.all.selection$AA_Ref[i],HPV.all.selection$AA_Pos[i],HPV.all.selection$AA_Change[i],sep=""),"NCSNV"),sep="")
 }
 
-HPV.all.selection <- HPV.all.selection[which(HPV.all.selection$APOBEC_trinuc==1),]
 
-datatable(data = HPV.all.selection[order(HPV.all.selection$selection_alpha,decreasing = T),c("Name","selection_alpha","APOBEC_enriched_p_value")])
+save(HPV.all.selection,file = "output_data/HPV.all.selection")
+
+HPV.all.selection.APOBECtrinuc <- HPV.all.selection[which(HPV.all.selection$APOBEC_trinuc==1),]
+
+datatable(data = HPV.all.selection.APOBECtrinuc[order(HPV.all.selection.APOBECtrinuc$selection_alpha,decreasing = T),c("Name","selection_alpha","APOBEC_enriched_p_value")])
 
 ```
 
 ```{r HPV all scatter plot}
 
 p.limit <- 0.25
-alpha_mu_selection.p.scatter <- ggplot(data = HPV.all.selection, aes(x = APOBEC_enriched_p_value,y=log10(selection_alpha))) + 
+alpha_mu_selection.p.scatter <- ggplot(data = HPV.all.selection.APOBECtrinuc, aes(x = APOBEC_enriched_p_value,y=log10(selection_alpha))) + 
   geom_point(alpha=0.2) + 
-  geom_text_repel(data = subset(HPV.all.selection, log10(selection_alpha)>6 & APOBEC_enriched_p_value < p.limit),
+  geom_text_repel(data = subset(HPV.all.selection.APOBECtrinuc, log10(selection_alpha)>6 & APOBEC_enriched_p_value < p.limit),
                   aes(label=Name),color="red",fontface="bold") +
   labs(x=expression(paste(italic("P")," value, binomial test")),
        y="log10((alpha / expected_mutations) times selection intensity)",
@@ -1578,6 +1585,86 @@ alpha_mu_selection.p.scatter
 
 ggsave(plot = alpha_mu_selection.p.scatter, filename = "Figures/alpha_mu_selection_p_scatter.png",height = 5,width = 10)
 ```
+
+# APOBEC Figure 
+
+```{r barplot with selection of APOBEC yes no}
+
+
+data.a.pos <- HPV.all.selection[which(HPV.all.selection$APOBEC_trinuc==1),]
+data.a.neg <- HPV.all.selection[which(HPV.all.selection$APOBEC_trinuc==0),]
+
+data.a.pos <- data.a.pos[order(data.a.pos$gamma_epistasis, decreasing = T),]
+data.a.neg <- data.a.neg[order(data.a.neg$gamma_epistasis, decreasing = T),]
+
+data.to.plot <- rbind(data.a.pos[1:20,], data.a.neg[1:20,])
+
+data.to.plot$Name <- factor(data.to.plot$Name, levels = data.to.plot$Name[order(data.to.plot$gamma_epistasis,decreasing = T)])
+data.to.plot$APOBEC_trinuc[which(data.to.plot$APOBEC_trinuc==1)] <- "TCW --> TKW"
+data.to.plot$APOBEC_trinuc[which(data.to.plot$APOBEC_trinuc==0)] <- "Other mutation"
+
+selection.barplot <- ggplot(data = data.to.plot, aes(y=log10(gamma_epistasis),x=Name)) + geom_bar(stat="identity") + facet_grid(APOBEC_trinuc~.) + labs(y="log10(Selection intensity)", x= "Mutation") + theme(axis.text.x = element_text(angle=90))
+selection.barplot
+
+ggsave(filename = "Figures/APOBEC_hits_and_not_vs_selection.png", plot = selection.barplot)
+
+```
+
+
+
+
+
+
+```{r analysis of muts all}
+
+load("output_data/HPV.neg.selection.all")
+
+head(HPV.neg.selection.all)
+
+load("output_data/HPV.plus.selection.all")
+
+HPV.neg.selection.all$HPV_status <- "HPV negative"
+HPV.plus.selection.all$HPV_status  <- "HPV positive"
+
+data.a.pos.hpvneg <- HPV.neg.selection.all[which(HPV.neg.selection.all$APOBEC_trinuc==1),]
+data.a.neg.hpvneg <- HPV.neg.selection.all[which(HPV.neg.selection.all$APOBEC_trinuc==0),]
+data.a.pos.hpvpos <- HPV.plus.selection.all[which(HPV.plus.selection.all$APOBEC_trinuc==1),]
+data.a.neg.hpvpos <- HPV.plus.selection.all[which(HPV.plus.selection.all$APOBEC_trinuc==0),]
+
+data.a.pos.hpvneg <- data.a.pos.hpvneg[order(data.a.pos.hpvneg$gamma_epistasis, decreasing = T),]
+data.a.neg.hpvneg <- data.a.neg.hpvneg[order(data.a.neg.hpvneg$gamma_epistasis, decreasing = T),]
+data.a.pos.hpvpos <- data.a.pos.hpvpos[order(data.a.pos.hpvpos$gamma_epistasis, decreasing = T),]
+data.a.neg.hpvpos <- data.a.neg.hpvpos[order(data.a.neg.hpvpos$gamma_epistasis, decreasing = T),]
+
+
+
+
+
+data.to.plot <- rbind(data.a.pos.hpvpos[1:5,], data.a.neg.hpvpos[1:9,],data.a.pos.hpvneg[1:20,],data.a.neg.hpvneg[1:20,])
+
+data.to.plot$Name <- factor(data.to.plot$Name, levels = unique(data.to.plot$Name[order(data.to.plot$gamma_epistasis,decreasing = T)]))
+data.to.plot$APOBEC_trinuc[which(data.to.plot$APOBEC_trinuc==1)] <- "TCW --> TKW"
+data.to.plot$APOBEC_trinuc[which(data.to.plot$APOBEC_trinuc==0)] <- "Other mutation"
+
+length(unique(data.to.plot$Name))
+
+selection.barplot <- ggplot(data = data.to.plot, aes(y=log10(gamma_epistasis),x=Name)) + geom_bar(stat="identity") + facet_grid(APOBEC_trinuc~HPV_status) + labs(y="log10(Selection intensity)", x= "Mutation") + theme(axis.text.x = element_text(angle=90))
+selection.barplot
+
+ggsave(filename = "Figures/APOBEC_hits_and_not_vs_selection_HPV.png", plot = selection.barplot,height=7,width = 15)
+
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 

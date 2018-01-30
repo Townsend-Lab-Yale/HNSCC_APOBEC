@@ -1080,11 +1080,12 @@ selection.from.contexts <- ggplot(data = ALL.prev.df.split) +geom_violin(aes(x=`
 selection.from.contexts <- ggplot(data = ALL.prev.df.split) +geom_violin(aes(x=`APOBEC context`, y = `Selection from mutational context`))  + geom_jitter(aes(x=`APOBEC context`, y = `Selection from mutational context`)) + scale_y_log10(labels=fancy_scientific) + labs(x="Mutational signatures attributed to mutation", y="Proportion of selection intensity attributed to signature and \nweighted by mutation prevalence among tumors") + theme_bw()
 
 ALL.prev.df.split$`APOBEC context` <- factor(ALL.prev.df.split$`APOBEC context`, levels = c("NonAPOBEC signatures", "APOBEC signatures"))
-selection.from.contexts.labels <- ggplot(data = ALL.prev.df.split) +geom_violin(aes(x=`APOBEC context`, y = `Selection from mutational context`))  +
+
+selection.from.contexts.labels <- ggplot(data = ALL.prev.df.split) +#geom_violin(aes(x=`APOBEC context`, y = `Selection from mutational context`))  +
   geom_point(aes(x=`APOBEC context`, y = `Selection from mutational context`),alpha=0.2) + 
-  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="APOBEC signatures" & `Selection from mutational context` > 100),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=short_name),color="darkred",fontface="bold") + scale_y_log10(labels=fancy_scientific) + 
+  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="APOBEC signatures" & `Selection from mutational context` > 100),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=short_name),color="darkred",fontface="bold") + #scale_y_log10(labels=fancy_scientific) + 
   geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="NonAPOBEC signatures" & `Selection from mutational context` > 650),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=short_name),box.padding = .31,color="darkred",fontface="bold") + 
-  labs(x="Mutational signatures attributed to mutation", y="Proportion of selection intensity attributed to signature and \nweighted by mutation prevalence among tumors") + theme_bw()
+  labs(x="Mutational signatures attributed to mutation", y="Selection intensity attributed to signature, weighted \nby mutation prevalence among tumors") + theme_bw() + theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold"))
 
 ggsave(filename = "Figures/selection_from_process.png",plot = selection.from.contexts)
 

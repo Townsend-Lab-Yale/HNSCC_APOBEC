@@ -959,6 +959,53 @@ signature.breakdown.ALL$`APOBEC trinuc mutation` <- "NonAPOBEC mutation"
 signature.breakdown.ALL$`APOBEC trinuc mutation`[which(signature.breakdown.ALL$deconstructSigs_context %in% deconstructSigs_contexts_TCN)] <- "TCN to TKN"
 signature.breakdown.ALL$`APOBEC trinuc mutation`[which(signature.breakdown.ALL$deconstructSigs_context %in% deconstructSigs_contexts_TCW)] <- "TCW to TKW"
 
+signature.breakdown.ALL$HPV_status <- NA
+signature.breakdown.ALL$HPV_status_tang2013 <- NA
+
+signature.breakdown.ALL$tumor_has_apobec_sig <- NA
+
+for(i in 1:nrow(signature.breakdown.ALL)){
+ if(length(which(apobec_hnscc_df$patient_id==signature.breakdown.ALL$Tumor[i]))==1){
+   signature.breakdown.ALL$HPV_status[i] <- apobec_hnscc_df$categ[which(apobec_hnscc_df$patient_id==signature.breakdown.ALL$Tumor[i])]
+ }
+  if(length(which(tang.2013$sample.short==signature.breakdown.ALL$Tumor[i]))==1){
+    signature.breakdown.ALL$HPV_status_tang2013[i] <- tang.2013$Virus.description[which(tang.2013$sample.short==signature.breakdown.ALL$Tumor[i])]
+  }
+  signature.breakdown.ALL$tumor_has_apobec_sig[i] <- apobec_hnscc_df$has_apobec[which(apobec_hnscc_df$patient_id==signature.breakdown.ALL$Tumor[i])]
+  
+}
+
+
+just.PIK3CA <- signature.breakdown.ALL[which(startsWith(x = as.character(signature.breakdown.ALL$Name),prefix = "PIK3CA")),]
+just.PIK3CA$HPV_status_tang2013[just.PIK3CA$HPV_status_tang2013=="N/A"] <- "HPV-"
+just.PIK3CA$HPV_status_tang2013[!is.na(just.PIK3CA$HPV_status_tang2013) & just.PIK3CA$HPV_status_tang2013!="HPV-"] <- "HPV+"
+
+
+View(just.PIK3CA)
+just.PIK3CA$HPV_status
+
+unique(just.PIK3CA$Name)
+
+just.PIK3CA.unique <- as.data.frame(matrix(data = NA,nrow = length(unique(just.PIK3CA$Name)),ncol=12))
+colnames(just.PIK3CA.unique) <- c("Name","mutations in dataset","us_pos","us_neg","us_frac_pos","tang_pos","tang_neg","tang_frac","neg_HPV_and_neg_apobec","neg_HPV_and_pos_apobec","pos_HPV_and_pos_apobec","pos_HPV_and_neg_apobec")
+
+for(i in 1:nrow(just.PIK3CA.unique)){
+  just.PIK3CA.unique$Name[i] <- as.character(unique(just.PIK3CA$Name)[i])
+  just.PIK3CA.unique$`mutations in dataset`[i] <- length(which(just.PIK3CA$Name==just.PIK3CA.unique$Name[i]))
+  just.PIK3CA.unique$us_pos[i] <- length(which(just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV+"))
+  just.PIK3CA.unique$us_neg[i] <- length(which(just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV-"))
+  just.PIK3CA.unique$tang_pos[i] <- length(which(just.PIK3CA$HPV_status_tang2013[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV+"))
+  just.PIK3CA.unique$tang_neg[i] <- length(which(just.PIK3CA$HPV_status_tang2013[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV-"))
+  just.PIK3CA.unique$us_frac_pos[i] <- just.PIK3CA.unique$us_pos[i]/(just.PIK3CA.unique$us_neg[i]+just.PIK3CA.unique$us_pos[i])
+  just.PIK3CA.unique$tang_frac[i] <- just.PIK3CA.unique$tang_pos[i]/(just.PIK3CA.unique$tang_neg[i]+just.PIK3CA.unique$tang_pos[i])
+  just.PIK3CA.unique$neg_HPV_and_neg_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="FALSE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV-"))
+  just.PIK3CA.unique$neg_HPV_and_pos_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="TRUE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV-"))
+  just.PIK3CA.unique$pos_HPV_and_pos_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="TRUE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV+"))
+  just.PIK3CA.unique$pos_HPV_and_neg_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="FALSE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV+"))
+}
+
+View(just.PIK3CA.unique)
+
 signature_all_for_plot <- signature.breakdown.ALL
 
 signature_all_for_plot$Name <- factor(signature_all_for_plot$Name, levels=ALL.prev.df$Mutation[rev(order(ALL.prev.df$`Selection intensity`,decreasing = T))])
@@ -980,7 +1027,7 @@ ALL.prev.df$`APOBEC type TCW`[which(ALL.prev.df$Mutation %in% signature.breakdow
 
 distribution.of.APOBEC.TCW <- ggplot(data = ALL.prev.df) + geom_violin(aes(y=log10(`Selection intensity`),x=`APOBEC type TCW`)) + geom_jitter(aes(y=log10(`Selection intensity`),x=`APOBEC type TCW`),alpha=0.5,width  = 0.1) + theme_bw() + labs(title="The distribution of selection intensities for APOBEC and nonAPOBEC mutations")
 
-distribution.of.APOBEC.TCW <- ggplot(data = ALL.prev.df) + geom_violin(aes(y=`Selection intensity`,x=`APOBEC type TCW`),width=0.5) + geom_jitter(aes(y=`Selection intensity`,x=`APOBEC type TCW`),alpha=0.5,width  = 0.1) + theme_bw() + labs(y="Selection intensity") + scale_y_log10(labels=fancy_scientific)+ theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold")) + labs(x="TCW to TKW")
+distribution.of.APOBEC.TCW <- ggplot(data = ALL.prev.df) + geom_boxplot(aes(y=`Selection intensity`,x=`APOBEC type TCW`),width=0.5,outlier.shape = NA) + geom_jitter(aes(y=`Selection intensity`,x=`APOBEC type TCW`),alpha=0.5,width  = 0.1) + theme_bw() + labs(y="Selection intensity") + scale_y_log10(labels=fancy_scientific)+ theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold")) + labs(x="TCW to TKW")
 
 ggsave(plot = distribution.of.APOBEC.TCW,filename = "Figures/distribution_of_APOBEC_TCW.png",height = 5,width = 5)
 
@@ -1009,7 +1056,7 @@ ALL.prev.df$`APOBEC type TCN`[which(ALL.prev.df$Mutation %in% signature.breakdow
 distribution.of.APOBEC.TCN <- ggplot(data = ALL.prev.df) + geom_violin(aes(y=log10(`Selection intensity`),x=`APOBEC type TCN`)) + geom_jitter(aes(y=log10(`Selection intensity`),x=`APOBEC type TCN`),alpha=0.5,width=0.1) + theme_bw() + labs(title="The distribution of selection intensities for APOBEC and nonAPOBEC mutations")
 
 
-distribution.of.APOBEC.TCN <- ggplot(data = ALL.prev.df) + geom_violin(aes(y=`Selection intensity`,x=`APOBEC type TCN`),width=0.5) + geom_jitter(aes(y=`Selection intensity`,x=`APOBEC type TCN`),alpha=0.5,width=0.1) + theme_bw() + labs(y="Selection intensity") + scale_y_log10(labels=fancy_scientific)+ theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold")) + labs(x="TCN to TKN")
+distribution.of.APOBEC.TCN <- ggplot(data = ALL.prev.df) + geom_boxplot(aes(y=`Selection intensity`,x=`APOBEC type TCN`),width=0.5,outlier.shape = NA) + geom_jitter(aes(y=`Selection intensity`,x=`APOBEC type TCN`),alpha=0.5,width=0.1) + theme_bw() + labs(y="Selection intensity") + scale_y_log10(labels=fancy_scientific)+ theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold")) + labs(x="TCN to TKN")
 
 
 ggsave(plot = distribution.of.APOBEC.TCN,filename = "Figures/distribution_of_APOBEC_TCN.png",height = 5,width = 5)

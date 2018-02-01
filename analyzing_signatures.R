@@ -242,7 +242,7 @@ tcw.percent.apo.neg.hpv.neg <- APOBEC.data$percent_TCW_TKW[which(APOBEC.data$HPV
 
 wilcox.test(tcw.percent.apo.neg.hpv.pos,tcw.percent.apo.neg.hpv.neg,conf.int = T,paired = F)
 
-
+# comparing HPV status of our method and tang 2013 ----
 # from https://www.nature.com/articles/ncomms3513#supplementary-information 
 # Tang et al 2013 The landscape of viral expression and host gene fusion and adaptation in human cancer
 # Where Hinderson 2014 got their viral data from 
@@ -280,11 +280,34 @@ for(i in 1:nrow(HPV.comparison)){
 }
 
 
-HPV.comparison
+HPV.comparison$both_pos <- NA
+HPV.comparison$both_neg <- NA
+HPV.comparison$tang_pos_us_neg <- NA
+HPV.comparison$tang_neg_us_pos <- NA
+HPV.comparison$tang_known_us_unknown <- NA
+HPV.comparison$tang_unknown_us_known <- NA
+
+HPV.comparison$both_pos[which(HPV.comparison$ours=="HPV+" & (!(HPV.comparison$tang2013 %in% c("not_detected")) & !is.na(HPV.comparison$tang2013)))] <- T
+HPV.comparison$both_neg[which(HPV.comparison$ours=="HPV-" & HPV.comparison$tang2013 == "not_detected")] <- T
+HPV.comparison$tang_pos_us_neg[which(HPV.comparison$ours=="HPV-" & (!(HPV.comparison$tang2013 %in% c("not_detected")) & !is.na(HPV.comparison$tang2013)))] <- T
+HPV.comparison$tang_neg_us_pos[which(HPV.comparison$ours=="HPV+" & HPV.comparison$tang2013 == "not_detected")] <- T
+HPV.comparison$tang_known_us_unknown[which(is.na(HPV.comparison$ours) & !is.na(HPV.comparison$tang2013))] <- T
+HPV.comparison$tang_unknown_us_known[which(!is.na(HPV.comparison$ours) & is.na(HPV.comparison$tang2013))] <- T
+
+
+write.table(x = HPV.comparison,file = "output_data/comparing_tang2013_and_our_HPV_status.txt",quote = F,sep = "\t",row.names = F)
+
+length(which(HPV.comparison$both_pos==T))
+
+length(which(HPV.comparison$both_neg==T))
+
+length(which(HPV.comparison$tang_neg_us_pos==T))
+
+length(which(HPV.comparison$tang_pos_us_neg==T))
 
 
 
-
+nrow(tang.2013)
 
 
 

@@ -7,7 +7,7 @@ output: html_notebook
 ```{r import data}
 
 #import the HPV status data from 
-apobec_hnscc_df <- read_feather("~/Documents/manuscripts/APOBEC_HNSCC/nfkb.feather")
+apobec_hnscc_df <- read_feather("input_data/nfkb.feather")
 # unique(apobec_hnscc_df$patient_id) # All TCGA samples
 
 # load("input_data/trinuc_data_HNSC_HPVpos.RData")
@@ -15,56 +15,7 @@ apobec_hnscc_df <- read_feather("~/Documents/manuscripts/APOBEC_HNSCC/nfkb.feath
 
 ```
 
-```{r Figure trinuc context HPVpos, fig.height=2.5, fig.width=10}
-load("input_data/trinuc_data_HNSC_HPVpos.RData")
-HPV.pos.trinuc.mutation_data <- trinuc.mutation_data
-HPV.pos.trinuc.heatmap <- ggplot(data=HPV.pos.trinuc.mutation_data, aes(Downstream, Upstream)) +
-  geom_tile(aes(fill = proportion*100), colour = "white") + scale_fill_gradient(low = "white", high = "steelblue", name="Percent")
-HPV.pos.trinuc.heatmap <- HPV.pos.trinuc.heatmap + facet_grid(.~section_labels, labeller = label_parsed) 
-HPV.pos.trinuc.heatmap <- HPV.pos.trinuc.heatmap +  geom_text(aes(label = round(proportion, 4)*100),size=3)
-# p <- p + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-# panel.background = element_blank(), axis.line = element_line(colour = "black"))
-HPV.pos.trinuc.heatmap <- HPV.pos.trinuc.heatmap + theme_bw() + theme(panel.grid.major = element_blank(),
-                            panel.grid.minor = element_blank(),
-                            axis.ticks = element_blank(),
-                            strip.text=element_text(size=15),
-                            axis.title.x = element_text(size=15),
-                            axis.title.y = element_text(size=15),
-                            axis.text.x = element_text(size=12),
-                            axis.text.y=element_text(size=12),plot.title = element_text(hjust = 0.5)) 
-  # ggtitle(paste("Trinucleotide profile for ",tumor.name,sep=""))
-# p
-
-  
-
-  ggsave(paste("Figures/","HPVpos","_trinuc_heatmap.pdf",sep=""),height = 2.5,width = 10,plot = HPV.pos.trinuc.heatmap)
-
-```
-
-```{r Figure trinuc context HPVneg, fig.height=2.5, fig.width=10}
-load("input_data/trinuc_data_HNSC_final_call_HPVneg_unfiltered.RData")
-HPV.neg.trinuc.mutation_data <- trinuc.mutation_data
-HPV.neg.trinuc.heatmap <- ggplot(data=HPV.neg.trinuc.mutation_data, aes(Downstream, Upstream)) +
-  geom_tile(aes(fill = proportion*100), colour = "white") + scale_fill_gradient(low = "white", high = "steelblue", name="Percent")
-HPV.neg.trinuc.heatmap <- HPV.neg.trinuc.heatmap + facet_grid(.~section_labels, labeller = label_parsed) 
-HPV.neg.trinuc.heatmap <- HPV.neg.trinuc.heatmap +  geom_text(aes(label = round(proportion, 4)*100),size=3)
-# p <- p + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-# panel.background = element_blank(), axis.line = element_line(colour = "black"))
-HPV.neg.trinuc.heatmap <- HPV.neg.trinuc.heatmap + theme_bw() + theme(panel.grid.major = element_blank(),
-                            panel.grid.minor = element_blank(),
-                            axis.ticks = element_blank(),
-                            strip.text=element_text(size=15),
-                            axis.title.x = element_text(size=15),
-                            axis.title.y = element_text(size=15),
-                            axis.text.x = element_text(size=12),
-                            axis.text.y=element_text(size=12),plot.title = element_text(hjust = 0.5)) 
-  # ggtitle(paste("Trinucleotide profile for ",tumor.name,sep=""))
-# p
-
-  
-ggsave(filename = paste("Figures/","HPVneg","_trinuc_heatmap.pdf",sep=""),height = 2.5,width = 10,plot = HPV.neg.trinuc.heatmap)
-
-```
+# processing MAF file and splitting into HPV pos and neg
 
 ```{r loading and splitting MAF file}
 
@@ -84,9 +35,9 @@ HNSC.MAF <- tumor.allele.adder(MAF = HNSC.MAF)
 HNSC.MAF$HPV_call <- NA
 
 for(i in 1:length(unique(HNSC.MAF$Unique_patient_identifier))){
- if(length(which(apobec_hnscc_df$patient_id==unique(HNSC.MAF$Unique_patient_identifier)[i]))>0){
-  HNSC.MAF$HPV_call[HNSC.MAF$Unique_patient_identifier==unique(HNSC.MAF$Unique_patient_identifier)[i]] <- apobec_hnscc_df$categ[which(apobec_hnscc_df$patient_id==unique(HNSC.MAF$Unique_patient_identifier)[i])]
- }
+  if(length(which(apobec_hnscc_df$patient_id==unique(HNSC.MAF$Unique_patient_identifier)[i]))>0){
+    HNSC.MAF$HPV_call[HNSC.MAF$Unique_patient_identifier==unique(HNSC.MAF$Unique_patient_identifier)[i]] <- apobec_hnscc_df$categ[which(apobec_hnscc_df$patient_id==unique(HNSC.MAF$Unique_patient_identifier)[i])]
+  }
 }
 
 # unique(HNSC.MAF$Unique_patient_identifier)
@@ -108,6 +59,228 @@ MAF_for_analysis <- HNSC.MAF
 save(MAF_for_analysis, file="output_data/HNSC_MAF.RData")
 ```
 
+#trinucleotide heatmaps from cluster
+
+```{r Figure trinuc context HPVpos, fig.height=2.5, fig.width=10}
+load("output_data/selection_from_cluster/HNSC_HPVpos/trinuc_output/trinuc_data_HNSC_HPVpos.RData")
+HPV.pos.trinuc.mutation_data <- trinuc.mutation_data
+HPV.pos.trinuc.heatmap <- ggplot(data=HPV.pos.trinuc.mutation_data, aes(Downstream, Upstream)) +
+  geom_tile(aes(fill = proportion*100), colour = "white") + scale_fill_gradient(low = "white", high = "steelblue", name="Percent")
+HPV.pos.trinuc.heatmap <- HPV.pos.trinuc.heatmap + facet_grid(.~section_labels, labeller = label_parsed) 
+HPV.pos.trinuc.heatmap <- HPV.pos.trinuc.heatmap +  geom_text(aes(label = round(proportion, 4)*100),size=3)
+# p <- p + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+# panel.background = element_blank(), axis.line = element_line(colour = "black"))
+HPV.pos.trinuc.heatmap <- HPV.pos.trinuc.heatmap + theme_bw() + theme(panel.grid.major = element_blank(),
+                                                                      panel.grid.minor = element_blank(),
+                                                                      axis.ticks = element_blank(),
+                                                                      strip.text=element_text(size=15),
+                                                                      axis.title.x = element_text(size=15),
+                                                                      axis.title.y = element_text(size=15),
+                                                                      axis.text.x = element_text(size=12),
+                                                                      axis.text.y=element_text(size=12),plot.title = element_text(hjust = 0.5)) 
+# ggtitle(paste("Trinucleotide profile for ",tumor.name,sep=""))
+# p
+
+
+
+ggsave(paste("Figures/","HPVpos","_trinuc_heatmap.pdf",sep=""),height = 2.5,width = 10,plot = HPV.pos.trinuc.heatmap)
+
+```
+
+```{r Figure trinuc context HPVneg, fig.height=2.5, fig.width=10}
+load("output_data/selection_from_cluster/HNSC_HPVneg/trinuc_output/trinuc_data_HNSC_HPVneg.RData")
+HPV.neg.trinuc.mutation_data <- trinuc.mutation_data
+HPV.neg.trinuc.heatmap <- ggplot(data=HPV.neg.trinuc.mutation_data, aes(Downstream, Upstream)) +
+  geom_tile(aes(fill = proportion*100), colour = "white") + scale_fill_gradient(low = "white", high = "steelblue", name="Percent")
+HPV.neg.trinuc.heatmap <- HPV.neg.trinuc.heatmap + facet_grid(.~section_labels, labeller = label_parsed) 
+HPV.neg.trinuc.heatmap <- HPV.neg.trinuc.heatmap +  geom_text(aes(label = round(proportion, 4)*100),size=3)
+# p <- p + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+# panel.background = element_blank(), axis.line = element_line(colour = "black"))
+HPV.neg.trinuc.heatmap <- HPV.neg.trinuc.heatmap + theme_bw() + theme(panel.grid.major = element_blank(),
+                                                                      panel.grid.minor = element_blank(),
+                                                                      axis.ticks = element_blank(),
+                                                                      strip.text=element_text(size=15),
+                                                                      axis.title.x = element_text(size=15),
+                                                                      axis.title.y = element_text(size=15),
+                                                                      axis.text.x = element_text(size=12),
+                                                                      axis.text.y=element_text(size=12),plot.title = element_text(hjust = 0.5)) 
+# ggtitle(paste("Trinucleotide profile for ",tumor.name,sep=""))
+# p
+
+
+ggsave(filename = paste("Figures/","HPVneg","_trinuc_heatmap.pdf",sep=""),height = 2.5,width = 10,plot = HPV.neg.trinuc.heatmap)
+
+```
+
+# prevalence-prevalence and gamma-gamma plots
+```{r trinuc with weights}
+
+load("output_data/HNSC_MAF.RData")
+HNSC.MAF <- MAF_for_analysis
+source("R/trinuc_signatures_w_weights.R")
+trinuc.contexts <- trinuc.profile.function_withweights(input.MAF = HNSC.MAF,
+                                                       signature.choice = "signatures.cosmic", 
+                                                       minimum.mutations.per.tumor=50,save.figs=F)
+save(trinuc.contexts,file="output_data/trinuc_contexts_HNSC_MAF.RData")
+
+```
+
+```{r load selection output and merge with APOBEC and HPV status}
+load("output_data/selection_from_cluster/HNSC/selection_output/HNSC_selection_output.RData")
+HNSC.selection.output <- as.tibble(selection.output$complete_mutation_data) %>%
+  select(Gene, starts_with("Nucleo"), 
+         Chromosome, starts_with("Reference"),
+         starts_with("Alternative"), Tumor_origin, 
+         Unique_patient_identifier, starts_with("Amino"), Codon_position, synonymous.mu, trinucs, Gamma_epistasis)  
+# HNSC.selection.output
+
+# Assigning HPV status
+load("output_data/HNSC_MAF.RData")
+HNSC.MAF <- MAF_for_analysis
+HNSC.selection.output$HPV_call <- NA
+for(i in 1:length(unique(HNSC.selection.output$Unique_patient_identifier))){
+  HNSC.selection.output$HPV_call[which(HNSC.selection.output$Unique_patient_identifier == unique(HNSC.selection.output$Unique_patient_identifier)[i])] <- HNSC.MAF$HPV_call[which(HNSC.MAF$Unique_patient_identifier == unique(HNSC.selection.output$Unique_patient_identifier)[i])[1]]
+}
+
+
+load("output_data/trinuc_contexts_HNSC_MAF.RData")
+
+weights.df <- trinuc.contexts$signature.weights[[1]]$weights
+for(i in 2:length(trinuc.contexts$signature.weights)){
+  weights.df <- rbind(weights.df,trinuc.contexts$signature.weights[[i]]$weights)
+}
+
+HNSC.selection.output$Sig_2 <- NA
+HNSC.selection.output$Sig_13 <- NA
+
+
+for(i in 1:length(unique(HNSC.selection.output$Unique_patient_identifier))){
+  if(length(which(rownames(weights.df) == unique(HNSC.selection.output$Unique_patient_identifier)[i]))>0){
+    HNSC.selection.output$Sig_2[which(HNSC.selection.output$Unique_patient_identifier == unique(HNSC.selection.output$Unique_patient_identifier)[i])] <- weights.df$Signature.2[which(rownames(weights.df) == unique(HNSC.selection.output$Unique_patient_identifier)[i])]
+    HNSC.selection.output$Sig_13[which(HNSC.selection.output$Unique_patient_identifier == unique(HNSC.selection.output$Unique_patient_identifier)[i])] <- weights.df$Signature.13[which(rownames(weights.df) == unique(HNSC.selection.output$Unique_patient_identifier)[i])]
+  }
+}
+
+
+HNSC.selection.output <- mutate(.data = HNSC.selection.output, APOBEC_weight = Sig_2 + Sig_13)
+
+head(HNSC.selection.output)
+
+
+HNSC.selection.output$TCW_TKW <- NA
+HNSC.selection.output$TCN_TKN <- NA
+
+for(j in 1:nrow(HNSC.selection.output)){
+  if(is.na(HNSC.selection.output$Nucleotide_trinuc_context[j])){
+    #need to make a call of the same nucleotide position and amino acid alternative, find which is NOT NA, and make this the new "j" 
+    matches <- which(HNSC.selection.output$Nucleotide_chromosome_position == HNSC.selection.output$Nucleotide_chromosome_position[j] &
+                       HNSC.selection.output$Alternative_Nucleotide == HNSC.selection.output$Alternative_Nucleotide[j])
+    
+    new.j <- matches[which(!is.na(HNSC.selection.output$Nucleotide_trinuc_context[matches]))]
+    if(((HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TCA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="T") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TGA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="A")) | 
+       ((HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TCT" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="T") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="AGA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="A")) |
+       ((HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TCA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="G") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TGA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="C")) |
+       ((HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TCT" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="G") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="AGA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="C"))){
+      HNSC.selection.output$TCW_TKW[j] <- 1
+    }else{
+      HNSC.selection.output$TCW_TKW[j] <- 0
+    }
+    
+  }else{
+    if(((HNSC.selection.output$Nucleotide_trinuc_context[j]=="TCA" & HNSC.selection.output$Alternative_Nucleotide[j]=="T") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[j]=="TGA" & HNSC.selection.output$Alternative_Nucleotide[j]=="A")) | 
+       ((HNSC.selection.output$Nucleotide_trinuc_context[j]=="TCT" & HNSC.selection.output$Alternative_Nucleotide[j]=="T") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[j]=="AGA" & HNSC.selection.output$Alternative_Nucleotide[j]=="A")) |
+       ((HNSC.selection.output$Nucleotide_trinuc_context[j]=="TCA" & HNSC.selection.output$Alternative_Nucleotide[j]=="G") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[j]=="TGA" & HNSC.selection.output$Alternative_Nucleotide[j]=="C")) |
+       ((HNSC.selection.output$Nucleotide_trinuc_context[j]=="TCT" & HNSC.selection.output$Alternative_Nucleotide[j]=="G") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[j]=="AGA" & HNSC.selection.output$Alternative_Nucleotide[j]=="C"))){
+      HNSC.selection.output$TCW_TKW[j] <- 1
+    }else{
+      HNSC.selection.output$TCW_TKW[j] <- 0
+    }
+  }
+  
+  # Now, mutations that could be TCN --> TKN
+  if(is.na(HNSC.selection.output$Nucleotide_trinuc_context[j])){
+    #need to make a call of the same nucleotide position and amino acid alternative, find which is NOT NA, and make this the new "j" 
+    matches <- which(HNSC.selection.output$Nucleotide_chromosome_position == HNSC.selection.output$Nucleotide_chromosome_position[j] &
+                       HNSC.selection.output$Alternative_Nucleotide == HNSC.selection.output$Alternative_Nucleotide[j])
+    
+    new.j <- matches[which(!is.na(HNSC.selection.output$Nucleotide_trinuc_context[matches]))]
+    if(((HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TCA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="T") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TGA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="A")) | 
+       ((HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TCT" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="T") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="AGA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="A")) |
+       ((HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TCA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="G") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TGA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="C")) |
+       ((HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TCT" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="G") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="AGA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="C")) |
+       
+       ((HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TCC" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="T") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="GGA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="A")) | 
+       ((HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TCG" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="T") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="CGA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="A")) |
+       ((HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TCC" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="G") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="GGA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="C")) |
+       ((HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="TCG" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="G") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[new.j]=="CGA" & HNSC.selection.output$Alternative_Nucleotide[new.j]=="C"))
+    ){
+      HNSC.selection.output$TCN_TKN[j] <- 1
+    }else{
+      HNSC.selection.output$TCN_TKN[j] <- 0
+    }
+    
+  }else{
+    if(((HNSC.selection.output$Nucleotide_trinuc_context[j]=="TCA" & HNSC.selection.output$Alternative_Nucleotide[j]=="T") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[j]=="TGA" & HNSC.selection.output$Alternative_Nucleotide[j]=="A")) | 
+       ((HNSC.selection.output$Nucleotide_trinuc_context[j]=="TCT" & HNSC.selection.output$Alternative_Nucleotide[j]=="T") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[j]=="AGA" & HNSC.selection.output$Alternative_Nucleotide[j]=="A")) |
+       ((HNSC.selection.output$Nucleotide_trinuc_context[j]=="TCA" & HNSC.selection.output$Alternative_Nucleotide[j]=="G") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[j]=="TGA" & HNSC.selection.output$Alternative_Nucleotide[j]=="C")) |
+       ((HNSC.selection.output$Nucleotide_trinuc_context[j]=="TCT" & HNSC.selection.output$Alternative_Nucleotide[j]=="G") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[j]=="AGA" & HNSC.selection.output$Alternative_Nucleotide[j]=="C"))|
+       
+       ((HNSC.selection.output$Nucleotide_trinuc_context[j]=="TCC" & HNSC.selection.output$Alternative_Nucleotide[j]=="T") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[j]=="GGA" & HNSC.selection.output$Alternative_Nucleotide[j]=="A")) | 
+       ((HNSC.selection.output$Nucleotide_trinuc_context[j]=="TCG" & HNSC.selection.output$Alternative_Nucleotide[j]=="T") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[j]=="CGA" & HNSC.selection.output$Alternative_Nucleotide[j]=="A")) |
+       ((HNSC.selection.output$Nucleotide_trinuc_context[j]=="TCC" & HNSC.selection.output$Alternative_Nucleotide[j]=="G") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[j]=="GGA" & HNSC.selection.output$Alternative_Nucleotide[j]=="C")) |
+       ((HNSC.selection.output$Nucleotide_trinuc_context[j]=="TCG" & HNSC.selection.output$Alternative_Nucleotide[j]=="G") | 
+        (HNSC.selection.output$Nucleotide_trinuc_context[j]=="CGA" & HNSC.selection.output$Alternative_Nucleotide[j]=="C"))){
+      HNSC.selection.output$TCN_TKN[j] <- 1
+    }else{
+      HNSC.selection.output$TCN_TKN[j] <- 0
+    }
+  }
+  
+  
+}
+
+
+HNSC.selection.output$Name <- NA
+for(i in 1:nrow(HNSC.selection.output)){
+  HNSC.selection.output$Name[i] <- paste(HNSC.selection.output$Gene[i]," ",ifelse(!is.na(HNSC.selection.output$Amino_acid_reference[i]),paste(HNSC.selection.output$Amino_acid_reference[i],HNSC.selection.output$Amino_acid_position[i],HNSC.selection.output$Amino_acid_alternative[i]," ", HNSC.selection.output$Chromosome[i],"_",HNSC.selection.output$Nucleotide_chromosome_position[i],HNSC.selection.output$Alternative_Nucleotide[i],sep=""),paste(HNSC.selection.output$Reference_Nucleotide[i],HNSC.selection.output$Nucleotide_chromosome_position[i],HNSC.selection.output$Alternative_Nucleotide[i],"NCSNV")),sep="")
+}
+
+HNSC.selection.output$Name_short <- NA
+for(i in 1:nrow(HNSC.selection.output)){
+  HNSC.selection.output$Name_short[i] <- paste(HNSC.selection.output$Gene[i]," ",ifelse(!is.na(HNSC.selection.output$Amino_acid_reference[i]),paste(HNSC.selection.output$Amino_acid_reference[i],HNSC.selection.output$Amino_acid_position[i],HNSC.selection.output$Amino_acid_alternative[i],sep=""),paste(HNSC.selection.output$Reference_Nucleotide[i],HNSC.selection.output$Nucleotide_chromosome_position[i],HNSC.selection.output$Alternative_Nucleotide[i],"NCSNV")),sep="")
+}
+
+
+
+HNSC.selection.output
+save(HNSC.selection.output,file = "output_data/HNSC_selection_with_APOBEC.RData")
+
+HNSC.selection.output.recur <- subset(HNSC.selection.output, Nucleotide_change_tally>1)
+save(HNSC.selection.output.recur, file = "output_data/HNSC_selection_with_APOBEC_recur.RData")
+```
 
 
 
@@ -126,19 +299,19 @@ save(MAF_for_analysis, file="output_data/HNSC_MAF.RData")
 # }
 # # colnames(selection.all.muts)
 #
-HNSC.selection.output.recur$Name_short <- NA
-for(i in 1:nrow(HNSC.selection.output.recur)){
-  HNSC.selection.output.recur$Name_short[i] <- paste(HNSC.selection.output.recur$Gene[i]," ",ifelse(!is.na(HNSC.selection.output.recur$Amino_acid_reference[i]),paste(HNSC.selection.output.recur$Amino_acid_reference[i],HNSC.selection.output.recur$Amino_acid_position[i],HNSC.selection.output.recur$Amino_acid_alternative[i],sep=""),paste(HNSC.selection.output.recur$Reference_Nucleotide[i],HNSC.selection.output.recur$Nucleotide_chromosome_position[i],HNSC.selection.output.recur$Alternative_Nucleotide[i],"NCSNV")),sep="")
-}
-head(HNSC.selection.output.recur)
+# HNSC.selection.output.recur$Name_short <- NA
+# for(i in 1:nrow(HNSC.selection.output.recur)){
+#   HNSC.selection.output.recur$Name_short[i] <- paste(HNSC.selection.output.recur$Gene[i]," ",ifelse(!is.na(HNSC.selection.output.recur$Amino_acid_reference[i]),paste(HNSC.selection.output.recur$Amino_acid_reference[i],HNSC.selection.output.recur$Amino_acid_position[i],HNSC.selection.output.recur$Amino_acid_alternative[i],sep=""),paste(HNSC.selection.output.recur$Reference_Nucleotide[i],HNSC.selection.output.recur$Nucleotide_chromosome_position[i],HNSC.selection.output.recur$Alternative_Nucleotide[i],"NCSNV")),sep="")
+# }
+# head(HNSC.selection.output.recur)
 
 #TODO: should we then delete the mutations that are not recurrent within these smaller datasets?
 
-recur.hpv.pos <- subset(HNSC.selection.output.recur, HPV_call=="positive")
+recur.hpv.pos <- subset(HNSC.selection.output.recur, HPV_call=="HPV+")
 recur.hpv.pos <- subset(recur.hpv.pos, Name_short %in% names(table(recur.hpv.pos$Name_short))[which(table(recur.hpv.pos$Name_short)>1)]) #just the recurrent mutations 
 hpv.pos.names <- unique(recur.hpv.pos$Name_short)
 
-recur.hpv.neg <- subset(HNSC.selection.output.recur, HPV_call=="negative")
+recur.hpv.neg <- subset(HNSC.selection.output.recur, HPV_call=="HPV-")
 recur.hpv.neg <- subset(recur.hpv.neg, Name_short %in% names(table(recur.hpv.neg$Name_short))[which(table(recur.hpv.neg$Name_short)>1)]) #just the recurrent mutations 
 hpv.neg.names <- unique(recur.hpv.neg$Name_short)
 
@@ -162,8 +335,8 @@ for(i in 1:nrow(prevalence.df)){
   }
 }
 
-prevalence.df$prev_HPVpos <- prevalence.df$tally_HPVpos/length(unique(HNSC.selection.output$Tumor_origin[which(HNSC.selection.output$HPV_call=="positive")]))
-prevalence.df$prev_HPVneg <- prevalence.df$tally_HPVneg/length(unique(HNSC.selection.output$Tumor_origin[which(HNSC.selection.output$HPV_call=="negative")])) #TODO why only 411? did one tumor have no SNP?
+prevalence.df$prev_HPVpos <- prevalence.df$tally_HPVpos/length(unique(HNSC.selection.output$Tumor_origin[which(HNSC.selection.output$HPV_call=="HPV+")]))
+prevalence.df$prev_HPVneg <- prevalence.df$tally_HPVneg/length(unique(HNSC.selection.output$Tumor_origin[which(HNSC.selection.output$HPV_call=="HPV-")])) #TODO why only 411? did one tumor have no SNP?
 
 library(ggrepel)
 prev_plot <- ggplot(data = prevalence.df) + geom_point(aes(x = prev_HPVneg, y = prev_HPVpos),alpha=0.1,size=5) + geom_text_repel(data = subset(prevalence.df, (prev_HPVneg>0.025 | prev_HPVpos>0.04) | (prev_HPVneg>0.0 & prev_HPVpos>0)),aes(x = prev_HPVneg, y = prev_HPVpos,label=Name),box.padding = 1.12,size=5,color="darkred",fontface="bold") + theme_bw() + labs(x=bquote("Prevalence in "~HPV^{"-"}~ "tumors"), y=bquote("Prevalence in "~HPV^{"+"}~ "tumors")) + theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold")) #+ geom_label(aes(x = prev_HPVneg, y = prev_HPVpos, label=Name))
@@ -176,6 +349,447 @@ ggsave(filename = "Figures/prevalence_plot.png",plot = prev_plot,height = 5,widt
 # HNSC.selection.output[which(HNSC.selection.output$HPV_call=="positive" & HNSC.selection.output$Gene=="TP53"),]
 
 ```
+
+
+```{r gamma gamma plot, eval=F}
+
+
+load("output_data/selection_from_cluster/HNSC_HPVpos/selection_output/HNSC_HPVpos_selection_output.RData")
+HPV.pos.selectionoutput <- selection.output
+HPV.pos.selection_minrecur <- subset(HPV.pos.selectionoutput$all_mutations, freq>1)
+
+
+load("output_data/selection_from_cluster/HNSC_HPVneg/selection_output/HNSC_HPVneg_selection_output.RData")
+HPV.neg.selectionoutput <- selection.output
+HPV.neg.selection_minrecur <- subset(HPV.neg.selectionoutput$all_mutations, freq>1)
+
+
+HPV.pos.selection_minrecur$Name_short <- NA
+for(i in 1:nrow(HPV.pos.selection_minrecur)){
+  HPV.pos.selection_minrecur$Name_short[i] <- paste(HPV.pos.selection_minrecur$Gene[i]," ",ifelse(!is.na(HPV.pos.selection_minrecur$AA_Ref[i]),paste(HPV.pos.selection_minrecur$AA_Ref[i],HPV.pos.selection_minrecur$AA_Pos[i],HPV.pos.selection_minrecur$AA_Change[i],sep=""),paste(HPV.pos.selection_minrecur$Nuc_Ref[i],HPV.pos.selection_minrecur$Nucleotide_position[i],HPV.pos.selection_minrecur$Nuc_Change[i],"NCSNV")),sep="")
+}
+
+
+HPV.neg.selection_minrecur$Name_short <- NA
+for(i in 1:nrow(HPV.neg.selection_minrecur)){
+  HPV.neg.selection_minrecur$Name_short[i] <- paste(HPV.neg.selection_minrecur$Gene[i]," ",ifelse(!is.na(HPV.neg.selection_minrecur$AA_Ref[i]),paste(HPV.neg.selection_minrecur$AA_Ref[i],HPV.neg.selection_minrecur$AA_Pos[i],HPV.neg.selection_minrecur$AA_Change[i],sep=""),paste(HPV.neg.selection_minrecur$Nuc_Ref[i],HPV.neg.selection_minrecur$Nucleotide_position[i],HPV.neg.selection_minrecur$Nuc_Change[i],"NCSNV")),sep="")
+}
+
+
+gamma.df <- cbind(prevalence.df,NA,NA)
+colnames(gamma.df)[6:7] <- c("gamma_HPVpos","gamma_HPVneg")
+
+for(i in 1:nrow(gamma.df)){
+  if(length(which(HPV.pos.selection_minrecur$Name_short == gamma.df$Name[i]))>0){
+    gamma.df$gamma_HPVpos[i] <- HPV.pos.selection_minrecur$gamma_epistasis[which(HPV.pos.selection_minrecur$Name_short == gamma.df$Name[i])][1]
+  }
+  if(length(which(HPV.neg.selection_minrecur$Name_short == gamma.df$Name[i]))>0){
+    gamma.df$gamma_HPVneg[i] <- HPV.neg.selection_minrecur$gamma_epistasis[which(HPV.neg.selection_minrecur$Name_short == gamma.df$Name[i])][1]
+  }
+}
+
+fancy_scientific <- function(l) {
+  # turn in to character string in scientific notation
+  l <- format(l, scientific = TRUE)
+  l <- gsub("0e\\+00","0",l)
+  # quote the part before the exponent to keep all the digits
+  l <- gsub("^(.*)e", "'\\1'e", l)
+  # turn the 'e+' into plotmath format
+  l <- gsub("e", "%*%10^", l)
+  # return this as an expression
+  parse(text=l)
+}
+
+
+
+library(ggrepel)
+gamma_plot <- ggplot(data = gamma.df) + geom_point(aes(x = log10(gamma_HPVneg), y = log10(gamma_HPVpos)),alpha=0.5,size=5) + geom_text_repel(aes(x = log10(gamma_HPVneg), y = log10(gamma_HPVpos),label=Name),box.padding = 0.8,size=5,color="darkred",fontface="bold") + theme_bw() + labs(x="Log of selection intensity in HPV- tumors", y="Log of selection intensity in HPV+ tumors") + theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold")) #+ geom_label(aes(x = prev_HPVneg, y = prev_HPVpos, label=Name))
+
+
+gamma_plot <- ggplot(data = gamma.df) + geom_point(aes(x = gamma_HPVneg, y = gamma_HPVpos),alpha=0.5,size=5) + geom_text_repel(aes(x = gamma_HPVneg, y = gamma_HPVpos,label=Name),box.padding = 0.8,size=5,color="darkred",fontface="bold") + theme_bw() + labs(x=bquote("Selection intensity in "~HPV^{"-"}~ "tumors"), y=bquote("Selection intensity in "~HPV^{"+"}~ "tumors")) + theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold"))  + scale_y_log10(labels = fancy_scientific) + scale_x_log10(labels = fancy_scientific)
+
+ggsave(filename = "Figures/gamma_gamma_plot.png",plot = gamma_plot,height = 5,width = 5)
+
+```
+
+
+
+#tornado plots 
+
+```{r processing HPV neg for tornado plots}
+
+### Figures for manuscript
+
+# Selection plots with the same colors 
+# setwd("~/Documents/Selection_analysis/HNSC/NCI/")
+# source("~/GitHub/site_specific_selection_intensity/functions_script.R")
+
+# load in the HPV neg, load in the HPV pos, find all unique genes and generate color palette 
+# This will be sorted by selection, not frequency. 
+# Neg 
+load("output_data/selection_from_cluster/HNSC_HPVneg/selection_output/HNSC_HPVneg_selection_output.RData")
+
+selection.subset.neg <- selection.output$all_mutations[which(selection.output$all_mutations$freq>1),]
+selection.subset.neg <- selection.subset.neg[which(!is.na(selection.subset.neg$Gene)),]
+selection.subset.neg <- selection.subset.neg[order(-selection.subset.neg$gamma_epistasis),]
+
+if(nrow(selection.subset.neg)>25){
+  selection.subset.neg.ordered <- selection.subset.neg[1:25,] #
+}else{
+  selection.subset.neg.ordered <- selection.subset.neg 
+}
+selection.subset.neg.ordered <- selection.subset.neg.ordered[order(selection.subset.neg.ordered$gamma_epistasis),]
+selection.subset.neg.ordered$Name <- NA
+
+for(i in 1:nrow(selection.subset.neg.ordered)){
+  selection.subset.neg.ordered$Name[i] <- paste(selection.subset.neg.ordered$Gene[i]," ",ifelse(!is.na(selection.subset.neg.ordered$AA_Ref[i]),paste(selection.subset.neg.ordered$AA_Ref[i],selection.subset.neg.ordered$AA_Pos[i],selection.subset.neg.ordered$AA_Change[i],sep=""),"NCSNV"))
+}
+
+
+
+# selection.subset.neg.ordered$Name <- paste(selection.subset.neg.ordered$Gene," ",selection.subset.neg.ordered$AA_Ref,selection.subset.neg.ordered$AA_Pos,selection.subset.neg.ordered$AA_Change,sep="")
+selection.subset.neg.ordered$Name <- factor(selection.subset.neg.ordered$Name, levels=selection.subset.neg.ordered$Name)
+selection.subset.neg.ordered
+
+```
+
+```{r processing HPV pos for tornado plots}
+
+# Pos
+
+load("output_data/selection_from_cluster/HNSC_HPVpos/selection_output/HNSC_HPVpos_selection_output.RData")
+selection.subset.pos <- selection.output$all_mutations[which(selection.output$all_mutations$freq>1),]
+selection.subset.pos <- selection.subset.pos[which(!is.na(selection.subset.pos$Gene)),]
+selection.subset.pos <- selection.subset.pos[order(-selection.subset.pos$gamma_epistasis),]
+
+if(nrow(selection.subset.pos)>25){
+  selection.subset.pos.ordered <- selection.subset.pos[1:25,] #
+}else{
+  selection.subset.pos.ordered <- selection.subset.pos 
+}
+selection.subset.pos.ordered <- selection.subset.pos.ordered[order(selection.subset.pos.ordered$gamma_epistasis),]
+selection.subset.pos.ordered$Name <- NA
+
+for(i in 1:nrow(selection.subset.pos.ordered)){
+  selection.subset.pos.ordered$Name[i] <- paste(selection.subset.pos.ordered$Gene[i]," ",ifelse(!is.na(selection.subset.pos.ordered$AA_Ref[i]),paste(selection.subset.pos.ordered$AA_Ref[i],selection.subset.pos.ordered$AA_Pos[i],selection.subset.pos.ordered$AA_Change[i],sep=""),"NCSNV"))
+}
+
+
+
+# selection.subset.pos.ordered$Name <- paste(selection.subset.pos.ordered$Gene," ",selection.subset.pos.ordered$AA_Ref,selection.subset.pos.ordered$AA_Pos,selection.subset.pos.ordered$AA_Change,sep="")
+selection.subset.pos.ordered$Name <- factor(selection.subset.pos.ordered$Name, levels=selection.subset.pos.ordered$Name)
+selection.subset.pos.ordered
+
+
+```
+
+```{r finding colors used for unique genes in combined build}
+
+##Find colors used for unique genes in combined build. 
+source("R/fancy_scientific_code.R")
+selection.subset.combined.ordered <- rbind(selection.subset.neg.ordered,selection.subset.pos.ordered)
+
+unique.genes <- unique(selection.subset.combined.ordered$Gene)
+#Make a dataframe of just the unique genes
+selection.subset.combined.ordered.unique <- as.data.frame(matrix(nrow=0,ncol=ncol(selection.subset.combined.ordered)))
+colnames(selection.subset.combined.ordered.unique) <- colnames(selection.subset.combined.ordered)
+for(i in 1:length(unique.genes)){
+  selection.subset.combined.ordered.unique <- rbind(selection.subset.combined.ordered.unique,selection.subset.combined.ordered[which(selection.subset.combined.ordered$Gene==unique.genes[i])[1],])
+}
+
+#from http://stackoverflow.com/questions/18265941/two-horizontal-bar-charts-with-shared-axis-in-ggplot2-similar-to-population-pyr
+library('grid')
+library('gridExtra')
+
+
+g.mid <- ggplot(selection.subset.combined.ordered.unique,aes(x=1,y=Name)) +
+  geom_text(aes(label=Name),size=7) +
+  # geom_segment(aes(x=0.94,xend=0.96,yend=Name)) +
+  # geom_segment(aes(x=1.04,xend=1.065,yend=Name)) +
+  ggtitle("") +
+  ylab(NULL) + 
+  scale_x_continuous(expand=c(0,0),limits=c(0.94,1.065)) + ggtitle("HNSCC HPV+") +
+  theme(axis.title=element_blank(),
+        panel.grid=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        panel.background=element_blank(),
+        axis.text.x=element_text(color=NA),
+        axis.ticks.x=element_line(color=NA),
+        plot.margin = unit(c(1,-1,1,-1), "mm"))
+g.mid
+
+g1 <- ggplot(data=selection.subset.combined.ordered.unique,aes(x=Name,y=mu, fill=Gene)) +
+  geom_bar(stat="identity") + ggtitle("Mutation rate") +
+  theme(axis.title.x = element_blank(), 
+        axis.title.y = element_blank(), 
+        axis.text.y = element_blank(), 
+        axis.ticks.y = element_blank(), 
+        plot.margin = unit(c(1,-1,1,10), "mm")) +
+  theme(panel.background = element_blank()) +
+  theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
+  theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
+  geom_text(aes(label=round(mu*1e5,2)), vjust=-0.5, hjust=0.5, position=position_dodge(width=0.9),size=4,angle=90) +
+  geom_text(aes(label=freq,y=-2e-7), position=position_dodge(width=0.9),size=6,angle=0,color="black") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(legend.position = 'none',axis.text.x = element_text(size=12)) +
+  scale_y_reverse(labels=fancy_scientific) + coord_flip() 
+g1
+
+g2 <- ggplot(data=selection.subset.combined.ordered.unique, aes(x=Name,y=gamma_epistasis,fill=Gene)) +
+  geom_bar(stat="identity") + ggtitle("Selection intensity") +
+  theme(axis.title.x = element_blank(), axis.title.y = element_blank(), 
+        axis.text.y = element_blank(), axis.ticks.y = element_blank(),
+        plot.margin = unit(c(1,2,1,-1), "mm")) +
+  theme(panel.background = element_blank()) +
+  theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
+  theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
+  theme(plot.title = element_text(hjust = 0.5),axis.text.x = element_text(size=12)) +
+  coord_flip() + theme(legend.position = c(0.85, .5),legend.text = element_text(size=10)) + theme(legend.position="none")
+g2
+
+gg1 <- ggplot_gtable(ggplot_build(g1))
+gg2 <- ggplot_gtable(ggplot_build(g2))
+gg.mid <- ggplot_gtable(ggplot_build(g.mid))
+
+grid.arrange(gg1,gg.mid,gg2,ncol=3,widths=c(4.25/10,2/10,3.5/10))
+
+
+gg.combined <- arrangeGrob(gg1,gg.mid,gg2,ncol=3,widths=c(5/10,3.5/10,5/10))
+
+ggplot_build(g1)$data
+ggplot_build(g.mid)$data
+
+color.data <- ggplot_build(g1)$data 
+
+gene.colors <- selection.subset.combined.ordered.unique$Gene
+names(gene.colors) <- color.data[[1]]$fill
+
+#TODO something wrong here 
+color.df <- as.data.frame(matrix(data = NA, nrow=length(unique(selection.subset.combined.ordered.unique$Gene)),ncol=2))
+colnames(color.df) <- c("gene","color")
+color.df$gene <- unique(selection.subset.combined.ordered.unique$Gene)
+for(i in 1:nrow(selection.subset.combined.ordered.unique)){
+  if(is.na(color.df$color[which(color.df$gene==selection.subset.combined.ordered.unique$Gene[i])])){
+    color.df$color[which(color.df$gene==selection.subset.combined.ordered.unique$Gene[i])] <- 
+      color.data[[1]]$fill[i]
+  }
+}
+
+color.df
+
+color.vec <- color.df$color
+names(color.vec) <- color.df$gene
+```
+
+```{r hpv neg tornado plot}
+### Now, for the separate plots
+# HPV negative 
+
+neg.colors <- color.vec[names(color.vec) %in% selection.subset.neg.ordered$Gene]
+
+
+
+g.mid <- ggplot(selection.subset.neg.ordered,aes(x=1,y=Name)) +
+  geom_text(aes(label=Name),size=7) +
+  # geom_segment(aes(x=0.94,xend=0.96,yend=Name)) +
+  # geom_segment(aes(x=1.04,xend=1.065,yend=Name)) +
+  ggtitle("") +
+  ylab(NULL) + 
+  # scale_x_continuous(expand=c(0,0),limits=c(0.94,1.065)) + ggtitle("HNSCC HPV-") +
+  theme(axis.title=element_blank(),
+        panel.grid=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        panel.background=element_blank(),
+        axis.text.x=element_text(color=NA),
+        axis.ticks.x=element_line(color=NA),
+        plot.margin = unit(c(1,-1,1,-1), "mm"))
+g.mid
+
+g1 <- ggplot(data=selection.subset.neg.ordered,aes(x=Name,y=mu, fill=Gene)) +
+  geom_bar(stat="identity") + ggtitle("Mutation rate") +
+  theme(axis.title.x = element_blank(), 
+        axis.title.y = element_blank(), 
+        axis.text.y = element_blank(), 
+        axis.ticks.y = element_blank(), 
+        plot.margin = unit(c(1,-1,1,10), "mm")) +
+  theme(panel.background = element_blank()) + scale_fill_manual("Legend", values = neg.colors) +
+  theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
+  theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
+  # geom_text(aes(label=round(mu*1e5,2)), vjust=-0.5, hjust=0.5, position=position_dodge(width=0.9),size=4,angle=90) +
+  geom_text(aes(label=freq,y=-1e-7), position=position_dodge(width=0.9),size=6,angle=0,color="black") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(legend.position = 'none',axis.text.x = element_text(size=12)) +
+  scale_y_reverse(labels=fancy_scientific) + coord_flip() + 
+  theme(axis.text.x = element_text(size = 13))
+g1
+
+g2 <- ggplot(data=selection.subset.neg.ordered, aes(x=Name,y=gamma_epistasis,fill=Gene)) +
+  geom_bar(stat="identity") + ggtitle("Selection intensity") +
+  theme(axis.title.x = element_blank(), axis.title.y = element_blank(), 
+        axis.text.y = element_blank(), axis.ticks.y = element_blank(),
+        plot.margin = unit(c(1,2,1,-1), "mm")) +
+  theme(panel.background = element_blank()) + scale_fill_manual("Legend", values = neg.colors) +
+  theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
+  theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
+  theme(plot.title = element_text(hjust = 0.5),axis.text.x = element_text(size=12)) +
+  coord_flip() + theme(legend.position = c(0.85, .5),legend.text = element_text(size=10)) + theme(legend.position="none") + scale_y_continuous(labels=fancy_scientific) + theme(axis.text.x = element_text(size = 13))
+g2
+
+gg1 <- ggplot_gtable(ggplot_build(g1))
+gg2 <- ggplot_gtable(ggplot_build(g2))
+gg.mid <- ggplot_gtable(ggplot_build(g.mid))
+
+grid.arrange(gg1,gg.mid,gg2,ncol=3,widths=c(3/10,3.5/10,3/10))
+
+
+gg.combined <- arrangeGrob(gg1,gg.mid,gg2,ncol=3,widths=c(3/10,2/10,3/10))
+ggsave(gg.combined, filename = paste("Figures/same_color_gamma_epistasis_plot_","HNSC_HPV-.png",sep=""),units = "in",height=8,width = 12,dpi = 400)
+```
+
+
+
+```{r hpv pos tornado plot}
+
+# HPV positive
+
+pos.colors <- color.vec[names(color.vec) %in% selection.subset.pos.ordered$Gene]
+
+
+
+g.mid <- ggplot(selection.subset.pos.ordered,aes(x=1,y=Name)) +
+  geom_text(aes(label=Name),size=7) +
+  # geom_segment(aes(x=0.94,xend=0.96,yend=Name)) +
+  # geom_segment(aes(x=1.04,xend=1.065,yend=Name)) +
+  ggtitle("") +
+  ylab(NULL) + 
+  # scale_x_continuous(expand=c(0,0),limits=c(0.94,1.065)) + ggtitle("HNSCC HPV-") +
+  theme(axis.title=element_blank(),
+        panel.grid=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        panel.background=element_blank(),
+        axis.text.x=element_text(color=NA),
+        axis.ticks.x=element_line(color=NA),
+        plot.margin = unit(c(1,-1,1,-1), "mm"))
+g.mid
+
+g1 <- ggplot(data=selection.subset.pos.ordered,aes(x=Name,y=mu, fill=Gene)) +
+  geom_bar(stat="identity") + ggtitle("Mutation rate") +
+  theme(axis.title.x = element_blank(), 
+        axis.title.y = element_blank(), 
+        axis.text.y = element_blank(), 
+        axis.ticks.y = element_blank(), 
+        plot.margin = unit(c(1,-1,1,10), "mm")) +
+  theme(panel.background = element_blank()) + scale_fill_manual("Legend", values = pos.colors) +
+  theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
+  theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
+  # geom_text(aes(label=round(mu*1e5,2)), vjust=-0.5, hjust=0.5, position=position_dodge(width=0.9),size=4,angle=90) +
+  geom_text(aes(label=freq,y=-2e-7), position=position_dodge(width=0.9),size=6,angle=0,color="black") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(legend.position = 'none',axis.text.x = element_text(size=12)) +
+  scale_y_reverse(labels=fancy_scientific) + coord_flip() + theme(axis.text.x = element_text(size = 12))
+g1
+
+g2 <- ggplot(data=selection.subset.pos.ordered, aes(x=Name,y=gamma_epistasis,fill=Gene)) +
+  geom_bar(stat="identity") + ggtitle("Selection intensity") +
+  theme(axis.title.x = element_blank(), axis.title.y = element_blank(), 
+        axis.text.y = element_blank(), axis.ticks.y = element_blank(),
+        plot.margin = unit(c(1,10,1,-1), "mm")) +
+  theme(panel.background = element_blank()) + scale_fill_manual("Legend", values = pos.colors) +
+  theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
+  theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
+  theme(plot.title = element_text(hjust = 0.5),axis.text.x = element_text(size=12)) +
+  coord_flip() + theme(legend.position = c(0.85, .5),legend.text = element_text(size=10)) + theme(legend.position="none") + scale_y_continuous(labels=fancy_scientific)
+g2
+
+gg1 <- ggplot_gtable(ggplot_build(g1))
+gg2 <- ggplot_gtable(ggplot_build(g2))
+gg.mid <- ggplot_gtable(ggplot_build(g.mid))
+
+grid.arrange(gg1,gg.mid,gg2,ncol=3,widths=c(3/10,3.5/10,3/10))
+
+
+gg.combined <- arrangeGrob(gg1,gg.mid,gg2,ncol=3,widths=c(3/10,2/10,3/10))
+ggsave(gg.combined, filename = paste("Figures/same_color_gamma_epistasis_plot_","HNSC_HPV+.png",sep=""),units = "in",height=8,width = 13,dpi = 400)
+
+
+```
+
+
+# HPV vs SNP count  
+
+```{r HPV status vs SNV count}
+
+load("output_data/HNSC_selection_with_APOBEC.RData")
+
+HNSC.selection.HPVknown <- HNSC.selection.output[which(HNSC.selection.output$HPV_call != "ambiguous"),]
+
+# HNSC.selection.HPVknown$`APOBEC signal`
+
+unique(HNSC.selection.HPVknown$Unique_patient_identifier)
+  
+SNV.APOBEC.df <- as.data.frame(matrix(data = NA, nrow=length(unique(HNSC.selection.HPVknown$Unique_patient_identifier)),ncol=5))
+colnames(SNV.APOBEC.df) <- c("Tumor","SNV_count","APOBEC","APOBEC_weight","HPV_status")
+
+SNV.APOBEC.df$Tumor <- unique(HNSC.selection.HPVknown$Unique_patient_identifier)
+
+for(i in 1:nrow(SNV.APOBEC.df)){
+ SNV.APOBEC.df$SNV_count[i] <- length(which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i]))
+ if(!is.na(HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]])){
+ SNV.APOBEC.df$APOBEC[i] <- if(HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]>0){"Yes"
+ }else{if(HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]==0){"No"}}}
+ SNV.APOBEC.df$HPV_status[i] <- HNSC.selection.HPVknown$HPV_call[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]
+ SNV.APOBEC.df$APOBEC_weight[i] <- HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]
+}
+
+View(SNV.APOBEC.df)
+
+write.table(x = SNV.APOBEC.df,file = "output_data/SNV_APOBEC_HPV_status.txt",sep="\t",quote = F,row.names = F)
+
+source("R/fancy_scientific_code.R")
+
+HPV.vs.APOBEC <- ggplot(data = SNV.APOBEC.df) + geom_boxplot(aes(y=SNV_count,x=APOBEC),color="dark red") + geom_jitter(aes(y=SNV_count,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + scale_y_log10(labels=fancy_scientific) + labs(x="APOBEC signature detected",y="SNV count")
+
+
+ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_SNV.png",plot = HPV.vs.APOBEC)
+
+wilcox.test(data=subset(SNV.APOBEC.df,HPV_status=="HPV-"),SNV_count~APOBEC,conf.int=T) 
+
+wilcox.test(data=subset(SNV.APOBEC.df,HPV_status=="HPV+"),SNV_count~APOBEC, conf.int = T) 
+
+hpv.pos.snv.apobec <- subset(SNV.APOBEC.df,HPV_status=="HPV+")
+median(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])-median(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")])
+min(SNV.APOBEC.df$SNV_count) +theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold"))
+# ggplot(data = SNV.APOBEC.df) + geom_point(aes(x=APOBEC_weight, y=APOBEC)) 
+
+
+
+#plot for the manuscript
+
+
+HPV.vs.APOBEC_ms <- ggplot(data = subset(SNV.APOBEC.df, !is.na(SNV.APOBEC.df$APOBEC))) + geom_boxplot(aes(y=SNV_count,x=APOBEC),color="dark red") + geom_jitter(aes(y=SNV_count,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + scale_y_log10(labels=fancy_scientific) + labs(x="APOBEC signature detected",y="SNV count")  + theme(strip.text.x = element_text(size=18)) +theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold"))
+
+ggsave(filename = "Figures/SNV_count_vs_HPV_and_APOBEC.png",plot = HPV.vs.APOBEC_ms)
+
+```
+
+
+```{r TCW to TKW vs APOBEC and HPV status }
+
+SNV.APOBEC.df$`Proportion TCW to TKW` <- NA
+
+for(i in 1:nrow(SNV.APOBEC.df)){
+ SNV.APOBEC.df$`Proportion TCW to TKW`[i] <- length(which(HNSC.selection.HPVknown$TCW_TKW[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])]==1))/(length(which(HNSC.selection.HPVknown$TCW_TKW[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])]==1))+length(which(HNSC.selection.HPVknown$TCW_TKW[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])]==0)))
+}
+
+HPV.vs.APOBEC_proportion <- ggplot(data = SNV.APOBEC.df) + geom_boxplot(aes(y=`Proportion TCW to TKW`,x=APOBEC),color="dark red") + geom_jitter(aes(y=`Proportion TCW to TKW`,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + labs(x="APOBEC signature detected")
+
+ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_proportionTCW.png",plot = HPV.vs.APOBEC_proportion)
+
+```
+
 
 
 

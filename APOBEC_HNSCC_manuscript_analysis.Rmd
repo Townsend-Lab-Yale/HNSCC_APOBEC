@@ -59,7 +59,7 @@ MAF_for_analysis <- HNSC.MAF
 save(MAF_for_analysis, file="output_data/HNSC_MAF.RData")
 ```
 
-#trinucleotide heatmaps from cluster
+# trinucleotide heatmaps from cluster
 
 ```{r Figure trinuc context HPVpos, fig.height=2.5, fig.width=10}
 load("output_data/selection_from_cluster/HNSC_HPVpos/trinuc_output/trinuc_data_HNSC_HPVpos.RData")
@@ -414,7 +414,7 @@ ggsave(filename = "Figures/gamma_gamma_plot.png",plot = gamma_plot,height = 5,wi
 
 
 
-#tornado plots 
+# tornado plots 
 
 ```{r processing HPV neg for tornado plots}
 
@@ -728,7 +728,7 @@ HNSC.selection.HPVknown <- HNSC.selection.output[which(HNSC.selection.output$HPV
 
 # HNSC.selection.HPVknown$`APOBEC signal`
 
-unique(HNSC.selection.HPVknown$Unique_patient_identifier)
+# unique(HNSC.selection.HPVknown$Unique_patient_identifier)
   
 SNV.APOBEC.df <- as.data.frame(matrix(data = NA, nrow=length(unique(HNSC.selection.HPVknown$Unique_patient_identifier)),ncol=5))
 colnames(SNV.APOBEC.df) <- c("Tumor","SNV_count","APOBEC","APOBEC_weight","HPV_status")
@@ -744,7 +744,7 @@ for(i in 1:nrow(SNV.APOBEC.df)){
  SNV.APOBEC.df$APOBEC_weight[i] <- HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]
 }
 
-View(SNV.APOBEC.df)
+# View(SNV.APOBEC.df)
 
 write.table(x = SNV.APOBEC.df,file = "output_data/SNV_APOBEC_HPV_status.txt",sep="\t",quote = F,row.names = F)
 
@@ -757,11 +757,15 @@ ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_SNV.png",plot = HPV.vs.APOBE
 
 wilcox.test(data=subset(SNV.APOBEC.df,HPV_status=="HPV-"),SNV_count~APOBEC,conf.int=T) 
 
-wilcox.test(data=subset(SNV.APOBEC.df,HPV_status=="HPV+"),SNV_count~APOBEC, conf.int = T) 
+wilcox.test(data=subset(SNV.APOBEC.df,HPV_status=="HPV+"),SNV_count~APOBEC, conf.int = T,alternative="two.sided") 
 
 hpv.pos.snv.apobec <- subset(SNV.APOBEC.df,HPV_status=="HPV+")
+
+mean(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])-mean(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")])
+
 median(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])-median(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")])
-min(SNV.APOBEC.df$SNV_count) +theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold"))
+
+SNV.APOBEC.df[which.min(SNV.APOBEC.df$SNV_count),]
 # ggplot(data = SNV.APOBEC.df) + geom_point(aes(x=APOBEC_weight, y=APOBEC)) 
 
 
@@ -772,6 +776,29 @@ min(SNV.APOBEC.df$SNV_count) +theme(axis.text=element_text(size=12), axis.title=
 HPV.vs.APOBEC_ms <- ggplot(data = subset(SNV.APOBEC.df, !is.na(SNV.APOBEC.df$APOBEC))) + geom_boxplot(aes(y=SNV_count,x=APOBEC),color="dark red") + geom_jitter(aes(y=SNV_count,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + scale_y_log10(labels=fancy_scientific) + labs(x="APOBEC signature detected",y="SNV count")  + theme(strip.text.x = element_text(size=18)) +theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold"))
 
 ggsave(filename = "Figures/SNV_count_vs_HPV_and_APOBEC.png",plot = HPV.vs.APOBEC_ms)
+
+
+
+
+
+
+```
+```{r}
+# Among samples with an APOBEC signal, total mutation load was... 
+
+# SNV.APOBEC.yes <- subset(SNV.APOBEC.df,APOBEC=="Yes")
+
+wilcox.test(data = subset(SNV.APOBEC.df,APOBEC=="Yes"),SNV_count~HPV_status,conf.int=T)
+wilcox.test(data = subset(SNV.APOBEC.df,APOBEC=="No"),SNV_count~HPV_status,conf.int=T)
+
+# SNV.APOBEC.df$APOBEC <- factor(SNV.APOBEC.df$APOBEC,levels = c("No APOBEC Signature","APOBEC Signature","NA"))
+SNV.APOBEC.df.comparingAPOBEC <- SNV.APOBEC.df
+SNV.APOBEC.df.comparingAPOBEC$APOBEC[which(SNV.APOBEC.df.comparingAPOBEC$APOBEC=="Yes")] <- "APOBEC signature detected"
+SNV.APOBEC.df.comparingAPOBEC$APOBEC[which(SNV.APOBEC.df.comparingAPOBEC$APOBEC=="No")] <- "No APOBEC signature detected"
+
+SNV_count_comparing_APOBEC_plot <- ggplot(data = subset(SNV.APOBEC.df.comparingAPOBEC, !is.na(SNV.APOBEC.df.comparingAPOBEC$APOBEC))) + geom_boxplot(aes(y=SNV_count,x=HPV_status),color="dark red") + geom_jitter(aes(y=SNV_count,x=HPV_status),width= 0.2,alpha=0.5) + facet_grid(.~APOBEC) + theme_bw() + scale_y_log10(labels=fancy_scientific) + labs(x="HPV status",y="SNV count")  + theme(strip.text.x = element_text(size=15)) +theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold"))
+
+ggsave(filename = "Figures/SNV_count_comparing_APOBEC.png",plot = SNV_count_comparing_APOBEC_plot)
 
 ```
 
@@ -788,7 +815,128 @@ HPV.vs.APOBEC_proportion <- ggplot(data = SNV.APOBEC.df) + geom_boxplot(aes(y=`P
 
 ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_proportionTCW.png",plot = HPV.vs.APOBEC_proportion)
 
+
+HPV.vs.APOBEC_proportion_ms <- ggplot(data = subset(SNV.APOBEC.df,!is.na(SNV.APOBEC.df$APOBEC))) + geom_boxplot(aes(y=`Proportion TCW to TKW`,x=APOBEC),color="dark red") + geom_jitter(aes(y=`Proportion TCW to TKW`,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + labs(x="APOBEC signature detected")
+
+ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_proportionTCW_forMS.png",plot = HPV.vs.APOBEC_proportion_ms)
+
 ```
+
+
+```{r}
+SNV.APOBEC.tib <- as_tibble(SNV.APOBEC.df) %>%
+  group_by(APOBEC,HPV_status) %>%
+  summarize(n())
+
+7/(37+7)
+37/(37+7)
+
+256/(256+124)
+124/(256+124)
+
+# fisher.test(matrix(data = c(2,2,250,250),nrow=2))
+fisher.test(matrix(data = SNV.APOBEC.tib$`n()`[1:4],nrow=2))
+
+```
+
+# heatmap and dendrogram of the signatures
+
+```{r heatmap and dendrogram}
+load("output_data/trinuc_contexts_HNSC_MAF.RData")
+# install.packages("ggdendro")
+library(ggdendro)
+library(reshape2)
+# 
+# head(trinuc.contexts[[2]][1])
+
+weights.df <- trinuc.contexts$signature.weights[[1]]$weights
+for(i in 2:length(trinuc.contexts$signature.weights)){
+  weights.df <- rbind(weights.df,trinuc.contexts$signature.weights[[i]]$weights)
+}
+
+#just with known HPV status
+weights.df <- weights.df[which(rownames(weights.df) %in% HNSC.selection.HPVknown$Unique_patient_identifier),]
+
+head(weights.df)
+weights.df$id <- rownames(weights.df)
+weights.df.melted <- melt(weights.df)
+
+head(weights.df.melted)
+
+
+ggplot(data = weights.df.melted) + geom_tile(aes(x = id, y=variable,fill=value)) + theme(axis.text.x = element_text(angle=90))
+
+
+# #setting up with dendrogram 
+weights.df <- trinuc.contexts$signature.weights[[1]]$weights
+for(i in 2:length(trinuc.contexts$signature.weights)){
+  weights.df <- rbind(weights.df,trinuc.contexts$signature.weights[[i]]$weights)
+}
+#TODO:  keep in the ambiguous and have it as a difference color
+weights.df <- weights.df[which(rownames(weights.df) %in% HNSC.selection.HPVknown$Unique_patient_identifier),]
+
+
+dd.col <- as.dendrogram(hclust(dist(weights.df)))
+col.ordered <- order.dendrogram(dd.col)
+
+dd.row <-  as.dendrogram(hclust(dist(t(weights.df))))
+row.ordered <- order.dendrogram(dd.row)
+
+xx <- weights.df[col.ordered,row.ordered]
+# xx_names <- attr(xx, "dimnames")
+df <- as.data.frame(xx)
+colnames(df) #<- xx_names[[2]]
+df$tumor <- rownames(xx)
+df$tumor <- with(df, factor(tumor, levels=tumor, ordered=TRUE))
+
+mdf <- melt(df, id.vars="tumor")
+mdf$`HPV status` <- NA
+
+for(i in 1:nrow(mdf)){
+ mdf$`HPV status`[i] <- HNSC.selection.HPVknown$HPV_call[which(HNSC.selection.HPVknown$Unique_patient_identifier==as.character(mdf$tumor[i]))[1]]
+  
+}
+
+ddata_x <- dendro_data(dd.row)
+ddata_y <- dendro_data(dd.col)
+
+### Set up a blank theme
+theme_none <- theme(
+  panel.grid.major = element_blank(),
+  panel.grid.minor = element_blank(),
+  panel.background = element_blank(),
+  axis.title.x = element_text(colour=NA),
+  axis.title.y = element_blank(),
+  axis.text.x = element_blank(),
+  axis.text.y = element_blank(),
+  axis.line = element_blank()
+  #axis.ticks.length = element_blank()
+)
+length(unique(mdf$tumor))
+### Create plot components ###    
+# Heatmap
+a <- ifelse(mdf$`HPV status`=="HPV+","red","black")
+
+p1 <- ggplot(mdf, aes(y=variable, x=tumor)) + 
+  geom_tile(aes(fill=value)) + scale_fill_gradient2() + theme(axis.text.y = element_text(angle=0)) + theme(axis.text.x=element_text(colour = a,size=2,angle=90,face="bold"))
+
+# Dendrogram 1
+p2 <- ggplot(segment(ddata_x)) + 
+  geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) + 
+  theme_none + theme(axis.title.x=element_blank()) + coord_flip()
+
+# Dendrogram 2
+p3 <- ggplot(segment(ddata_y)) + 
+  geom_segment(aes(x=x, y=y, xend=xend, yend=yend))  + theme_none
+
+grid.newpage()
+print(p1, vp=viewport(0.8, 0.8, x=0.4, y=0.4))
+print(p3, vp=viewport(width = 0.60, 0.2, x=0.40, y=0.9))
+print(p2, vp=viewport(0.2, 0.8, x=0.9, y=0.45))
+
+```
+
+
 
 
 

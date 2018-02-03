@@ -873,7 +873,7 @@ for(i in 2:length(trinuc.contexts$signature.weights)){
   weights.df <- rbind(weights.df,trinuc.contexts$signature.weights[[i]]$weights)
 }
 #TODO:  keep in the ambiguous and have it as a difference color
-weights.df <- weights.df[which(rownames(weights.df) %in% HNSC.selection.HPVknown$Unique_patient_identifier),]
+# weights.df <- weights.df[which(rownames(weights.df) %in% HNSC.selection.HPVknown$Unique_patient_identifier),]
 
 
 dd.col <- as.dendrogram(hclust(dist(weights.df)))
@@ -893,7 +893,7 @@ mdf <- melt(df, id.vars="tumor")
 mdf$`HPV status` <- NA
 
 for(i in 1:nrow(mdf)){
- mdf$`HPV status`[i] <- HNSC.selection.HPVknown$HPV_call[which(HNSC.selection.HPVknown$Unique_patient_identifier==as.character(mdf$tumor[i]))[1]]
+ mdf$`HPV status`[i] <- HNSC.selection.output$HPV_call[which(HNSC.selection.output$Unique_patient_identifier==as.character(mdf$tumor[i]))[1]]
   
 }
 
@@ -915,7 +915,14 @@ theme_none <- theme(
 length(unique(mdf$tumor))
 ### Create plot components ###    
 # Heatmap
-a <- ifelse(mdf$`HPV status`=="HPV+","red","black")
+a <- rep(NA,length(mdf$`HPV status`))
+for(i in 1:length(a)){
+ if(mdf$`HPV status`[i] == "HPV-"){a[i] <- "black"} 
+  if(mdf$`HPV status`[i] == "HPV+"){a[i] <- "red"}
+  if(mdf$`HPV status`[i] == "ambiguous"){a[i] <- "blue"}
+}
+
+# <- ifelse(mdf$`HPV status`=="HPV+","red","black")
 
 p1 <- ggplot(mdf, aes(y=variable, x=tumor)) + 
   geom_tile(aes(fill=value)) + scale_fill_gradient2() + theme(axis.text.y = element_text(angle=0)) + theme(axis.text.x=element_text(colour = a,size=2,angle=90,face="bold"))
@@ -933,6 +940,18 @@ grid.newpage()
 print(p1, vp=viewport(0.8, 0.8, x=0.4, y=0.4))
 print(p3, vp=viewport(width = 0.60, 0.2, x=0.40, y=0.9))
 print(p2, vp=viewport(0.2, 0.8, x=0.9, y=0.45))
+
+hpvPsig2 <- subset(mdf, `HPV status`=="HPV+" & variable=="Signature.2")
+hpvNsig2 <- subset(mdf, `HPV status`=="HPV-" & variable=="Signature.2")
+
+hpvPsig13 <- subset(mdf, `HPV status`=="HPV+" & variable=="Signature.13")
+hpvNsig13 <- subset(mdf, `HPV status`=="HPV-" & variable=="Signature.13")
+
+mean(hpvPsig2$value)
+
+mean(hpvNsig2$value)
+mean(hpvPsig13$value)
+mean(hpvNsig13$value)
 
 ```
 

@@ -7,6 +7,7 @@ output: html_notebook
 ```{r import data}
 
 #import the HPV status data from 
+library(feather)
 apobec_hnscc_df <- read_feather("input_data/nfkb.feather")
 # unique(apobec_hnscc_df$patient_id) # All TCGA samples
 
@@ -729,19 +730,19 @@ HNSC.selection.HPVknown <- HNSC.selection.output[which(HNSC.selection.output$HPV
 # HNSC.selection.HPVknown$`APOBEC signal`
 
 # unique(HNSC.selection.HPVknown$Unique_patient_identifier)
-  
+
 SNV.APOBEC.df <- as.data.frame(matrix(data = NA, nrow=length(unique(HNSC.selection.HPVknown$Unique_patient_identifier)),ncol=5))
 colnames(SNV.APOBEC.df) <- c("Tumor","SNV_count","APOBEC","APOBEC_weight","HPV_status")
 
 SNV.APOBEC.df$Tumor <- unique(HNSC.selection.HPVknown$Unique_patient_identifier)
 
 for(i in 1:nrow(SNV.APOBEC.df)){
- SNV.APOBEC.df$SNV_count[i] <- length(which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i]))
- if(!is.na(HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]])){
- SNV.APOBEC.df$APOBEC[i] <- if(HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]>0){"Yes"
- }else{if(HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]==0){"No"}}}
- SNV.APOBEC.df$HPV_status[i] <- HNSC.selection.HPVknown$HPV_call[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]
- SNV.APOBEC.df$APOBEC_weight[i] <- HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]
+  SNV.APOBEC.df$SNV_count[i] <- length(which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i]))
+  if(!is.na(HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]])){
+    SNV.APOBEC.df$APOBEC[i] <- if(HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]>0){"Yes"
+    }else{if(HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]==0){"No"}}}
+  SNV.APOBEC.df$HPV_status[i] <- HNSC.selection.HPVknown$HPV_call[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]
+  SNV.APOBEC.df$APOBEC_weight[i] <- HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]
 }
 
 # View(SNV.APOBEC.df)
@@ -760,6 +761,7 @@ wilcox.test(data=subset(SNV.APOBEC.df,HPV_status=="HPV-"),SNV_count~APOBEC,conf.
 wilcox.test(data=subset(SNV.APOBEC.df,HPV_status=="HPV+"),SNV_count~APOBEC, conf.int = T,alternative="two.sided") 
 
 hpv.pos.snv.apobec <- subset(SNV.APOBEC.df,HPV_status=="HPV+")
+hpv.neg.snv.apobec <- subset(SNV.APOBEC.df,HPV_status=="HPV-")
 
 mean(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])-mean(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")])
 
@@ -768,8 +770,16 @@ median(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])-me
 SNV.APOBEC.df[which.min(SNV.APOBEC.df$SNV_count),]
 # ggplot(data = SNV.APOBEC.df) + geom_point(aes(x=APOBEC_weight, y=APOBEC)) 
 
+mean(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="Yes")])-mean(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="No")])
+
+median(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="Yes")])-median(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="No")])
 
 
+summary(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])
+summary(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")])
+
+summary(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="Yes")])
+summary(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="No")])
 #plot for the manuscript
 
 
@@ -808,7 +818,7 @@ ggsave(filename = "Figures/SNV_count_comparing_APOBEC.png",plot = SNV_count_comp
 SNV.APOBEC.df$`Proportion TCW to TKW` <- NA
 
 for(i in 1:nrow(SNV.APOBEC.df)){
- SNV.APOBEC.df$`Proportion TCW to TKW`[i] <- length(which(HNSC.selection.HPVknown$TCW_TKW[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])]==1))/(length(which(HNSC.selection.HPVknown$TCW_TKW[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])]==1))+length(which(HNSC.selection.HPVknown$TCW_TKW[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])]==0)))
+  SNV.APOBEC.df$`Proportion TCW to TKW`[i] <- length(which(HNSC.selection.HPVknown$TCW_TKW[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])]==1))/(length(which(HNSC.selection.HPVknown$TCW_TKW[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])]==1))+length(which(HNSC.selection.HPVknown$TCW_TKW[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])]==0)))
 }
 
 HPV.vs.APOBEC_proportion <- ggplot(data = SNV.APOBEC.df) + geom_boxplot(aes(y=`Proportion TCW to TKW`,x=APOBEC),color="dark red") + geom_jitter(aes(y=`Proportion TCW to TKW`,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + labs(x="APOBEC signature detected")
@@ -841,122 +851,343 @@ fisher.test(matrix(data = SNV.APOBEC.tib$`n()`[1:4],nrow=2))
 
 # heatmap and dendrogram of the signatures
 
-```{r heatmap and dendrogram}
-load("output_data/trinuc_contexts_HNSC_MAF.RData")
-# install.packages("ggdendro")
-library(ggdendro)
+```{r ggplot and dendrogram and heatmap data analysis}
+# library(plyr)
 library(reshape2)
+# library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(ggdendro)
+library(gridExtra)
+library(dendextend)
+
+# useful: https://stackoverflow.com/questions/42047896/joining-a-dendrogram-and-a-heatmap
+# and https://plot.ly/ggplot2/ggdendro-dendrograms/
+
+
+load("output_data/trinuc_contexts_HNSC_MAF.RData")
+weights.df <- trinuc.contexts$signature.weights[[1]]$weights
+for(i in 2:length(trinuc.contexts$signature.weights)){
+  weights.df <- rbind(weights.df,trinuc.contexts$signature.weights[[i]]$weights)
+}
+
+# Dendrogram data
+# not scaling because all data should be on the same scale
+
+colnames(weights.df) <- 1:30
+
+dend <- as.dendrogram(hclust(dist(weights.df)))
+dend_data <- dendro_data(dend)
+
+dend_t <- as.dendrogram(hclust(dist(t(weights.df))))
+dend_data_t <- dendro_data(dend_t)
+
+# Setup segment data
+
+segment_data_tumors <- with(
+  segment(dend_data), 
+  data.frame(x = y, y = x, xend = yend, yend = xend))
+
+segment_data_signatures <- with(
+  segment(dend_data_t), 
+  data.frame(x = y, y = x, xend = yend, yend = xend))
+
+# position data
+tumor_pos_table <- with(
+  dend_data$labels,
+  data.frame(ycenter = x, tumor=as.character(label), height=1))
+
+signature_pos_table <- with(
+  dend_data_t$labels,
+  data.frame(xcenter = x, signature=as.character(label), width=1))
+
+tumor_names <- rownames(weights.df)
+signature_names <- colnames(weights.df)
+
+
+library(feather)
+apobec_hnscc_df <- read_feather("input_data/nfkb.feather")
+
+head(apobec_hnscc_df)
+
+
+# tables to position x and y 
+# detach("package:plyr", unload=TRUE) 
+# tumor_sample_pos_table <- data.frame(sample = tumor_names) %>%
+#     mutate(x_center = (1:n()), 
+#            width = 1)
 # 
-# head(trinuc.contexts[[2]][1])
+# signature_sample_pos_table <- data.frame(sample = signature_names) %>%
+#     mutate(x_center = (1:n()), 
+#            width = 1)
 
-weights.df <- trinuc.contexts$signature.weights[[1]]$weights
-for(i in 2:length(trinuc.contexts$signature.weights)){
-  weights.df <- rbind(weights.df,trinuc.contexts$signature.weights[[i]]$weights)
+
+# heatmap_data_test <- weights.df %>%
+#   add_column(id = rownames(weights.df)) %>%
+#   reshape2::melt(value.name = "Signature weight")
+
+heatmap_data <- weights.df %>%
+  add_column(id = rownames(weights.df)) %>%
+  reshape2::melt(value.name = "Signature weight") %>%
+  rename(tumor = id, signature = variable) %>%
+  left_join(signature_pos_table) %>%
+  left_join(tumor_pos_table)
+
+# Limits for the vertical axes
+tumor_axis_limits <- with(
+  tumor_pos_table, 
+  c(min(ycenter - 0.5 * height), max(ycenter + 0.5 * height))
+) + 
+  0.1 * c(-1, 1) # extra spacing: 0.1
+signature_axis_limits <- with(
+  signature_pos_table, 
+  c(min(xcenter - 0.5 * width), max(xcenter + 0.5 * width))
+) + 
+  0.1 * c(-1, 1) # extra spacing: 0.1
+
+# ADD HPV status
+segment_data_tumors$color <- "black"
+# length(which(segment_data_tumors$xend==0));nrow(tumor_pos_table)
+
+# segment_data_tumors$y[which(segment_data_tumors$xend==0)]
+segment_data_tumors$tumor <- NA
+segment_data_tumors$tumor[which(segment_data_tumors$xend==0)] <- as.character(tumor_pos_table$tumor)
+segment_data_tumors$HPV_status <- NA
+
+for(i in 1:nrow(segment_data_tumors[which(segment_data_tumors$xend==0),])){
+  segment_data_tumors$HPV_status[which(segment_data_tumors$xend==0)][i] <- apobec_hnscc_df$categ[which(apobec_hnscc_df$patient_id==segment_data_tumors$tumor[which(segment_data_tumors$xend==0)][i])]
 }
 
-#just with known HPV status
-weights.df <- weights.df[which(rownames(weights.df) %in% HNSC.selection.HPVknown$Unique_patient_identifier),]
+# which(is.na(segment_data_tumors$color) & !is.na(segment_data_tumors$tumor)) #all accounted for
 
-head(weights.df)
-weights.df$id <- rownames(weights.df)
-weights.df.melted <- melt(weights.df)
+head(segment_data_tumors,10)
 
-head(weights.df.melted)
-
-
-ggplot(data = weights.df.melted) + geom_tile(aes(x = id, y=variable,fill=value)) + theme(axis.text.x = element_text(angle=90))
-
-
-# #setting up with dendrogram 
-weights.df <- trinuc.contexts$signature.weights[[1]]$weights
-for(i in 2:length(trinuc.contexts$signature.weights)){
-  weights.df <- rbind(weights.df,trinuc.contexts$signature.weights[[i]]$weights)
-}
-#TODO:  keep in the ambiguous and have it as a difference color
-# weights.df <- weights.df[which(rownames(weights.df) %in% HNSC.selection.HPVknown$Unique_patient_identifier),]
-
-
-dd.col <- as.dendrogram(hclust(dist(weights.df)))
-col.ordered <- order.dendrogram(dd.col)
-
-dd.row <-  as.dendrogram(hclust(dist(t(weights.df))))
-row.ordered <- order.dendrogram(dd.row)
-
-xx <- weights.df[col.ordered,row.ordered]
-# xx_names <- attr(xx, "dimnames")
-df <- as.data.frame(xx)
-colnames(df) #<- xx_names[[2]]
-df$tumor <- rownames(xx)
-df$tumor <- with(df, factor(tumor, levels=tumor, ordered=TRUE))
-
-mdf <- melt(df, id.vars="tumor")
-mdf$`HPV status` <- NA
-
-for(i in 1:nrow(mdf)){
- mdf$`HPV status`[i] <- HNSC.selection.output$HPV_call[which(HNSC.selection.output$Unique_patient_identifier==as.character(mdf$tumor[i]))[1]]
+for(i in 1:nrow(segment_data_tumors)){
+  if(!is.na(segment_data_tumors$HPV_status[i])){
+    
+    if(segment_data_tumors$HPV_status[i]=="ambiguous"){
+      segment_data_tumors$color[i] <- "gray" 
+    }
+    if(segment_data_tumors$HPV_status[i]=="HPV+"){
+      segment_data_tumors$color[i] <- "blue" 
+    }
+    if(segment_data_tumors$HPV_status[i]=="HPV-"){
+      segment_data_tumors$color[i] <- "red" 
+    }
+  }
   
 }
 
-ddata_x <- dendro_data(dd.row)
-ddata_y <- dendro_data(dd.col)
 
-### Set up a blank theme
-theme_none <- theme(
-  panel.grid.major = element_blank(),
-  panel.grid.minor = element_blank(),
-  panel.background = element_blank(),
-  axis.title.x = element_text(colour=NA),
-  axis.title.y = element_blank(),
-  axis.text.x = element_blank(),
-  axis.text.y = element_blank(),
-  axis.line = element_blank()
-  #axis.ticks.length = element_blank()
-)
-length(unique(mdf$tumor))
-### Create plot components ###    
-# Heatmap
-a <- rep(NA,length(mdf$`HPV status`))
-for(i in 1:length(a)){
- if(mdf$`HPV status`[i] == "HPV-"){a[i] <- "black"} 
-  if(mdf$`HPV status`[i] == "HPV+"){a[i] <- "red"}
-  if(mdf$`HPV status`[i] == "ambiguous"){a[i] <- "blue"}
-}
+```
 
-# <- ifelse(mdf$`HPV status`=="HPV+","red","black")
+```{r generate heatmap}
+# Heatmap plot
+plt_hmap <- ggplot(heatmap_data, 
+                   aes(x = xcenter, y = ycenter, fill = `Signature weight`, 
+                       height = height, width = width)) + 
+  geom_tile() +
+  scale_fill_gradient2("Signature weight", high = "darkblue", low = "white") +
+  scale_x_continuous(breaks = signature_pos_table$xcenter, 
+                     labels = signature_pos_table$signature, 
+                     expand = c(0, 0),position = "top") + 
+  # For the y axis, alternatively set the labels as: gene_position_table$gene
+  scale_y_continuous(breaks = tumor_pos_table[, "ycenter"], 
+                     labels = rep("", nrow(tumor_pos_table)),
+                     limits = tumor_axis_limits, 
+                     expand = c(0, 0)) + 
+  labs(x = "Signature", y = "") +
+  theme_bw() +
+  theme(axis.text.x = element_text(size = rel(1), hjust = 0.5,vjust = 0,  angle = 90),axis.title.y = element_blank(),
+        # margin: top, right, bottom, and left
+        plot.margin = unit(c(-.051, -.051, -.051, -.051), "cm"),
+        # plot.margin = unit(c(-1, 0.2, 0.2, 2), "cm"),
+        panel.grid.minor = element_blank(),legend.position = "none",axis.title = element_blank()) 
 
-p1 <- ggplot(mdf, aes(y=variable, x=tumor)) + 
-  geom_tile(aes(fill=value)) + scale_fill_gradient2() + theme(axis.text.y = element_text(angle=0)) + theme(axis.text.x=element_text(colour = a,size=2,angle=90,face="bold"))
+# Dendrogram plot
+plt_dendr <- ggplot(segment_data_tumors) + 
+  geom_segment(aes(x = x, y = y, xend = xend, yend = yend,color=color),size=.2) + 
+  scale_x_reverse(expand = c(0, 0.01)) + 
+  scale_y_continuous(breaks = tumor_pos_table$y_center, 
+                     labels = tumor_pos_table$tumor, 
+                     limits = tumor_axis_limits, 
+                     expand = c(0, 0)) + scale_colour_identity() +
+  labs(x = "", y = "Tumors", colour = "", size = "") + 
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(),axis.title.x  = element_blank(),axis.text = element_blank(),axis.ticks = element_blank(),axis.title = element_blank(),panel.border = element_blank(),panel.grid.major = element_blank(),plot.margin = unit(c(-.1, -.1, -.1, -.1), "cm"))
 
-# Dendrogram 1
-p2 <- ggplot(segment(ddata_x)) + 
-  geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) + 
-  theme_none + theme(axis.title.x=element_blank()) + coord_flip()
+plt_dendr_signature <- ggplot(segment_data_signatures) + 
+  geom_segment(aes(x = xend, y = yend, xend = x, yend = y)) + 
+  # scale_x_reverse(expand = c(0, 0.5)) + 
+  scale_y_continuous(breaks = signature_pos_table$y_center, 
+                     labels = signature_pos_table$signature, 
+                     limits = signature_axis_limits, 
+                     expand = c(0, 0),position="top") +
+  labs(x = "Distance", y = "Signatures", colour = "", size = "") +
+  theme_bw() + 
+  theme(panel.grid.minor = element_blank(),axis.text = element_blank(),axis.ticks.y = element_blank(),axis.title = element_blank(),panel.border = element_blank(),panel.grid.major = element_blank(),plot.margin = unit(c(-.1, -.1, -.1, -.1), "cm")) + coord_flip()
 
-# Dendrogram 2
-p3 <- ggplot(segment(ddata_y)) + 
-  geom_segment(aes(x=x, y=y, xend=xend, yend=yend))  + theme_none
+library(cowplot)
+heatmap_and_dendro <- plot_grid(NULL,plt_dendr_signature,plt_dendr, plt_hmap, align = 'hv', rel_widths = c(0.7, 1), rel_heights = c(.4,2))
 
-grid.newpage()
-print(p1, vp=viewport(0.8, 0.8, x=0.4, y=0.4))
-print(p3, vp=viewport(width = 0.60, 0.2, x=0.40, y=0.9))
-print(p2, vp=viewport(0.2, 0.8, x=0.9, y=0.45))
-
-hpvPsig2 <- subset(mdf, `HPV status`=="HPV+" & variable=="Signature.2")
-hpvNsig2 <- subset(mdf, `HPV status`=="HPV-" & variable=="Signature.2")
-
-hpvPsig13 <- subset(mdf, `HPV status`=="HPV+" & variable=="Signature.13")
-hpvNsig13 <- subset(mdf, `HPV status`=="HPV-" & variable=="Signature.13")
-
-mean(hpvPsig2$value)
-
-mean(hpvNsig2$value)
-mean(hpvPsig13$value)
-mean(hpvNsig13$value)
+ggsave(filename = "Figures/heatmap_and_dendro.png",plot = heatmap_and_dendro,height = 9,width = 6)
+ggsave(filename = "Figures/heatmap_and_dendro.pdf",plot = heatmap_and_dendro,height = 9,width = 6)
+# 
+# 
+# plt_dendr_axis <- axis_canvas(plt_hmap,axis = 'y') + ggplot(segment_data_tumors) + 
+#     geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) + 
+#     scale_x_reverse(expand = c(0, 0.01)) + 
+#     scale_y_continuous(breaks = tumor_pos_table$y_center, 
+#                        labels = tumor_pos_table$gene, 
+#                        limits = tumor_axis_limits, 
+#                        expand = c(0, 0)) + 
+#     labs(x = "Distance", y = "", colour = "", size = "") +
+#     theme_bw() + 
+#     theme(panel.grid.minor = element_blank(),axis.title.x  = element_blank(),plot.margin = unit(c(0, 0.0, 0.0, -0.7), "cm"))
 
 ```
 
 
 
+<!-- ```{r heatmap and dendrogram} -->
+<!-- load("output_data/trinuc_contexts_HNSC_MAF.RData") -->
+<!-- # install.packages("ggdendro") -->
+<!-- library(ggdendro) -->
+<!-- library(reshape2) -->
+<!-- #  -->
+<!-- # head(trinuc.contexts[[2]][1]) -->
+
+<!-- weights.df <- trinuc.contexts$signature.weights[[1]]$weights -->
+<!-- for(i in 2:length(trinuc.contexts$signature.weights)){ -->
+<!--   weights.df <- rbind(weights.df,trinuc.contexts$signature.weights[[i]]$weights) -->
+<!-- } -->
+
+<!-- #just with known HPV status -->
+<!-- weights.df <- weights.df[which(rownames(weights.df) %in% HNSC.selection.HPVknown$Unique_patient_identifier),] -->
+
+<!-- head(weights.df) -->
+<!-- weights.df$id <- rownames(weights.df) -->
+<!-- weights.df.melted <- melt(weights.df) -->
+
+<!-- head(weights.df.melted) -->
 
 
+<!-- ggplot(data = weights.df.melted) + geom_tile(aes(x = id, y=variable,fill=value)) + theme(axis.text.x = element_text(angle=90)) -->
+
+
+<!-- # #setting up with dendrogram  -->
+<!-- weights.df <- trinuc.contexts$signature.weights[[1]]$weights -->
+<!-- for(i in 2:length(trinuc.contexts$signature.weights)){ -->
+<!--   weights.df <- rbind(weights.df,trinuc.contexts$signature.weights[[i]]$weights) -->
+<!-- } -->
+<!-- #TODO:  keep in the ambiguous and have it as a difference color -->
+<!-- # weights.df <- weights.df[which(rownames(weights.df) %in% HNSC.selection.HPVknown$Unique_patient_identifier),] -->
+
+
+<!-- dd.col <- as.dendrogram(hclust(dist(weights.df))) -->
+<!-- col.ordered <- order.dendrogram(dd.col) -->
+
+<!-- dd.row <-  as.dendrogram(hclust(dist(t(weights.df)))) -->
+<!-- row.ordered <- order.dendrogram(dd.row) -->
+
+<!-- xx <- weights.df[col.ordered,row.ordered] -->
+<!-- # xx_names <- attr(xx, "dimnames") -->
+<!-- df <- as.data.frame(xx) -->
+<!-- colnames(df) #<- xx_names[[2]] -->
+<!-- df$tumor <- rownames(xx) -->
+<!-- df$tumor <- with(df, factor(tumor, levels=tumor, ordered=TRUE)) -->
+
+<!-- mdf <- melt(df, id.vars="tumor") -->
+<!-- mdf$`HPV status` <- NA -->
+
+<!-- for(i in 1:nrow(mdf)){ -->
+<!--   mdf$`HPV status`[i] <- HNSC.selection.output$HPV_call[which(HNSC.selection.output$Unique_patient_identifier==as.character(mdf$tumor[i]))[1]] -->
+
+<!-- } -->
+
+<!-- ddata_x <- dendro_data(dd.row) -->
+<!-- ddata_y <- dendro_data(dd.col) -->
+
+<!-- ### Set up a blank theme -->
+<!-- theme_none <- theme( -->
+<!--   panel.grid.major = element_blank(), -->
+<!--   panel.grid.minor = element_blank(), -->
+<!--   panel.background = element_blank(), -->
+<!--   axis.title.x = element_text(colour=NA), -->
+<!--   axis.title.y = element_blank(), -->
+<!--   axis.text.x = element_blank(), -->
+<!--   axis.text.y = element_blank(), -->
+<!--   axis.line = element_blank() -->
+<!--   #axis.ticks.length = element_blank() -->
+<!-- ) -->
+<!-- length(unique(mdf$tumor)) -->
+<!-- ### Create plot components ###     -->
+<!-- # Heatmap -->
+<!-- a <- rep(NA,length(mdf$`HPV status`)) -->
+<!-- for(i in 1:length(a)){ -->
+<!--   if(mdf$`HPV status`[i] == "HPV-"){a[i] <- "black"}  -->
+<!--   if(mdf$`HPV status`[i] == "HPV+"){a[i] <- "red"} -->
+<!--   if(mdf$`HPV status`[i] == "ambiguous"){a[i] <- "blue"} -->
+<!-- } -->
+
+<!-- # <- ifelse(mdf$`HPV status`=="HPV+","red","black") -->
+
+<!-- p1 <- ggplot(mdf, aes(y=variable, x=tumor)) +  -->
+<!--   geom_tile(aes(fill=value)) + scale_fill_gradient2() + theme(axis.text.y = element_text(angle=0)) + theme(axis.text.x=element_text(colour = a,size=2,angle=90,face="bold")) + theme(legend.position = "none") + theme(plot.margin = unit(c(0, 0, 0, 0), "cm")) + theme(axis.title.y = element_blank()) -->
+
+<!-- # Dendrogram 1 -->
+<!-- p2 <- ggplot(segment(ddata_x)) +  -->
+<!--   geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +  -->
+<!--   theme_none + theme(axis.title.x=element_blank()) + coord_flip() +scale_y_reverse() + theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))# + theme(axis.text = element_blank()) -->
+
+<!-- # Dendrogram 2 -->
+<!-- p3 <- ggplot(segment(ddata_y)) +  -->
+<!--   geom_segment(aes(x=x, y=y, xend=xend, yend=yend))  + theme_none + theme(plot.margin = unit(c(0, 0, 0, 0), "cm")) -->
+
+<!-- # install.packages("cowplot") -->
+<!-- library(cowplot) -->
+
+<!-- plot_grid(NULL,p3,p2,p1,ncol=2,rel_widths = c(2,5),align = "hv") -->
+
+<!-- #  -->
+<!-- # grid.newpage() -->
+<!-- # print(p1, vp=viewport(0.8, 0.8, x=0.4, y=0.4)) -->
+<!-- # print(p3, vp=viewport(width = 0.60, 0.2, x=0.40, y=0.9)) -->
+<!-- # print(p2, vp=viewport(0.2, 0.8, x=0.9, y=0.45)) -->
+<!-- #  -->
+<!-- # hpvPsig2 <- subset(mdf, `HPV status`=="HPV+" & variable=="Signature.2") -->
+<!-- # hpvNsig2 <- subset(mdf, `HPV status`=="HPV-" & variable=="Signature.2") -->
+<!-- #  -->
+<!-- # hpvPsig13 <- subset(mdf, `HPV status`=="HPV+" & variable=="Signature.13") -->
+<!-- # hpvNsig13 <- subset(mdf, `HPV status`=="HPV-" & variable=="Signature.13") -->
+<!-- #  -->
+<!-- # mean(hpvPsig2$value) -->
+<!-- #  -->
+<!-- # mean(hpvNsig2$value) -->
+<!-- # mean(hpvPsig13$value) -->
+<!-- # mean(hpvNsig13$value) -->
+
+<!-- ``` -->
+
+
+
+
+<!-- ```{r} -->
+
+<!-- dd <- dist(scale(weights.df), method = "euclidean") -->
+<!-- hc <- hclust(dd, method = "ward.D2") -->
+<!-- ggdendrogram(data = hc) -->
+
+
+<!-- dd <- dist(weights.df, method = "euclidean") -->
+<!-- hc <- hclust(dd, method = "ward.D2") -->
+<!-- ggdendrogram(data = hc) -->
+<!-- ``` -->
+
+<!-- # ```{r} -->
+<!-- # install.packages("gplots") -->
+<!-- # library(gplots) -->
+<!-- #  -->
+<!-- # heatmap.2(t(weights.df)) -->
+<!-- # ``` -->
 

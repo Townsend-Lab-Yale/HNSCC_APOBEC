@@ -719,136 +719,6 @@ ggsave(gg.combined, filename = paste("Figures/same_color_gamma_epistasis_plot_",
 ```
 
 
-# HPV vs SNP count  
-
-```{r HPV status vs SNV count}
-
-load("output_data/HNSC_selection_with_APOBEC.RData")
-
-HNSC.selection.HPVknown <- HNSC.selection.output[which(HNSC.selection.output$HPV_call != "ambiguous"),]
-
-# HNSC.selection.HPVknown$`APOBEC signal`
-
-# unique(HNSC.selection.HPVknown$Unique_patient_identifier)
-
-SNV.APOBEC.df <- as.data.frame(matrix(data = NA, nrow=length(unique(HNSC.selection.HPVknown$Unique_patient_identifier)),ncol=5))
-colnames(SNV.APOBEC.df) <- c("Tumor","SNV_count","APOBEC","APOBEC_weight","HPV_status")
-
-SNV.APOBEC.df$Tumor <- unique(HNSC.selection.HPVknown$Unique_patient_identifier)
-
-for(i in 1:nrow(SNV.APOBEC.df)){
-  SNV.APOBEC.df$SNV_count[i] <- length(which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i]))
-  if(!is.na(HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]])){
-    SNV.APOBEC.df$APOBEC[i] <- if(HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]>0){"Yes"
-    }else{if(HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]==0){"No"}}}
-  SNV.APOBEC.df$HPV_status[i] <- HNSC.selection.HPVknown$HPV_call[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]
-  SNV.APOBEC.df$APOBEC_weight[i] <- HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]
-}
-
-# View(SNV.APOBEC.df)
-
-write.table(x = SNV.APOBEC.df,file = "output_data/SNV_APOBEC_HPV_status.txt",sep="\t",quote = F,row.names = F)
-
-source("R/fancy_scientific_code.R")
-
-HPV.vs.APOBEC <- ggplot(data = SNV.APOBEC.df) + geom_boxplot(aes(y=SNV_count,x=APOBEC),color="dark red") + geom_jitter(aes(y=SNV_count,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + scale_y_log10(labels=fancy_scientific) + labs(x="APOBEC signature detected",y="SNV count")
-
-
-ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_SNV.png",plot = HPV.vs.APOBEC)
-
-wilcox.test(data=subset(SNV.APOBEC.df,HPV_status=="HPV-"),SNV_count~APOBEC,conf.int=T) 
-
-wilcox.test(data=subset(SNV.APOBEC.df,HPV_status=="HPV+"),SNV_count~APOBEC, conf.int = T,alternative="two.sided") 
-
-hpv.pos.snv.apobec <- subset(SNV.APOBEC.df,HPV_status=="HPV+")
-hpv.neg.snv.apobec <- subset(SNV.APOBEC.df,HPV_status=="HPV-")
-
-mean(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])-mean(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")])
-
-median(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])-median(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")])
-
-SNV.APOBEC.df[which.min(SNV.APOBEC.df$SNV_count),]
-# ggplot(data = SNV.APOBEC.df) + geom_point(aes(x=APOBEC_weight, y=APOBEC)) 
-
-mean(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="Yes")])-mean(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="No")])
-
-median(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="Yes")])-median(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="No")])
-
-
-summary(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])
-summary(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")])
-
-summary(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="Yes")])
-summary(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="No")])
-#plot for the manuscript
-
-
-HPV.vs.APOBEC_ms <- ggplot(data = subset(SNV.APOBEC.df, !is.na(SNV.APOBEC.df$APOBEC))) + geom_boxplot(aes(y=SNV_count,x=APOBEC),color="dark red") + geom_jitter(aes(y=SNV_count,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + scale_y_log10(labels=fancy_scientific) + labs(x="APOBEC signature detected",y="SNV count")  + theme(strip.text.x = element_text(size=18)) +theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold"))
-
-ggsave(filename = "Figures/SNV_count_vs_HPV_and_APOBEC.png",plot = HPV.vs.APOBEC_ms)
-
-
-
-
-
-
-```
-```{r}
-# Among samples with an APOBEC signal, total mutation load was... 
-
-# SNV.APOBEC.yes <- subset(SNV.APOBEC.df,APOBEC=="Yes")
-
-wilcox.test(data = subset(SNV.APOBEC.df,APOBEC=="Yes"),SNV_count~HPV_status,conf.int=T)
-wilcox.test(data = subset(SNV.APOBEC.df,APOBEC=="No"),SNV_count~HPV_status,conf.int=T)
-
-# SNV.APOBEC.df$APOBEC <- factor(SNV.APOBEC.df$APOBEC,levels = c("No APOBEC Signature","APOBEC Signature","NA"))
-SNV.APOBEC.df.comparingAPOBEC <- SNV.APOBEC.df
-SNV.APOBEC.df.comparingAPOBEC$APOBEC[which(SNV.APOBEC.df.comparingAPOBEC$APOBEC=="Yes")] <- "APOBEC signature detected"
-SNV.APOBEC.df.comparingAPOBEC$APOBEC[which(SNV.APOBEC.df.comparingAPOBEC$APOBEC=="No")] <- "No APOBEC signature detected"
-
-SNV_count_comparing_APOBEC_plot <- ggplot(data = subset(SNV.APOBEC.df.comparingAPOBEC, !is.na(SNV.APOBEC.df.comparingAPOBEC$APOBEC))) + geom_boxplot(aes(y=SNV_count,x=HPV_status),color="dark red") + geom_jitter(aes(y=SNV_count,x=HPV_status),width= 0.2,alpha=0.5) + facet_grid(.~APOBEC) + theme_bw() + scale_y_log10(labels=fancy_scientific) + labs(x="HPV status",y="SNV count")  + theme(strip.text.x = element_text(size=15)) +theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold"))
-
-ggsave(filename = "Figures/SNV_count_comparing_APOBEC.png",plot = SNV_count_comparing_APOBEC_plot)
-
-```
-
-
-```{r TCW to TKW vs APOBEC and HPV status }
-
-SNV.APOBEC.df$`Proportion TCW to TKW` <- NA
-
-for(i in 1:nrow(SNV.APOBEC.df)){
-  SNV.APOBEC.df$`Proportion TCW to TKW`[i] <- length(which(HNSC.selection.HPVknown$TCW_TKW[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])]==1))/(length(which(HNSC.selection.HPVknown$TCW_TKW[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])]==1))+length(which(HNSC.selection.HPVknown$TCW_TKW[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])]==0)))
-}
-
-HPV.vs.APOBEC_proportion <- ggplot(data = SNV.APOBEC.df) + geom_boxplot(aes(y=`Proportion TCW to TKW`,x=APOBEC),color="dark red") + geom_jitter(aes(y=`Proportion TCW to TKW`,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + labs(x="APOBEC signature detected")
-
-ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_proportionTCW.png",plot = HPV.vs.APOBEC_proportion)
-
-
-HPV.vs.APOBEC_proportion_ms <- ggplot(data = subset(SNV.APOBEC.df,!is.na(SNV.APOBEC.df$APOBEC))) + geom_boxplot(aes(y=`Proportion TCW to TKW`,x=APOBEC),color="dark red") + geom_jitter(aes(y=`Proportion TCW to TKW`,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + labs(x="APOBEC signature detected")
-
-ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_proportionTCW_forMS.png",plot = HPV.vs.APOBEC_proportion_ms)
-
-```
-
-
-```{r}
-SNV.APOBEC.tib <- as_tibble(SNV.APOBEC.df) %>%
-  group_by(APOBEC,HPV_status) %>%
-  summarize(n())
-
-7/(37+7)
-37/(37+7)
-
-256/(256+124)
-124/(256+124)
-
-# fisher.test(matrix(data = c(2,2,250,250),nrow=2))
-fisher.test(matrix(data = SNV.APOBEC.tib$`n()`[1:4],nrow=2))
-
-```
-
 # heatmap and dendrogram of the signatures
 
 ```{r ggplot and dendrogram and heatmap data analysis}
@@ -998,7 +868,7 @@ plt_hmap <- ggplot(heatmap_data,
                      expand = c(0, 0)) + 
   labs(x = "Signature", y = "") +
   theme_bw() +
-  theme(axis.text.x = element_text(size = rel(1), hjust = 0.5,vjust = 0,  angle = 90),axis.title.y = element_blank(),
+  theme(axis.text.x.top = element_text(size = rel(1), vjust=0.5,hjust=0.5 ,  angle = 90),axis.title.y = element_blank(),
         # margin: top, right, bottom, and left
         plot.margin = unit(c(-.051, -.051, -.051, -.051), "cm"),
         # plot.margin = unit(c(-1, 0.2, 0.2, 2), "cm"),
@@ -1049,6 +919,495 @@ ggsave(filename = "Figures/heatmap_and_dendro.pdf",plot = heatmap_and_dendro,hei
 
 
 
+
+
+# HPV vs SNP count  
+
+```{r HPV status vs SNV count}
+library(ggplot2)
+load("output_data/HNSC_selection_with_APOBEC.RData")
+
+HNSC.selection.HPVknown <- HNSC.selection.output[which(HNSC.selection.output$HPV_call != "ambiguous"),]
+
+# HNSC.selection.HPVknown$`APOBEC signal`
+
+# unique(HNSC.selection.HPVknown$Unique_patient_identifier)
+
+SNV.APOBEC.df <- as.data.frame(matrix(data = NA, nrow=length(unique(HNSC.selection.HPVknown$Unique_patient_identifier)),ncol=5))
+colnames(SNV.APOBEC.df) <- c("Tumor","SNV_count","APOBEC","APOBEC_weight","HPV_status")
+
+SNV.APOBEC.df$Tumor <- unique(HNSC.selection.HPVknown$Unique_patient_identifier)
+
+for(i in 1:nrow(SNV.APOBEC.df)){
+  SNV.APOBEC.df$SNV_count[i] <- length(which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i]))
+  if(!is.na(HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]])){
+    SNV.APOBEC.df$APOBEC[i] <- if(HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]>0){"Yes"
+    }else{if(HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]==0){"No"}}}
+  SNV.APOBEC.df$HPV_status[i] <- HNSC.selection.HPVknown$HPV_call[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]
+  SNV.APOBEC.df$APOBEC_weight[i] <- HNSC.selection.HPVknown$APOBEC_weight[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])[1]]
+}
+
+# View(SNV.APOBEC.df)
+
+write.table(x = SNV.APOBEC.df,file = "output_data/SNV_APOBEC_HPV_status.txt",sep="\t",quote = F,row.names = F)
+
+source("R/fancy_scientific_code.R")
+
+HPV.vs.APOBEC <- ggplot(data = SNV.APOBEC.df) + geom_boxplot(aes(y=SNV_count,x=APOBEC),color="dark red") + geom_jitter(aes(y=SNV_count,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + scale_y_log10(labels=fancy_scientific) + labs(x="APOBEC signature detected",y="SNV count")
+
+
+ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_SNV.png",plot = HPV.vs.APOBEC)
+#TODO: make sure the NAs are being removed 
+wilcox.test(data=subset(SNV.APOBEC.df,HPV_status=="HPV-"),SNV_count~APOBEC,conf.int=T) 
+
+wilcox.test(data=subset(SNV.APOBEC.df,HPV_status=="HPV+"),SNV_count~APOBEC, conf.int = T,alternative="two.sided") 
+
+hpv.pos.snv.apobec <- subset(SNV.APOBEC.df,HPV_status=="HPV+")
+hpv.neg.snv.apobec <- subset(SNV.APOBEC.df,HPV_status=="HPV-")
+
+mean(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])-mean(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")])
+
+median(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])-median(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")])
+
+SNV.APOBEC.df[which.min(SNV.APOBEC.df$SNV_count),]
+# ggplot(data = SNV.APOBEC.df) + geom_point(aes(x=APOBEC_weight, y=APOBEC)) 
+
+mean(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="Yes")])-mean(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="No")])
+
+median(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="Yes")])-median(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="No")])
+
+
+summary(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])
+summary(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")])
+
+summary(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="Yes")])
+summary(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="No")])
+#plot for the manuscript
+
+
+HPV.vs.APOBEC_ms <- ggplot(data = subset(SNV.APOBEC.df, !is.na(SNV.APOBEC.df$APOBEC))) + geom_boxplot(aes(y=SNV_count,x=APOBEC),color="dark red") + geom_jitter(aes(y=SNV_count,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + scale_y_log10(labels=fancy_scientific) + labs(x="APOBEC signature detected",y="SNV count")  + theme(strip.text.x = element_text(size=18)) +theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold"))
+
+ggsave(filename = "Figures/SNV_count_vs_HPV_and_APOBEC.png",plot = HPV.vs.APOBEC_ms)
+
+
+
+
+
+
+```
+```{r}
+# Among samples with an APOBEC signal, total mutation load was... 
+
+# SNV.APOBEC.yes <- subset(SNV.APOBEC.df,APOBEC=="Yes")
+
+wilcox.test(data = subset(SNV.APOBEC.df,APOBEC=="Yes"),SNV_count~HPV_status,conf.int=T)
+wilcox.test(data = subset(SNV.APOBEC.df,APOBEC=="No"),SNV_count~HPV_status,conf.int=T)
+
+# SNV.APOBEC.df$APOBEC <- factor(SNV.APOBEC.df$APOBEC,levels = c("No APOBEC Signature","APOBEC Signature","NA"))
+SNV.APOBEC.df.comparingAPOBEC <- SNV.APOBEC.df
+SNV.APOBEC.df.comparingAPOBEC$APOBEC[which(SNV.APOBEC.df.comparingAPOBEC$APOBEC=="Yes")] <- "APOBEC signature detected"
+SNV.APOBEC.df.comparingAPOBEC$APOBEC[which(SNV.APOBEC.df.comparingAPOBEC$APOBEC=="No")] <- "No APOBEC signature detected"
+
+SNV_count_comparing_APOBEC_plot <- ggplot(data = subset(SNV.APOBEC.df.comparingAPOBEC, !is.na(SNV.APOBEC.df.comparingAPOBEC$APOBEC))) + geom_boxplot(aes(y=SNV_count,x=HPV_status),color="dark red") + geom_jitter(aes(y=SNV_count,x=HPV_status),width= 0.2,alpha=0.5) + facet_grid(.~APOBEC) + theme_bw() + scale_y_log10(labels=fancy_scientific) + labs(x="HPV status",y="SNV count")  + theme(strip.text.x = element_text(size=15)) +theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold"))
+
+ggsave(filename = "Figures/SNV_count_comparing_APOBEC.png",plot = SNV_count_comparing_APOBEC_plot)
+
+```
+
+```{r combining SNV HPV APOBEC plots}
+library(cowplot)
+
+
+HPV.vs.APOBEC_ms_forcombine <- ggplot(data = subset(SNV.APOBEC.df, !is.na(SNV.APOBEC.df$APOBEC))) + geom_boxplot(aes(y=SNV_count,x=APOBEC),color="dark red") + geom_jitter(aes(y=SNV_count,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + scale_y_log10(labels=fancy_scientific) + labs(x="APOBEC signature detected",y="SNV count")  + theme(strip.text.x = element_text(size=18)) +theme(axis.text=element_text(size=18), axis.title=element_text(size=20,face="bold"))
+# plot_grid(
+SNV_count_comparing_APOBEC_plot_forcombine <- ggplot(data = subset(SNV.APOBEC.df.comparingAPOBEC, !is.na(SNV.APOBEC.df.comparingAPOBEC$APOBEC))) + geom_boxplot(aes(y=SNV_count,x=HPV_status),color="dark red") + geom_jitter(aes(y=SNV_count,x=HPV_status),width= 0.2,alpha=0.5) + facet_grid(.~APOBEC) + theme_bw() + scale_y_log10(labels=fancy_scientific) + labs(x="HPV status",y="SNV count")  + theme(strip.text.x = element_text(size=15)) +theme(axis.text=element_text(size=18), axis.title=element_text(size=20,face="bold"),axis.title.y = element_blank())
+
+combined_HPV_APOBEC_plot <- plot_grid(HPV.vs.APOBEC_ms_forcombine,SNV_count_comparing_APOBEC_plot_forcombine,align='h',ncol = 2,nrow = 1,labels = c("A","B"),label_size = 25)
+
+ggsave(plot = combined_HPV_APOBEC_plot,filename = "Figures/combined_APOBEC_vs_HPV.png",height = 7,width = 14)
+
+```
+
+
+# Logistic regression of APOBEC and HPV
+
+```{r logistic regression HPV APOBEC}
+load("output_data/HNSC_selection_with_APOBEC.RData")
+SNV.APOBEC.df <- read.table("output_data/SNV_APOBEC_HPV_status.txt",header = T)
+
+SNV.APOBEC.df.knownAPOBEC <- SNV.APOBEC.df[which(!is.na(SNV.APOBEC.df$APOBEC)),] 
+# length(which(SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV+" & SNV.APOBEC.df.knownAPOBEC$APOBEC_weight==0))
+SNV.APOBEC.df.knownAPOBEC$HPV_status_value <- ifelse(SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV+",1,0)
+
+HPV_status_vs_APOBEC_weight <- ggplot() + geom_point(data = SNV.APOBEC.df.knownAPOBEC,aes(y=HPV_status_value,x=APOBEC_weight),alpha=0.2,size=4) + stat_smooth(data = SNV.APOBEC.df.knownAPOBEC,aes(y=HPV_status_value,x=APOBEC_weight),method="glm", method.args=list(family="binomial"), se=T) + labs(y="Probability HPV positive",x="APOBEC signature weight") 
+
+# library(ggplot2)
+ggsave(plot = HPV_status_vs_APOBEC_weight, filename ="Figures/HPV_status_APOBEC_weight.png",width = 5,height = 3)
+
+log_regression <- glm(HPV_status_value~APOBEC_weight,data = SNV.APOBEC.df.knownAPOBEC,family = binomial)
+
+summary(log_regression)
+
+```
+
+<!-- ```{r testing logistic regression} -->
+
+<!-- test.df <- data.frame(x=1:100,y=c(rep(1,45),rep(0,5),rep(1,5),rep(0,45))) -->
+<!-- ggplot(data = test.df,aes(x=x,y=y))+ geom_point(alpha=0.5) + stat_smooth(method="glm", method.args=list(family="binomial"), se=T) -->
+
+
+<!-- ``` -->
+
+
+
+
+```{r TCW to TKW vs APOBEC and HPV status }
+
+SNV.APOBEC.df$`Proportion TCW to TKW` <- NA
+
+for(i in 1:nrow(SNV.APOBEC.df)){
+  SNV.APOBEC.df$`Proportion TCW to TKW`[i] <- length(which(HNSC.selection.HPVknown$TCW_TKW[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])]==1))/(length(which(HNSC.selection.HPVknown$TCW_TKW[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])]==1))+length(which(HNSC.selection.HPVknown$TCW_TKW[which(HNSC.selection.HPVknown$Unique_patient_identifier==SNV.APOBEC.df$Tumor[i])]==0)))
+}
+
+HPV.vs.APOBEC_proportion <- ggplot(data = SNV.APOBEC.df) + geom_boxplot(aes(y=`Proportion TCW to TKW`,x=APOBEC),color="dark red") + geom_jitter(aes(y=`Proportion TCW to TKW`,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + labs(x="APOBEC signature detected")
+
+ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_proportionTCW.png",plot = HPV.vs.APOBEC_proportion)
+
+
+HPV.vs.APOBEC_proportion_ms <- ggplot(data = subset(SNV.APOBEC.df,!is.na(SNV.APOBEC.df$APOBEC))) + geom_boxplot(aes(y=`Proportion TCW to TKW`,x=APOBEC),color="dark red") + geom_jitter(aes(y=`Proportion TCW to TKW`,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + labs(x="APOBEC signature detected")
+
+wilcox.test(data=SNV.APOBEC.df[which(SNV.APOBEC.df$APOBEC=="Yes"),],`Proportion TCW to TKW`~HPV_status,conf.int=T)
+wilcox.test(data=SNV.APOBEC.df[which(SNV.APOBEC.df$APOBEC=="No"),],`Proportion TCW to TKW`~HPV_status,conf.int=T)
+
+
+ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_proportionTCW_forMS.png",plot = HPV.vs.APOBEC_proportion_ms)
+
+```
+
+
+```{r fisher exact test on APOBEC vs HPV}
+SNV.APOBEC.tib <- as_tibble(SNV.APOBEC.df) %>%
+  group_by(APOBEC,HPV_status) %>%
+  summarize(n())
+
+7/(37+7)
+37/(37+7)
+
+256/(256+124)
+124/(256+124)
+
+# fisher.test(matrix(data = c(2,2,250,250),nrow=2))
+fisher.test(matrix(data = SNV.APOBEC.tib$`n()`[1:4],nrow=2))
+
+```
+
+
+##  Mutations that have the highest prevalence and selection intensity in HNSCC
+
+
+```{r }
+load("output_data/HNSC_selection_with_APOBEC_recur.RData")
+just.ALL <- HNSC.selection.output.recur
+ALL.names <- unique(just.ALL$Name)
+
+ALL.prev.df <- as.data.frame(matrix(data = NA, nrow=length(ALL.names),ncol=5))
+colnames(ALL.prev.df) <- c("Mutation","Frequency", "Trinuc context", "Alternative Nucleotide","Selection intensity")
+
+ALL.prev.df$Mutation <- ALL.names
+
+for(i in 1:nrow(ALL.prev.df)){
+  ALL.prev.df$Frequency[i] <- length(which(just.ALL$Name == ALL.prev.df$Mutation[i]))
+  ALL.prev.df$`Trinuc context`[i] <- just.ALL$Nucleotide_trinuc_context[which(just.ALL$Name == ALL.prev.df$Mutation[i])[1]]
+  ALL.prev.df$`Alternative Nucleotide`[i] <- just.ALL$Alternative_Nucleotide[which(just.ALL$Name == ALL.prev.df$Mutation[i])[1]]
+  ALL.prev.df$`Selection intensity`[i] <- round(just.ALL$Gamma_epistasis[which(just.ALL$Name == ALL.prev.df$Mutation[i])[1]],2)
+}
+
+ALL.prev.df <- ALL.prev.df[order(ALL.prev.df$Frequency,decreasing = T),]
+```
+
+
+```{r all mutations determining mutation weight, include = F}
+library(deconstructSigs)
+
+# load("HNSC_all_MAF.RData")
+# load("HNSC_MAF.RData")
+
+
+# load("trinuc_contexts_HPV_all.RData")
+# length(unique(HNSC.HPVall.MAF$Unique_patient_identifier))
+# length(trinuc.contexts[[2]])
+load("output_data/trinuc_contexts_HNSC_MAF.RData")
+tumor.trinuc.names <- NULL
+for(i in 1:length(trinuc.contexts[[2]])){
+  tumor.trinuc.names[i] <- rownames(trinuc.contexts[[2]][[i]]$weights)
+}
+
+
+
+# signatures.cosmic
+
+# trinuc.contexts[[2]][[1]]$product
+# as.matrix(trinuc.contexts[[2]][[1]]$weights) %*% as.matrix(signatures.cosmic) == as.matrix(trinuc.contexts[[2]][[1]]$product)
+
+
+# head(just.TCW)
+first.12 <- function(string_to_12){
+  return(paste(unlist(strsplit(string_to_12,split = ""))[1:12],collapse = ""))
+}
+
+signature.breakdown.ALL <- as.data.frame(matrix(data = NA, nrow=nrow(just.ALL), ncol= 7))
+colnames(signature.breakdown.ALL) <- c("Name","Tumor","Trinuc_context","Alternative_Nuc","deconstructSigs_context","APOBEC sum","NonAPOBEC sum")
+
+signature.breakdown.ALL$Name <- just.ALL$Name
+signature.breakdown.ALL$Tumor <- unlist(lapply(just.ALL$Tumor_origin,first.12))
+
+for(i in 1:nrow(just.ALL)){
+  if(is.na(just.ALL$Nucleotide_trinuc_context[i])){
+    matches <- which(just.ALL$Nucleotide_chromosome_position == just.ALL$Nucleotide_chromosome_position[i] &
+                       just.ALL$Alternative_Nucleotide == just.ALL$Alternative_Nucleotide[i])
+    
+    new.i <- matches[which(!is.na(just.ALL$Nucleotide_trinuc_context[matches]))]
+    signature.breakdown.ALL$Trinuc_context[i] <- just.ALL$Nucleotide_trinuc_context[new.i]
+  }else{
+    signature.breakdown.ALL$Trinuc_context[i] <- just.ALL$Nucleotide_trinuc_context[i]
+  }
+}
+
+signature.breakdown.ALL$Alternative_Nuc <- just.ALL$Alternative_Nucleotide
+
+for(i in 1:nrow(signature.breakdown.ALL)){
+  signature.breakdown.ALL$deconstructSigs_context[i] <- paste(
+    strsplit(signature.breakdown.ALL$Trinuc_context[i],split = "")[[1]][1],
+    "[",
+    strsplit(signature.breakdown.ALL$Trinuc_context[i],split = "")[[1]][2],
+    ">",
+    signature.breakdown.ALL$Alternative_Nuc[i],
+    "]",
+    strsplit(signature.breakdown.ALL$Trinuc_context[i],split = "")[[1]][3],sep="")
+  
+}
+# 
+# signature.breakdown.ALL$deconstructSigs_context[which(signature.breakdown.ALL$deconstructSigs_context=="T[G>A]A")] <- "T[C>T]A"
+# signature.breakdown.ALL$deconstructSigs_context[which(signature.breakdown.ALL$deconstructSigs_context=="A[G>A]A")] <- "T[C>T]T"
+# signature.breakdown.ALL$deconstructSigs_context[which(signature.breakdown.ALL$deconstructSigs_context=="T[G>C]A")] <- "T[C>G]A"
+# signature.breakdown.ALL$deconstructSigs_context[which(signature.breakdown.ALL$deconstructSigs_context=="A[G>C]A")] <- "T[C>G]T"
+# 
+# signature.breakdown.ALL$deconstructSigs_context[which(signature.breakdown.ALL$deconstructSigs_context=="C[G>C]A")] <- "T[C>G]G"
+# signature.breakdown.ALL$deconstructSigs_context[which(signature.breakdown.ALL$deconstructSigs_context=="C[G>A]A")] <- "T[C>T]G"
+# signature.breakdown.ALL$deconstructSigs_context[which(signature.breakdown.ALL$deconstructSigs_context=="G[G>A]A")] <- "T[C>T]C"
+# signature.breakdown.ALL$deconstructSigs_context[which(signature.breakdown.ALL$deconstructSigs_context=="G[G>C]A")] <- "T[C>G]C"
+# 
+# signature.breakdown.ALL$deconstructSigs_context[which(signature.breakdown.ALL$deconstructSigs_context=="C[G>A]C")] <- "G[C>T]G"
+# signature.breakdown.ALL$deconstructSigs_context[which(signature.breakdown.ALL$deconstructSigs_context=="C[G>A]T")] <- "A[C>T]G"
+# signature.breakdown.ALL$deconstructSigs_context[which(signature.breakdown.ALL$deconstructSigs_context=="T[A>G]G")] <- "C[T>C]A"
+
+flip.function <- function(nucleotide){
+  if(nucleotide=="A"){
+    return("T")
+  }
+  if(nucleotide=="T"){
+    return("A")
+  }
+  if(nucleotide=="C"){
+    return("G")
+  }
+  if(nucleotide=="G"){
+    return("C")
+  }
+  if(nucleotide=="N"){
+    return("N")
+  }
+}
+
+unique.sigs <- unique(signature.breakdown.ALL$deconstructSigs_context)
+unique.sigs.splt <- strsplit(x = unique.sigs,split = "")
+for(i in 1:length(unique.sigs.splt)){
+  if(unique.sigs.splt[[i]][3] %in% c("G","A")){
+    this.new.str <- unique.sigs.splt[[i]]
+    this.new.str[7] <- flip.function(unique.sigs.splt[[i]][1])
+    this.new.str[3] <- flip.function(unique.sigs.splt[[i]][3])
+    this.new.str[5] <- flip.function(unique.sigs.splt[[i]][5])
+    this.new.str[1] <- flip.function(unique.sigs.splt[[i]][7])
+    signature.breakdown.ALL$deconstructSigs_context[which(signature.breakdown.ALL$deconstructSigs_context==unique.sigs[i])] <- paste(this.new.str,collapse = "")
+  }
+}
+
+# unique(signature.breakdown.ALL$deconstructSigs_context)
+
+library(deconstructSigs)
+
+for(i in 1:nrow(signature.breakdown.ALL)){
+  if(length(which(tumor.trinuc.names==signature.breakdown.ALL$Tumor[i]))>0){
+    this.context <- trinuc.contexts[[2]][[which(tumor.trinuc.names==signature.breakdown.ALL$Tumor[i])]]
+    # t(this.context$weights)*signatures.cosmic[signature.breakdown.ALL$deconstructSigs_context[i]]
+    # signatures.cosmic[signature.breakdown.ALL$deconstructSigs_context[i]]
+    
+    # this.context$tumor[,signature.breakdown.ALL$deconstructSigs_context[i]]
+    # this.context$product[,signature.breakdown.ALL$deconstructSigs_context[i]]
+    
+    signature.breakdown.at.this.context <- t(this.context$weights)*signatures.cosmic[signature.breakdown.ALL$deconstructSigs_context[i]]
+    
+    signature.breakdown.ALL[i,c("APOBEC sum")] <- ifelse(all(is.na(signature.breakdown.at.this.context[c(2,13),])),NA,sum(signature.breakdown.at.this.context[c(2,13),]/this.context$product[,signature.breakdown.ALL$deconstructSigs_context[i]],na.rm = T))
+    signature.breakdown.ALL[i,c("NonAPOBEC sum")] <- ifelse(all(is.na(signature.breakdown.at.this.context[c(1,3:12,14:30),])),NA,sum(signature.breakdown.at.this.context[c(1,3:12,14:30),]/this.context$product[,signature.breakdown.ALL$deconstructSigs_context[i]],na.rm = T))
+  }
+  # signature.breakdown.ALL$`APOBEC sum`[i] <- sum(signature.breakdown.ALL$Sig2[i],signature.breakdown.ALL$Sig13[i],na.rm = T)
+}
+
+#TODO: non apobec sum is just one minus the apobec sum... should we list all signatures for further analysis?
+
+# head(signature.breakdown.ALL)
+
+```
+
+
+
+
+
+
+
+
+<!-- ```{r are APOBEC TCW type mutations enriched in higher gamma, eval=F} -->
+
+<!-- ALL.prev.df -->
+<!-- load("output_data/HNSC_MAF.RData") -->
+
+<!-- HNSC.MAF <- MAF_for_analysis -->
+
+<!-- ALL.prev.df$`APOBEC type TCW` <- "False" -->
+<!-- ALL.prev.df$`APOBEC type TCW`[which(ALL.prev.df$Mutation %in% signature.breakdown.TCW$Name)] <- "True" -->
+
+<!-- distribution.of.APOBEC.TCW <- ggplot(data = ALL.prev.df) + geom_violin(aes(y=log10(`Selection intensity`),x=`APOBEC type TCW`)) + geom_jitter(aes(y=log10(`Selection intensity`),x=`APOBEC type TCW`),alpha=0.5,width  = 0.1) + theme_bw() + labs(title="The distribution of selection intensities for APOBEC and nonAPOBEC mutations") -->
+
+<!-- distribution.of.APOBEC.TCW <- ggplot(data = ALL.prev.df) + geom_boxplot(aes(y=`Selection intensity`,x=`APOBEC type TCW`),width=0.5,outlier.shape = NA) + geom_jitter(aes(y=`Selection intensity`,x=`APOBEC type TCW`),alpha=0.5,width  = 0.1) + theme_bw() + labs(y="Selection intensity") + scale_y_log10(labels=fancy_scientific)+ theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold")) + labs(x="TCW to TKW") -->
+
+<!-- ggsave(plot = distribution.of.APOBEC.TCW,filename = "Figures/distribution_of_APOBEC_TCW.png",height = 5,width = 5) -->
+
+
+<!-- wilcox.test(data=ALL.prev.df, `Selection intensity`~`APOBEC type TCW`) -->
+
+
+<!-- ### trying to get the violin plot -->
+
+<!-- # ALL.prev.df.logged <- ALL.prev.df -->
+<!-- # ALL.prev.df.logged$`Selection intensity` <- log10(ALL.prev.df.logged$`Selection intensity`) -->
+<!-- #  -->
+<!-- # distribution.of.APOBEC.TCW.viol <- ggplot(data = ALL.prev.df.logged) + geom_violin(aes(y=`Selection intensity`,x=as.factor(`APOBEC type TCW`))) + geom_jitter(aes(y=`Selection intensity`,x=as.factor(`APOBEC type TCW`)),alpha=0.2,height = 0.1) + theme_bw() + labs(title="The distribution of selection intensities for \nAPOBEC and nonAPOBEC mutations") -->
+
+
+
+<!-- ``` -->
+
+```{r apobec weight sum plot ALL, echo=FALSE, fig.height=40, fig.width=5}
+
+signature.breakdown.means <- as.data.frame(matrix(data=NA, nrow=length(unique(signature.breakdown.ALL$Name)),ncol=3))
+colnames(signature.breakdown.means) <- c("Name","median APOBEC","median NonAPOBEC")
+signature.breakdown.means$Name <- unique(signature.breakdown.ALL$Name)
+for(i in 1:nrow(signature.breakdown.means)){
+  signature.breakdown.means$`median APOBEC`[i] <- median(signature.breakdown.ALL$`APOBEC sum`[which(signature.breakdown.ALL$Name==signature.breakdown.means$Name[i])],na.rm = T)
+  signature.breakdown.means$`median NonAPOBEC`[i] <- median(signature.breakdown.ALL$`NonAPOBEC sum`[which(signature.breakdown.ALL$Name==signature.breakdown.means$Name[i])],na.rm = T)
+}
+
+signature.breakdown.means <- signature.breakdown.means[order(signature.breakdown.means$`median APOBEC`,decreasing = T),]
+
+signature.breakdown.ALL$Name <- factor(signature.breakdown.ALL$Name, levels = rev(signature.breakdown.means$Name))
+
+ALL.APOBECplot <- ggplot(data = signature.breakdown.ALL) + geom_point(aes(x = `APOBEC sum`, y= Name),alpha=0.2)+# geom_point(aes(x = `NonAPOBEC sum`, y= Name),alpha=0.2,color="red") + 
+  theme_bw() + labs(x="Proportion of mutation from APOBEC signatures per tumor", y= "Mutation", title="All mutations and the proportion \nof the trinucleotide context that was APOBEC", subtitle="Ranked in descending order of \nmedian proportion APOBEC contribution")
+# ALL.to.TKN.APOBECplot
+ggsave(plot = ALL.APOBECplot,filename = "Figures/ALL.to.TKN.APOBECplot.pdf",width = 7,height = 40)
+
+
+```
+
+
+
+```{r display ALL data table, echo=F}
+
+load("output_data/HNSC_MAF.RData")
+HNSC.MAF <- MAF_for_analysis
+
+
+ALL.prev.df <- cbind(ALL.prev.df,NA,NA,NA,NA)
+colnames(ALL.prev.df)[6:7] <- c("Median APOBEC contribution", "Selection from APOBEC")
+colnames(ALL.prev.df)[8:9] <- c("Median NonAPOBEC contribution", "Selection from NonAPOBEC")
+for(i in 1:nrow(ALL.prev.df)){
+  ALL.prev.df$`Median APOBEC contribution`[i] <- round(median(signature.breakdown.ALL$`APOBEC sum`[which(signature.breakdown.ALL$Name==ALL.prev.df$Mutation[i])],na.rm = T),2)
+  ALL.prev.df$`Median NonAPOBEC contribution`[i] <- round(median(signature.breakdown.ALL$`NonAPOBEC sum`[which(signature.breakdown.ALL$Name==ALL.prev.df$Mutation[i])],na.rm = T),2)
+  
+}
+
+# if there are substitutions that all came from tumors with less than enough mutations to determine signatures
+# we need to remove these substitutions.
+if(length(which(is.na(ALL.prev.df$`Median APOBEC contribution`)))>0){
+  message(paste(length(which(is.na(ALL.prev.df$`Median APOBEC contribution`)))," substitutions occur in only tumors
+that did not have enough mutations to measure trinucleotide context
+and will be removed from the analysis",sep=""))
+  ALL.prev.df <- ALL.prev.df[-which(is.na(ALL.prev.df$`Median APOBEC contribution`)),]
+}
+ALL.prev.df$`Selection from APOBEC` <- round((ALL.prev.df$Frequency * ALL.prev.df$`Selection intensity` * ALL.prev.df$`Median APOBEC contribution`)/length(unique(HNSC.MAF$Unique_patient_identifier)),2)
+
+ALL.prev.df$`Selection from NonAPOBEC` <- round((ALL.prev.df$Frequency * ALL.prev.df$`Selection intensity` * ALL.prev.df$`Median NonAPOBEC contribution`)/length(unique(HNSC.MAF$Unique_patient_identifier)),2)
+
+ALL.prev.df <- ALL.prev.df[order(ALL.prev.df$`Selection from APOBEC`,decreasing = T),]
+
+datatable(data = ALL.prev.df)
+
+save(ALL.prev.df, file = "output_data/variant_selection_contribution_wAPOBEC.RData")
+
+# ALL.prev.df[which(ALL.prev.df$Mutation=="PIK3CA E545K 178936091A"),]
+
+```
+
+```{r Mutation type vs gamma from APOBEC or not, eval=F}
+
+head(signature.breakdown.ALL)
+head(ALL.prev.df)
+
+ALL.prev.df.split <- as.data.frame(matrix(data = NA,nrow = 2*nrow(ALL.prev.df),ncol=5))
+colnames(ALL.prev.df.split) <- c("Name","Selection from mutational context","APOBEC context", "TCW to TKW", "TCN to TKN")
+ALL.prev.df.split$Name <- c(ALL.prev.df$Mutation,ALL.prev.df$Mutation)
+ALL.prev.df.split$`APOBEC context` <-  c(rep("APOBEC signatures",nrow(ALL.prev.df.split)/2),rep("NonAPOBEC signatures",nrow(ALL.prev.df.split)/2))
+
+
+for(i in 1:length(unique(ALL.prev.df.split$Name))){
+  these.pos <- which(ALL.prev.df.split$Name ==  unique(ALL.prev.df.split$Name)[i])
+  # ALL.prev.df.split$`TCW to TKW`[these.pos] <- ALL.prev.df$`APOBEC type TCW`[i]
+  # ALL.prev.df.split$`TCN to TKN`[these.pos] <- ALL.prev.df$`APOBEC type TCN`[i]
+  ALL.prev.df.split$`Selection from mutational context`[these.pos] <- c(ALL.prev.df$`Selection from APOBEC`[i],ALL.prev.df$`Selection from NonAPOBEC`[i])
+}
+
+head(ALL.prev.df.split)
+
+ALL.prev.df.split$short_name <- NA
+for(i in 1:nrow(ALL.prev.df.split)){
+  ALL.prev.df.split$short_name[i] <- paste(strsplit(x = ALL.prev.df.split$Name[i], split=" ")[[1]][1:2],collapse = " ")
+}
+
+
+# ggplot(data = ALL.prev.df.split) +geom_violin(aes(x=`APOBEC context`, y = `Selection from mutational context`))  + geom_jitter(aes(x=`APOBEC context`, y = `Selection from mutational context`))
+
+selection.from.contexts <- ggplot(data = ALL.prev.df.split) +geom_violin(aes(x=`APOBEC context`, y = log10(`Selection from mutational context`)))  + geom_jitter(aes(x=`APOBEC context`, y = log10(`Selection from mutational context`))) + labs(x="Mutational signature attributed to mutation")
+source("R/fancy_scientific_code.R")
+
+# selection.from.contexts <- ggplot(data = ALL.prev.df.split) +geom_violin(aes(x=`APOBEC context`, y = `Selection from mutational context`))  + geom_jitter(aes(x=`APOBEC context`, y = `Selection from mutational context`)) + scale_y_log10(labels=fancy_scientific) + labs(x="Mutational signatures attributed to mutation", y="Proportion of selection intensity attributed to signature and \nweighted by mutation prevalence among tumors") + theme_bw()
+
+ALL.prev.df.split$`APOBEC context` <- factor(ALL.prev.df.split$`APOBEC context`, levels = c("NonAPOBEC signatures", "APOBEC signatures"))
+
+library(ggrepel)
+
+selection.from.contexts.labels <- ggplot(data = ALL.prev.df.split) +#geom_violin(aes(x=`APOBEC context`, y = `Selection from mutational context`))  +
+  geom_point(aes(x=`APOBEC context`, y = `Selection from mutational context`),alpha=0.2) + 
+  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="APOBEC signatures" & `Selection from mutational context` > 100),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=short_name),color="darkred",fontface="bold") + #scale_y_log10(labels=fancy_scientific) + 
+  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="NonAPOBEC signatures" & `Selection from mutational context` > 650),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=short_name),box.padding = .31,color="darkred",fontface="bold") + 
+  labs(y="Net realized selection intensity") + theme_bw() + theme(axis.text=element_text(size=16), axis.title=element_text(size=18,face="bold"))
+
+# ggsave(filename = "Figures/selection_from_process.png",plot = selection.from.contexts)
+
+ggsave(filename = "Figures/selection_from_process_labels.png",plot = selection.from.contexts.labels)
+
+wilcox.test(`Selection from mutational context`~`APOBEC context`,data = ALL.prev.df.split)
+
+```
 <!-- ```{r heatmap and dendrogram} -->
 <!-- load("output_data/trinuc_contexts_HNSC_MAF.RData") -->
 <!-- # install.packages("ggdendro") -->

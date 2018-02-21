@@ -7,9 +7,11 @@ output: html_notebook
 ```{r import data}
 
 #import the HPV status data from 
-library(feather)
-apobec_hnscc_df <- read_feather("input_data/nfkb.feather")
+# library(feather)
+# apobec_hnscc_df <- read_feather("input_data/nfkb.feather")
 # unique(apobec_hnscc_df$patient_id) # All TCGA samples
+
+virusscan.data <- read.table(file = "input_data/virusscan/vscan_counts.tsv",sep = "\t",header = T,stringsAsFactors = F)
 
 # load("input_data/trinuc_data_HNSC_HPVpos.RData")
 # load("input_data/trinuc_data_HNSC_final_call_HPVneg_unfiltered.RData")
@@ -28,21 +30,29 @@ source("R/DNP_remover.R")
 source("R/tumor_allele_adder.R")
 
 
-HNSC.MAF <- hg38.to.hg19.converter(chain = "~/Downloads/hg38ToHg19.over.chain",hg38_maf = HNSC.MAF)
+HNSC.MAF <- hg38.to.hg19.converter(chain = "input_data/hg38Tohg19.chain",hg38_maf = HNSC.MAF)
 HNSC.MAF <- DNP.remover(MAF = HNSC.MAF)
 HNSC.MAF <- tumor.allele.adder(MAF = HNSC.MAF)
 
 
 HNSC.MAF$HPV_call <- NA
+HNSC.MAF$Virusscan_counts <- NA
 
 for(i in 1:length(unique(HNSC.MAF$Unique_patient_identifier))){
-  if(length(which(apobec_hnscc_df$patient_id==unique(HNSC.MAF$Unique_patient_identifier)[i]))>0){
-    HNSC.MAF$HPV_call[HNSC.MAF$Unique_patient_identifier==unique(HNSC.MAF$Unique_patient_identifier)[i]] <- apobec_hnscc_df$categ[which(apobec_hnscc_df$patient_id==unique(HNSC.MAF$Unique_patient_identifier)[i])]
+  if(length(which(virusscan.data$patient_id==unique(HNSC.MAF$Unique_patient_identifier)[i]))>0){
+    HNSC.MAF$HPV_call[HNSC.MAF$Unique_patient_identifier==unique(HNSC.MAF$Unique_patient_identifier)[i]] <- 
+      #apobec_hnscc_df$categ[which(apobec_hnscc_df$patient_id==unique(HNSC.MAF$Unique_patient_identifier)[i])]
+      ifelse(virusscan.data$VScan_counts[which(virusscan.data$patient_id==unique(HNSC.MAF$Unique_patient_identifier)[i])]>1000,
+             "HPV+",
+             "HPV-")
+    HNSC.MAF$Virusscan_counts[HNSC.MAF$Unique_patient_identifier==unique(HNSC.MAF$Unique_patient_identifier)[i]] <- 
+      virusscan.data$VScan_counts[which(virusscan.data$patient_id==unique(HNSC.MAF$Unique_patient_identifier)[i])]
   }
 }
 
 # unique(HNSC.MAF$Unique_patient_identifier)
 # unique(HNSC.MAF$HPV_call)
+# write.table(x = HNSC.MAF[,c("Unique_patient_identifier","HPV_call","Virusscan_counts")],file = "output_data/testing_MAF_and_counts.txt",quote = F,sep = "\t",row.names = F)
 
 HNSC.MAF.hpvpos <- HNSC.MAF[which(HNSC.MAF$HPV_call=="HPV+"),]
 MAF_for_analysis <- HNSC.MAF.hpvpos
@@ -1316,7 +1326,7 @@ ALL.APOBECplot <- ggplot(data = signature.breakdown.ALL) + geom_point(aes(x = `A
 # ALL.to.TKN.APOBECplot
 ggsave(plot = ALL.APOBECplot,filename = "Figures/ALL.to.TKN.APOBECplot.pdf",width = 7,height = 40)
 
-
+save(signature.breakdown.ALL,file = "output_data/signature_breakdown_all.RData")
 ```
 
 
@@ -1383,6 +1393,9 @@ for(i in 1:nrow(ALL.prev.df.split)){
   ALL.prev.df.split$short_name[i] <- paste(strsplit(x = ALL.prev.df.split$Name[i], split=" ")[[1]][1:2],collapse = " ")
 }
 
+# this quick fix messes up the non-coding mutations, fix the one we want labeled 
+
+ALL.prev.df.split$short_name[which(ALL.prev.df.split$Name=="CCDC50 A 191098615 C NCSNV")] <- "CCDC50 Splice Site"
 
 # ggplot(data = ALL.prev.df.split) +geom_violin(aes(x=`APOBEC context`, y = `Selection from mutational context`))  + geom_jitter(aes(x=`APOBEC context`, y = `Selection from mutational context`))
 
@@ -1402,12 +1415,94 @@ selection.from.contexts.labels <- ggplot(data = ALL.prev.df.split) +#geom_violin
   labs(y="Net realized selection intensity") + theme_bw() + theme(axis.text=element_text(size=16), axis.title=element_text(size=18,face="bold"))
 
 # ggsave(filename = "Figures/selection_from_process.png",plot = selection.from.contexts)
-
+View(ALL.prev.df.split)
 ggsave(filename = "Figures/selection_from_process_labels.png",plot = selection.from.contexts.labels)
 
 wilcox.test(`Selection from mutational context`~`APOBEC context`,data = ALL.prev.df.split)
 
+HNSC.MAF[which(HNSC.MAF$Start_Position==191098615),]
+
 ```
+
+
+
+```{r PIK3CA data}
+library(feather)
+apobec_hnscc_df <- read_feather("input_data/nfkb.feather")
+
+signature.breakdown.ALL$HPV_status <- NA
+# signature.breakdown.ALL$HPV_status_tang2013 <- NA
+
+signature.breakdown.ALL$tumor_has_apobec_sig <- NA
+
+load("output_data/trinuc_contexts_HNSC_MAF.RData")
+tumor.trinuc.names <- NULL
+for(i in 1:length(trinuc.contexts[[2]])){
+  tumor.trinuc.names[i] <- rownames(trinuc.contexts[[2]][[i]]$weights)
+}
+
+
+
+for(i in 1:nrow(signature.breakdown.ALL)){
+ if(length(which(apobec_hnscc_df$patient_id==signature.breakdown.ALL$Tumor[i]))==1){
+   signature.breakdown.ALL$HPV_status[i] <- apobec_hnscc_df$categ[which(apobec_hnscc_df$patient_id==signature.breakdown.ALL$Tumor[i])]
+ }
+  # if(length(which(tang.2013$sample.short==signature.breakdown.ALL$Tumor[i]))==1){
+    # signature.breakdown.ALL$HPV_status_tang2013[i] <- tang.2013$Virus.description[which(tang.2013$sample.short==signature.breakdown.ALL$Tumor[i])]
+  # }
+  # signature.breakdown.ALL$tumor_has_apobec_sig[i] <- apobec_hnscc_df$has_apobec[which(apobec_hnscc_df$patient_id==signature.breakdown.ALL$Tumor[i])]
+  if(length(which(tumor.trinuc.names==signature.breakdown.ALL$Tumor[i]))>0){
+    this.context <- trinuc.contexts[[2]][[which(tumor.trinuc.names==signature.breakdown.ALL$Tumor[i])]]
+    signature.breakdown.ALL$tumor_has_apobec_sig[i] <- ifelse(sum(this.context$weights[,c(2,13)])>0,"TRUE","FALSE")
+  }
+}
+just.PIK3CA <- signature.breakdown.ALL[which(startsWith(x = as.character(signature.breakdown.ALL$Name),prefix = "PIK3CA")),]
+# just.PIK3CA$HPV_status_tang2013[just.PIK3CA$HPV_status_tang2013=="N/A"] <- "HPV-"
+# just.PIK3CA$HPV_status_tang2013[!is.na(just.PIK3CA$HPV_status_tang2013) & just.PIK3CA$HPV_status_tang2013!="HPV-"] <- "HPV+"
+# for(i in 1:nrow(signature.breakdown.ALL)){
+#   if(length(which(tumor.trinuc.names==signature.breakdown.ALL$Tumor[i]))>0){
+#     this.context <- trinuc.contexts[[2]][[which(tumor.trinuc.names==signature.breakdown.ALL$Tumor[i])]]
+#     # t(this.context$weights)*signatures.cosmic[signature.breakdown.ALL$deconstructSigs_context[i]]
+#     # signatures.cosmic[signature.breakdown.ALL$deconstructSigs_context[i]]
+# this.context$weights[,c(2,13)]
+#     # this.context$tumor[,signature.breakdown.ALL$deconstructSigs_context[i]]
+#     # this.context$product[,signature.breakdown.ALL$deconstructSigs_context[i]]
+# 
+#     signature.breakdown.at.this.context <- t(this.context$weights)*signatures.cosmic[signature.breakdown.ALL$deconstructSigs_context[i]]
+# 
+#     signature.breakdown.ALL[i,c("APOBEC sum")] <- ifelse(all(is.na(signature.breakdown.at.this.context[c(2,13),])),NA,sum(signature.breakdown.at.this.context[c(2,13),]/this.context$product[,signature.breakdown.ALL$deconstructSigs_context[i]],na.rm = T))
+#     signature.breakdown.ALL[i,c("NonAPOBEC sum")] <- ifelse(all(is.na(signature.breakdown.at.this.context[c(1,3:12,14:30),])),NA,sum(signature.breakdown.at.this.context[c(1,3:12,14:30),]/this.context$product[,signature.breakdown.ALL$deconstructSigs_context[i]],na.rm = T))
+#   }
+#   # signature.breakdown.ALL$`APOBEC sum`[i] <- sum(signature.breakdown.ALL$Sig2[i],signature.breakdown.ALL$Sig13[i],na.rm = T)
+# }
+# 
+# View(just.PIK3CA)
+just.PIK3CA$HPV_status
+
+unique(just.PIK3CA$Name)
+
+just.PIK3CA.unique <- as.data.frame(matrix(data = NA,nrow = length(unique(just.PIK3CA$Name)),ncol=12))
+colnames(just.PIK3CA.unique) <- c("Name","mutations in dataset","us_pos","us_neg","us_frac_pos","tang_pos","tang_neg","tang_frac","neg_HPV_and_neg_apobec","neg_HPV_and_pos_apobec","pos_HPV_and_pos_apobec","pos_HPV_and_neg_apobec")
+
+for(i in 1:nrow(just.PIK3CA.unique)){
+  just.PIK3CA.unique$Name[i] <- as.character(unique(just.PIK3CA$Name)[i])
+  just.PIK3CA.unique$`mutations in dataset`[i] <- length(which(just.PIK3CA$Name==just.PIK3CA.unique$Name[i]))
+  just.PIK3CA.unique$us_pos[i] <- length(which(just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV+"))
+  just.PIK3CA.unique$us_neg[i] <- length(which(just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV-"))
+  # just.PIK3CA.unique$tang_pos[i] <- length(which(just.PIK3CA$HPV_status_tang2013[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV+"))
+  # just.PIK3CA.unique$tang_neg[i] <- length(which(just.PIK3CA$HPV_status_tang2013[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV-"))
+  just.PIK3CA.unique$us_frac_pos[i] <- just.PIK3CA.unique$us_pos[i]/(just.PIK3CA.unique$us_neg[i]+just.PIK3CA.unique$us_pos[i])
+  # just.PIK3CA.unique$tang_frac[i] <- just.PIK3CA.unique$tang_pos[i]/(just.PIK3CA.unique$tang_neg[i]+just.PIK3CA.unique$tang_pos[i])
+  just.PIK3CA.unique$neg_HPV_and_neg_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="FALSE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV-"))
+  just.PIK3CA.unique$neg_HPV_and_pos_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="TRUE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV-"))
+  just.PIK3CA.unique$pos_HPV_and_pos_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="TRUE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV+"))
+  just.PIK3CA.unique$pos_HPV_and_neg_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="FALSE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV+"))
+}
+
+View(just.PIK3CA.unique)
+```
+
+
 <!-- ```{r heatmap and dendrogram} -->
 <!-- load("output_data/trinuc_contexts_HNSC_MAF.RData") -->
 <!-- # install.packages("ggdendro") -->

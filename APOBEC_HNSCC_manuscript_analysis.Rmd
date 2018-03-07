@@ -406,6 +406,10 @@ for(i in 1:nrow(trinuc.w.HPV)){
 }
 
 length(which(trinuc.w.HPV$HPV=="HPV+"))
+length(which(trinuc.w.HPV$HPV=="HPV-"))
+length(which(is.na(trinuc.w.HPV$HPV)))
+
+save(trinuc.w.HPV,file = "output_data/signature_weights_w_HPV.RData")
 # length(unique(HNSC.selection.output$Unique_patient_identifier[which(HNSC.selection.output$HPV_call=="HPV+" & !is.na(HNSC.selection.output$APOBEC_weight))]))
 
 length(unique(HNSC.selection.output$Unique_patient_identifier[which(HNSC.selection.output$HPV_call=="HPV+" & HNSC.selection.output$APOBEC_weight > 0)]))
@@ -1602,7 +1606,11 @@ ALL.prev.df <- cbind(ALL.prev.df,NA,NA,NA,NA)
 colnames(ALL.prev.df)[6:7] <- c("Median APOBEC contribution", "Selection from APOBEC")
 colnames(ALL.prev.df)[8:9] <- c("Median NonAPOBEC contribution", "Selection from NonAPOBEC")
 
-
+# Previously broke down each mutation by unique trinucleotide signature 
+# (different nucleotide changes can result in the same amino acid)
+# now need to remerge because we are focused on the phenotype (Amino acid) 
+# TODO 
+# Need new data frame for this one, with just rows representing unique amino acids. 
 
 for(i in 1:nrow(ALL.prev.df)){
   ALL.prev.df$`Median APOBEC contribution`[i] <- round(median(signature.breakdown.ALL$`APOBEC sum`[which(signature.breakdown.ALL$Name==ALL.prev.df$Mutation[i])],na.rm = T),2)

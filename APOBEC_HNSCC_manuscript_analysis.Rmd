@@ -1679,9 +1679,35 @@ save(ALL.prev.df, file = "output_data/variant_selection_contribution_wAPOBEC.RDa
 
 ```{r Selection intensity vs TCW to TKW}
 
+# Only one amino acid substitution caused by two different nucleotide substitutions, but neither are TCW --> TKW
+table(ALL.prev.original$short_name)[order(table(ALL.prev.original$short_name),decreasing = T)]
+ALL.prev.original[which(ALL.prev.original$short_name=="CDKN2A W110*"),]
+
+head(HNSC.selection.output)
+unique(ALL.prev.original$`Trinuc context`)
+
+ALL.prev.df$`APOBEC type TCW` <- "False"
+
+for( i in 1:nrow(ALL.prev.df)){
+  if(length(which(HNSC.selection.output$Name_short==ALL.prev.df$`Short name`[i]))==0){print(paste("NO MATCH!",i))}
+ if(HNSC.selection.output$TCW_TKW[which(HNSC.selection.output$Name_short==ALL.prev.df$`Short name`[i])[1]]==1){
+  ALL.prev.df$`APOBEC type TCW`[i] <- "True"
+ }
+}
 
 
 
+wilcox.test(data=ALL.prev.df, `Selection intensity`~`APOBEC type TCW`)
+  
+  
+distribution.of.APOBEC.TCW <- ggplot(data = ALL.prev.df) + geom_boxplot(aes(y=`Selection intensity`,x=`APOBEC type TCW`),width=0.5,outlier.shape = NA) + geom_jitter(aes(y=`Selection intensity`,x=`APOBEC type TCW`),alpha=0.5,width  = 0.1) + theme_bw() + labs(y="Selection intensity") + scale_y_log10(labels=fancy_scientific)+ theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold")) + labs(x="TCW to TKW")
+
+ggsave(filename = "Figures/selection_vs_TCW.png",plot = distribution.of.APOBEC.TCW,width = 3.25,height = 3.25,dpi = 600)
+
+message("Number of recurrent mutations:");nrow(ALL.prev.df)
+
+length(which(ALL.prev.df$`APOBEC type TCW`=="True"))
+# ALL.prev.df[which(ALL.prev.df$`APOBEC type TCW`=="True"),]
 
 ```
 

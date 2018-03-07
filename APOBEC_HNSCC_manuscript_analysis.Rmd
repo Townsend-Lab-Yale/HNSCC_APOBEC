@@ -1609,8 +1609,10 @@ colnames(ALL.prev.df)[8:9] <- c("Median NonAPOBEC contribution", "Selection from
 # Previously broke down each mutation by unique trinucleotide signature 
 # (different nucleotide changes can result in the same amino acid)
 # now need to remerge because we are focused on the phenotype (Amino acid) 
-# TODO 
+ 
 # Need new data frame for this one, with just rows representing unique amino acids. 
+
+
 
 for(i in 1:nrow(ALL.prev.df)){
   ALL.prev.df$`Median APOBEC contribution`[i] <- round(median(signature.breakdown.ALL$`APOBEC sum`[which(signature.breakdown.ALL$Name==ALL.prev.df$Mutation[i])],na.rm = T),2)

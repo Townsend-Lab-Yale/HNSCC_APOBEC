@@ -1611,6 +1611,19 @@ colnames(ALL.prev.df)[8:9] <- c("Median NonAPOBEC contribution", "Selection from
 # now need to remerge because we are focused on the phenotype (Amino acid) 
  
 # Need new data frame for this one, with just rows representing unique amino acids. 
+ALL.prev.df$short_name <- NA
+for(i in 1:nrow(ALL.prev.df)){
+  if(endsWith(x = as.character(ALL.prev.df$Mutation[i]),suffix = "NCSNV")){
+   ALL.prev.df$short_name[i] <- as.character(ALL.prev.df$Mutation[i]) 
+  }else{
+  ALL.prev.df$short_name[i] <- paste(strsplit(x = as.character(ALL.prev.df$Mutation[i]), split=" ")[[1]][1:2],collapse = " ")
+  }
+}
+
+
+ALL.prev.df.merged <- as.data.frame(matrix(ncol=5,nrow=length(unique(ALL.prev.df$short_name)),data=NA))
+colnames(ALL.prev.df.merged) <- c("Short name", "Median APOBEC contribution", "Median NonAPOBEC contribution", "Frequency", "Selection intensity")
+ALL.prev.df.merged$`Short name` <- unique(ALL.prev.df$short_name)
 
 
 
@@ -1620,6 +1633,14 @@ for(i in 1:nrow(ALL.prev.df)){
   
 }
 
+for(i in 1:nrow(ALL.prev.df.merged)){
+  ALL.prev.df.merged$`Median APOBEC contribution`[i] <- round(median(signature.breakdown.ALL$`APOBEC sum`[which(signature.breakdown.ALL$short_name==ALL.prev.df.merged$`Short name`[i])],na.rm = T),2)
+  ALL.prev.df.merged$`Median NonAPOBEC contribution`[i] <- round(median(signature.breakdown.ALL$`NonAPOBEC sum`[which(signature.breakdown.ALL$short_name==ALL.prev.df.merged$`Short name`[i])],na.rm = T),2)
+ ALL.prev.df.merged$Frequency[i] <- length(which(signature.breakdown.ALL$short_name==ALL.prev.df.merged$`Short name`[i]))
+ ALL.prev.df.merged$`Selection intensity`[i] <- ALL.prev.df$`Selection intensity`[which(ALL.prev.df$short_name==ALL.prev.df.merged$`Short name`[i])[1]]
+}
+
+
 # if there are substitutions that all came from tumors with less than enough mutations to determine signatures
 # we need to remove these substitutions.
 if(length(which(is.na(ALL.prev.df$`Median APOBEC contribution`)))>0){
@@ -1628,6 +1649,18 @@ that did not have enough mutations to measure trinucleotide context
 and will be removed from the analysis",sep=""))
   ALL.prev.df <- ALL.prev.df[-which(is.na(ALL.prev.df$`Median APOBEC contribution`)),]
 }
+
+if(length(which(is.na(ALL.prev.df.merged$`Median APOBEC contribution`)))>0){
+  message(paste(length(which(is.na(ALL.prev.df.merged$`Median APOBEC contribution`)))," substitutions occur in only tumors
+that did not have enough mutations to measure trinucleotide context
+and will be removed from the analysis",sep=""))
+  ALL.prev.df.merged <- ALL.prev.df.merged[-which(is.na(ALL.prev.df.merged$`Median APOBEC contribution`)),]
+}
+
+ALL.prev.original <- ALL.prev.df
+
+ALL.prev.df <- ALL.prev.df.merged
+
 ALL.prev.df$`Selection from APOBEC` <- round((ALL.prev.df$Frequency * ALL.prev.df$`Selection intensity` * ALL.prev.df$`Median APOBEC contribution`)/length(unique(HNSC.MAF$Unique_patient_identifier)),2)
 
 ALL.prev.df$`Selection from NonAPOBEC` <- round((ALL.prev.df$Frequency * ALL.prev.df$`Selection intensity` * ALL.prev.df$`Median NonAPOBEC contribution`)/length(unique(HNSC.MAF$Unique_patient_identifier)),2)
@@ -1644,14 +1677,25 @@ save(ALL.prev.df, file = "output_data/variant_selection_contribution_wAPOBEC.RDa
 
 ```
 
+```{r Selection intensity vs TCW to TKW}
+
+
+
+
+
+```
+
+
+
+
 ```{r Mutation type vs gamma from APOBEC or not, eval=T}
 
-head(signature.breakdown.ALL)
-head(ALL.prev.df)
+# head(signature.breakdown.ALL)
+# head(ALL.prev.df)
 
 ALL.prev.df.split <- as.data.frame(matrix(data = NA,nrow = 2*nrow(ALL.prev.df),ncol=5))
 colnames(ALL.prev.df.split) <- c("Name","Selection from mutational context","APOBEC context", "TCW to TKW", "TCN to TKN")
-ALL.prev.df.split$Name <- c(ALL.prev.df$Mutation,ALL.prev.df$Mutation)
+ALL.prev.df.split$Name <- c(ALL.prev.df$`Short name`,ALL.prev.df$`Short name`)
 ALL.prev.df.split$`APOBEC context` <-  c(rep("APOBEC processes",nrow(ALL.prev.df.split)/2),rep("non-APOBEC processes",nrow(ALL.prev.df.split)/2))
 
 
@@ -1664,14 +1708,14 @@ for(i in 1:length(unique(ALL.prev.df.split$Name))){
 
 head(ALL.prev.df.split)
 
-ALL.prev.df.split$short_name <- NA
-for(i in 1:nrow(ALL.prev.df.split)){
-  ALL.prev.df.split$short_name[i] <- paste(strsplit(x = ALL.prev.df.split$Name[i], split=" ")[[1]][1:2],collapse = " ")
-}
+# ALL.prev.df.split$short_name <- NA
+# for(i in 1:nrow(ALL.prev.df.split)){
+#   ALL.prev.df.split$short_name[i] <- paste(strsplit(x = ALL.prev.df.split$short_name[i], split=" ")[[1]][1:2],collapse = " ")
+# }
 
 # this quick fix messes up the non-coding mutations, fix the one we want labeled 
 
-ALL.prev.df.split$short_name[which(ALL.prev.df.split$Name=="CCDC50 A 191098615 C NCSNV")] <- "CCDC50 Splice Site"
+ALL.prev.df.split$Name[which(ALL.prev.df.split$Name=="CCDC50 A 191098615 C NCSNV")] <- "CCDC50 Splice Site"
 
 # ggplot(data = ALL.prev.df.split) +geom_violin(aes(x=`APOBEC context`, y = `Selection from mutational context`))  + geom_jitter(aes(x=`APOBEC context`, y = `Selection from mutational context`))
 
@@ -1686,8 +1730,8 @@ library(ggrepel)
 
 selection.from.contexts.labels <- ggplot(data = ALL.prev.df.split) +#geom_violin(aes(x=`APOBEC context`, y = `Selection from mutational context`))  +
   geom_point(aes(x=`APOBEC context`, y = `Selection from mutational context`),alpha=0.2) + 
-  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="APOBEC processes" & `Selection from mutational context` > 100),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=short_name),color="darkred",fontface="bold",size=2.5) + #scale_y_log10(labels=fancy_scientific) + 
-  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="non-APOBEC processes" & `Selection from mutational context` > 650),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=short_name),box.padding = .31,color="darkred",fontface="bold",size=2.5) + 
+  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="APOBEC processes" & `Selection from mutational context` > 100),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=Name),color="darkred",fontface="bold",size=2.5) + #scale_y_log10(labels=fancy_scientific) + 
+  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="non-APOBEC processes" & `Selection from mutational context` > 650),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=Name),box.padding = .31,color="darkred",fontface="bold",size=2.5) + 
   labs(y="Net realized selection intensity") + theme_bw() + theme(axis.text=element_text(size=8), axis.title=element_text(size=10,face="bold"))
 
 # ggsave(filename = "Figures/selection_from_process.png",plot = selection.from.contexts)

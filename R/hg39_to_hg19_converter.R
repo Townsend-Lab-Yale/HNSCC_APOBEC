@@ -9,9 +9,11 @@ if(length(which(list.files("input_data")=="hg38Tohg19.chain"))==0){
   R.utils::gunzip("input_data/hg38Tohg19.chain.gz",remove=F)
 }
 
+library(GenomicRanges)
+library(rtracklayer)
 hg38.to.hg19.converter <- function(chain,hg38_maf){
   
-  ## ch = import.chain("~/Downloads/hg38ToHg19.over.chain") #chain needs to be downloaded from UCSC http://hgdownload.cse.ucsc.edu/gbdb/hg38/liftOver/
+  # ch = import.chain("~/Downloads/hg38ToHg19.over.chain") #chain needs to be downloaded from UCSC http://hgdownload.cse.ucsc.edu/gbdb/hg38/liftOver/
 
   ch = import.chain(chain)
   

@@ -97,14 +97,14 @@ HPV.pos.trinuc.heatmap <- HPV.pos.trinuc.heatmap + theme_bw() + theme(panel.grid
                                                                       axis.title.x = element_text(size=15),
                                                                       axis.title.y = element_text(size=15),
                                                                       axis.text.x = element_text(size=12),
-                                                                      axis.text.y=element_text(size=12),plot.title = element_text(hjust = 0.5)) 
+                                                                      axis.text.y=element_text(size=12),plot.title = element_text(hjust = 0.5),legend.position = "left") 
 # ggtitle(paste("Trinucleotide profile for ",tumor.name,sep=""))
 # p
 
 
 HPV.pos.trinuc.heatmap
 
-ggsave(paste("Figures/","HPVpos","_trinuc_heatmap.png",sep=""),height = 1.5,width = 8,plot = HPV.pos.trinuc.heatmap,dpi=300)
+ggsave(paste("Figures/","HPVpos","_trinuc_heatmap.png",sep=""),height = 1.5,width = 7,plot = HPV.pos.trinuc.heatmap,dpi=300)
 
 ```
 
@@ -124,13 +124,13 @@ HPV.neg.trinuc.heatmap <- HPV.neg.trinuc.heatmap + theme_bw() + theme(panel.grid
                                                                       axis.title.x = element_text(size=15),
                                                                       axis.title.y = element_text(size=15),
                                                                       axis.text.x = element_text(size=12),
-                                                                      axis.text.y=element_text(size=12),plot.title = element_text(hjust = 0.5)) 
+                                                                      axis.text.y=element_text(size=12),plot.title = element_text(hjust = 0.5),legend.position = "left") 
 # ggtitle(paste("Trinucleotide profile for ",tumor.name,sep=""))
 # p
 
 HPV.neg.trinuc.heatmap
 
-ggsave(filename = paste("Figures/","HPVneg","_trinuc_heatmap.png",sep=""),height = 1.5,width = 8,plot = HPV.neg.trinuc.heatmap,dpi = 300)
+ggsave(filename = paste("Figures/","HPVneg","_trinuc_heatmap.png",sep=""),height = 1.5,width = 7,plot = HPV.neg.trinuc.heatmap,dpi = 300)
 
 ```
 
@@ -510,32 +510,32 @@ library(ggrepel)
 ```{r prevalence and mutation rate plots}
 # getting them to match up! 
 prev_plot <- ggplot(data = prevalence.df) + 
-  geom_point(aes(y = prev_HPVneg, x = prev_HPVpos),alpha=0.5,size=5) + 
-  geom_text_repel(data = subset(prevalence.df, (prev_HPVneg>0.025 | prev_HPVpos>0.04) | (prev_HPVneg>0.0 & prev_HPVpos>0)),aes(y = prev_HPVneg, x = prev_HPVpos,label=Name),box.padding = 1.5,size=4,color="darkred",fontface="bold") + 
+  geom_point(aes(y = prev_HPVneg, x = prev_HPVpos),alpha=0.5,size=1.5) + 
+  geom_text_repel(data = subset(prevalence.df, (prev_HPVneg>0.025 | prev_HPVpos>0.04) | (prev_HPVneg>0.0 & prev_HPVpos>0)),aes(y = prev_HPVneg, x = prev_HPVpos,label=Name),box.padding =0.6,size=1.8,color="darkred",fontface="bold") + 
   theme_bw() + 
-  labs(y=bquote("Prevalence in "~HPV^{"-"}~ "\n tumors"), x=bquote("Prevalence in "~HPV^{"+"}~ "tumors")) + theme(axis.text=element_text(size=12), axis.title=element_text(size=10,face="bold"),plot.margin = margin(r=.2,unit = "in")) + 
+  labs(y=bquote("Prevalence in "~HPV^{"-"}~ "\n tumors"), x=bquote("Prevalence in "~HPV^{"+"}~ "tumors")) + theme(axis.text=element_text(size=6), axis.title=element_text(size=5,face="bold"),plot.margin = margin(r=.1,t=.1,unit = "in")) + 
   coord_equal()   #+ geom_label(aes(x = prev_HPVneg, y = prev_HPVpos, label=Name))
 prev_plot
-ggsave(filename = "Figures/prevalence_plot.png",plot = prev_plot,height = 3,width = 8,dpi = 300)
+ggsave(filename = "Figures/prevalence_plot.png",plot = prev_plot,height = 1.2,width = 3.25,dpi = 600)
 
 
 mutation_rates_full_scatter <- ggplot(data = mutation_rates, aes(x=positive_mut_rates,y=negative_mut_rates)) +
   geom_point(alpha=0.2,col="black",size=0.5) + 
-  geom_smooth(method='lm',color="red") + 
+  geom_smooth(method='lm',color="red",size=.5) + 
   # geom_text_repel(data=subset(mutation_rates, positive_mut_rates > 5e-5 | negative_mut_rates > 3e-5 ), aes(label=gene),size=3) + 
-  geom_point(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates),size=3,col="blue") + 
-  geom_text_repel(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates,label=gene),size=5,col="blue",fontface="bold") +
+  geom_point(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates),size=1.5,col="blue") + 
+  geom_text_repel(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates,label=gene),size=1.8,col="blue",fontface="bold") +
   labs(y=bquote("Mutation rate in "~HPV^{"-"}~ "\n tumors"), x=bquote("Mutation rate in "~HPV^{"+"}~ "tumors")) + 
   coord_equal() + 
   theme_bw() +
   geom_abline(slope=1, intercept=0) + 
   scale_x_continuous(labels=fancy_scientific) + 
-  scale_y_continuous(labels=fancy_scientific) + theme(axis.text=element_text(size=12),
-                                                      axis.title=element_text(size=10,face="bold"),
-                                                      plot.margin = margin(r=.4,unit = "in"))  
+  scale_y_continuous(labels=fancy_scientific) + theme(axis.text=element_text(size=6),
+                                                      axis.title=element_text(size=5,face="bold"),
+                                                      plot.margin = margin(r=.1,t=.1,unit = "in"))  
 
 mutation_rates_full_scatter
-ggsave(plot = mutation_rates_full_scatter,filename = "Figures/mutation_rates_full_scatter.png",height = 3,width = 8,dpi=300)
+ggsave(plot = mutation_rates_full_scatter,filename = "Figures/mutation_rates_full_scatter.png",height = 1.2,width = 3.25,dpi=600)
 
 
 # library(cowplot)
@@ -1231,11 +1231,11 @@ SNV.APOBEC.df.knownAPOBEC <- SNV.APOBEC.df[which(!is.na(SNV.APOBEC.df$APOBEC)),]
 # length(which(SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV+" & SNV.APOBEC.df.knownAPOBEC$APOBEC_weight==0))
 SNV.APOBEC.df.knownAPOBEC$HPV_status_value <- ifelse(SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV+",1,0)
 
-HPV_status_vs_APOBEC_weight <- ggplot() + geom_point(data = SNV.APOBEC.df.knownAPOBEC,aes(y=HPV_status_value,x=APOBEC_weight),alpha=0.2,size=4) + stat_smooth(data = SNV.APOBEC.df.knownAPOBEC,aes(y=HPV_status_value,x=APOBEC_weight),method="glm", method.args=list(family="binomial"), se=T) + labs(y="Probability HPV positive",x="APOBEC signature weight") 
+HPV_status_vs_APOBEC_weight <- ggplot() + geom_point(data = SNV.APOBEC.df.knownAPOBEC,aes(y=HPV_status_value,x=APOBEC_weight),alpha=0.2,size=4) + stat_smooth(data = SNV.APOBEC.df.knownAPOBEC,aes(y=HPV_status_value,x=APOBEC_weight),method="glm", method.args=list(family="binomial"), se=T) + labs(y="Probability HPV positive",x="APOBEC signature weight") + theme_bw() 
 
 # library(ggplot2)
 HPV_status_vs_APOBEC_weight
-ggsave(plot = HPV_status_vs_APOBEC_weight, filename ="Figures/HPV_status_APOBEC_weight.png",width = 5,height = 3)
+ggsave(plot = HPV_status_vs_APOBEC_weight, filename ="Figures/HPV_status_APOBEC_weight.png",width = 3.25,height = 2,dpi = 300)
 
 log_regression <- glm(HPV_status_value~APOBEC_weight,data = SNV.APOBEC.df.knownAPOBEC,family = binomial)
 
@@ -1570,6 +1570,11 @@ signature.breakdown.means <- signature.breakdown.means[order(signature.breakdown
 
 signature.breakdown.ALL$Name <- factor(signature.breakdown.ALL$Name, levels = rev(signature.breakdown.means$Name))
 
+# ALL.prev.df.split$short_name <- NA
+# for(i in 1:nrow(ALL.prev.df.split)){
+#   ALL.prev.df.split$short_name[i] <- paste(strsplit(x = ALL.prev.df.split$Name[i], split=" ")[[1]][1:2],collapse = " ")
+# }
+
 ALL.APOBECplot <- ggplot(data = signature.breakdown.ALL) + geom_point(aes(x = `APOBEC sum`, y= Name),alpha=0.2)+# geom_point(aes(x = `NonAPOBEC sum`, y= Name),alpha=0.2,color="red") + 
   theme_bw() + labs(x="Proportion of mutation from APOBEC signatures per tumor", y= "Mutation", title="All mutations and the proportion \nof the trinucleotide context that was APOBEC", subtitle="Ranked in descending order of \nmedian proportion APOBEC contribution")
 
@@ -1592,6 +1597,9 @@ HNSC.MAF <- MAF_for_analysis
 ALL.prev.df <- cbind(ALL.prev.df,NA,NA,NA,NA)
 colnames(ALL.prev.df)[6:7] <- c("Median APOBEC contribution", "Selection from APOBEC")
 colnames(ALL.prev.df)[8:9] <- c("Median NonAPOBEC contribution", "Selection from NonAPOBEC")
+
+
+
 for(i in 1:nrow(ALL.prev.df)){
   ALL.prev.df$`Median APOBEC contribution`[i] <- round(median(signature.breakdown.ALL$`APOBEC sum`[which(signature.breakdown.ALL$Name==ALL.prev.df$Mutation[i])],na.rm = T),2)
   ALL.prev.df$`Median NonAPOBEC contribution`[i] <- round(median(signature.breakdown.ALL$`NonAPOBEC sum`[which(signature.breakdown.ALL$Name==ALL.prev.df$Mutation[i])],na.rm = T),2)
@@ -1630,7 +1638,7 @@ head(ALL.prev.df)
 ALL.prev.df.split <- as.data.frame(matrix(data = NA,nrow = 2*nrow(ALL.prev.df),ncol=5))
 colnames(ALL.prev.df.split) <- c("Name","Selection from mutational context","APOBEC context", "TCW to TKW", "TCN to TKN")
 ALL.prev.df.split$Name <- c(ALL.prev.df$Mutation,ALL.prev.df$Mutation)
-ALL.prev.df.split$`APOBEC context` <-  c(rep("APOBEC signatures",nrow(ALL.prev.df.split)/2),rep("NonAPOBEC signatures",nrow(ALL.prev.df.split)/2))
+ALL.prev.df.split$`APOBEC context` <-  c(rep("APOBEC processes",nrow(ALL.prev.df.split)/2),rep("non-APOBEC processes",nrow(ALL.prev.df.split)/2))
 
 
 for(i in 1:length(unique(ALL.prev.df.split$Name))){
@@ -1658,19 +1666,19 @@ source("R/fancy_scientific_code.R")
 
 # selection.from.contexts <- ggplot(data = ALL.prev.df.split) +geom_violin(aes(x=`APOBEC context`, y = `Selection from mutational context`))  + geom_jitter(aes(x=`APOBEC context`, y = `Selection from mutational context`)) + scale_y_log10(labels=fancy_scientific) + labs(x="Mutational signatures attributed to mutation", y="Proportion of selection intensity attributed to signature and \nweighted by mutation prevalence among tumors") + theme_bw()
 
-ALL.prev.df.split$`APOBEC context` <- factor(ALL.prev.df.split$`APOBEC context`, levels = c("NonAPOBEC signatures", "APOBEC signatures"))
+ALL.prev.df.split$`APOBEC context` <- factor(ALL.prev.df.split$`APOBEC context`, levels = c("non-APOBEC processes", "APOBEC processes"))
 
 library(ggrepel)
 
 selection.from.contexts.labels <- ggplot(data = ALL.prev.df.split) +#geom_violin(aes(x=`APOBEC context`, y = `Selection from mutational context`))  +
   geom_point(aes(x=`APOBEC context`, y = `Selection from mutational context`),alpha=0.2) + 
-  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="APOBEC signatures" & `Selection from mutational context` > 100),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=short_name),color="darkred",fontface="bold") + #scale_y_log10(labels=fancy_scientific) + 
-  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="NonAPOBEC signatures" & `Selection from mutational context` > 650),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=short_name),box.padding = .31,color="darkred",fontface="bold") + 
-  labs(y="Net realized selection intensity") + theme_bw() + theme(axis.text=element_text(size=16), axis.title=element_text(size=18,face="bold"))
+  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="APOBEC processes" & `Selection from mutational context` > 100),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=short_name),color="darkred",fontface="bold",size=2.5) + #scale_y_log10(labels=fancy_scientific) + 
+  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="non-APOBEC processes" & `Selection from mutational context` > 650),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=short_name),box.padding = .31,color="darkred",fontface="bold",size=2.5) + 
+  labs(y="Net realized selection intensity") + theme_bw() + theme(axis.text=element_text(size=8), axis.title=element_text(size=10,face="bold"))
 
 # ggsave(filename = "Figures/selection_from_process.png",plot = selection.from.contexts)
 # View(ALL.prev.df.split)
-ggsave(filename = "Figures/selection_from_process_labels.png",plot = selection.from.contexts.labels)
+ggsave(filename = "Figures/selection_from_process_labels.png",plot = selection.from.contexts.labels,width = 3.25,height = 3.25,dpi = 600)
 
 wilcox.test(`Selection from mutational context`~`APOBEC context`,data = ALL.prev.df.split)
 
@@ -1756,6 +1764,9 @@ for(i in 1:nrow(just.PIK3CA.unique)){
 datatable(just.PIK3CA.unique)
 ```
 
+```{r save analysis}
+save.image(file = "output_data/completed_analysis_APOBEC_HNSCC.RData")
+```
 
 <!-- ```{r heatmap and dendrogram} -->
 <!-- load("output_data/trinuc_contexts_HNSC_MAF.RData") -->

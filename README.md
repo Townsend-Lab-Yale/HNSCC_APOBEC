@@ -12,7 +12,7 @@ Analysis output files. Includes:
 - MAFs after split, removing DNP, changing to hg19, etc
 - trinucleotide context file from the main MAF with no HPV split.
 
-# Trinucleotide context file
+## Trinucleotide context file
 
 You can load() this into R. It is a list structure, where:
 - trinuc.contexts[[1]] gives you the summary used for the selection analysis (average of contexts)

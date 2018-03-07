@@ -1570,10 +1570,14 @@ signature.breakdown.means <- signature.breakdown.means[order(signature.breakdown
 
 signature.breakdown.ALL$Name <- factor(signature.breakdown.ALL$Name, levels = rev(signature.breakdown.means$Name))
 
-# ALL.prev.df.split$short_name <- NA
-# for(i in 1:nrow(ALL.prev.df.split)){
-#   ALL.prev.df.split$short_name[i] <- paste(strsplit(x = ALL.prev.df.split$Name[i], split=" ")[[1]][1:2],collapse = " ")
-# }
+signature.breakdown.ALL$short_name <- NA
+for(i in 1:nrow(signature.breakdown.ALL)){
+  if(endsWith(x = as.character(signature.breakdown.ALL$Name[i]),suffix = "NCSNV")){
+   signature.breakdown.ALL$short_name[i] <- as.character(signature.breakdown.ALL$Name[i]) 
+  }else{
+  signature.breakdown.ALL$short_name[i] <- paste(strsplit(x = as.character(signature.breakdown.ALL$Name[i]), split=" ")[[1]][1:2],collapse = " ")
+  }
+}
 
 ALL.APOBECplot <- ggplot(data = signature.breakdown.ALL) + geom_point(aes(x = `APOBEC sum`, y= Name),alpha=0.2)+# geom_point(aes(x = `NonAPOBEC sum`, y= Name),alpha=0.2,color="red") + 
   theme_bw() + labs(x="Proportion of mutation from APOBEC signatures per tumor", y= "Mutation", title="All mutations and the proportion \nof the trinucleotide context that was APOBEC", subtitle="Ranked in descending order of \nmedian proportion APOBEC contribution")

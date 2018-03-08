@@ -511,14 +511,17 @@ library(ggrepel)
 
 ```
 
-```{r prevalence and mutation rate plots}
+```{r prevalence and mutation rate plots, fig.height=1.2, fig.width=3.25}
+common.text.size <- 6
+
 # getting them to match up! 
 prev_plot <- ggplot(data = prevalence.df) + 
   geom_point(aes(y = prev_HPVneg, x = prev_HPVpos),alpha=0.5,size=1.5) + 
-  geom_text_repel(data = subset(prevalence.df, (prev_HPVneg>0.025 | prev_HPVpos>0.04) | (prev_HPVneg>0.0 & prev_HPVpos>0)),aes(y = prev_HPVneg, x = prev_HPVpos,label=Name),box.padding =0.6,size=1.8,color="darkred",fontface="bold") + 
+  geom_text_repel(data = subset(prevalence.df, (prev_HPVneg>0.025 | prev_HPVpos>0.04) | (prev_HPVneg>0.0 & prev_HPVpos>0)),aes(y = prev_HPVneg, x = prev_HPVpos,label=Name),box.padding =0.6,size=common.text.size*(5/14),color="darkred",fontface="bold") + 
   theme_bw() + 
-  labs(y=bquote("Prevalence in "~HPV^{"-"}~ "\n tumors"), x=bquote("Prevalence in "~HPV^{"+"}~ "tumors")) + theme(axis.text=element_text(size=6), axis.title=element_text(size=5,face="bold"),plot.margin = margin(r=.1,t=.1,unit = "in")) + 
-  coord_equal()   #+ geom_label(aes(x = prev_HPVneg, y = prev_HPVpos, label=Name))
+  labs(y=bquote("Prevalence in "~HPV^{"-"}~ "\n tumors"), x=bquote("Prevalence in "~HPV^{"+"}~ "tumors")) + theme(axis.text=element_text(size=common.text.size), axis.title=element_text(size=common.text.size,face="bold"),plot.margin = margin(r=.2,t=.0,l=.1,b=0.1,unit = "in")) + 
+  # coord_equal() +  
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +theme(axis.title.x = element_text(margin = margin(t = -.2, r = 0, b = 0, l = 0)))  #+ geom_label(aes(x = prev_HPVneg, y = prev_HPVpos, label=Name))
 prev_plot
 ggsave(filename = "Figures/prevalence_plot.png",plot = prev_plot,height = 1.2,width = 3.25,dpi = 600)
 
@@ -528,23 +531,72 @@ mutation_rates_full_scatter <- ggplot(data = mutation_rates, aes(x=positive_mut_
   geom_smooth(method='lm',color="red",size=.5) + 
   # geom_text_repel(data=subset(mutation_rates, positive_mut_rates > 5e-5 | negative_mut_rates > 3e-5 ), aes(label=gene),size=3) + 
   geom_point(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates),size=1.5,col="blue") + 
-  geom_text_repel(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates,label=gene),size=1.8,col="blue",fontface="bold") +
+  geom_text_repel(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates,label=gene),size=common.text.size*(5/14),col="blue",fontface="bold",box.padding = 0.6) +
   labs(y=bquote("Mutation rate in "~HPV^{"-"}~ "\n tumors"), x=bquote("Mutation rate in "~HPV^{"+"}~ "tumors")) + 
-  coord_equal() + 
-  theme_bw() +
+  # coord_equal() + 
+  theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   geom_abline(slope=1, intercept=0) + 
   scale_x_continuous(labels=fancy_scientific) + 
-  scale_y_continuous(labels=fancy_scientific) + theme(axis.text=element_text(size=6),
-                                                      axis.title=element_text(size=5,face="bold"),
-                                                      plot.margin = margin(r=.1,t=.1,unit = "in"))  
+  scale_y_continuous(labels=fancy_scientific) + theme(axis.text=element_text(size=common.text.size),
+                                                      axis.title=element_text(size=common.text.size,face="bold"),
+                                                      plot.margin = margin(r=.2,t=.0,b=.0,l=.1,unit = "in")) + theme(axis.title.x = element_text(margin = margin(t = -.2, r = 0, b = 0, l = 0)))  
 
 mutation_rates_full_scatter
 ggsave(plot = mutation_rates_full_scatter,filename = "Figures/mutation_rates_full_scatter.png",height = 1.2,width = 3.25,dpi=600)
 
 
-# library(cowplot)
+library(cowplot)
 
-# plot_grid(prev_plot,mutation_rates_full_scatter,nrow = 2)
+combined.plot.prev.and.muts <- plot_grid(prev_plot,mutation_rates_full_scatter,nrow = 2,align='v')
+
+ggsave(plot = combined.plot.prev.and.muts,filename = "Figures/selection_and_mutrates_combined.png",height = 1.2*2,width = 3.25,dpi=600)
+
+HPV.neg.trinuc.heatmap <- ggplot(data=HPV.neg.trinuc.mutation_data, aes(Downstream, Upstream)) +
+  geom_tile(aes(fill = proportion*100), colour = "white") + scale_fill_gradient(low = "white", high = "steelblue", name="Percent") + facet_grid(.~section_labels, labeller = label_parsed)  +  #geom_text(aes(label = round(proportion, 4)*100),size=.8) +
+  theme_bw() + theme(panel.grid.major = element_blank(),plot.margin =  margin(r=0,t=5,b=.0,l=0),
+                     panel.grid.minor = element_blank(),
+                     axis.ticks = element_blank(),
+                     strip.text=element_text(size=common.text.size),
+                     axis.title.x = element_text(size=common.text.size),
+                     axis.title.y = element_text(size=common.text.size),
+                     axis.text.x = element_text(size=common.text.size,margin=margin(t=0)),
+                     legend.text = element_text(size=common.text.size,margin=margin(l=-2)),
+                     legend.title = element_text(size=common.text.size),
+                     axis.text.y=element_text(size=common.text.size,margin=margin(r=0)),
+                     plot.title = element_text(hjust = 0.5),
+                     legend.position = "right") +   
+  guides(fill = guide_colorbar(barwidth = .5, barheight = 2)) +
+  theme(strip.text.x = element_text(margin = margin(0.4,0,0.4,0))) + 
+  theme(legend.margin=margin(t = 0,r=0,b=0,l=-7),legend.box.margin=margin(0,0,0,0)) + 
+  theme(panel.spacing = unit(.1, "lines")) + 
+  theme(axis.title.x = element_text(margin = margin(t = -.2, r = 0, b = 0, l = 0)))  
+
+HPV.pos.trinuc.heatmap <- ggplot(data=HPV.pos.trinuc.mutation_data, aes(Downstream, Upstream)) +
+  geom_tile(aes(fill = proportion*100), colour = "white") + scale_fill_gradient(low = "white", high = "steelblue", name="Percent",labels=c(13,10,7,4,1),breaks=c(13,10,7,4,1)) + facet_grid(.~section_labels, labeller = label_parsed)  +  #geom_text(aes(label = round(proportion, 4)*100),size=.8) +
+  theme_bw() + theme(panel.grid.major = element_blank(),plot.margin =  margin(r=0,t=5,b=.0,l=0),
+                     panel.grid.minor = element_blank(),
+                     axis.ticks = element_blank(),
+                     strip.text=element_text(size=common.text.size),
+                     axis.title.x = element_text(size=common.text.size),
+                     axis.title.y = element_text(size=common.text.size),
+                     axis.text.x = element_text(size=common.text.size,margin=margin(t=0)),
+                     legend.text = element_text(size=common.text.size,margin=margin(l=-2)),
+                     legend.title = element_text(size=common.text.size),
+                     axis.text.y=element_text(size=common.text.size,margin=margin(r=0)),
+                     plot.title = element_text(hjust = 0.5),
+                     legend.position = "right") +   
+  guides(fill = guide_colorbar(barwidth = .5, barheight = 2)) +
+  theme(strip.text.x = element_text(margin = margin(0.4,0,0.4,0))) +
+  theme(legend.margin=margin(t = 0,r=0,b=0,l=-7),legend.box.margin=margin(0,0,0,0)) + 
+  theme(panel.spacing = unit(.1, "lines")) +
+  theme(axis.title.x = element_text(margin = margin(t = -.2, r = 0, b = 0, l = 0)))  
+# HPV.pos.trinuc.heatmap
+
+
+
+combined.plot.prev.and.muts.heat <- plot_grid(prev_plot,mutation_rates_full_scatter,HPV.neg.trinuc.heatmap,HPV.pos.trinuc.heatmap,nrow = 4,align='v',axis='l',rel_heights = c(1,1,.4,.4),labels = "AUTO",label_size = 6)
+
+ggsave(plot = combined.plot.prev.and.muts.heat,filename = "Figures/selection_and_mutrates_heat_combined.png",height = 1*4,width = 3.25,dpi=600)
 
 
 
@@ -800,7 +852,7 @@ neg.colors <- color.vec[names(color.vec) %in% selection.subset.neg.ordered$Gene]
 
 
 g.mid <- ggplot(selection.subset.neg.ordered,aes(x=1,y=Name)) +
-  geom_text(aes(label=Name),size=7) +
+  geom_text(aes(label=Name),size=common.text.size) +
   # geom_segment(aes(x=0.94,xend=0.96,yend=Name)) +
   # geom_segment(aes(x=1.04,xend=1.065,yend=Name)) +
   ggtitle("") +
@@ -1577,9 +1629,9 @@ signature.breakdown.ALL$Name <- factor(signature.breakdown.ALL$Name, levels = re
 signature.breakdown.ALL$short_name <- NA
 for(i in 1:nrow(signature.breakdown.ALL)){
   if(endsWith(x = as.character(signature.breakdown.ALL$Name[i]),suffix = "NCSNV")){
-   signature.breakdown.ALL$short_name[i] <- as.character(signature.breakdown.ALL$Name[i]) 
+    signature.breakdown.ALL$short_name[i] <- as.character(signature.breakdown.ALL$Name[i]) 
   }else{
-  signature.breakdown.ALL$short_name[i] <- paste(strsplit(x = as.character(signature.breakdown.ALL$Name[i]), split=" ")[[1]][1:2],collapse = " ")
+    signature.breakdown.ALL$short_name[i] <- paste(strsplit(x = as.character(signature.breakdown.ALL$Name[i]), split=" ")[[1]][1:2],collapse = " ")
   }
 }
 
@@ -1609,14 +1661,14 @@ colnames(ALL.prev.df)[8:9] <- c("Median NonAPOBEC contribution", "Selection from
 # Previously broke down each mutation by unique trinucleotide signature 
 # (different nucleotide changes can result in the same amino acid)
 # now need to remerge because we are focused on the phenotype (Amino acid) 
- 
+
 # Need new data frame for this one, with just rows representing unique amino acids. 
 ALL.prev.df$short_name <- NA
 for(i in 1:nrow(ALL.prev.df)){
   if(endsWith(x = as.character(ALL.prev.df$Mutation[i]),suffix = "NCSNV")){
-   ALL.prev.df$short_name[i] <- as.character(ALL.prev.df$Mutation[i]) 
+    ALL.prev.df$short_name[i] <- as.character(ALL.prev.df$Mutation[i]) 
   }else{
-  ALL.prev.df$short_name[i] <- paste(strsplit(x = as.character(ALL.prev.df$Mutation[i]), split=" ")[[1]][1:2],collapse = " ")
+    ALL.prev.df$short_name[i] <- paste(strsplit(x = as.character(ALL.prev.df$Mutation[i]), split=" ")[[1]][1:2],collapse = " ")
   }
 }
 
@@ -1636,8 +1688,8 @@ for(i in 1:nrow(ALL.prev.df)){
 for(i in 1:nrow(ALL.prev.df.merged)){
   ALL.prev.df.merged$`Median APOBEC contribution`[i] <- round(median(signature.breakdown.ALL$`APOBEC sum`[which(signature.breakdown.ALL$short_name==ALL.prev.df.merged$`Short name`[i])],na.rm = T),2)
   ALL.prev.df.merged$`Median NonAPOBEC contribution`[i] <- round(median(signature.breakdown.ALL$`NonAPOBEC sum`[which(signature.breakdown.ALL$short_name==ALL.prev.df.merged$`Short name`[i])],na.rm = T),2)
- ALL.prev.df.merged$Frequency[i] <- length(which(signature.breakdown.ALL$short_name==ALL.prev.df.merged$`Short name`[i]))
- ALL.prev.df.merged$`Selection intensity`[i] <- ALL.prev.df$`Selection intensity`[which(ALL.prev.df$short_name==ALL.prev.df.merged$`Short name`[i])[1]]
+  ALL.prev.df.merged$Frequency[i] <- length(which(signature.breakdown.ALL$short_name==ALL.prev.df.merged$`Short name`[i]))
+  ALL.prev.df.merged$`Selection intensity`[i] <- ALL.prev.df$`Selection intensity`[which(ALL.prev.df$short_name==ALL.prev.df.merged$`Short name`[i])[1]]
 }
 
 
@@ -1690,16 +1742,16 @@ ALL.prev.df$`APOBEC type TCW` <- "False"
 
 for( i in 1:nrow(ALL.prev.df)){
   if(length(which(HNSC.selection.output$Name_short==ALL.prev.df$`Short name`[i]))==0){print(paste("NO MATCH!",i))}
- if(HNSC.selection.output$TCW_TKW[which(HNSC.selection.output$Name_short==ALL.prev.df$`Short name`[i])[1]]==1){
-  ALL.prev.df$`APOBEC type TCW`[i] <- "True"
- }
+  if(HNSC.selection.output$TCW_TKW[which(HNSC.selection.output$Name_short==ALL.prev.df$`Short name`[i])[1]]==1){
+    ALL.prev.df$`APOBEC type TCW`[i] <- "True"
+  }
 }
 
 
 
 wilcox.test(data=ALL.prev.df, `Selection intensity`~`APOBEC type TCW`)
-  
-  
+
+
 distribution.of.APOBEC.TCW <- ggplot(data = ALL.prev.df) + geom_boxplot(aes(y=`Selection intensity`,x=`APOBEC type TCW`),width=0.5,outlier.shape = NA) + geom_jitter(aes(y=`Selection intensity`,x=`APOBEC type TCW`),alpha=0.5,width  = 0.1) + theme_bw() + labs(y="Selection intensity") + scale_y_log10(labels=fancy_scientific)+ theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold")) + labs(x="TCW to TKW")
 
 ggsave(filename = "Figures/selection_vs_TCW.png",plot = distribution.of.APOBEC.TCW,width = 3.25,height = 3.25,dpi = 600)

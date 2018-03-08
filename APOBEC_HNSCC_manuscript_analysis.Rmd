@@ -1394,11 +1394,26 @@ SNV.APOBEC.df.knownAPOBEC <- SNV.APOBEC.df[which(!is.na(SNV.APOBEC.df$APOBEC)),]
 # length(which(SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV+" & SNV.APOBEC.df.knownAPOBEC$APOBEC_weight==0))
 SNV.APOBEC.df.knownAPOBEC$HPV_status_value <- ifelse(SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV+",1,0)
 
-HPV_status_vs_APOBEC_weight <- ggplot() + geom_point(data = SNV.APOBEC.df.knownAPOBEC,aes(y=HPV_status_value,x=APOBEC_weight),alpha=0.2,size=4) + stat_smooth(data = SNV.APOBEC.df.knownAPOBEC,aes(y=HPV_status_value,x=APOBEC_weight),method="glm", method.args=list(family="binomial"), se=T) + labs(y="Probability HPV positive",x="APOBEC signature weight") + theme_bw() 
+HPV_status_vs_APOBEC_weight <- ggplot() + 
+  geom_point(data = SNV.APOBEC.df.knownAPOBEC,aes(y=HPV_status_value,x=APOBEC_weight),alpha=0.2,size=3) + 
+  stat_smooth(data = SNV.APOBEC.df.knownAPOBEC,aes(y=HPV_status_value,x=APOBEC_weight),method="glm", method.args=list(family="binomial"), se=T) + 
+  labs(y="Probability HPV positive",x="APOBEC signature weight") + theme_classic() +
+  theme(text = element_text(size=common.text.size)) + 
+  expand_limits(x = 0, y = 0) + 
+  scale_x_continuous(expand = c(0, 0)) + 
+  scale_y_continuous(expand = c(0, 0))
+
+HPV_vs_APOBEC_gridoff <- ggplot_gtable(ggplot_build(HPV_status_vs_APOBEC_weight))
+HPV_vs_APOBEC_gridoff$layout$clip[HPV_vs_APOBEC_gridoff$layout$name == "panel"] <- "off"
+library(grid)
+library(gridExtra)
+
+g <- arrangeGrob(HPV_vs_APOBEC_gridoff)
+ggsave(plot = g, filename ="Figures/HPV_status_APOBEC_weight.png",width = 3.25,height = 2,dpi = 600)
 
 # library(ggplot2)
 HPV_status_vs_APOBEC_weight
-ggsave(plot = HPV_status_vs_APOBEC_weight, filename ="Figures/HPV_status_APOBEC_weight.png",width = 3.25,height = 2,dpi = 300)
+ggsave(plot = HPV_status_vs_APOBEC_weight, filename ="Figures/HPV_status_APOBEC_weight.png",width = 3.25,height = 2,dpi = 600)
 
 log_regression <- glm(HPV_status_value~APOBEC_weight,data = SNV.APOBEC.df.knownAPOBEC,family = binomial)
 
@@ -1442,17 +1457,29 @@ ggsave(filename = "Figures/SNV_count_comparing_APOBEC.png",plot = SNV_count_comp
 
 ```{r combining SNV HPV APOBEC plots}
 library(cowplot)
+fancy_scientific_justexp <- function(l) {
+  # turn in to character string in scientific notation
+  l <- format(l, scientific = TRUE)
+  l <- gsub("0e\\+00","0",l)
+  # quote the part before the exponent to keep all the digits
+  l <- gsub("^(.*)e", "'\\1'e", l)
+  # turn the 'e+' into plotmath format
+  l <- gsub("e", "%*%10^", l)
+  new.l <- strsplit(x = l,split = "%")[[1]][3]
+  # return this as an expression
+  parse(text=new.l)
+}
 
 
-HPV.vs.APOBEC_ms_forcombine <- ggplot(data = subset(SNV.APOBEC.df, !is.na(SNV.APOBEC.df$APOBEC))) + geom_boxplot(aes(y=SNV_count,x=APOBEC),color="dark red") + geom_jitter(aes(y=SNV_count,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + scale_y_log10(labels=fancy_scientific) + labs(x="APOBEC signature detected",y="SNV count")  + theme(strip.text.x = element_text(size=18)) +theme(axis.text=element_text(size=18), axis.title=element_text(size=20,face="bold"))
+HPV.vs.APOBEC_ms_forcombine <- ggplot(data = subset(SNV.APOBEC.df, !is.na(SNV.APOBEC.df$APOBEC))) + geom_boxplot(aes(y=SNV_count,x=APOBEC),color="dark red") + geom_jitter(aes(y=SNV_count,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_classic() + scale_y_log10(labels=c(expression(10^02),expression(10^03)),breaks=c(100,1000)) + labs(x="APOBEC signature detected",y="SNV count")  + theme(strip.text.x = element_text(size=common.text.size)) +theme(axis.text=element_text(size=common.text.size), axis.title=element_text(size=common.text.size,face="bold"))
 # plot_grid(
-SNV_count_comparing_APOBEC_plot_forcombine <- ggplot(data = subset(SNV.APOBEC.df.comparingAPOBEC, !is.na(SNV.APOBEC.df.comparingAPOBEC$APOBEC))) + geom_boxplot(aes(y=SNV_count,x=HPV_status),color="dark red") + geom_jitter(aes(y=SNV_count,x=HPV_status),width= 0.2,alpha=0.5) + facet_grid(.~APOBEC) + theme_bw() + scale_y_log10(labels=fancy_scientific) + labs(x="HPV status",y="SNV count")  + theme(strip.text.x = element_text(size=15)) +theme(axis.text=element_text(size=18), axis.title=element_text(size=20,face="bold"),axis.title.y = element_blank())
+SNV_count_comparing_APOBEC_plot_forcombine <- ggplot(data = subset(SNV.APOBEC.df.comparingAPOBEC, !is.na(SNV.APOBEC.df.comparingAPOBEC$APOBEC))) + geom_boxplot(aes(y=SNV_count,x=HPV_status),color="dark red") + geom_jitter(aes(y=SNV_count,x=HPV_status),width= 0.2,alpha=0.5) + facet_grid(.~APOBEC) + theme_classic() + scale_y_log10(labels=c(expression(10^02),expression(10^03)),breaks=c(100,1000)) + labs(x="HPV status",y="SNV count")  + theme(strip.text.x = element_text(size=common.text.size)) +theme(axis.text=element_text(size=common.text.size), axis.title=element_text(size=common.text.size,face="bold"),axis.title.y = element_blank())
 
-combined_HPV_APOBEC_plot <- plot_grid(HPV.vs.APOBEC_ms_forcombine,SNV_count_comparing_APOBEC_plot_forcombine,align='h',ncol = 2,nrow = 1,labels = c("A","B"),label_size = 25)
+combined_HPV_APOBEC_plot <- plot_grid(HPV.vs.APOBEC_ms_forcombine,SNV_count_comparing_APOBEC_plot_forcombine,align='h',ncol = 2,nrow = 1,labels = c("A","B"),label_size = common.text.size)
 
 combined_HPV_APOBEC_plot
 
-ggsave(plot = combined_HPV_APOBEC_plot,filename = "Figures/combined_APOBEC_vs_HPV.png",height = 7,width = 14)
+ggsave(plot = combined_HPV_APOBEC_plot,filename = "Figures/combined_APOBEC_vs_HPV.png",height = 3,width = 3.25*2)
 
 ```
 
@@ -1859,7 +1886,14 @@ for( i in 1:nrow(ALL.prev.df)){
 wilcox.test(data=ALL.prev.df, `Selection intensity`~`APOBEC type TCW`)
 
 
-distribution.of.APOBEC.TCW <- ggplot(data = ALL.prev.df) + geom_boxplot(aes(y=`Selection intensity`,x=`APOBEC type TCW`),width=0.5,outlier.shape = NA) + geom_jitter(aes(y=`Selection intensity`,x=`APOBEC type TCW`),alpha=0.5,width  = 0.1) + theme_bw() + labs(y="Selection intensity") + scale_y_log10(labels=fancy_scientific)+ theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold")) + labs(x="TCW to TKW")
+distribution.of.APOBEC.TCW <- ggplot(data = ALL.prev.df) + 
+  geom_boxplot(aes(y=`Selection intensity`,x=`APOBEC type TCW`),width=0.5,outlier.shape = NA) + 
+  geom_jitter(aes(y=`Selection intensity`,x=`APOBEC type TCW`),alpha=0.4,width  = 0.1,size=1.5) + 
+  theme_classic() + 
+  labs(y="Selection intensity") + 
+  scale_y_log10(labels=c(expression(10^03),expression(10^05)),breaks=c(1000,100000)) + 
+  theme(axis.text=element_text(size=common.text.size), axis.title=element_text(size=common.text.size,face="bold")) + 
+  labs(x=expression(TCW %->% TKW))
 
 ggsave(filename = "Figures/selection_vs_TCW.png",plot = distribution.of.APOBEC.TCW,width = 3.25,height = 3.25,dpi = 600)
 
@@ -1915,9 +1949,9 @@ library(ggrepel)
 
 selection.from.contexts.labels <- ggplot(data = ALL.prev.df.split) +#geom_violin(aes(x=`APOBEC context`, y = `Selection from mutational context`))  +
   geom_point(aes(x=`APOBEC context`, y = `Selection from mutational context`),alpha=0.2) + 
-  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="APOBEC processes" & `Selection from mutational context` > 100),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=Name),color="darkred",fontface="bold",size=2.5) + #scale_y_log10(labels=fancy_scientific) + 
-  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="non-APOBEC processes" & `Selection from mutational context` > 650),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=Name),box.padding = .31,color="darkred",fontface="bold",size=2.5) + 
-  labs(y="Net realized selection intensity") + theme_bw() + theme(axis.text=element_text(size=8), axis.title=element_text(size=10,face="bold"))
+  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="APOBEC processes" & `Selection from mutational context` > 100),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=Name),color="darkred",fontface="bold",size=common.text.size*(5/14)) + #scale_y_log10(labels=fancy_scientific) + 
+  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="non-APOBEC processes" & `Selection from mutational context` > 650),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=Name),box.padding = .31,color="darkred",fontface="bold",size=common.text.size*(5/14)) + 
+  labs(y="Net realized selection intensity") + theme_classic() + theme(axis.text=element_text(size=common.text.size), axis.title=element_text(size=common.text.size,face="bold"))
 
 # ggsave(filename = "Figures/selection_from_process.png",plot = selection.from.contexts)
 # View(ALL.prev.df.split)

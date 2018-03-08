@@ -659,11 +659,11 @@ library(ggrepel)
 # gamma_plot <- ggplot(data = gamma.df) + geom_point(aes(x = log10(gamma_HPVneg), y = log10(gamma_HPVpos)),alpha=0.5,size=5) + geom_text_repel(aes(x = log10(gamma_HPVneg), y = log10(gamma_HPVpos),label=Name),box.padding = 0.8,size=5,color="darkred",fontface="bold") + theme_bw() + labs(x="Log of selection intensity in HPV- tumors", y="Log of selection intensity in HPV+ tumors") + theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold")) #+ geom_label(aes(x = prev_HPVneg, y = prev_HPVpos, label=Name))
 
 
-gamma_plot <- ggplot(data = gamma.df) + geom_point(aes(x = gamma_HPVneg, y = gamma_HPVpos),alpha=0.5,size=5) + geom_text_repel(aes(x = gamma_HPVneg, y = gamma_HPVpos,label=Name),box.padding = 0.8,size=5,color="darkred",fontface="bold") + theme_bw() + labs(x=bquote("Selection intensity in "~HPV^{"-"}~ "tumors"), y=bquote("Selection intensity in "~HPV^{"+"}~ "tumors")) + theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold"))  + scale_y_log10(labels = fancy_scientific) + scale_x_log10(labels = fancy_scientific) + coord_equal() #+ coord_equal(xlim = c(0,),ylim = c(0,))
+gamma_plot <- ggplot(data = gamma.df) + geom_point(aes(x = gamma_HPVneg, y = gamma_HPVpos),alpha=0.5,size=2) + geom_text_repel(aes(x = gamma_HPVneg, y = gamma_HPVpos,label=Name),box.padding = 0.8,size=common.text.size*(5/14),color="darkred",fontface="bold") + theme_bw() + labs(x=bquote("Selection intensity in "~HPV^{"-"}~ "tumors"), y=bquote("Selection intensity in "~HPV^{"+"}~ "tumors")) + theme(axis.text=element_text(size=common.text.size), axis.title=element_text(size=common.text.size,face="bold"))  + scale_y_log10(labels = fancy_scientific) + scale_x_log10(labels = fancy_scientific) + coord_equal() #+ coord_equal(xlim = c(0,),ylim = c(0,))
 
 gamma_plot
 
-ggsave(filename = "Figures/gamma_gamma_plot.png",plot = gamma_plot,height = 4,width = 5)
+ggsave(filename = "Figures/gamma_gamma_plot.png",plot = gamma_plot,height = 2,width = 2,dpi=600)
 
 ```
 
@@ -846,13 +846,14 @@ names(color.vec) <- color.df$gene
 ```{r hpv neg tornado plot}
 ### Now, for the separate plots
 # HPV negative 
+library(ggplot2)
+library(cowplot)
+
 
 neg.colors <- color.vec[names(color.vec) %in% selection.subset.neg.ordered$Gene]
 
-
-
 g.mid <- ggplot(selection.subset.neg.ordered,aes(x=1,y=Name)) +
-  geom_text(aes(label=Name),size=common.text.size) +
+  geom_text(aes(label=Name),size=common.text.size*(5/14)) +
   # geom_segment(aes(x=0.94,xend=0.96,yend=Name)) +
   # geom_segment(aes(x=1.04,xend=1.065,yend=Name)) +
   ggtitle("") +
@@ -861,52 +862,58 @@ g.mid <- ggplot(selection.subset.neg.ordered,aes(x=1,y=Name)) +
   theme(axis.title=element_blank(),
         panel.grid=element_blank(),
         axis.text.y=element_blank(),
-        axis.ticks.y=element_blank(),
+        axis.ticks.y=element_blank(),axis.line=element_blank(),
         panel.background=element_blank(),
         axis.text.x=element_text(color=NA),
         axis.ticks.x=element_line(color=NA),
-        plot.margin = unit(c(1,-1,1,-1), "mm"))
+        plot.margin = unit(c(1,-1,1,-1), "mm")) 
 # g.mid
 
 g1 <- ggplot(data=selection.subset.neg.ordered,aes(x=Name,y=mu, fill=Gene)) +
   geom_bar(stat="identity") + ggtitle("Mutation rate") +
   theme(axis.title.x = element_blank(), 
         axis.title.y = element_blank(), 
-        axis.text.y = element_blank(), 
-        axis.ticks.y = element_blank(), 
-        plot.margin = unit(c(1,-1,1,10), "mm")) +
+        axis.text.y = element_blank(), axis.line=element_blank(),
+        axis.ticks.y = element_blank(), panel.border = element_blank(),
+        plot.margin = unit(c(1,-1,1,1.5), "mm")) +
   theme(panel.background = element_blank()) + scale_fill_manual("Legend", values = neg.colors) +
   theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
   theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
   # geom_text(aes(label=round(mu*1e5,2)), vjust=-0.5, hjust=0.5, position=position_dodge(width=0.9),size=4,angle=90) +
-  geom_text(aes(label=freq,y=-1e-7), position=position_dodge(width=0.9),size=6,angle=0,color="black") +
+  geom_text(aes(label=freq,y=-1e-7), position=position_dodge(width=0.9),size=common.text.size*(5/14),angle=0,color="black") +
   theme(plot.title = element_text(hjust = 0.5)) +
-  theme(legend.position = 'none',axis.text.x = element_text(size=12)) +
+  theme(legend.position = 'none',axis.text.x = element_text(size=common.text.size,angle = 45, hjust = 1)) +
   scale_y_reverse(labels=fancy_scientific) + coord_flip() + 
-  theme(axis.text.x = element_text(size = 13))
+  theme(axis.text.x = element_text(size = common.text.size))+ theme(plot.title = element_text(size=common.text.size))
 # g1
 
 g2 <- ggplot(data=selection.subset.neg.ordered, aes(x=Name,y=gamma_epistasis,fill=Gene)) +
   geom_bar(stat="identity") + ggtitle("Selection intensity") +
-  theme(axis.title.x = element_blank(), axis.title.y = element_blank(), 
-        axis.text.y = element_blank(), axis.ticks.y = element_blank(),
-        plot.margin = unit(c(1,2,1,-1), "mm")) +
+  theme(axis.title.x = element_blank(), axis.title.y = element_blank(), axis.line=element_blank(),
+        axis.text.y = element_blank(), axis.ticks.y = element_blank(),panel.border = element_blank(),
+        plot.margin = unit(c(1,-1,1,-1), "mm")) +
   theme(panel.background = element_blank()) + scale_fill_manual("Legend", values = neg.colors) +
   theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
   theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
-  theme(plot.title = element_text(hjust = 0.5),axis.text.x = element_text(size=12)) +
-  coord_flip() + theme(legend.position = c(0.85, .5),legend.text = element_text(size=10)) + theme(legend.position="none") + scale_y_continuous(labels=fancy_scientific) + theme(axis.text.x = element_text(size = 13))
+  theme(plot.title = element_text(hjust = 0.5),axis.text.x = element_text(size=common.text.size,angle = 45, hjust = 1)) +
+  coord_flip() + theme(legend.position = c(0.85, .5),legend.text = element_text(size=common.text.size)) + theme(legend.position="none") + scale_y_continuous(labels=fancy_scientific) + theme(axis.text.x = element_text(size =common.text.size)) + theme(plot.title = element_text(size=common.text.size))
 # g2
 
-gg1 <- ggplot_gtable(ggplot_build(g1))
-gg2 <- ggplot_gtable(ggplot_build(g2))
-gg.mid <- ggplot_gtable(ggplot_build(g.mid))
+# gg1 <- ggplot_gtable(ggplot_build(g1))
+# gg2 <- ggplot_gtable(ggplot_build(g2))
+# gg.mid <- ggplot_gtable(ggplot_build(g.mid))
+# library(grid);library(gridExtra)
+# grid.arrange(gg1,gg.mid,gg2,ncol=3,widths=c(3/10,3.5/10,3/10))
 
-grid.arrange(gg1,gg.mid,gg2,ncol=3,widths=c(3/10,3.5/10,3/10))
+library(cowplot)
+
+combined_neg_gamma_plot <- plot_grid(g1,g.mid,g2,align = 'h',axis="t",nrow=1,rel_widths = c(1,.7,1))
+combined_neg_gamma_plot
+ggsave(filename = "Figures/combined_neg_gamma.png",plot = combined_neg_gamma_plot,width = 3.25,dpi = 600,height = 2.8)
 
 
-gg.combined <- arrangeGrob(gg1,gg.mid,gg2,ncol=3,widths=c(3/10,2/10,3/10))
-ggsave(gg.combined, filename = paste("Figures/same_color_gamma_epistasis_plot_","HNSC_HPV-.png",sep=""),units = "in",height=8,width = 12,dpi = 400)
+# gg.combined <- arrangeGrob(gg1,gg.mid,gg2,ncol=3,widths=c(3/10,2/10,3/10))
+# ggsave(gg.combined, filename = paste("Figures/same_color_gamma_epistasis_plot_","HNSC_HPV-.png",sep=""),units = "in",height=8,width = 12,dpi = 400)
 ```
 
 
@@ -915,12 +922,12 @@ ggsave(gg.combined, filename = paste("Figures/same_color_gamma_epistasis_plot_",
 
 # HPV positive
 
+
+
 pos.colors <- color.vec[names(color.vec) %in% selection.subset.pos.ordered$Gene]
 
-
-
-g.mid <- ggplot(selection.subset.pos.ordered,aes(x=1,y=Name)) +
-  geom_text(aes(label=Name),size=7) +
+g.mid.pos <- ggplot(selection.subset.pos.ordered,aes(x=1,y=Name)) +
+  geom_text(aes(label=Name),size=common.text.size*(5/14)) +
   # geom_segment(aes(x=0.94,xend=0.96,yend=Name)) +
   # geom_segment(aes(x=1.04,xend=1.065,yend=Name)) +
   ggtitle("") +
@@ -929,52 +936,152 @@ g.mid <- ggplot(selection.subset.pos.ordered,aes(x=1,y=Name)) +
   theme(axis.title=element_blank(),
         panel.grid=element_blank(),
         axis.text.y=element_blank(),
-        axis.ticks.y=element_blank(),
+        axis.ticks.y=element_blank(),axis.line=element_blank(),
         panel.background=element_blank(),
         axis.text.x=element_text(color=NA),
         axis.ticks.x=element_line(color=NA),
-        plot.margin = unit(c(1,-1,1,-1), "mm"))
+        plot.margin = unit(c(1,-1,1,-1), "mm")) 
 # g.mid
 
-g1 <- ggplot(data=selection.subset.pos.ordered,aes(x=Name,y=mu, fill=Gene)) +
+g1.pos <- ggplot(data=selection.subset.pos.ordered,aes(x=Name,y=mu, fill=Gene)) +
   geom_bar(stat="identity") + ggtitle("Mutation rate") +
   theme(axis.title.x = element_blank(), 
         axis.title.y = element_blank(), 
-        axis.text.y = element_blank(), 
-        axis.ticks.y = element_blank(), 
-        plot.margin = unit(c(1,-1,1,10), "mm")) +
+        axis.text.y = element_blank(), axis.line=element_blank(),
+        axis.ticks.y = element_blank(), panel.border = element_blank(),
+        plot.margin = unit(c(1,-1,1,1), "mm")) +
   theme(panel.background = element_blank()) + scale_fill_manual("Legend", values = pos.colors) +
   theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
   theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
   # geom_text(aes(label=round(mu*1e5,2)), vjust=-0.5, hjust=0.5, position=position_dodge(width=0.9),size=4,angle=90) +
-  geom_text(aes(label=freq,y=-2e-7), position=position_dodge(width=0.9),size=6,angle=0,color="black") +
+  geom_text(aes(label=freq,y=-2.5e-7), position=position_dodge(width=0.9),size=common.text.size*(5/14),angle=0,color="black") +
   theme(plot.title = element_text(hjust = 0.5)) +
-  theme(legend.position = 'none',axis.text.x = element_text(size=12)) +
-  scale_y_reverse(labels=fancy_scientific) + coord_flip() + theme(axis.text.x = element_text(size = 12))
+  theme(legend.position = 'none',axis.text.x = element_text(size=common.text.size,angle = 45, hjust = 1)) +
+  scale_y_reverse(labels=fancy_scientific) + coord_flip() + 
+  theme(axis.text.x = element_text(size = common.text.size))+ theme(plot.title = element_text(size=common.text.size))
 # g1
 
-g2 <- ggplot(data=selection.subset.pos.ordered, aes(x=Name,y=gamma_epistasis,fill=Gene)) +
+g2.pos <- ggplot(data=selection.subset.pos.ordered, aes(x=Name,y=gamma_epistasis,fill=Gene)) +
   geom_bar(stat="identity") + ggtitle("Selection intensity") +
-  theme(axis.title.x = element_blank(), axis.title.y = element_blank(), 
-        axis.text.y = element_blank(), axis.ticks.y = element_blank(),
-        plot.margin = unit(c(1,10,1,-1), "mm")) +
+  theme(axis.title.x = element_blank(), axis.title.y = element_blank(), axis.line=element_blank(),
+        axis.text.y = element_blank(), axis.ticks.y = element_blank(),panel.border = element_blank(),
+        plot.margin = unit(c(1,r=1,1,-1), "mm")) +
   theme(panel.background = element_blank()) + scale_fill_manual("Legend", values = pos.colors) +
   theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
   theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
-  theme(plot.title = element_text(hjust = 0.5),axis.text.x = element_text(size=12)) +
-  coord_flip() + theme(legend.position = c(0.85, .5),legend.text = element_text(size=10)) + theme(legend.position="none") + scale_y_continuous(labels=fancy_scientific)
+  theme(plot.title = element_text(hjust = 0.5),axis.text.x = element_text(size=common.text.size,angle = 45, hjust = 1)) +
+  coord_flip() + theme(legend.position = c(0.85, .5),legend.text = element_text(size=common.text.size)) + theme(legend.position="none") + scale_y_continuous(labels=fancy_scientific) + theme(axis.text.x = element_text(size =common.text.size)) + theme(plot.title = element_text(size=common.text.size))
 # g2
 
-gg1 <- ggplot_gtable(ggplot_build(g1))
-gg2 <- ggplot_gtable(ggplot_build(g2))
-gg.mid <- ggplot_gtable(ggplot_build(g.mid))
+# gg1 <- ggplot_gtable(ggplot_build(g1))
+# gg2 <- ggplot_gtable(ggplot_build(g2))
+# gg.mid <- ggplot_gtable(ggplot_build(g.mid))
+# library(grid);library(gridExtra)
+# grid.arrange(gg1,gg.mid,gg2,ncol=3,widths=c(3/10,3.5/10,3/10))
 
-grid.arrange(gg1,gg.mid,gg2,ncol=3,widths=c(3/10,3.5/10,3/10))
+library(cowplot)
+
+combined_pos_gamma_plot <- plot_grid(g1.pos,g.mid.pos,g2.pos,align = 'h',axis="t",nrow=1,rel_widths = c(1,.7,1))
+combined_pos_gamma_plot
+ggsave(filename = "Figures/combined_pos_gamma.png",plot = combined_pos_gamma_plot,width = 3.25,dpi = 600,height = 2.8)
+
+combined_both_gamma <- plot_grid(g1,g.mid,g2,g1.pos,g.mid.pos,g2.pos,align = 'h',axis="t",nrow=1,rel_widths = c(1,.6,1,1,.6,1))
+ggsave(filename = "Figures/combined_both_gamma.png",plot = combined_both_gamma,width = 3.25*2,dpi = 600,height = 2.8)
+
+# 
+# pos.colors <- color.vec[names(color.vec) %in% selection.subset.pos.ordered$Gene]
+# 
+# 
+# 
+# g.mid <- ggplot(selection.subset.pos.ordered,aes(x=1,y=Name)) +
+#   geom_text(aes(label=Name),size=7) +
+#   # geom_segment(aes(x=0.94,xend=0.96,yend=Name)) +
+#   # geom_segment(aes(x=1.04,xend=1.065,yend=Name)) +
+#   ggtitle("") +
+#   ylab(NULL) + 
+#   # scale_x_continuous(expand=c(0,0),limits=c(0.94,1.065)) + ggtitle("HNSCC HPV-") +
+#   theme(axis.title=element_blank(),
+#         panel.grid=element_blank(),
+#         axis.text.y=element_blank(),
+#         axis.ticks.y=element_blank(),
+#         panel.background=element_blank(),
+#         axis.text.x=element_text(color=NA),
+#         axis.ticks.x=element_line(color=NA),
+#         plot.margin = unit(c(1,-1,1,-1), "mm"))
+# # g.mid
+# 
+# g1 <- ggplot(data=selection.subset.pos.ordered,aes(x=Name,y=mu, fill=Gene)) +
+#   geom_bar(stat="identity") + ggtitle("Mutation rate") +
+#   theme(axis.title.x = element_blank(), 
+#         axis.title.y = element_blank(), 
+#         axis.text.y = element_blank(), 
+#         axis.ticks.y = element_blank(), 
+#         plot.margin = unit(c(1,-1,1,10), "mm")) +
+#   theme(panel.background = element_blank()) + scale_fill_manual("Legend", values = pos.colors) +
+#   theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
+#   theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
+#   # geom_text(aes(label=round(mu*1e5,2)), vjust=-0.5, hjust=0.5, position=position_dodge(width=0.9),size=4,angle=90) +
+#   geom_text(aes(label=freq,y=-2e-7), position=position_dodge(width=0.9),size=6,angle=0,color="black") +
+#   theme(plot.title = element_text(hjust = 0.5)) +
+#   theme(legend.position = 'none',axis.text.x = element_text(size=12)) +
+#   scale_y_reverse(labels=fancy_scientific) + coord_flip() + theme(axis.text.x = element_text(size = 12))
+# # g1
+# 
+# g2 <- ggplot(data=selection.subset.pos.ordered, aes(x=Name,y=gamma_epistasis,fill=Gene)) +
+#   geom_bar(stat="identity") + ggtitle("Selection intensity") +
+#   theme(axis.title.x = element_blank(), axis.title.y = element_blank(), 
+#         axis.text.y = element_blank(), axis.ticks.y = element_blank(),
+#         plot.margin = unit(c(1,10,1,-1), "mm")) +
+#   theme(panel.background = element_blank()) + scale_fill_manual("Legend", values = pos.colors) +
+#   theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
+#   theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
+#   theme(plot.title = element_text(hjust = 0.5),axis.text.x = element_text(size=12)) +
+#   coord_flip() + theme(legend.position = c(0.85, .5),legend.text = element_text(size=10)) + theme(legend.position="none") + scale_y_continuous(labels=fancy_scientific)
+# # g2
+# 
+# gg1 <- ggplot_gtable(ggplot_build(g1))
+# gg2 <- ggplot_gtable(ggplot_build(g2))
+# gg.mid <- ggplot_gtable(ggplot_build(g.mid))
+# 
+# grid.arrange(gg1,gg.mid,gg2,ncol=3,widths=c(3/10,3.5/10,3/10))
+# 
+# 
+# gg.combined <- arrangeGrob(gg1,gg.mid,gg2,ncol=3,widths=c(3/10,2/10,3/10))
+# ggsave(gg.combined, filename = paste("Figures/same_color_gamma_epistasis_plot_","HNSC_HPV+.png",sep=""),units = "in",height=8,width = 13,dpi = 400)
 
 
-gg.combined <- arrangeGrob(gg1,gg.mid,gg2,ncol=3,widths=c(3/10,2/10,3/10))
-ggsave(gg.combined, filename = paste("Figures/same_color_gamma_epistasis_plot_","HNSC_HPV+.png",sep=""),units = "in",height=8,width = 13,dpi = 400)
+```
 
+
+```{r adding gamma gamma plot to gamma tornado plots}
+library(ggplot2);library(ggrepel)
+gamma_plot <- ggplot(data = gamma.df) + 
+  geom_point(aes(x = gamma_HPVneg, y = gamma_HPVpos),alpha=0.5,size=2) + 
+  geom_text_repel(aes(x = gamma_HPVneg, y = gamma_HPVpos,label=Name),
+                  box.padding =0.8,
+                  size=common.text.size*(5/14),
+                  color="darkred",fontface="bold") + 
+  labs(x=bquote("Selection intensity in "~HPV^{"-"}~ "tumors"), y=bquote("Selection intensity in "~HPV^{"+"}~ "tumors")) +
+  theme(axis.text=element_text(size=common.text.size), 
+        axis.title=element_text(size=common.text.size,face="bold"))  + 
+  scale_y_log10(labels = fancy_scientific) + 
+  scale_x_log10(labels = fancy_scientific) + 
+  coord_equal() #+ coord_equal(xlim = c(0,),ylim = c(0,))
+
+
+library(viridis)
+
+library(cowplot)
+# plot_grid(combined_both_gamma,NULL, nrow=1,ncol=2,align = 'h',rel_widths = c(1,.1))
+combined_both_gamma_forcombined <- plot_grid(g1,g.mid,g2,g1.pos,g.mid.pos,g2.pos,NULL,align = 'h',axis="t",nrow=1,rel_widths = c(1,.7,1,1,.7,1,1),ncol=7)
+Fig2 <- ggdraw() + 
+  draw_plot(combined_both_gamma_forcombined) +
+  geom_rect(data=data.frame(x=0.715,y=0.23),aes(xmin=x,xmax=x+.28,ymin=y,ymax=y+.52),color="black",fill="white") + 
+  draw_plot(gamma_plot,  x=0.62, y=0.2,width = .45,height = .45) + 
+  draw_plot_label(c("A", "B","C"), c(0, 0.43,.715), c(1, 1,(.23+.52)), size = common.text.size)
+
+Fig2
+ggsave(filename = "Figures/Fig2.png",dpi = 600,width = 3.25*2,height =3,plot = Fig2)
 
 ```
 

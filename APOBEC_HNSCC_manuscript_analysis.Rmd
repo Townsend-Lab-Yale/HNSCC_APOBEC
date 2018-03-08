@@ -516,14 +516,25 @@ common.text.size <- 6
 
 # getting them to match up! 
 prev_plot <- ggplot(data = prevalence.df) + 
-  geom_point(aes(y = prev_HPVneg, x = prev_HPVpos),alpha=0.5,size=1.5) + 
+  geom_point(aes(y = prev_HPVneg, x = prev_HPVpos),alpha=0.5,size=1.5,color="red") + 
   geom_text_repel(data = subset(prevalence.df, (prev_HPVneg>0.025 | prev_HPVpos>0.04) | (prev_HPVneg>0.0 & prev_HPVpos>0)),aes(y = prev_HPVneg, x = prev_HPVpos,label=Name),box.padding =0.6,size=common.text.size*(5/14),color="darkred",fontface="bold") + 
-  theme_bw() + 
+  theme_classic() + 
+  expand_limits(x = 0, y = c(0,max(prevalence.df$prev_HPVneg)+.005)) + 
+  scale_x_continuous(expand = c(0, 0)) + 
+  scale_y_continuous(expand = c(0, 0)) + 
   labs(y=bquote("Prevalence in "~HPV^{"-"}~ "\n tumors"), x=bquote("Prevalence in "~HPV^{"+"}~ "tumors")) + theme(axis.text=element_text(size=common.text.size), axis.title=element_text(size=common.text.size,face="bold"),plot.margin = margin(r=.2,t=.0,l=.1,b=0.1,unit = "in")) + 
   # coord_equal() +  
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +theme(axis.title.x = element_text(margin = margin(t = -.2, r = 0, b = 0, l = 0)))  #+ geom_label(aes(x = prev_HPVneg, y = prev_HPVpos, label=Name))
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  theme(axis.title.x = element_text(margin = margin(t = -.2, r = 0, b = 0, l = 0)))  #+ geom_label(aes(x = prev_HPVneg, y = prev_HPVpos, label=Name))
 prev_plot
-ggsave(filename = "Figures/prevalence_plot.png",plot = prev_plot,height = 1.2,width = 3.25,dpi = 600)
+
+prev_plot_gridoff <- ggplot_gtable(ggplot_build(prev_plot))
+prev_plot_gridoff$layout$clip[prev_plot_gridoff$layout$name == "panel"] <- "off"
+library(grid)
+library(gridExtra)
+
+prev_plot_grob <- arrangeGrob(prev_plot_gridoff)
+ggsave(filename = "Figures/prevalence_plot.png",plot = prev_plot_grob,height = 1.2,width = 3.25,dpi = 600)
 
 
 mutation_rates_full_scatter <- ggplot(data = mutation_rates, aes(x=positive_mut_rates,y=negative_mut_rates)) +
@@ -534,15 +545,28 @@ mutation_rates_full_scatter <- ggplot(data = mutation_rates, aes(x=positive_mut_
   geom_text_repel(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates,label=gene),size=common.text.size*(5/14),col="blue",fontface="bold",box.padding = 0.6) +
   labs(y=bquote("Mutation rate in "~HPV^{"-"}~ "\n tumors"), x=bquote("Mutation rate in "~HPV^{"+"}~ "tumors")) + 
   # coord_equal() + 
-  theme_bw() +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
-  geom_abline(slope=1, intercept=0) + 
-  scale_x_continuous(labels=fancy_scientific) + 
-  scale_y_continuous(labels=fancy_scientific) + theme(axis.text=element_text(size=common.text.size),
+  # theme_classic() + 
+  expand_limits(x = 0, y = c(0,max(mutation_rates$negative_mut_rates)+1e-6)) + 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  geom_segment(aes(x = 0, xend =max(mutation_rates$negative_mut_rates)+1e-6, y = 0, yend =max(mutation_rates$negative_mut_rates)+1e-6),linetype="dashed") + 
+  # geom_abline(slope=1, intercept=0,linetype = "dashed") + 
+  scale_x_continuous(labels=fancy_scientific,expand = c(0, 0)) + 
+  scale_y_continuous(labels=fancy_scientific,expand = c(0, 0)) + theme(axis.text=element_text(size=common.text.size),
                                                       axis.title=element_text(size=common.text.size,face="bold"),
                                                       plot.margin = margin(r=.2,t=.0,b=.0,l=.1,unit = "in")) + theme(axis.title.x = element_text(margin = margin(t = -.2, r = 0, b = 0, l = 0)))  
 
 mutation_rates_full_scatter
-ggsave(plot = mutation_rates_full_scatter,filename = "Figures/mutation_rates_full_scatter.png",height = 1.2,width = 3.25,dpi=600)
+
+
+mutation_rates_gridoff <- ggplot_gtable(ggplot_build(mutation_rates_full_scatter))
+mutation_rates_gridoff$layout$clip[mutation_rates_gridoff$layout$name == "panel"] <- "off"
+# library(grid)
+# library(gridExtra)
+
+mutation_rates_plot_grob <- arrangeGrob(mutation_rates_gridoff)
+
+
+ggsave(plot = mutation_rates_plot_grob,filename = "Figures/mutation_rates_full_scatter.png",height = 1.2,width = 3.25,dpi=600)
 
 
 library(cowplot)
@@ -594,7 +618,7 @@ HPV.pos.trinuc.heatmap <- ggplot(data=HPV.pos.trinuc.mutation_data, aes(Downstre
 
 
 
-combined.plot.prev.and.muts.heat <- plot_grid(prev_plot,mutation_rates_full_scatter,HPV.neg.trinuc.heatmap,HPV.pos.trinuc.heatmap,nrow = 4,align='v',axis='l',rel_heights = c(1,1,.4,.4),labels = "AUTO",label_size = 6)
+combined.plot.prev.and.muts.heat <- plot_grid(prev_plot_gridoff,mutation_rates_gridoff,HPV.neg.trinuc.heatmap,HPV.pos.trinuc.heatmap,nrow = 4,align='v',axis='l',rel_heights = c(1,1,.4,.4),labels = "AUTO",label_size = 6)
 
 ggsave(plot = combined.plot.prev.and.muts.heat,filename = "Figures/selection_and_mutrates_heat_combined.png",height = 1*4,width = 3.25,dpi=600)
 
@@ -954,7 +978,7 @@ g1.pos <- ggplot(data=selection.subset.pos.ordered,aes(x=Name,y=mu, fill=Gene)) 
   theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
   theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
   # geom_text(aes(label=round(mu*1e5,2)), vjust=-0.5, hjust=0.5, position=position_dodge(width=0.9),size=4,angle=90) +
-  geom_text(aes(label=freq,y=-2.5e-7), position=position_dodge(width=0.9),size=common.text.size*(5/14),angle=0,color="black") +
+  geom_text(aes(label=freq,y=-3.5e-7), position=position_dodge(width=0.9),size=common.text.size*(5/14),angle=0,color="black") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(legend.position = 'none',axis.text.x = element_text(size=common.text.size,angle = 45, hjust = 1)) +
   scale_y_reverse(labels=fancy_scientific) + coord_flip() + 
@@ -970,7 +994,7 @@ g2.pos <- ggplot(data=selection.subset.pos.ordered, aes(x=Name,y=gamma_epistasis
   theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
   theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
   theme(plot.title = element_text(hjust = 0.5),axis.text.x = element_text(size=common.text.size,angle = 45, hjust = 1)) +
-  coord_flip() + theme(legend.position = c(0.85, .5),legend.text = element_text(size=common.text.size)) + theme(legend.position="none") + scale_y_continuous(labels=fancy_scientific) + theme(axis.text.x = element_text(size =common.text.size)) + theme(plot.title = element_text(size=common.text.size))
+  coord_flip() + theme(legend.position = c(0.85, .5),legend.text = element_text(size=common.text.size)) + theme(legend.position="none") + scale_y_continuous(labels=fancy_scientific,breaks=c(0,2.5e5,5e5,7.5e5,1e6,1.2e6)) + theme(axis.text.x = element_text(size =common.text.size)) + theme(plot.title = element_text(size=common.text.size))
 # g2
 
 # gg1 <- ggplot_gtable(ggplot_build(g1))
@@ -1056,18 +1080,21 @@ ggsave(filename = "Figures/combined_both_gamma.png",plot = combined_both_gamma,w
 ```{r adding gamma gamma plot to gamma tornado plots}
 library(ggplot2);library(ggrepel)
 gamma_plot <- ggplot(data = gamma.df) + 
-  geom_point(aes(x = gamma_HPVneg, y = gamma_HPVpos),alpha=0.5,size=2) + 
+  geom_point(aes(x = gamma_HPVneg, y = gamma_HPVpos),alpha=0.5,size=1.5,col="red") + 
   geom_text_repel(aes(x = gamma_HPVneg, y = gamma_HPVpos,label=Name),
-                  box.padding =0.8,
-                  size=common.text.size*(5/14),
+                  # box.padding =.5,
+                  size=common.text.size*(5/14),segment.alpha=0.6,
                   color="darkred",fontface="bold") + 
   labs(x=bquote("Selection intensity in "~HPV^{"-"}~ "tumors"), y=bquote("Selection intensity in "~HPV^{"+"}~ "tumors")) +
   theme(axis.text=element_text(size=common.text.size), 
         axis.title=element_text(size=common.text.size,face="bold"))  + 
-  scale_y_log10(labels = fancy_scientific) + 
-  scale_x_log10(labels = fancy_scientific) + 
-  coord_equal() #+ coord_equal(xlim = c(0,),ylim = c(0,))
-
+  expand_limits(x = c(1,(max(gamma.df$gamma_HPVpos,na.rm = T)+2e7)), y = c(1,(max(gamma.df$gamma_HPVpos,na.rm = T)+2e7))) + 
+  # scale_x_continuous(expand = c(0, 0)) + 
+  # scale_y_continuous(expand = c(0, 0)) + 
+  scale_y_log10(labels = c(expression(10^0),expression(10^2),expression(10^4),expression(10^6)),breaks=c(1,1e2,1e4,1e6),expand = c(0,0)) +
+  scale_x_log10(labels = c(expression(10^0),expression(10^2),expression(10^4),expression(10^6)),breaks=c(1,1e2,1e4,1e6),expand = c(0,0)) + coord_equal() #+
+  # coord_equal() #+ coord_equal(xlim = c(0,),ylim = c(0,))
+gamma_plot
 
 library(viridis)
 
@@ -1076,11 +1103,11 @@ library(cowplot)
 combined_both_gamma_forcombined <- plot_grid(g1,g.mid,g2,g1.pos,g.mid.pos,g2.pos,NULL,align = 'h',axis="t",nrow=1,rel_widths = c(1,.7,1,1,.7,1,1),ncol=7)
 Fig2 <- ggdraw() + 
   draw_plot(combined_both_gamma_forcombined) +
-  geom_rect(data=data.frame(x=0.715,y=0.23),aes(xmin=x,xmax=x+.28,ymin=y,ymax=y+.52),color="black",fill="white") + 
+  geom_rect(data=data.frame(x=0.715,y=0.23),aes(xmin=x,xmax=x+.28,ymin=y,ymax=y+.52),color="white",fill="white") + 
   draw_plot(gamma_plot,  x=0.62, y=0.2,width = .45,height = .45) + 
-  draw_plot_label(c("A", "B","C"), c(0, 0.43,.715), c(1, 1,(.23+.52)), size = common.text.size)
+  draw_plot_label(c("A", "B","C"), c(0, 0.43,.715), c(.985, .985,(.23+.52)), size = common.text.size)
 
-Fig2
+# Fig2
 ggsave(filename = "Figures/Fig2.png",dpi = 600,width = 3.25*2,height =3,plot = Fig2)
 
 ```
@@ -1237,7 +1264,7 @@ plt_hmap <- ggplot(heatmap_data,
                    aes(x = xcenter, y = ycenter, fill = `Signature weight`, 
                        height = height, width = width)) + 
   geom_tile() +
-  scale_fill_gradient2("Signature weight", high = "darkblue", low = "white") +
+  scale_fill_gradient2("Signature weight", high = "steelblue", low = "white") +
   scale_x_continuous(breaks = signature_pos_table$xcenter, 
                      labels = signature_pos_table$signature, 
                      expand = c(0, 0),position = "top") + 
@@ -1394,12 +1421,16 @@ SNV.APOBEC.df.knownAPOBEC <- SNV.APOBEC.df[which(!is.na(SNV.APOBEC.df$APOBEC)),]
 # length(which(SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV+" & SNV.APOBEC.df.knownAPOBEC$APOBEC_weight==0))
 SNV.APOBEC.df.knownAPOBEC$HPV_status_value <- ifelse(SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV+",1,0)
 
+common.text.size.large <- 10
+
 HPV_status_vs_APOBEC_weight <- ggplot() + 
-  geom_point(data = SNV.APOBEC.df.knownAPOBEC,aes(y=HPV_status_value,x=APOBEC_weight),alpha=0.2,size=3) + 
-  stat_smooth(data = SNV.APOBEC.df.knownAPOBEC,aes(y=HPV_status_value,x=APOBEC_weight),method="glm", method.args=list(family="binomial"), se=T) + 
+  geom_point(data = SNV.APOBEC.df.knownAPOBEC,aes(y=HPV_status_value,x=APOBEC_weight),alpha=0.5,size=3,shape="|",color="blue") + 
+    geom_abline(slope=0,intercept = 1) +
+  stat_smooth(data = SNV.APOBEC.df.knownAPOBEC,aes(y=HPV_status_value,x=APOBEC_weight),method="glm", method.args=list(family="binomial"), se=T, fullrange=TRUE) + 
+  geom_abline(slope=0,intercept = 1) + geom_segment(aes(x=1,xend=1,y=0,yend=1)) + 
   labs(y="Probability HPV positive",x="APOBEC signature weight") + theme_classic() +
-  theme(text = element_text(size=common.text.size)) + 
-  expand_limits(x = 0, y = 0) + 
+  theme(text = element_text(size=common.text.size.large)) + 
+  expand_limits(x = c(0,1), y = 0) + 
   scale_x_continuous(expand = c(0, 0)) + 
   scale_y_continuous(expand = c(0, 0))
 
@@ -1444,8 +1475,8 @@ wilcox.test(data = subset(SNV.APOBEC.df,APOBEC=="No"),SNV_count~HPV_status,conf.
 SNV.APOBEC.df.comparingAPOBEC <- SNV.APOBEC.df
 
 SNV.APOBEC.df.comparingAPOBEC$APOBEC <- as.character(SNV.APOBEC.df.comparingAPOBEC$APOBEC)
-SNV.APOBEC.df.comparingAPOBEC$APOBEC[which(SNV.APOBEC.df.comparingAPOBEC$APOBEC=="Yes")] <- "APOBEC signature detected"
-SNV.APOBEC.df.comparingAPOBEC$APOBEC[which(SNV.APOBEC.df.comparingAPOBEC$APOBEC=="No")] <- "No APOBEC signature detected"
+SNV.APOBEC.df.comparingAPOBEC$APOBEC[which(SNV.APOBEC.df.comparingAPOBEC$APOBEC=="Yes")] <- "APOBEC present"
+SNV.APOBEC.df.comparingAPOBEC$APOBEC[which(SNV.APOBEC.df.comparingAPOBEC$APOBEC=="No")] <- "APOBEC absent"
 
 SNV_count_comparing_APOBEC_plot <- ggplot(data = subset(SNV.APOBEC.df.comparingAPOBEC, !is.na(SNV.APOBEC.df.comparingAPOBEC$APOBEC))) + geom_boxplot(aes(y=SNV_count,x=HPV_status),color="dark red") + geom_jitter(aes(y=SNV_count,x=HPV_status),width= 0.2,alpha=0.5) + facet_grid(.~APOBEC) + theme_bw() + scale_y_log10(labels=fancy_scientific) + labs(x="HPV status",y="SNV count")  + theme(strip.text.x = element_text(size=15)) +theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold"))
 
@@ -1469,13 +1500,29 @@ fancy_scientific_justexp <- function(l) {
   # return this as an expression
   parse(text=new.l)
 }
+common.text.size.large2 <- 12
 
-
-HPV.vs.APOBEC_ms_forcombine <- ggplot(data = subset(SNV.APOBEC.df, !is.na(SNV.APOBEC.df$APOBEC))) + geom_boxplot(aes(y=SNV_count,x=APOBEC),color="dark red") + geom_jitter(aes(y=SNV_count,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_classic() + scale_y_log10(labels=c(expression(10^02),expression(10^03)),breaks=c(100,1000)) + labs(x="APOBEC signature detected",y="SNV count")  + theme(strip.text.x = element_text(size=common.text.size)) +theme(axis.text=element_text(size=common.text.size), axis.title=element_text(size=common.text.size,face="bold"))
+HPV.vs.APOBEC_ms_forcombine <- ggplot(data = subset(SNV.APOBEC.df, !is.na(SNV.APOBEC.df$APOBEC))) +
+  geom_boxplot(aes(y=SNV_count,x=APOBEC),color="black",outlier.shape = NA) + 
+  geom_jitter(aes(y=SNV_count,x=APOBEC),width= 0.2,alpha=0.4,color="blue") + 
+  facet_grid(.~HPV_status) + 
+  theme_classic() + 
+  scale_y_log10(labels=c(expression(10^02),expression(10^03)),breaks=c(100,1000)) + 
+  labs(x="APOBEC signature present",y="SNV count")  + 
+  theme(strip.text.x = element_text(size=common.text.size.large2)) +
+  theme(axis.text=element_text(size=common.text.size.large2), axis.title=element_text(size=common.text.size.large2,face="bold"))
 # plot_grid(
-SNV_count_comparing_APOBEC_plot_forcombine <- ggplot(data = subset(SNV.APOBEC.df.comparingAPOBEC, !is.na(SNV.APOBEC.df.comparingAPOBEC$APOBEC))) + geom_boxplot(aes(y=SNV_count,x=HPV_status),color="dark red") + geom_jitter(aes(y=SNV_count,x=HPV_status),width= 0.2,alpha=0.5) + facet_grid(.~APOBEC) + theme_classic() + scale_y_log10(labels=c(expression(10^02),expression(10^03)),breaks=c(100,1000)) + labs(x="HPV status",y="SNV count")  + theme(strip.text.x = element_text(size=common.text.size)) +theme(axis.text=element_text(size=common.text.size), axis.title=element_text(size=common.text.size,face="bold"),axis.title.y = element_blank())
+SNV_count_comparing_APOBEC_plot_forcombine <- ggplot(data = subset(SNV.APOBEC.df.comparingAPOBEC, !is.na(SNV.APOBEC.df.comparingAPOBEC$APOBEC))) + 
+  geom_boxplot(aes(y=SNV_count,x=HPV_status),color="black",outlier.shape = NA) + 
+  geom_jitter(aes(y=SNV_count,x=HPV_status),width= 0.2,alpha=0.4,color="blue") + 
+  facet_grid(.~APOBEC) + 
+  theme_classic() + 
+  scale_y_log10(labels=c(expression(10^02),expression(10^03)),breaks=c(100,1000)) + 
+  labs(x="HPV status",y="SNV count")  + 
+  theme(strip.text.x = element_text(size=common.text.size.large2)) + 
+  theme(axis.text=element_text(size=common.text.size.large2), axis.title=element_text(size=common.text.size.large2,face="bold"),axis.title.y = element_blank())
 
-combined_HPV_APOBEC_plot <- plot_grid(HPV.vs.APOBEC_ms_forcombine,SNV_count_comparing_APOBEC_plot_forcombine,align='h',ncol = 2,nrow = 1,labels = c("A","B"),label_size = common.text.size)
+combined_HPV_APOBEC_plot <- plot_grid(HPV.vs.APOBEC_ms_forcombine,SNV_count_comparing_APOBEC_plot_forcombine,align='h',ncol = 2,nrow = 1,labels = c("A","B"),label_size = common.text.size.large2)
 
 combined_HPV_APOBEC_plot
 
@@ -1884,15 +1931,15 @@ for( i in 1:nrow(ALL.prev.df)){
 
 
 wilcox.test(data=ALL.prev.df, `Selection intensity`~`APOBEC type TCW`)
-
+common.text.size.large3 <- 20
 
 distribution.of.APOBEC.TCW <- ggplot(data = ALL.prev.df) + 
   geom_boxplot(aes(y=`Selection intensity`,x=`APOBEC type TCW`),width=0.5,outlier.shape = NA) + 
-  geom_jitter(aes(y=`Selection intensity`,x=`APOBEC type TCW`),alpha=0.4,width  = 0.1,size=1.5) + 
+  geom_jitter(aes(y=`Selection intensity`,x=`APOBEC type TCW`),alpha=0.4,width  = 0.1,size=1.5,col="red") + 
   theme_classic() + 
   labs(y="Selection intensity") + 
   scale_y_log10(labels=c(expression(10^03),expression(10^05)),breaks=c(1000,100000)) + 
-  theme(axis.text=element_text(size=common.text.size), axis.title=element_text(size=common.text.size,face="bold")) + 
+  theme(axis.text=element_text(size=common.text.size.large3), axis.title=element_text(size=common.text.size.large3,face="bold")) + 
   labs(x=expression(TCW %->% TKW))
 
 ggsave(filename = "Figures/selection_vs_TCW.png",plot = distribution.of.APOBEC.TCW,width = 3.25,height = 3.25,dpi = 600)
@@ -1947,8 +1994,8 @@ ALL.prev.df.split$`APOBEC context` <- factor(ALL.prev.df.split$`APOBEC context`,
 
 library(ggrepel)
 
-selection.from.contexts.labels <- ggplot(data = ALL.prev.df.split) +#geom_violin(aes(x=`APOBEC context`, y = `Selection from mutational context`))  +
-  geom_point(aes(x=`APOBEC context`, y = `Selection from mutational context`),alpha=0.2) + 
+selection.from.contexts.labels <- ggplot(data = ALL.prev.df.split) + 
+  geom_point(aes(x=`APOBEC context`, y = `Selection from mutational context`),alpha=0.2,col="red") + 
   geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="APOBEC processes" & `Selection from mutational context` > 100),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=Name),color="darkred",fontface="bold",size=common.text.size*(5/14)) + #scale_y_log10(labels=fancy_scientific) + 
   geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="non-APOBEC processes" & `Selection from mutational context` > 650),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=Name),box.padding = .31,color="darkred",fontface="bold",size=common.text.size*(5/14)) + 
   labs(y="Net realized selection intensity") + theme_classic() + theme(axis.text=element_text(size=common.text.size), axis.title=element_text(size=common.text.size,face="bold"))

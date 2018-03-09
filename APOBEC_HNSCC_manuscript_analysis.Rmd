@@ -46,7 +46,7 @@ for(i in 1:length(unique(HNSC.MAF$Unique_patient_identifier))){
       #apobec_hnscc_df$categ[which(apobec_hnscc_df$patient_id==unique(HNSC.MAF$Unique_patient_identifier)[i])]
       ifelse(virusscan.data$VScan_counts[which(virusscan.data$patient_id==unique(HNSC.MAF$Unique_patient_identifier)[i])]>100,
              "HPV+",
-             "HPV-")
+             "HPV−")
     HNSC.MAF$Virusscan_counts[HNSC.MAF$Unique_patient_identifier==unique(HNSC.MAF$Unique_patient_identifier)[i]] <- 
       virusscan.data$VScan_counts[which(virusscan.data$patient_id==unique(HNSC.MAF$Unique_patient_identifier)[i])]
   }
@@ -64,7 +64,7 @@ length(unique(MAF_for_analysis$Unique_patient_identifier))
 # MAF_for_analysis[which(is.na(MAF_for_analysis$Unique_patient_identifier)),]
 save(MAF_for_analysis, file="output_data/HNSC_HPVpos_MAF.RData")
 
-HNSC.MAF.hpvneg <- HNSC.MAF[which(HNSC.MAF$HPV_call=="HPV-"),]
+HNSC.MAF.hpvneg <- HNSC.MAF[which(HNSC.MAF$HPV_call=="HPV−"),]
 MAF_for_analysis <- HNSC.MAF.hpvneg
 length(unique(HNSC.MAF.hpvneg$Unique_patient_identifier))
 save(MAF_for_analysis, file="output_data/HNSC_HPVneg_MAF.RData")
@@ -170,7 +170,7 @@ mutation_rates_full_scatter <- ggplot(data = mutation_rates, aes(x=positive_mut_
   # geom_text_repel(data=subset(mutation_rates, positive_mut_rates > 5e-5 | negative_mut_rates > 3e-5 ), aes(label=gene),size=3) + 
   geom_point(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates),size=3,col="blue") + 
   geom_text_repel(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates,label=gene),size=5,col="blue",fontface="bold") +
-  labs(x="Mutation rate in HPV+ tumors",y="Mutation rate in HPV- tumors") + 
+  labs(x="Mutation rate in HPV+ tumors",y="Mutation rate in HPV− tumors") + 
   coord_equal(ratio=1) + 
   theme_bw() +
   geom_abline(slope=1, intercept=0) + 
@@ -179,7 +179,7 @@ mutation_rates_full_scatter <- ggplot(data = mutation_rates, aes(x=positive_mut_
 
 
 mutation_rates_reduced <- ggplot(data = mutation_rates, aes(x=positive_mut_rates,y=negative_mut_rates)) + geom_point(alpha=0.2,col="black",size=0.5) + geom_point(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates),size=3,col="blue") + geom_text_repel(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates,label=gene),size=6,col="blue",fontface="bold") +
-  labs(x="Mutation rate in HPV+ tumors",y="Mutation rate in HPV- tumors") + coord_equal(ratio=1,xlim=c(0,0.5e-5),ylim=c(0,0.5e-5)) + theme_bw() + geom_smooth(method='lm',formula=y~x,color="red") + geom_abline(slope=1, intercept=0) + scale_x_continuous(labels=fancy_scientific) + scale_y_continuous(labels=fancy_scientific) 
+  labs(x="Mutation rate in HPV+ tumors",y="Mutation rate in HPV− tumors") + coord_equal(ratio=1,xlim=c(0,0.5e-5),ylim=c(0,0.5e-5)) + theme_bw() + geom_smooth(method='lm',formula=y~x,color="red") + geom_abline(slope=1, intercept=0) + scale_x_continuous(labels=fancy_scientific) + scale_y_continuous(labels=fancy_scientific) 
 
 # mutation_rates_full_scatter <- ggplot(data = mutation_rates, aes(y=positive_mut_rates,x=negative_mut_rates)) +
 #   geom_point(alpha=0.2,col="black",size=0.5) + 
@@ -406,7 +406,7 @@ for(i in 1:nrow(trinuc.w.HPV)){
 }
 
 length(which(trinuc.w.HPV$HPV=="HPV+"))
-length(which(trinuc.w.HPV$HPV=="HPV-"))
+length(which(trinuc.w.HPV$HPV=="HPV−"))
 length(which(is.na(trinuc.w.HPV$HPV)))
 
 save(trinuc.w.HPV,file = "output_data/signature_weights_w_HPV.RData")
@@ -426,7 +426,7 @@ length(which((trinuc.w.HPV$`2` > 0 | trinuc.w.HPV$`13`>0) & trinuc.w.HPV$HPV=="H
 # now they match
 # 7/20
 
-length(which((trinuc.w.HPV$`2` > 0 | trinuc.w.HPV$`13`>0) & trinuc.w.HPV$HPV=="HPV-"))/length(which(trinuc.w.HPV$HPV=="HPV-"))
+length(which((trinuc.w.HPV$`2` > 0 | trinuc.w.HPV$`13`>0) & trinuc.w.HPV$HPV=="HPV−"))/length(which(trinuc.w.HPV$HPV=="HPV−"))
 
 length(which((trinuc.w.HPV$`2` > 0 | trinuc.w.HPV$`13`>0) & trinuc.w.HPV$HPV=="HPV+"))/length(which(trinuc.w.HPV$HPV=="HPV+"))
 
@@ -434,8 +434,8 @@ length(which((trinuc.w.HPV$`2` > 0 | trinuc.w.HPV$`13`>0) & trinuc.w.HPV$HPV=="H
 mean(trinuc.w.HPV$`2`[which(trinuc.w.HPV$HPV=="HPV+")])
 mean(trinuc.w.HPV$`13`[which(trinuc.w.HPV$HPV=="HPV+")])
 
-mean(trinuc.w.HPV$`2`[which(trinuc.w.HPV$HPV=="HPV-")])
-mean(trinuc.w.HPV$`13`[which(trinuc.w.HPV$HPV=="HPV-")])
+mean(trinuc.w.HPV$`2`[which(trinuc.w.HPV$HPV=="HPV−")])
+mean(trinuc.w.HPV$`13`[which(trinuc.w.HPV$HPV=="HPV−")])
 
 ```
 
@@ -467,7 +467,7 @@ recur.hpv.pos <- subset(HNSC.selection.output.recur, HPV_call=="HPV+")
 recur.hpv.pos <- subset(recur.hpv.pos, Name_short %in% names(table(recur.hpv.pos$Name_short))[which(table(recur.hpv.pos$Name_short)>1)]) #just the recurrent mutations 
 hpv.pos.names <- unique(recur.hpv.pos$Name_short)
 
-recur.hpv.neg <- subset(HNSC.selection.output.recur, HPV_call=="HPV-")
+recur.hpv.neg <- subset(HNSC.selection.output.recur, HPV_call=="HPV−")
 recur.hpv.neg <- subset(recur.hpv.neg, Name_short %in% names(table(recur.hpv.neg$Name_short))[which(table(recur.hpv.neg$Name_short)>1)]) #just the recurrent mutations 
 hpv.neg.names <- unique(recur.hpv.neg$Name_short)
 
@@ -492,7 +492,7 @@ for(i in 1:nrow(prevalence.df)){
 }
 
 prevalence.df$prev_HPVpos <- prevalence.df$tally_HPVpos/length(unique(HNSC.selection.output$Tumor_origin[which(HNSC.selection.output$HPV_call=="HPV+")]))
-prevalence.df$prev_HPVneg <- prevalence.df$tally_HPVneg/length(unique(HNSC.selection.output$Tumor_origin[which(HNSC.selection.output$HPV_call=="HPV-")])) #TODO why only 411? did one tumor have no SNP?
+prevalence.df$prev_HPVneg <- prevalence.df$tally_HPVneg/length(unique(HNSC.selection.output$Tumor_origin[which(HNSC.selection.output$HPV_call=="HPV−")])) #TODO why only 411? did one tumor have no SNP?
 
 library(ggrepel)
 # prev_plot <- ggplot(data = prevalence.df) + geom_point(aes(y = prev_HPVneg, x = prev_HPVpos),alpha=0.5,size=5) + geom_text_repel(data = subset(prevalence.df, (prev_HPVneg>0.025 | prev_HPVpos>0.04) | (prev_HPVneg>0.0 & prev_HPVpos>0)),aes(y = prev_HPVneg, x = prev_HPVpos,label=Name),box.padding = 1.5,size=4,color="darkred",fontface="bold") + theme_bw() + labs(y=bquote("Prevalence in "~HPV^{"-"}~ "\n tumors"), x=bquote("Prevalence in "~HPV^{"+"}~ "tumors")) + theme(axis.text=element_text(size=12), axis.title=element_text(size=10,face="bold"),plot.margin = margin(r=.2,unit = "in")) + coord_equal() #+ geom_label(aes(x = prev_HPVneg, y = prev_HPVpos, label=Name))
@@ -517,12 +517,12 @@ common.text.size <- 6
 # getting them to match up! 
 prev_plot <- ggplot(data = prevalence.df) + 
   geom_point(aes(y = prev_HPVneg, x = prev_HPVpos),alpha=0.5,size=1.5,color="red") + 
-  geom_text_repel(data = subset(prevalence.df, (prev_HPVneg>0.025 | prev_HPVpos>0.04) | (prev_HPVneg>0.0 & prev_HPVpos>0)),aes(y = prev_HPVneg, x = prev_HPVpos,label=Name),box.padding =0.6,size=common.text.size*(5/14),color="darkred",fontface="bold") + 
+  geom_text_repel(data = subset(prevalence.df, (prev_HPVneg>0.025 | prev_HPVpos>0.04) | (prev_HPVneg>0.0 & prev_HPVpos>0)),aes(y = prev_HPVneg, x = prev_HPVpos,label=Name),box.padding =0.7,size=common.text.size*(5/14),color="black") + 
   theme_classic() + 
   expand_limits(x = 0, y = c(0,max(prevalence.df$prev_HPVneg)+.005)) + 
   scale_x_continuous(expand = c(0, 0)) + 
   scale_y_continuous(expand = c(0, 0)) + 
-  labs(y=bquote("Prevalence in "~HPV^{"-"}~ "\n tumors"), x=bquote("Prevalence in "~HPV^{"+"}~ "tumors")) + theme(axis.text=element_text(size=common.text.size), axis.title=element_text(size=common.text.size,face="bold"),plot.margin = margin(r=.2,t=.0,l=.1,b=0.1,unit = "in")) + 
+  labs(y=bquote("Prevalence in "~HPV^{"−"}~ "\n tumors"), x=bquote("Prevalence in "~HPV^{"+"}~ "tumors")) + theme(axis.text=element_text(size=common.text.size), axis.title=element_text(size=common.text.size,face="bold"),plot.margin = margin(r=.2,t=.0,l=.1,b=0.1,unit = "in")) + 
   # coord_equal() +  
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   theme(axis.title.x = element_text(margin = margin(t = -.2, r = 0, b = 0, l = 0)))  #+ geom_label(aes(x = prev_HPVneg, y = prev_HPVpos, label=Name))
@@ -538,12 +538,12 @@ ggsave(filename = "Figures/prevalence_plot.png",plot = prev_plot_grob,height = 1
 
 
 mutation_rates_full_scatter <- ggplot(data = mutation_rates, aes(x=positive_mut_rates,y=negative_mut_rates)) +
-  geom_point(alpha=0.2,col="black",size=0.5) + 
+  geom_point(alpha=0.2,col="red",size=0.5) + 
   geom_smooth(method='lm',color="red",size=.5) + 
   # geom_text_repel(data=subset(mutation_rates, positive_mut_rates > 5e-5 | negative_mut_rates > 3e-5 ), aes(label=gene),size=3) + 
-  geom_point(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates),size=1.5,col="blue") + 
-  geom_text_repel(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates,label=gene),size=common.text.size*(5/14),col="blue",fontface="bold",box.padding = 0.6) +
-  labs(y=bquote("Mutation rate in "~HPV^{"-"}~ "\n tumors"), x=bquote("Mutation rate in "~HPV^{"+"}~ "tumors")) + 
+  geom_point(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates),size=1.5,col="black") + 
+  geom_text_repel(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates,label=gene),size=common.text.size*(5/14),col="black",box.padding = 0.6) +
+  labs(y=bquote("Mutation rate in "~HPV^{"−"}~ "\n tumors"), x=bquote("Mutation rate in "~HPV^{"+"}~ "tumors")) + 
   # coord_equal() + 
   # theme_classic() + 
   expand_limits(x = 0, y = c(0,max(mutation_rates$negative_mut_rates)+1e-6)) + 
@@ -552,8 +552,8 @@ mutation_rates_full_scatter <- ggplot(data = mutation_rates, aes(x=positive_mut_
   # geom_abline(slope=1, intercept=0,linetype = "dashed") + 
   scale_x_continuous(labels=fancy_scientific,expand = c(0, 0)) + 
   scale_y_continuous(labels=fancy_scientific,expand = c(0, 0)) + theme(axis.text=element_text(size=common.text.size),
-                                                      axis.title=element_text(size=common.text.size,face="bold"),
-                                                      plot.margin = margin(r=.2,t=.0,b=.0,l=.1,unit = "in")) + theme(axis.title.x = element_text(margin = margin(t = -.2, r = 0, b = 0, l = 0)))  
+                                                                       axis.title=element_text(size=common.text.size,face="bold"),
+                                                                       plot.margin = margin(r=.2,t=.0,b=.0,l=.1,unit = "in")) + theme(axis.title.x = element_text(margin = margin(t = -.2, r = 0, b = 0, l = 0)))  
 
 mutation_rates_full_scatter
 
@@ -683,7 +683,7 @@ library(ggrepel)
 # gamma_plot <- ggplot(data = gamma.df) + geom_point(aes(x = log10(gamma_HPVneg), y = log10(gamma_HPVpos)),alpha=0.5,size=5) + geom_text_repel(aes(x = log10(gamma_HPVneg), y = log10(gamma_HPVpos),label=Name),box.padding = 0.8,size=5,color="darkred",fontface="bold") + theme_bw() + labs(x="Log of selection intensity in HPV- tumors", y="Log of selection intensity in HPV+ tumors") + theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold")) #+ geom_label(aes(x = prev_HPVneg, y = prev_HPVpos, label=Name))
 
 
-gamma_plot <- ggplot(data = gamma.df) + geom_point(aes(x = gamma_HPVneg, y = gamma_HPVpos),alpha=0.5,size=2) + geom_text_repel(aes(x = gamma_HPVneg, y = gamma_HPVpos,label=Name),box.padding = 0.8,size=common.text.size*(5/14),color="darkred",fontface="bold") + theme_bw() + labs(x=bquote("Selection intensity in "~HPV^{"-"}~ "tumors"), y=bquote("Selection intensity in "~HPV^{"+"}~ "tumors")) + theme(axis.text=element_text(size=common.text.size), axis.title=element_text(size=common.text.size,face="bold"))  + scale_y_log10(labels = fancy_scientific) + scale_x_log10(labels = fancy_scientific) + coord_equal() #+ coord_equal(xlim = c(0,),ylim = c(0,))
+gamma_plot <- ggplot(data = gamma.df) + geom_point(aes(x = gamma_HPVneg, y = gamma_HPVpos),alpha=0.5,size=2) + geom_text_repel(aes(x = gamma_HPVneg, y = gamma_HPVpos,label=Name),box.padding = 0.8,size=common.text.size*(5/14),color="darkred",fontface="bold") + theme_bw() + labs(x=bquote("Selection intensity in "~HPV^{"−"}~ "tumors"), y=bquote("Selection intensity in "~HPV^{"+"}~ "tumors")) + theme(axis.text=element_text(size=common.text.size), axis.title=element_text(size=common.text.size,face="bold"))  + scale_y_log10(labels = fancy_scientific) + scale_x_log10(labels = fancy_scientific) + coord_equal() #+ coord_equal(xlim = c(0,),ylim = c(0,))
 
 gamma_plot
 
@@ -1082,10 +1082,10 @@ library(ggplot2);library(ggrepel)
 gamma_plot <- ggplot(data = gamma.df) + 
   geom_point(aes(x = gamma_HPVneg, y = gamma_HPVpos),alpha=0.5,size=1.5,col="red") + 
   geom_text_repel(aes(x = gamma_HPVneg, y = gamma_HPVpos,label=Name),
-                  # box.padding =.5,
+                  box.padding =.23,
                   size=common.text.size*(5/14),segment.alpha=0.6,
-                  color="darkred",fontface="bold") + 
-  labs(x=bquote("Selection intensity in "~HPV^{"-"}~ "tumors"), y=bquote("Selection intensity in "~HPV^{"+"}~ "tumors")) +
+                  color="black") + 
+  labs(x=bquote("Selection intensity in "~HPV^{"−"}~ "tumors"), y=bquote("Selection intensity in "~HPV^{"+"}~ "tumors")) +
   theme(axis.text=element_text(size=common.text.size), 
         axis.title=element_text(size=common.text.size,face="bold"))  + 
   expand_limits(x = c(1,(max(gamma.df$gamma_HPVpos,na.rm = T)+2e7)), y = c(1,(max(gamma.df$gamma_HPVpos,na.rm = T)+2e7))) + 
@@ -1093,7 +1093,7 @@ gamma_plot <- ggplot(data = gamma.df) +
   # scale_y_continuous(expand = c(0, 0)) + 
   scale_y_log10(labels = c(expression(10^0),expression(10^2),expression(10^4),expression(10^6)),breaks=c(1,1e2,1e4,1e6),expand = c(0,0)) +
   scale_x_log10(labels = c(expression(10^0),expression(10^2),expression(10^4),expression(10^6)),breaks=c(1,1e2,1e4,1e6),expand = c(0,0)) + coord_equal() #+
-  # coord_equal() #+ coord_equal(xlim = c(0,),ylim = c(0,))
+# coord_equal() #+ coord_equal(xlim = c(0,),ylim = c(0,))
 gamma_plot
 
 library(viridis)
@@ -1104,7 +1104,7 @@ combined_both_gamma_forcombined <- plot_grid(g1,g.mid,g2,g1.pos,g.mid.pos,g2.pos
 Fig2 <- ggdraw() + 
   draw_plot(combined_both_gamma_forcombined) +
   geom_rect(data=data.frame(x=0.715,y=0.23),aes(xmin=x,xmax=x+.28,ymin=y,ymax=y+.52),color="white",fill="white") + 
-  draw_plot(gamma_plot,  x=0.62, y=0.2,width = .45,height = .45) + 
+  draw_plot(gamma_plot,  x=0.57, y=0.19,width = .55,height = .55) + 
   draw_plot_label(c("A", "B","C"), c(0, 0.43,.715), c(.985, .985,(.23+.52)), size = common.text.size)
 
 # Fig2
@@ -1309,10 +1309,20 @@ heatmap_and_dendro <- plot_grid(NULL,plt_dendr_signature,plt_dendr, plt_hmap, al
 
 heatmap_and_dendro
 
+
+
 ggsave(filename = "Figures/heatmap_and_dendro.png",plot = heatmap_and_dendro,height = 5,width = 7)
 ggsave(filename = "Figures/heatmap_and_dendro.pdf",plot = heatmap_and_dendro,height = 9,width = 6)
 # 
 # 
+
+dendro_and_heatmap_labs <- ggdraw() + 
+  draw_plot(heatmap_and_dendro) +
+  geom_text(x=.72,y=.95,label="Signatures",size=6) + 
+  geom_text(x=.05,y=.42,label="Tumors",size=6,angle=90)
+
+ggsave(filename = "Figures/heatmap_and_dendro_w_labs.png",plot = dendro_and_heatmap_labs,height = 4,width = 6.5)
+
 # plt_dendr_axis <- axis_canvas(plt_hmap,axis = 'y') + ggplot(segment_data_tumors) + 
 #     geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) + 
 #     scale_x_reverse(expand = c(0, 0.01)) + 
@@ -1367,12 +1377,12 @@ HPV.vs.APOBEC <- ggplot(data = SNV.APOBEC.df) + geom_boxplot(aes(y=SNV_count,x=A
 
 ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_SNV.png",plot = HPV.vs.APOBEC)
 #TODO: make sure the NAs are being removed 
-wilcox.test(data=subset(SNV.APOBEC.df,HPV_status=="HPV-"),SNV_count~APOBEC,conf.int=T) 
+wilcox.test(data=subset(SNV.APOBEC.df,HPV_status=="HPV−"),SNV_count~APOBEC,conf.int=T) 
 
 wilcox.test(data=subset(SNV.APOBEC.df,HPV_status=="HPV+"),SNV_count~APOBEC, conf.int = T,alternative="two.sided") 
 
 hpv.pos.snv.apobec <- subset(SNV.APOBEC.df,HPV_status=="HPV+")
-hpv.neg.snv.apobec <- subset(SNV.APOBEC.df,HPV_status=="HPV-")
+hpv.neg.snv.apobec <- subset(SNV.APOBEC.df,HPV_status=="HPV−")
 
 mean(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])-mean(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")])
 
@@ -1425,11 +1435,11 @@ common.text.size.large <- 10
 
 HPV_status_vs_APOBEC_weight <- ggplot() + 
   geom_point(data = SNV.APOBEC.df.knownAPOBEC,aes(y=HPV_status_value,x=APOBEC_weight),alpha=0.5,size=3,shape="|",color="blue") + 
-    geom_abline(slope=0,intercept = 1) +
+  geom_abline(slope=0,intercept = 1) +
   stat_smooth(data = SNV.APOBEC.df.knownAPOBEC,aes(y=HPV_status_value,x=APOBEC_weight),method="glm", method.args=list(family="binomial"), se=T, fullrange=TRUE) + 
   geom_abline(slope=0,intercept = 1) + geom_segment(aes(x=1,xend=1,y=0,yend=1)) + 
   labs(y="Probability HPV positive",x="APOBEC signature weight") + theme_classic() +
-  theme(text = element_text(size=common.text.size.large)) + 
+  theme(text = element_text(size=common.text.size.large),plot.margin = margin(r=10,t=10,l=1)) + 
   expand_limits(x = c(0,1), y = 0) + 
   scale_x_continuous(expand = c(0, 0)) + 
   scale_y_continuous(expand = c(0, 0))
@@ -1458,8 +1468,8 @@ message("HPV+ tumors with APOBEC signal")
 length(which(SNV.APOBEC.df.knownAPOBEC$APOBEC=="Yes" & SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV+"))/length(which(SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV+"))
 
 
-message("HPV- tumors with APOBEC signal")
-length(which(SNV.APOBEC.df.knownAPOBEC$APOBEC=="Yes" & SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV-"))/length(which(SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV-"))
+message("HPV− tumors with APOBEC signal")
+length(which(SNV.APOBEC.df.knownAPOBEC$APOBEC=="Yes" & SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV−"))/length(which(SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV−"))
 
 ```
 
@@ -1502,22 +1512,31 @@ fancy_scientific_justexp <- function(l) {
 }
 common.text.size.large2 <- 12
 
+SNV.APOBEC.df$HPV_status <- factor(SNV.APOBEC.df$HPV_status, labels = c(expression(HPV^{"+"}),expression(HPV^{"−"})))
+
 HPV.vs.APOBEC_ms_forcombine <- ggplot(data = subset(SNV.APOBEC.df, !is.na(SNV.APOBEC.df$APOBEC))) +
   geom_boxplot(aes(y=SNV_count,x=APOBEC),color="black",outlier.shape = NA) + 
   geom_jitter(aes(y=SNV_count,x=APOBEC),width= 0.2,alpha=0.4,color="blue") + 
-  facet_grid(.~HPV_status) + 
+  facet_grid(.~HPV_status, labeller = "label_parsed") + 
   theme_classic() + 
-  scale_y_log10(labels=c(expression(10^02),expression(10^03)),breaks=c(100,1000)) + 
+  expand_limits( y = c(1,(max(SNV.APOBEC.df$SNV_count,na.rm = T)+1e3))) + 
+  scale_y_log10(labels=c(expression(10^0),expression(10^01),expression(10^02),expression(10^03)),breaks=c(1,10,100,1000),expand = c(0,0)) + 
   labs(x="APOBEC signature present",y="SNV count")  + 
   theme(strip.text.x = element_text(size=common.text.size.large2)) +
   theme(axis.text=element_text(size=common.text.size.large2), axis.title=element_text(size=common.text.size.large2,face="bold"))
 # plot_grid(
+
+# SNV.APOBEC.df.comparingAPOBEC$HPV_status <- factor(SNV.APOBEC.df.comparingAPOBEC$HPV_status, levels = c(expression(HPV^"−"),expression(HPV^"+")))
+SNV.APOBEC.df.comparingAPOBEC$APOBEC <- factor(SNV.APOBEC.df.comparingAPOBEC$APOBEC, levels = c("APOBEC present", "APOBEC absent",NA))
+
 SNV_count_comparing_APOBEC_plot_forcombine <- ggplot(data = subset(SNV.APOBEC.df.comparingAPOBEC, !is.na(SNV.APOBEC.df.comparingAPOBEC$APOBEC))) + 
   geom_boxplot(aes(y=SNV_count,x=HPV_status),color="black",outlier.shape = NA) + 
   geom_jitter(aes(y=SNV_count,x=HPV_status),width= 0.2,alpha=0.4,color="blue") + 
   facet_grid(.~APOBEC) + 
   theme_classic() + 
-  scale_y_log10(labels=c(expression(10^02),expression(10^03)),breaks=c(100,1000)) + 
+  scale_x_discrete(labels = c(expression(HPV^{"+"}),expression(HPV^{"−"}))) + 
+  expand_limits( y = c(1,(max(SNV.APOBEC.df.knownAPOBEC$SNV_count,na.rm = T)+1e3))) + 
+  scale_y_log10(labels=c(expression(10^0),expression(10^01),expression(10^02),expression(10^03)),breaks=c(1,10,100,1000),expand = c(0,0)) + 
   labs(x="HPV status",y="SNV count")  + 
   theme(strip.text.x = element_text(size=common.text.size.large2)) + 
   theme(axis.text=element_text(size=common.text.size.large2), axis.title=element_text(size=common.text.size.large2,face="bold"),axis.title.y = element_blank())
@@ -1938,7 +1957,9 @@ distribution.of.APOBEC.TCW <- ggplot(data = ALL.prev.df) +
   geom_jitter(aes(y=`Selection intensity`,x=`APOBEC type TCW`),alpha=0.4,width  = 0.1,size=1.5,col="red") + 
   theme_classic() + 
   labs(y="Selection intensity") + 
-  scale_y_log10(labels=c(expression(10^03),expression(10^05)),breaks=c(1000,100000)) + 
+  expand_limits( y = c(1,(max(ALL.prev.df$`Selection intensity`,na.rm = T)+1e5))) + 
+  scale_y_log10(labels=c(expression(10^0),expression(10^01),expression(10^02),expression(10^03),expression(10^04),expression(10^05)),breaks=c(1,10,100,1000,1e4,1e5),expand = c(0,0)) + 
+  # scale_y_log10(labels=c(expression(10^03),expression(10^05)),breaks=c(1000,100000)) + 
   theme(axis.text=element_text(size=common.text.size.large3), axis.title=element_text(size=common.text.size.large3,face="bold")) + 
   labs(x=expression(TCW %->% TKW))
 
@@ -1981,7 +2002,7 @@ head(ALL.prev.df.split)
 
 # this quick fix messes up the non-coding mutations, fix the one we want labeled 
 
-ALL.prev.df.split$Name[which(ALL.prev.df.split$Name=="CCDC50 A 191098615 C NCSNV")] <- "CCDC50 Splice Site"
+ALL.prev.df.split$Name[which(ALL.prev.df.split$Name=="CCDC50 A 191098615 C NCSNV")] <- "CCDC50 S.S."
 
 # ggplot(data = ALL.prev.df.split) +geom_violin(aes(x=`APOBEC context`, y = `Selection from mutational context`))  + geom_jitter(aes(x=`APOBEC context`, y = `Selection from mutational context`))
 
@@ -1990,15 +2011,19 @@ source("R/fancy_scientific_code.R")
 
 # selection.from.contexts <- ggplot(data = ALL.prev.df.split) +geom_violin(aes(x=`APOBEC context`, y = `Selection from mutational context`))  + geom_jitter(aes(x=`APOBEC context`, y = `Selection from mutational context`)) + scale_y_log10(labels=fancy_scientific) + labs(x="Mutational signatures attributed to mutation", y="Proportion of selection intensity attributed to signature and \nweighted by mutation prevalence among tumors") + theme_bw()
 
-ALL.prev.df.split$`APOBEC context` <- factor(ALL.prev.df.split$`APOBEC context`, levels = c("non-APOBEC processes", "APOBEC processes"))
+ALL.prev.df.split$`APOBEC context` <- factor(ALL.prev.df.split$`APOBEC context`, levels = c("APOBEC processes","non-APOBEC processes"),labels = c("APOBEC","non-APOBEC"))
 
 library(ggrepel)
 
 selection.from.contexts.labels <- ggplot(data = ALL.prev.df.split) + 
   geom_point(aes(x=`APOBEC context`, y = `Selection from mutational context`),alpha=0.2,col="red") + 
-  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="APOBEC processes" & `Selection from mutational context` > 100),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=Name),color="darkred",fontface="bold",size=common.text.size*(5/14)) + #scale_y_log10(labels=fancy_scientific) + 
-  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="non-APOBEC processes" & `Selection from mutational context` > 650),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=Name),box.padding = .31,color="darkred",fontface="bold",size=common.text.size*(5/14)) + 
-  labs(y="Net realized selection intensity") + theme_classic() + theme(axis.text=element_text(size=common.text.size), axis.title=element_text(size=common.text.size,face="bold"))
+  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="APOBEC" & `Selection from mutational context` > 100),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=Name),color="black",segment.alpha = 0.4,size=common.text.size*(5/14)) + #scale_y_log10(labels=fancy_scientific) + 
+  geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="non-APOBEC" & `Selection from mutational context` > 650),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=Name),box.padding = .31,segment.alpha=0.4,color="black",size=common.text.size*(5/14)) + 
+  labs(y="Net realized selection intensity",x="Mutation process") + theme_classic() + 
+  theme(axis.text=element_text(size=common.text.size.large2), axis.title=element_text(size=common.text.size.large2,face="bold")) +
+  expand_limits(x = 0, y = c(0,max(ALL.prev.df.split$`Selection from mutational context`)+100)) + 
+  # scale_x_continuous(expand = c(0, 0)) + 
+  scale_y_continuous(expand = c(0, 0)) 
 
 # ggsave(filename = "Figures/selection_from_process.png",plot = selection.from.contexts)
 # View(ALL.prev.df.split)
@@ -2074,13 +2099,13 @@ for(i in 1:nrow(just.PIK3CA.unique)){
   just.PIK3CA.unique$Name[i] <- as.character(unique(just.PIK3CA$Name)[i])
   just.PIK3CA.unique$`mutations in dataset`[i] <- length(which(just.PIK3CA$Name==just.PIK3CA.unique$Name[i]))
   just.PIK3CA.unique$us_pos[i] <- length(which(just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV+"))
-  just.PIK3CA.unique$us_neg[i] <- length(which(just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV-"))
+  just.PIK3CA.unique$us_neg[i] <- length(which(just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV−"))
   # just.PIK3CA.unique$tang_pos[i] <- length(which(just.PIK3CA$HPV_status_tang2013[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV+"))
   # just.PIK3CA.unique$tang_neg[i] <- length(which(just.PIK3CA$HPV_status_tang2013[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV-"))
   just.PIK3CA.unique$us_frac_pos[i] <- just.PIK3CA.unique$us_pos[i]/(just.PIK3CA.unique$us_neg[i]+just.PIK3CA.unique$us_pos[i])
   # just.PIK3CA.unique$tang_frac[i] <- just.PIK3CA.unique$tang_pos[i]/(just.PIK3CA.unique$tang_neg[i]+just.PIK3CA.unique$tang_pos[i])
-  just.PIK3CA.unique$neg_HPV_and_neg_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="FALSE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV-"))
-  just.PIK3CA.unique$neg_HPV_and_pos_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="TRUE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV-"))
+  just.PIK3CA.unique$neg_HPV_and_neg_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="FALSE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV−"))
+  just.PIK3CA.unique$neg_HPV_and_pos_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="TRUE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV−"))
   just.PIK3CA.unique$pos_HPV_and_pos_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="TRUE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV+"))
   just.PIK3CA.unique$pos_HPV_and_neg_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="FALSE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV+"))
 }

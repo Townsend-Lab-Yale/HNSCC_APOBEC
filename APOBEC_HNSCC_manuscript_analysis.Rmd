@@ -23,19 +23,70 @@ virusscan.data <- read.table(file = "input_data/virusscan/vscan_counts.tsv",sep 
 # processing MAF file and splitting into HPV pos and neg
 
 ```{r loading and splitting MAF file}
-
+# load in the MAF file from the NCI 
 HNSC.MAF <- read.csv("input_data/NCI/gdc_download_20180201_160847/1aa33f25-3893-4f37-a6a4-361c9785d07e/TCGA.HNSC.mutect.1aa33f25-3893-4f37-a6a4-361c9785d07e.DR-10.0.somatic.maf",skip=5,header = T,sep = "\t",stringsAsFactors = F)
+
+# source custom functions
 source("R/flip_function.R")
 source("R/unique_tumor_addition.R")
 source("R/hg39_to_hg19_converter.R")
 source("R/DNP_remover.R")
 source("R/tumor_allele_adder.R")
 
-
+# convert the MAF to hg19 coordinates 
 HNSC.MAF <- hg38.to.hg19.converter(chain = "input_data/hg38Tohg19.chain",hg38_maf = HNSC.MAF)
-HNSC.MAF <- DNP.remover(MAF = HNSC.MAF)
-HNSC.MAF <- tumor.allele.adder(MAF = HNSC.MAF)
 
+
+# Saved sheet 10 of the supp. data from Hedberg et al. J Clin Invest. 2016;126(1):169-180. doi:10.1172/JCI82066 as a CSV. 
+Hedberg.2016 <- read.csv(file = "input_data/Hedberg_2016/JCI82066.sdt1-10_sheet10.csv",header = T,stringsAsFactors = F,skip = 1)
+
+unique(Hedberg.2016$Variant.Status)
+
+# Just want variants found in primary tumors 
+Hedberg.2016 <- Hedberg.2016[which(Hedberg.2016$Variant.Status %in% c("Transmitted","Primary Only")),]
+
+# changing column names to align with those from TCGA 
+colnames(Hedberg.2016)[which(colnames(Hedberg.2016)=="Gene")] <- "Hugo_Symbol"
+colnames(Hedberg.2016)[which(colnames(Hedberg.2016)=="Chr")] <- "Chromosome"
+colnames(Hedberg.2016)[which(colnames(Hedberg.2016)=="Position")] <- "Start_Position"
+Hedberg.2016$End_Position <- Hedberg.2016$Start_Position
+Hedberg.2016$Tumor_Sample_Barcode <- Hedberg.2016$Patient
+Hedberg.2016$Variant_Type <- "SNP"
+
+Hedberg.2016$Chromosome[which(Hedberg.2016$Chromosome=="chr24")] <- "chrX"
+
+# delete Hedberg 2016 variants without a clear call
+if(length(which(nchar(Hedberg.2016$Base.Change)>3))>0){
+Hedberg.2016 <- Hedberg.2016[which(nchar(Hedberg.2016$Base.Change)==3),]
+}
+
+Hedberg.2016$Reference_Allele <- NA
+Hedberg.2016$Tumor_Seq_Allele1 <- NA
+Hedberg.2016$Tumor_Seq_Allele2 <- NA
+
+split.chromosome <- strsplit(x=Hedberg.2016$Chromosome,split = "chr")
+split.bases <- strsplit(x = Hedberg.2016$Base.Change,split = ">")
+for(i in 1:nrow(Hedberg.2016)){
+ Hedberg.2016[i,c("Reference_Allele","Tumor_Seq_Allele1")] <-  split.bases[[i]][1]
+ Hedberg.2016[i,"Tumor_Seq_Allele2"] <- split.bases[[i]][2]
+ Hedberg.2016[i,"Chromosome"] <- split.chromosome[[i]][2]
+}
+
+to.add <- as.data.frame(matrix(data = NA,nrow = nrow(Hedberg.2016),ncol = ncol(HNSC.MAF)))
+colnames(to.add) <- colnames(HNSC.MAF)
+HNSC.MAF <- rbind(HNSC.MAF,to.add)
+
+HNSC.MAF[which(is.na(HNSC.MAF$Hugo_Symbol)),c("Hugo_Symbol","Chromosome","Start_Position","End_Position","Tumor_Sample_Barcode","Variant_Type","Reference_Allele","Tumor_Seq_Allele1","Tumor_Seq_Allele2")] <- Hedberg.2016[,c("Hugo_Symbol","Chromosome","Start_Position","End_Position","Tumor_Sample_Barcode","Variant_Type","Reference_Allele","Tumor_Seq_Allele1","Tumor_Seq_Allele2")]
+
+
+HNSC.MAF <- unique.tumor.addition.function(MAF.file = HNSC.MAF,non.TCGA.characters.to.keep = 'all')
+
+# remove potential DNP 
+HNSC.MAF <- DNP.remover(MAF = HNSC.MAF)
+
+# add a column that is just the variant allele 
+HNSC.MAF <- tumor.allele.adder(MAF = HNSC.MAF)
+# HNSC.MAF <- unique.tumor.addition.function(MAF.file = HNSC.MAF,non.TCGA.characters.to.keep = 'all')
 
 HNSC.MAF$HPV_call <- NA
 HNSC.MAF$Virusscan_counts <- NA
@@ -52,6 +103,8 @@ for(i in 1:length(unique(HNSC.MAF$Unique_patient_identifier))){
   }
 }
 
+HNSC.MAF$HPV_call[which(startsWith(x = HNSC.MAF$Unique_patient_identifier,prefix = "PY"))] <- "HPV−"
+HNSC.MAF$HPV_call[which(HNSC.MAF$Unique_patient_identifier=="PY-16")] <- "HPV+"
 # HNSC.MAF$HPV_call[which(HNSC.MAF$Unique_patient_identifier=="TCGA-CN-A6V1")] <- "ambiguous"
 
 # unique(HNSC.MAF$Unique_patient_identifier)
@@ -2098,16 +2151,16 @@ colnames(just.PIK3CA.unique) <- c("Name","mutations in dataset","us_pos","us_neg
 for(i in 1:nrow(just.PIK3CA.unique)){
   just.PIK3CA.unique$Name[i] <- as.character(unique(just.PIK3CA$Name)[i])
   just.PIK3CA.unique$`mutations in dataset`[i] <- length(which(just.PIK3CA$Name==just.PIK3CA.unique$Name[i]))
-  just.PIK3CA.unique$us_pos[i] <- length(which(just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV+"))
-  just.PIK3CA.unique$us_neg[i] <- length(which(just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV−"))
+  just.PIK3CA.unique$us_pos[i] <- length(which(just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV^{\n    \"+\"\n}"))
+  just.PIK3CA.unique$us_neg[i] <- length(which(just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV^{\n    \"−\"\n}"))
   # just.PIK3CA.unique$tang_pos[i] <- length(which(just.PIK3CA$HPV_status_tang2013[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV+"))
   # just.PIK3CA.unique$tang_neg[i] <- length(which(just.PIK3CA$HPV_status_tang2013[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV-"))
   just.PIK3CA.unique$us_frac_pos[i] <- just.PIK3CA.unique$us_pos[i]/(just.PIK3CA.unique$us_neg[i]+just.PIK3CA.unique$us_pos[i])
   # just.PIK3CA.unique$tang_frac[i] <- just.PIK3CA.unique$tang_pos[i]/(just.PIK3CA.unique$tang_neg[i]+just.PIK3CA.unique$tang_pos[i])
-  just.PIK3CA.unique$neg_HPV_and_neg_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="FALSE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV−"))
-  just.PIK3CA.unique$neg_HPV_and_pos_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="TRUE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV−"))
-  just.PIK3CA.unique$pos_HPV_and_pos_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="TRUE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV+"))
-  just.PIK3CA.unique$pos_HPV_and_neg_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="FALSE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV+"))
+  just.PIK3CA.unique$neg_HPV_and_neg_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="FALSE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV^{\n    \"−\"\n}"))
+  just.PIK3CA.unique$neg_HPV_and_pos_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="TRUE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV^{\n    \"−\"\n}"))
+  just.PIK3CA.unique$pos_HPV_and_pos_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="TRUE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV^{\n    \"+\"\n}"))
+  just.PIK3CA.unique$pos_HPV_and_neg_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="FALSE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV^{\n    \"+\"\n}"))
 }
 
 datatable(just.PIK3CA.unique)

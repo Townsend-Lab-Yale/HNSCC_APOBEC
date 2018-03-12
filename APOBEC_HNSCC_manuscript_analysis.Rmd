@@ -38,46 +38,54 @@ HNSC.MAF <- hg38.to.hg19.converter(chain = "input_data/hg38Tohg19.chain",hg38_ma
 
 
 # Saved sheet 10 of the supp. data from Hedberg et al. J Clin Invest. 2016;126(1):169-180. doi:10.1172/JCI82066 as a CSV. 
-Hedberg.2016 <- read.csv(file = "input_data/Hedberg_2016/JCI82066.sdt1-10_sheet10.csv",header = T,stringsAsFactors = F,skip = 1)
+# Hedberg.2016 <- read.csv(file = "input_data/Hedberg_2016/JCI82066.sdt1-10_sheet10.csv",header = T,stringsAsFactors = F,skip = 1)
+# 
+# unique(Hedberg.2016$Variant.Status)
+# 
+# # Just want variants found in primary tumors 
+# Hedberg.2016 <- Hedberg.2016[which(Hedberg.2016$Variant.Status %in% c("Transmitted","Primary Only")),]
+# 
+# # changing column names to align with those from TCGA 
+# colnames(Hedberg.2016)[which(colnames(Hedberg.2016)=="Gene")] <- "Hugo_Symbol"
+# colnames(Hedberg.2016)[which(colnames(Hedberg.2016)=="Chr")] <- "Chromosome"
+# colnames(Hedberg.2016)[which(colnames(Hedberg.2016)=="Position")] <- "Start_Position"
+# Hedberg.2016$End_Position <- Hedberg.2016$Start_Position
+# Hedberg.2016$Tumor_Sample_Barcode <- Hedberg.2016$Patient
+# Hedberg.2016$Variant_Type <- "SNP"
+# 
+# Hedberg.2016$Chromosome[which(Hedberg.2016$Chromosome=="chr24")] <- "chrX"
+# 
+# # delete Hedberg 2016 variants without a clear call
+# if(length(which(nchar(Hedberg.2016$Base.Change)>3))>0){
+# Hedberg.2016 <- Hedberg.2016[which(nchar(Hedberg.2016$Base.Change)==3),]
+# }
+# 
+# Hedberg.2016$Reference_Allele <- NA
+# Hedberg.2016$Tumor_Seq_Allele1 <- NA
+# Hedberg.2016$Tumor_Seq_Allele2 <- NA
+# 
+# split.chromosome <- strsplit(x=Hedberg.2016$Chromosome,split = "chr")
+# split.bases <- strsplit(x = Hedberg.2016$Base.Change,split = ">")
+# for(i in 1:nrow(Hedberg.2016)){
+#  Hedberg.2016[i,c("Reference_Allele","Tumor_Seq_Allele1")] <-  split.bases[[i]][1]
+#  Hedberg.2016[i,"Tumor_Seq_Allele2"] <- split.bases[[i]][2]
+#  Hedberg.2016[i,"Chromosome"] <- split.chromosome[[i]][2]
+# }
+# 
+# to.add <- as.data.frame(matrix(data = NA,nrow = nrow(Hedberg.2016),ncol = ncol(HNSC.MAF)))
+# colnames(to.add) <- colnames(HNSC.MAF)
+# HNSC.MAF <- rbind(HNSC.MAF,to.add)
+# 
+# HNSC.MAF[which(is.na(HNSC.MAF$Hugo_Symbol)),c("Hugo_Symbol","Chromosome","Start_Position","End_Position","Tumor_Sample_Barcode","Variant_Type","Reference_Allele","Tumor_Seq_Allele1","Tumor_Seq_Allele2")] <- Hedberg.2016[,c("Hugo_Symbol","Chromosome","Start_Position","End_Position","Tumor_Sample_Barcode","Variant_Type","Reference_Allele","Tumor_Seq_Allele1","Tumor_Seq_Allele2")]
 
-unique(Hedberg.2016$Variant.Status)
 
-# Just want variants found in primary tumors 
-Hedberg.2016 <- Hedberg.2016[which(Hedberg.2016$Variant.Status %in% c("Transmitted","Primary Only")),]
+Hedberg.2016 <- read.csv(file = "output_data/yale_filtered.maf",header = T,sep = "\t",stringsAsFactors = F)
+as.character(unique(Hedberg.2016$Tumor_Sample_Barcode))
 
-# changing column names to align with those from TCGA 
-colnames(Hedberg.2016)[which(colnames(Hedberg.2016)=="Gene")] <- "Hugo_Symbol"
-colnames(Hedberg.2016)[which(colnames(Hedberg.2016)=="Chr")] <- "Chromosome"
-colnames(Hedberg.2016)[which(colnames(Hedberg.2016)=="Position")] <- "Start_Position"
-Hedberg.2016$End_Position <- Hedberg.2016$Start_Position
-Hedberg.2016$Tumor_Sample_Barcode <- Hedberg.2016$Patient
-Hedberg.2016$Variant_Type <- "SNP"
+source("R/merging_NCI_and_local_MAF_files.R")
 
-Hedberg.2016$Chromosome[which(Hedberg.2016$Chromosome=="chr24")] <- "chrX"
-
-# delete Hedberg 2016 variants without a clear call
-if(length(which(nchar(Hedberg.2016$Base.Change)>3))>0){
-Hedberg.2016 <- Hedberg.2016[which(nchar(Hedberg.2016$Base.Change)==3),]
-}
-
-Hedberg.2016$Reference_Allele <- NA
-Hedberg.2016$Tumor_Seq_Allele1 <- NA
-Hedberg.2016$Tumor_Seq_Allele2 <- NA
-
-split.chromosome <- strsplit(x=Hedberg.2016$Chromosome,split = "chr")
-split.bases <- strsplit(x = Hedberg.2016$Base.Change,split = ">")
-for(i in 1:nrow(Hedberg.2016)){
- Hedberg.2016[i,c("Reference_Allele","Tumor_Seq_Allele1")] <-  split.bases[[i]][1]
- Hedberg.2016[i,"Tumor_Seq_Allele2"] <- split.bases[[i]][2]
- Hedberg.2016[i,"Chromosome"] <- split.chromosome[[i]][2]
-}
-
-to.add <- as.data.frame(matrix(data = NA,nrow = nrow(Hedberg.2016),ncol = ncol(HNSC.MAF)))
-colnames(to.add) <- colnames(HNSC.MAF)
-HNSC.MAF <- rbind(HNSC.MAF,to.add)
-
-HNSC.MAF[which(is.na(HNSC.MAF$Hugo_Symbol)),c("Hugo_Symbol","Chromosome","Start_Position","End_Position","Tumor_Sample_Barcode","Variant_Type","Reference_Allele","Tumor_Seq_Allele1","Tumor_Seq_Allele2")] <- Hedberg.2016[,c("Hugo_Symbol","Chromosome","Start_Position","End_Position","Tumor_Sample_Barcode","Variant_Type","Reference_Allele","Tumor_Seq_Allele1","Tumor_Seq_Allele2")]
-
+HNSC.MAF <- merging_TCGA_and_local_MAFdata_function(NCI_data = HNSC.MAF,Local_data = Hedberg.2016)
+tail(HNSC.MAF)
 
 HNSC.MAF <- unique.tumor.addition.function(MAF.file = HNSC.MAF,non.TCGA.characters.to.keep = 'all')
 

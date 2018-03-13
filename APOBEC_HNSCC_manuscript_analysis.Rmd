@@ -81,6 +81,8 @@ HNSC.MAF <- hg38.to.hg19.converter(chain = "input_data/hg38Tohg19.chain",hg38_ma
 
 Hedberg.2016 <- read.csv(file = "output_data/yale_filtered.maf",header = T,sep = "\t",stringsAsFactors = F)
 as.character(unique(Hedberg.2016$Tumor_Sample_Barcode))
+Hedberg.2016 <- Hedberg.2016[-which(Hedberg.2016$Tumor_Sample_Barcode %in% c("PY-19T","PY-1T","PY-14T","PY-13T","PY-7T")),] # filtering out tumors that are also within the TCGA data set
+
 
 source("R/merging_NCI_and_local_MAF_files.R")
 

@@ -139,6 +139,8 @@ save(MAF_for_analysis, file="output_data/HNSC_MAF.RData")
 message("HPV positive tumor with TP53 mutation:") 
 HNSC.MAF.hpvpos$Unique_patient_identifier[which(HNSC.MAF.hpvpos$Hugo_Symbol=="TP53")]
 
+HNSC.MAF.hpvpos[which(HNSC.MAF.hpvpos$Hugo_Symbol=="TP53"),]
+
 ```
 
 # trinucleotide heatmaps from cluster
@@ -576,11 +578,11 @@ library(ggrepel)
 
 ```{r prevalence and mutation rate plots, fig.height=1.2, fig.width=3.25}
 common.text.size <- 6
-
+library(cowplot)
 # getting them to match up! 
 prev_plot <- ggplot(data = prevalence.df) + 
   geom_point(aes(y = prev_HPVneg, x = prev_HPVpos),alpha=0.5,size=1.5,color="red") + 
-  geom_text_repel(data = subset(prevalence.df, (prev_HPVneg>0.025 | prev_HPVpos>0.04) | (prev_HPVneg>0.0 & prev_HPVpos>0)),aes(y = prev_HPVneg, x = prev_HPVpos,label=Name),box.padding =0.7,size=common.text.size*(5/14),color="black") + 
+  geom_text_repel(data = subset(prevalence.df, (prev_HPVneg>0.025 | prev_HPVpos>0.04) | (prev_HPVneg>0.0 & prev_HPVpos>0)),aes(y = prev_HPVneg, x = prev_HPVpos,label=Name),box.padding =0.6,size=common.text.size*(5/14),color="black") + 
   theme_classic() + 
   expand_limits(x = 0, y = c(0,max(prevalence.df$prev_HPVneg)+.005)) + 
   scale_x_continuous(expand = c(0, 0)) + 
@@ -793,7 +795,7 @@ for(i in 1:nrow(selection.subset.neg.ordered)){
 
 length(unique(selection.subset.neg.ordered$Name))
 
-if(length(which(selection.subset.neg.ordered$Name=="TP53   NCSNV"))>0){
+if(length(which(selection.subset.neg.ordered$Name=="TP53   NCSNV"))>1){
   selection.subset.neg.ordered$Name[which(selection.subset.neg.ordered$Name=="TP53   NCSNV")] <- paste("TP53    NCSNV",letters[length((which(selection.subset.neg.ordered$Name=="TP53   NCSNV"))):1],sep="")
 }
 selection.subset.neg.ordered$Name <- factor(selection.subset.neg.ordered$Name, levels=selection.subset.neg.ordered$Name)
@@ -967,7 +969,7 @@ g1 <- ggplot(data=selection.subset.neg.ordered,aes(x=Name,y=mu, fill=Gene)) +
   theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
   theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
   # geom_text(aes(label=round(mu*1e5,2)), vjust=-0.5, hjust=0.5, position=position_dodge(width=0.9),size=4,angle=90) +
-  geom_text(aes(label=freq,y=-1e-7), position=position_dodge(width=0.9),size=common.text.size*(5/14),angle=0,color="black") +
+  geom_text(aes(label=freq,y=-4e-8), position=position_dodge(width=0.9),size=common.text.size*(5/14),angle=0,color="black") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(legend.position = 'none',axis.text.x = element_text(size=common.text.size,angle = 45, hjust = 1)) +
   scale_y_reverse(labels=fancy_scientific) + coord_flip() + 
@@ -983,7 +985,7 @@ g2 <- ggplot(data=selection.subset.neg.ordered, aes(x=Name,y=gamma_epistasis,fil
   theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
   theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
   theme(plot.title = element_text(hjust = 0.5),axis.text.x = element_text(size=common.text.size,angle = 45, hjust = 1)) +
-  coord_flip() + theme(legend.position = c(0.85, .5),legend.text = element_text(size=common.text.size)) + theme(legend.position="none") + scale_y_continuous(labels=fancy_scientific) + theme(axis.text.x = element_text(size =common.text.size)) + theme(plot.title = element_text(size=common.text.size))
+  coord_flip() + theme(legend.position = c(0.85, .5),legend.text = element_text(size=common.text.size)) + theme(legend.position="none") + scale_y_continuous(labels=fancy_scientific,breaks=c(0,1e5,2e5,3e5),minor_breaks = seq(0,3e5,5e4)) + theme(axis.text.x = element_text(size =common.text.size)) + theme(plot.title = element_text(size=common.text.size))
 # g2
 
 # gg1 <- ggplot_gtable(ggplot_build(g1))
@@ -1145,8 +1147,8 @@ library(ggplot2);library(ggrepel)
 gamma_plot <- ggplot(data = gamma.df) + 
   geom_point(aes(x = gamma_HPVneg, y = gamma_HPVpos),alpha=0.5,size=1.5,col="red") + 
   geom_text_repel(aes(x = gamma_HPVneg, y = gamma_HPVpos,label=Name),
-                  box.padding =.23,
-                  size=common.text.size*(5/14),segment.alpha=0.6,
+                  box.padding =.36,
+                  size=common.text.size*(5/14),segment.alpha=0.2,
                   color="black") + 
   labs(x=bquote("Selection intensity in "~HPV^{"−"}~ "tumors"), y=bquote("Selection intensity in "~HPV^{"+"}~ "tumors")) +
   theme(axis.text=element_text(size=common.text.size), 
@@ -1368,7 +1370,7 @@ plt_dendr_signature <- ggplot(segment_data_signatures) +
   theme(panel.grid.minor = element_blank(),axis.text = element_blank(),axis.ticks.y = element_blank(),axis.title = element_blank(),panel.border = element_blank(),panel.grid.major = element_blank(),plot.margin = unit(c(-.1, -.1, -.1, -.1), "cm")) + coord_flip()
 
 library(cowplot)
-heatmap_and_dendro <- plot_grid(NULL,plt_dendr_signature,plt_dendr, plt_hmap, align = 'hv', rel_widths = c(0.7, 1), rel_heights = c(.4,2))
+heatmap_and_dendro <- plot_grid(NULL,plt_dendr_signature,plt_dendr, plt_hmap, align = 'hv', rel_widths = c(0.6, 1), rel_heights = c(.4,2))
 
 # heatmap_and_dendro
 
@@ -1380,9 +1382,9 @@ ggsave(filename = "Figures/heatmap_and_dendro.png",plot = heatmap_and_dendro,hei
 # 
 
 dendro_and_heatmap_labs <- ggdraw() + 
-  draw_plot(heatmap_and_dendro) +
+  draw_plot(plot_grid(NULL,heatmap_and_dendro,rel_widths = c(.05,1),nrow=1)) +
   geom_text(x=.72,y=.95,label="Signatures",size=6) + 
-  geom_text(x=.05,y=.42,label="Tumors",size=6,angle=90)
+  geom_text(x=.03,y=.42,label="Tumors",size=6,angle=90)
 
 dendro_and_heatmap_labs
 
@@ -2028,6 +2030,8 @@ distribution.of.APOBEC.TCW <- ggplot(data = ALL.prev.df) +
   theme(axis.text=element_text(size=common.text.size.large3), axis.title=element_text(size=common.text.size.large3,face="bold")) + 
   labs(x=expression(TCW %->% TKW))
 
+distribution.of.APOBEC.TCW
+
 ggsave(filename = "Figures/selection_vs_TCW.png",plot = distribution.of.APOBEC.TCW,width = 3.25,height = 3.25,dpi = 600)
 
 message("Number of recurrent mutations:");nrow(ALL.prev.df)
@@ -2085,10 +2089,14 @@ selection.from.contexts.labels <- ggplot(data = ALL.prev.df.split) +
   geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="APOBEC" & `Selection from mutational context` > 100),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=Name),color="black",segment.alpha = 0.4,size=common.text.size*(5/14)) + #scale_y_log10(labels=fancy_scientific) + 
   geom_text_repel(data = subset(ALL.prev.df.split,`APOBEC context`=="non-APOBEC" & `Selection from mutational context` > 650),aes(x=`APOBEC context`, y = `Selection from mutational context`,label=Name),box.padding = .31,segment.alpha=0.4,color="black",size=common.text.size*(5/14)) + 
   labs(y="Net realized selection intensity",x="Mutation process") + theme_classic() + 
-  theme(axis.text=element_text(size=common.text.size.large2), axis.title=element_text(size=common.text.size.large2,face="bold")) +
+  theme(axis.text=element_text(size=common.text.size.large), axis.title=element_text(size=common.text.size.large2,face="bold")) +
   expand_limits(x = 0, y = c(0,max(ALL.prev.df.split$`Selection from mutational context`)+100)) + 
   # scale_x_continuous(expand = c(0, 0)) + 
-  scale_y_continuous(expand = c(0, 0)) 
+  scale_y_continuous(expand = c(0, 0)) + scale_x_discrete(expand=c(0,1)) # expand axis so symmetrical 
+
+
+selection.from.contexts.labels
+
 
 # ggsave(filename = "Figures/selection_from_process.png",plot = selection.from.contexts)
 # View(ALL.prev.df.split)

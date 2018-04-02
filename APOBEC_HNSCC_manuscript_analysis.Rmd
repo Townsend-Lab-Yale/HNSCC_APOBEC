@@ -36,6 +36,12 @@ source("R/tumor_allele_adder.R")
 # convert the MAF to hg19 coordinates 
 HNSC.MAF <- hg38.to.hg19.converter(chain = "input_data/hg38Tohg19.chain",hg38_maf = HNSC.MAF)
 
+NCI.MAF <- read.csv("input_data/NCI/gdc_download_20180201_160847/1aa33f25-3893-4f37-a6a4-361c9785d07e/TCGA.HNSC.mutect.1aa33f25-3893-4f37-a6a4-361c9785d07e.DR-10.0.somatic.maf",skip=5,header = T,sep = "\t",stringsAsFactors = F)
+NCI.MAF <- unique.tumor.addition.function(MAF.file = NCI.MAF,non.TCGA.characters.to.keep = 'all')
+
+message("Number of NCI tumors in the VirusScan dataset:")
+length(which(unique(NCI.MAF$Unique_patient_identifier) %in% virusscan.data$patient_id))
+
 
 # Saved sheet 10 of the supp. data from Hedberg et al. J Clin Invest. 2016;126(1):169-180. doi:10.1172/JCI82066 as a CSV. 
 # Hedberg.2016 <- read.csv(file = "input_data/Hedberg_2016/JCI82066.sdt1-10_sheet10.csv",header = T,stringsAsFactors = F,skip = 1)
@@ -123,7 +129,8 @@ HNSC.MAF$HPV_call[which(HNSC.MAF$Unique_patient_identifier=="PY-16T")] <- "HPV+"
 
 HNSC.MAF.hpvpos <- HNSC.MAF[which(HNSC.MAF$HPV_call=="HPV+"),]
 MAF_for_analysis <- HNSC.MAF.hpvpos
-length(unique(MAF_for_analysis$Unique_patient_identifier))
+length(unique(HNSC.MAF.hpvpos$Unique_patient_identifier))
+# length(unique(MAF_for_analysis$Unique_patient_identifier))
 # MAF_for_analysis[which(is.na(MAF_for_analysis$Unique_patient_identifier)),]
 save(MAF_for_analysis, file="output_data/HNSC_HPVpos_MAF.RData")
 
@@ -134,6 +141,7 @@ save(MAF_for_analysis, file="output_data/HNSC_HPVneg_MAF.RData")
 
 
 MAF_for_analysis <- HNSC.MAF
+length(unique(HNSC.MAF$Unique_patient_identifier))
 save(MAF_for_analysis, file="output_data/HNSC_MAF.RData")
 
 message("HPV positive tumor with TP53 mutation:") 
@@ -577,6 +585,7 @@ library(ggrepel)
 ```
 
 ```{r prevalence and mutation rate plots, fig.height=1.2, fig.width=3.25}
+library(ggrepel)
 common.text.size <- 6
 library(cowplot)
 # getting them to match up! 
@@ -585,6 +594,7 @@ prev_plot <- ggplot(data = prevalence.df) +
   geom_text_repel(data = subset(prevalence.df, (prev_HPVneg>0.025 | prev_HPVpos>0.04) | (prev_HPVneg>0.0 & prev_HPVpos>0)),aes(y = prev_HPVneg, x = prev_HPVpos,label=Name),box.padding =0.6,size=common.text.size*(5/14),color="black") + 
   theme_classic() + 
   expand_limits(x = 0, y = c(0,max(prevalence.df$prev_HPVneg)+.005)) + 
+  geom_segment(aes(x = 0, xend =max(prevalence.df$prev_HPVneg)+.005, y = 0, yend =max(prevalence.df$prev_HPVneg)+.005),linetype="dashed") +
   scale_x_continuous(expand = c(0, 0)) + 
   scale_y_continuous(expand = c(0, 0)) + 
   labs(y=bquote("Prevalence in "~HPV^{"−"}~ "\n tumors"), x=bquote("Prevalence in "~HPV^{"+"}~ "tumors")) + theme(axis.text=element_text(size=common.text.size), axis.title=element_text(size=common.text.size,face="bold"),plot.margin = margin(r=.2,t=.0,l=.1,b=0.1,unit = "in")) + 
@@ -1314,7 +1324,7 @@ for(i in 1:nrow(segment_data_tumors)){
       segment_data_tumors$color[i] <- "blue" 
     }
     if(segment_data_tumors$HPV_status[i]=="HPV−"){
-      segment_data_tumors$color[i] <- "red" 
+      segment_data_tumors$color[i] <- "orange" 
     }
   }
   
@@ -1324,6 +1334,8 @@ for(i in 1:nrow(segment_data_tumors)){
 ```
 
 ```{r generate heatmap}
+
+dendro_size <- .12
 # Heatmap plot
 plt_hmap <- ggplot(heatmap_data, 
                    aes(x = xcenter, y = ycenter, fill = `Signature weight`, 
@@ -1340,15 +1352,33 @@ plt_hmap <- ggplot(heatmap_data,
                      expand = c(0, 0)) + 
   labs(x = "Signature", y = "") +
   theme_bw() +
-  theme(axis.text.x.top = element_text(size = rel(1.4), vjust=0.5,hjust=0.5 ,  angle = 90),axis.title.y = element_blank(),
+  theme(axis.text.x.top = element_text(size = common.text.size, vjust=0.5,hjust=0.5 ,  angle = 90),axis.title.y = element_blank(),
         # margin: top, right, bottom, and left
         plot.margin = unit(c(-.051, -.02, -.051, -.051), "cm"),
         # plot.margin = unit(c(-1, 0.2, 0.2, 2), "cm"),
         panel.grid.minor = element_blank(),legend.position = "none",axis.title = element_blank()) 
 
+# try and make a heatmap that is just HPV status... 
+
+segment_data_subset <- subset(segment_data_tumors,color!="black")
+segment_data_subset$x <- 1
+plt_dendr_subset <- ggplot(segment_data_subset) + 
+  geom_segment(aes(x = x, y = y, xend = xend, yend = yend,color=color),size=dendro_size) + 
+  scale_x_reverse(expand = c(0, 0.01)) + 
+  scale_y_continuous(breaks = tumor_pos_table$y_center, 
+                     labels = tumor_pos_table$tumor, 
+                     limits = tumor_axis_limits, 
+                     expand = c(0, 0)) + scale_colour_identity() +
+  labs(x = "", y = "Tumors", colour = "", size = "") + 
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(),axis.title.x  = element_blank(),axis.text = element_blank(),axis.ticks = element_blank(),axis.title = element_blank(),panel.border = element_blank(),panel.grid.major = element_blank(),
+        plot.margin = unit(c(-.1, -.1, -.1, -.1), "cm"))
+
+
+
 # Dendrogram plot
 plt_dendr <- ggplot(segment_data_tumors) + 
-  geom_segment(aes(x = x, y = y, xend = xend, yend = yend,color=color),size=.2) + 
+  geom_segment(aes(x = x, y = y, xend = xend, yend = yend,color=color),size=dendro_size) + 
   scale_x_reverse(expand = c(0, 0.01)) + 
   scale_y_continuous(breaks = tumor_pos_table$y_center, 
                      labels = tumor_pos_table$tumor, 
@@ -1370,8 +1400,9 @@ plt_dendr_signature <- ggplot(segment_data_signatures) +
   theme(panel.grid.minor = element_blank(),axis.text = element_blank(),axis.ticks.y = element_blank(),axis.title = element_blank(),panel.border = element_blank(),panel.grid.major = element_blank(),plot.margin = unit(c(-.1, -.1, -.1, -.1), "cm")) + coord_flip()
 
 library(cowplot)
-heatmap_and_dendro <- plot_grid(NULL,plt_dendr_signature,plt_dendr, plt_hmap, align = 'hv', rel_widths = c(0.6, 1), rel_heights = c(.4,2))
+heatmap_and_dendro <- plot_grid(NULL,plt_dendr_signature,plt_dendr, plt_hmap, align = 'hv', rel_widths = c(0.2, 1), rel_heights = c(.4,2))
 
+heatmap_and_dendro_wbar <- plot_grid(NULL,NULL,plt_dendr_signature,plt_dendr,plt_dendr_subset, plt_hmap, align = 'hv', rel_widths = c(0.2,.05, 1), rel_heights = c(.4,2))
 # heatmap_and_dendro
 
 
@@ -1383,8 +1414,8 @@ ggsave(filename = "Figures/heatmap_and_dendro.png",plot = heatmap_and_dendro,hei
 
 dendro_and_heatmap_labs <- ggdraw() + 
   draw_plot(plot_grid(NULL,heatmap_and_dendro,rel_widths = c(.05,1),nrow=1)) +
-  geom_text(x=.72,y=.95,label="Signatures",size=6) + 
-  geom_text(x=.03,y=.42,label="Tumors",size=6,angle=90)
+  geom_text(x=.72,y=.95,label="Signatures",size=common.text.size*(5/14)) + 
+  geom_text(x=.03,y=.42,label="Tumors",size=common.text.size*(5/14),angle=90)
 
 dendro_and_heatmap_labs
 
@@ -1404,6 +1435,23 @@ ggsave(filename = "Figures/heatmap_and_dendro_w_labs.png",plot = dendro_and_heat
 ```
 
 
+```{r combining prevalence mutation and heatmaps}
+
+library(cowplot)
+# combined.plot.prev.and.muts.heat
+
+# dendro_and_heatmap_labs
+
+combined_prev_mut_heat_dendro <- plot_grid(combined.plot.prev.and.muts.heat,NULL,nrow = 2,ncol=1,rel_heights = c(1,.6),labels = c("","E"),label_size = common.text.size,rel_widths = c(1,5))
+
+# save_plot(combined_prev_mut_heat_dendro,filename = "Figures/prev_mut_heat_dendro.png",base_height =  8,base_width  = 3.25,dpi=600)
+
+combined_prev_mut_heat_dendro2 <- ggdraw(combined_prev_mut_heat_dendro) + draw_plot(heatmap_and_dendro,y = 0,x = .05,height = .37,width = .94) +
+  geom_text(x=.55,y=.35,label="Signatures",size=common.text.size*(5/14)) + 
+  geom_text(x=.05,y=.17,label="Tumors",size=common.text.size*(5/14),angle=90)
+  
+save_plot(combined_prev_mut_heat_dendro2,filename = "Figures/prev_mut_heat_dendro.png",base_height =  8,base_width  = 3.25,dpi=600)
+```
 
 
 # HPV vs SNP count  
@@ -1454,6 +1502,10 @@ hpv.neg.snv.apobec <- subset(SNV.APOBEC.df,HPV_status=="HPV−")
 mean(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])-mean(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")])
 
 median(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])-median(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")])
+
+# fold difference 
+median(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])/median(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")])
+
 
 # SNV.APOBEC.df[which.min(SNV.APOBEC.df$SNV_count),]
 # ggplot(data = SNV.APOBEC.df) + geom_point(aes(x=APOBEC_weight, y=APOBEC)) 
@@ -1614,6 +1666,15 @@ combined_HPV_APOBEC_plot
 
 ggsave(plot = combined_HPV_APOBEC_plot,filename = "Figures/combined_APOBEC_vs_HPV.png",height = 3,width = 3.25*2)
 
+
+# head(SNV.APOBEC.df)
+# SNV.APOBEC.df.HPVpos <- SNV.APOBEC.df[which(SNV.APOBEC.df$HPV_status=='HPV^{\n "+"\n}'),]
+library(dplyr)
+unique(SNV.APOBEC.df$HPV_status)
+SNV.APOBEC.df %>% group_by(HPV_status,APOBEC) %>% summarize(median(SNV_count)) 
+SNV.APOBEC.df %>% group_by(HPV_status,APOBEC) %>% summarize(mean(SNV_count)) 
+
+
 ```
 
 
@@ -1650,6 +1711,19 @@ wilcox.test(data=SNV.APOBEC.df[which(SNV.APOBEC.df$APOBEC=="No"),],`Proportion T
 
 
 ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_proportionTCW_forMS.png",plot = HPV.vs.APOBEC_proportion_ms)
+
+
+SNV.APOBEC.df$total_TCW <- SNV.APOBEC.df$SNV_count * SNV.APOBEC.df$`Proportion TCW to TKW`
+SNV.APOBEC.df$total_TCW_x_APOBEC_weight <- SNV.APOBEC.df$total_TCW * SNV.APOBEC.df$APOBEC_weight
+
+SNV.APOBEC.df %>% 
+  group_by(HPV_status, APOBEC) %>%
+  summarize(sum(total_TCW))
+
+
+SNV.APOBEC.df %>% 
+  group_by(HPV_status, APOBEC) %>%
+  summarize(sum(total_TCW_x_APOBEC_weight,na.rm = T))
 
 ```
 

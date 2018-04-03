@@ -18,3 +18,5 @@ You can load() this into R. It is a list structure, where:
 - trinuc.contexts[[1]] gives you the summary used for the selection analysis (average of contexts)
 - trinuc.contexts[[2]][[1]] gives you the output from the first tumor
 - trinuc.contexts[[2]][[2]] gives the second, etc.
+
+The analysis for the manuscript is available in a markdown file [here.](https://github.com/Townsend-Lab-Yale/HNSCC_APOBEC/blob/master/APOBEC_HNSCC_manuscript_analysis.md)

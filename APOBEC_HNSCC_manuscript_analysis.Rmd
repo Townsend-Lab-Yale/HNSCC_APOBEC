@@ -4,7 +4,7 @@ author: "Vincent L. Cannataro"
 output:
   github_document:
     toc: true
-always_allow_html: yes
+
 ---
 
 # processing MAF file and splitting into HPV pos and neg
@@ -1827,9 +1827,10 @@ ALL.prev.df$`Selection from NonAPOBEC` <- round((ALL.prev.df$Frequency * ALL.pre
 
 ALL.prev.df <- ALL.prev.df[order(ALL.prev.df$`Selection from APOBEC`,decreasing = T),]
 
-library(DT)
+# library(DT)
 
-datatable(data = ALL.prev.df)
+# datatable does not play nicely with github markdown
+# datatable(data = ALL.prev.df)
 
 save(ALL.prev.df, file = "output_data/variant_selection_contribution_wAPOBEC.RData")
 
@@ -2024,7 +2025,7 @@ for(i in 1:nrow(just.PIK3CA.unique)){
   just.PIK3CA.unique$pos_HPV_and_neg_apobec[i] <- length(which(just.PIK3CA$tumor_has_apobec_sig[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="FALSE" &  just.PIK3CA$HPV_status[just.PIK3CA$Name==just.PIK3CA.unique$Name[i]]=="HPV^{\n    \"+\"\n}"))
 }
 
-datatable(just.PIK3CA.unique)
+# datatable(just.PIK3CA.unique)
 ```
 
 

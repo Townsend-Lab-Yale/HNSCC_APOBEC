@@ -533,7 +533,7 @@ mutation_rates_full_scatter <- ggplot(data = mutation_rates, aes(x=positive_mut_
   geom_smooth(method='lm',color="red",size=.5) + 
   # geom_text_repel(data=subset(mutation_rates, positive_mut_rates > 5e-5 | negative_mut_rates > 3e-5 ), aes(label=gene),size=3) + 
   geom_point(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates),size=1.5,col="black") + 
-  geom_text_repel(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates,label=gene),size=common.text.size*(5/14),segment.alpha = 0.3,col="black",box.padding = 0.6) +
+  geom_text_repel(data = subset(mutation_rates, gene %in% c("FBXW7","PIK3CA","MAPK1")),aes(x=positive_mut_rates,y=negative_mut_rates,label=gene),size=common.text.size*(5/14),segment.alpha = 1,col="black",box.padding = 0.6) +
   labs(y=bquote("Mutation rate in "~HPV^{"−"}~ "\n tumors"), x=bquote("Mutation rate in "~HPV^{"+"}~ "tumors")) + 
   # coord_equal() + 
   # theme_classic() + 

@@ -209,17 +209,35 @@ for(i in 1:length(unique(HNSC.MAF$Unique_patient_identifier))){
   }
 }
 
-# assigning HPV status
+# assigning HPV status to PY tumors
 HNSC.MAF$HPV_call[which(startsWith(x = HNSC.MAF$Unique_patient_identifier,prefix = "PY"))] <- "HPV−"
 HNSC.MAF$HPV_call[which(HNSC.MAF$Unique_patient_identifier=="PY-16T")] <- "HPV+"
 
+# assigning HPV status to tumors with our VirusScan results
+# HNSC.MAF$HPV_call[which(HNSC.MAF$Unique_patient_identifier=="TCGA-QK-A6IF")] <- "HPV+"
+our_VirusScan_results <- read.csv(file = "input_data/VirusScan_RPHM_on_24_additional_TCGA_patients.txt",header = T,sep = "\t",stringsAsFactors = F)
+
+for(i in 1:nrow(our_VirusScan_results)){
+ if(length(which(HNSC.MAF$Unique_patient_identifier==our_VirusScan_results$patient_id[i]))>0){
+   HNSC.MAF$HPV_call[which(HNSC.MAF$Unique_patient_identifier==our_VirusScan_results$patient_id[i])] <- 
+     ifelse(our_VirusScan_results$rphm[i]>100,"HPV+","HPV−")
+   
+ }
+  
+}
+
+
+# results of two tumors that did not have RNA-seq data (we could not run Virusscan) but did have consistent results from 
+# p16 and ISH clinical data
+HNSC.MAF$HPV_call[which(HNSC.MAF$Unique_patient_identifier=="TCGA-CN-A63Y")] <- "HPV+"
+HNSC.MAF$HPV_call[which(HNSC.MAF$Unique_patient_identifier=="TCGA-IQ-A61L")] <- "HPV−"
 
 HNSC.MAF.hpvpos <- HNSC.MAF[which(HNSC.MAF$HPV_call=="HPV+"),]
 MAF_for_analysis <- HNSC.MAF.hpvpos
 length(unique(HNSC.MAF.hpvpos$Unique_patient_identifier))
 ```
 
-    ## [1] 67
+    ## [1] 69
 
 ``` r
 save(MAF_for_analysis, file="output_data/HNSC_HPVpos_MAF.RData")
@@ -229,7 +247,7 @@ MAF_for_analysis <- HNSC.MAF.hpvneg
 length(unique(HNSC.MAF.hpvneg$Unique_patient_identifier))
 ```
 
-    ## [1] 427
+    ## [1] 451
 
 ``` r
 save(MAF_for_analysis, file="output_data/HNSC_HPVneg_MAF.RData")
@@ -320,6 +338,18 @@ HNSC.MAF.hpvpos[which(HNSC.MAF.hpvpos$Hugo_Symbol=="TP53"),]
     ##       Unique_patient_identifier Tumor_allele HPV_call Virusscan_counts
     ## 57340              TCGA-CR-7368            T     HPV+            31647
 
+The number of tumors in the whole dataset: 525
+
+The number of tumors in the HPV+ dataset: 69
+
+The number of tumors in the HPV− dataset: 451
+
+Tumors that are HPV+ and also have a mutation in TP53: TCGA-CR-7368
+
+Tumors that are from TCGA and HPV+: 68
+
+Tumors that are from TCGA and HPV+: 435
+
 Trinucleotide heatmaps
 ======================
 
@@ -327,7 +357,7 @@ The SNV selection intensity pipeline was run on the HPV data. The pipeline may b
 
 ``` r
 library(ggplot2)
-load("output_data/selection_from_cluster/HNSC_HPVpos/trinuc_output/trinuc_data_HNSC_HPVpos.RData")
+load("input_data/selection_from_cluster/HNSC_HPVpos/trinuc_output/trinuc_data_HNSC_HPVpos.RData")
 HPV.pos.trinuc.mutation_data <- trinuc.mutation_data
 HPV.pos.trinuc.heatmap <- ggplot(data=HPV.pos.trinuc.mutation_data, aes(Downstream, Upstream)) +
   geom_tile(aes(fill = proportion*100), colour = "white") + scale_fill_gradient(low = "white", high = "steelblue", name="Percent")
@@ -357,7 +387,7 @@ ggsave(paste("Figures/","HPVpos","_trinuc_heatmap.png",sep=""),height = 1.5,widt
 ```
 
 ``` r
-load("output_data/selection_from_cluster/HNSC_HPVneg/trinuc_output/trinuc_data_HNSC_HPVneg.RData")
+load("input_data/selection_from_cluster/HNSC_HPVneg/trinuc_output/trinuc_data_HNSC_HPVneg.RData")
 HPV.neg.trinuc.mutation_data <- trinuc.mutation_data
 HPV.neg.trinuc.heatmap <- ggplot(data=HPV.neg.trinuc.mutation_data, aes(Downstream, Upstream)) +
   geom_tile(aes(fill = proportion*100), colour = "white") + scale_fill_gradient(low = "white", high = "steelblue", name="Percent")
@@ -389,10 +419,10 @@ Gene-level mutation rates
 =========================
 
 ``` r
-HPV.pos.mut.rates <- read.csv(file = "output_data/selection_from_cluster/HNSC_HPVpos/mutsig_output/MAF_HNSC_HPVpos.txt.gene_rates.txt",header = T,sep = "\t",stringsAsFactors = F)
+HPV.pos.mut.rates <- read.csv(file = "input_data/selection_from_cluster/HNSC_HPVpos/mutsig_output/MAF_HNSC_HPVpos.txt.gene_rates.txt",header = T,sep = "\t",stringsAsFactors = F)
 # head(HPV.pos.mut.rates)
 
-HPV.neg.mut.rates <- read.csv(file = "output_data/selection_from_cluster/HNSC_HPVneg/mutsig_output/MAF_HNSC_HPVneg.txt.gene_rates.txt",header = T,sep = "\t",stringsAsFactors = F)
+HPV.neg.mut.rates <- read.csv(file = "input_data/selection_from_cluster/HNSC_HPVneg/mutsig_output/MAF_HNSC_HPVneg.txt.gene_rates.txt",header = T,sep = "\t",stringsAsFactors = F)
 # head(HPV.neg.mut.rates)
 
 # HPV.neg.mut.rates
@@ -466,18 +496,18 @@ summary(lm(data = mutation_rates,formula = positive_mut_rates~negative_mut_rates
     ## 
     ## Residuals:
     ##        Min         1Q     Median         3Q        Max 
-    ## -7.747e-06 -6.350e-07 -1.470e-07  4.020e-07  1.170e-04 
+    ## -7.416e-06 -6.240e-07 -1.450e-07  3.970e-07  1.136e-04 
     ## 
     ## Coefficients:
     ##                     Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)        1.128e-06  2.756e-08   40.94   <2e-16 ***
-    ## negative_mut_rates 1.667e-01  1.109e-02   15.04   <2e-16 ***
+    ## (Intercept)        1.097e-06  2.740e-08   40.04   <2e-16 ***
+    ## negative_mut_rates 1.682e-01  1.074e-02   15.66   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 2.418e-06 on 18860 degrees of freedom
-    ## Multiple R-squared:  0.01185,    Adjusted R-squared:  0.01179 
-    ## F-statistic: 226.1 on 1 and 18860 DF,  p-value: < 2.2e-16
+    ## Residual standard error: 2.364e-06 on 18860 degrees of freedom
+    ## Multiple R-squared:  0.01283,    Adjusted R-squared:  0.01278 
+    ## F-statistic: 245.1 on 1 and 18860 DF,  p-value: < 2.2e-16
 
 ``` r
 ggsave(plot = mutation_rates_full_scatter,filename = "Figures/mutation_rates_full_scatter.png",height = 3,width = 8,dpi=300)
@@ -550,7 +580,7 @@ library(tidyverse)
 
     ## Warning: package 'tidyverse' was built under R version 3.4.2
 
-    ## ── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ tibble  1.4.2     ✔ purrr   0.2.4
     ## ✔ tidyr   0.8.0     ✔ dplyr   0.7.4
@@ -565,7 +595,7 @@ library(tidyverse)
 
     ## Warning: package 'dplyr' was built under R version 3.4.2
 
-    ## ── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::collapse()   masks IRanges::collapse()
     ## ✖ dplyr::combine()    masks BiocGenerics::combine()
     ## ✖ dplyr::desc()       masks IRanges::desc()
@@ -579,7 +609,7 @@ library(tidyverse)
     ## ✖ dplyr::slice()      masks IRanges::slice()
 
 ``` r
-load("output_data/selection_from_cluster/HNSC/selection_output/HNSC_all_selection_output.RData")
+load("input_data/selection_from_cluster/HNSC/selection_output/HNSC_all_selection_output.RData")
 HNSC.selection.output <- as.tibble(selection.output$complete_mutation_data) %>%
   select(Gene, starts_with("Nucleo"), 
          Chromosome, starts_with("Reference"),
@@ -752,19 +782,19 @@ for(i in 1:nrow(trinuc.w.HPV)){
 length(which(trinuc.w.HPV$HPV=="HPV+")) # ...how many tumors are HPV+ 
 ```
 
-    ## [1] 46
+    ## [1] 47
 
 ``` r
 length(which(trinuc.w.HPV$HPV=="HPV−")) # ...how many tumors are HPV- 
 ```
 
-    ## [1] 386
+    ## [1] 409
 
 ``` r
 length(which(is.na(trinuc.w.HPV$HPV)))
 ```
 
-    ## [1] 29
+    ## [1] 5
 
 ``` r
 save(trinuc.w.HPV,file = "output_data/signature_weights_w_HPV.RData")
@@ -773,7 +803,7 @@ save(trinuc.w.HPV,file = "output_data/signature_weights_w_HPV.RData")
 length(unique(HNSC.selection.output$Unique_patient_identifier[which(HNSC.selection.output$HPV_call=="HPV+" & HNSC.selection.output$APOBEC_weight > 0)])) # Out of all tumors, how many were HPV+ and had an APOBEC signature 
 ```
 
-    ## [1] 38
+    ## [1] 39
 
 ``` r
 # length(which((trinuc.w.HPV$`Signature.2` > 0 | trinuc.w.HPV$`Signature.13`>0) & trinuc.w.HPV$HPV=="HPV+"))
@@ -783,38 +813,40 @@ length(unique(HNSC.selection.output$Unique_patient_identifier[which(HNSC.selecti
 length(which((trinuc.w.HPV$`Signature.2` > 0 | trinuc.w.HPV$`Signature.13`>0) & trinuc.w.HPV$HPV=="HPV−"))/length(which(trinuc.w.HPV$HPV=="HPV−")) # proportion of HPV- tumors with enough substitutions to measure signatures that have APOBEC signature
 ```
 
-    ## [1] 0.6735751
+    ## [1] 0.6748166
 
 ``` r
 length(which((trinuc.w.HPV$`Signature.2` > 0 | trinuc.w.HPV$`Signature.13`>0) & trinuc.w.HPV$HPV=="HPV+"))/length(which(trinuc.w.HPV$HPV=="HPV+")) # proportion of HPV+ tumors with enough substitutions to measure signatures that have APOBEC signature
 ```
 
-    ## [1] 0.826087
+    ## [1] 0.8297872
 
 ``` r
 # mean weights
 mean(trinuc.w.HPV$`Signature.2`[which(trinuc.w.HPV$HPV=="HPV+")])
 ```
 
-    ## [1] 0.2081386
+    ## [1] 0.2111875
 
 ``` r
 mean(trinuc.w.HPV$`Signature.13`[which(trinuc.w.HPV$HPV=="HPV+")])
 ```
 
-    ## [1] 0.1579057
+    ## [1] 0.1601071
 
 ``` r
 mean(trinuc.w.HPV$`Signature.2`[which(trinuc.w.HPV$HPV=="HPV−")])
 ```
 
-    ## [1] 0.07588167
+    ## [1] 0.07625592
 
 ``` r
 mean(trinuc.w.HPV$`Signature.13`[which(trinuc.w.HPV$HPV=="HPV−")])
 ```
 
-    ## [1] 0.1089066
+    ## [1] 0.1105457
+
+Number of tumors with greater than 50 mutations and a trinucleotide signature: 461
 
 ``` r
 recur.hpv.pos <- subset(HNSC.selection.output.recur, HPV_call=="HPV+")
@@ -1004,12 +1036,12 @@ Selection and tornado plots
 ===========================
 
 ``` r
-load("output_data/selection_from_cluster/HNSC_HPVpos/selection_output/HNSC_HPVpos_selection_output.RData")
+load("input_data/selection_from_cluster/HNSC_HPVpos/selection_output/HNSC_HPVpos_selection_output.RData")
 HPV.pos.selectionoutput <- selection.output
 HPV.pos.selection_minrecur <- subset(HPV.pos.selectionoutput$all_mutations, freq>1)
 
 
-load("output_data/selection_from_cluster/HNSC_HPVneg/selection_output/HNSC_HPVneg_selection_output.RData")
+load("input_data/selection_from_cluster/HNSC_HPVneg/selection_output/HNSC_HPVneg_selection_output.RData")
 HPV.neg.selectionoutput <- selection.output
 HPV.neg.selection_minrecur <- subset(HPV.neg.selectionoutput$all_mutations, freq>1)
 
@@ -1060,9 +1092,9 @@ gamma_plot <- ggplot(data = gamma.df) + geom_point(aes(x = gamma_HPVneg, y = gam
 gamma_plot
 ```
 
-    ## Warning: Removed 258 rows containing missing values (geom_point).
+    ## Warning: Removed 293 rows containing missing values (geom_point).
 
-    ## Warning: Removed 258 rows containing missing values (geom_text_repel).
+    ## Warning: Removed 293 rows containing missing values (geom_text_repel).
 
 ![](APOBEC_HNSCC_manuscript_analysis_files/figure-markdown_github/gamma%20gamma%20plot-1.png)
 
@@ -1070,9 +1102,9 @@ gamma_plot
 ggsave(filename = "Figures/gamma_gamma_plot.png",plot = gamma_plot,height = 2,width = 2,dpi=600)
 ```
 
-    ## Warning: Removed 258 rows containing missing values (geom_point).
+    ## Warning: Removed 293 rows containing missing values (geom_point).
 
-    ## Warning: Removed 258 rows containing missing values (geom_text_repel).
+    ## Warning: Removed 293 rows containing missing values (geom_text_repel).
 
 tornado plots
 -------------
@@ -1087,7 +1119,7 @@ tornado plots
 # load in the HPV neg, load in the HPV pos, find all unique genes and generate color palette 
 # This will be sorted by selection, not frequency. 
 # Neg 
-load("output_data/selection_from_cluster/HNSC_HPVneg/selection_output/HNSC_HPVneg_selection_output.RData")
+load("input_data/selection_from_cluster/HNSC_HPVneg/selection_output/HNSC_HPVneg_selection_output.RData")
 
 selection.subset.neg <- selection.output$all_mutations[which(selection.output$all_mutations$freq>1),]
 selection.subset.neg <- selection.subset.neg[which(!is.na(selection.subset.neg$Gene)),]
@@ -1125,7 +1157,7 @@ selection.subset.neg.ordered$Name <- factor(selection.subset.neg.ordered$Name, l
 ``` r
 # Pos
 
-load("output_data/selection_from_cluster/HNSC_HPVpos/selection_output/HNSC_HPVpos_selection_output.RData")
+load("input_data/selection_from_cluster/HNSC_HPVpos/selection_output/HNSC_HPVpos_selection_output.RData")
 selection.subset.pos <- selection.output$all_mutations[which(selection.output$all_mutations$freq>1),]
 selection.subset.pos <- selection.subset.pos[which(!is.na(selection.subset.pos$Gene)),]
 selection.subset.pos <- selection.subset.pos[order(-selection.subset.pos$gamma_epistasis),]
@@ -1279,12 +1311,12 @@ g1 <- ggplot(data=selection.subset.neg.ordered,aes(x=Name,y=mu, fill=Gene)) +
         axis.title.y = element_blank(), 
         axis.text.y = element_blank(), axis.line=element_blank(),
         axis.ticks.y = element_blank(), panel.border = element_blank(),
-        plot.margin = unit(c(1,-1,1,1.5), "mm")) +
+        plot.margin = unit(c(1,-1,1,3.7), "mm")) +
   theme(panel.background = element_blank()) + scale_fill_manual("Legend", values = neg.colors) +
   theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
   theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
   # geom_text(aes(label=round(mu*1e5,2)), vjust=-0.5, hjust=0.5, position=position_dodge(width=0.9),size=4,angle=90) +
-  geom_text(aes(label=freq,y=-4e-8), position=position_dodge(width=0.9),size=common.text.size*(5/14),angle=0,color="black") +
+  geom_text(aes(label=freq,y=-8e-8), position=position_dodge(width=0.9),size=common.text.size*(5/14),angle=0,color="black") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(legend.position = 'none',axis.text.x = element_text(size=common.text.size,angle = 45, hjust = 1)) +
   scale_y_reverse(labels=fancy_scientific) + coord_flip() + 
@@ -1403,7 +1435,7 @@ library(ggplot2);library(ggrepel)
 gamma_plot <- ggplot(data = gamma.df) + 
   geom_point(aes(x = gamma_HPVneg, y = gamma_HPVpos),alpha=0.5,size=1.5,col="red") + 
   geom_text_repel(aes(x = gamma_HPVneg, y = gamma_HPVpos,label=Name),
-                  box.padding =.36,
+                  box.padding =.7,
                   size=common.text.size*(5/14),segment.alpha=0.2,
                   color="black") + 
   labs(x=bquote("Selection intensity in "~HPV^{"−"}~ "tumors"), y=bquote("Selection intensity in "~HPV^{"+"}~ "tumors")) +
@@ -1418,9 +1450,9 @@ gamma_plot <- ggplot(data = gamma.df) +
 gamma_plot
 ```
 
-    ## Warning: Removed 258 rows containing missing values (geom_point).
+    ## Warning: Removed 293 rows containing missing values (geom_point).
 
-    ## Warning: Removed 258 rows containing missing values (geom_text_repel).
+    ## Warning: Removed 293 rows containing missing values (geom_text_repel).
 
 ![](APOBEC_HNSCC_manuscript_analysis_files/figure-markdown_github/adding%20gamma%20gamma%20plot%20to%20gamma%20tornado%20plots-1.png)
 
@@ -1441,9 +1473,15 @@ Fig2 <- ggdraw() +
   draw_plot_label(c("A", "B","C"), c(0, 0.43,.715), c(.985, .985,(.23+.52)), size = common.text.size)
 ```
 
-    ## Warning: Removed 258 rows containing missing values (geom_point).
+    ## Warning: Removed 293 rows containing missing values (geom_point).
 
-    ## Warning: Removed 258 rows containing missing values (geom_text_repel).
+    ## Warning: Removed 293 rows containing missing values (geom_text_repel).
+
+``` r
+Fig2
+```
+
+![](APOBEC_HNSCC_manuscript_analysis_files/figure-markdown_github/adding%20gamma%20gamma%20plot%20to%20gamma%20tornado%20plots-2.png)
 
 ``` r
 # Fig2
@@ -1800,13 +1838,13 @@ wilcox.test(data=subset(SNV.APOBEC.df,HPV_status=="HPV−"),SNV_count~APOBEC,con
     ##  Wilcoxon rank sum test with continuity correction
     ## 
     ## data:  SNV_count by APOBEC
-    ## W = 15940, p-value = 0.6689
+    ## W = 17816, p-value = 0.6309
     ## alternative hypothesis: true location shift is not equal to 0
     ## 95 percent confidence interval:
-    ##  -17.00005  12.00001
+    ##  -17.00006  11.99994
     ## sample estimates:
     ## difference in location 
-    ##              -3.000012
+    ##              -3.999963
 
 ``` r
 wilcox.test(data=subset(SNV.APOBEC.df,HPV_status=="HPV+"),SNV_count~APOBEC, conf.int = T,alternative="two.sided") # SNV count vs. APOBEC signature in HPV - tumors
@@ -1822,13 +1860,13 @@ wilcox.test(data=subset(SNV.APOBEC.df,HPV_status=="HPV+"),SNV_count~APOBEC, conf
     ##  Wilcoxon rank sum test with continuity correction
     ## 
     ## data:  SNV_count by APOBEC
-    ## W = 76.5, p-value = 0.02972
+    ## W = 76.5, p-value = 0.02531
     ## alternative hypothesis: true location shift is not equal to 0
     ## 95 percent confidence interval:
-    ##  -149.00000   -3.00002
+    ##  -140.999963   -4.000086
     ## sample estimates:
     ## difference in location 
-    ##              -49.81802
+    ##              -53.99995
 
 ``` r
 hpv.pos.snv.apobec <- subset(SNV.APOBEC.df,HPV_status=="HPV+") 
@@ -1837,7 +1875,7 @@ hpv.neg.snv.apobec <- subset(SNV.APOBEC.df,HPV_status=="HPV−")
 mean(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])-mean(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")]) #SNV count difference in mean
 ```
 
-    ## [1] 105.2895
+    ## [1] 105.359
 
 ``` r
 median(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])-median(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")]) #SNV count difference in median
@@ -1856,20 +1894,20 @@ median(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])/me
 mean(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="Yes")])-mean(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="No")])
 ```
 
-    ## [1] -67.69072
+    ## [1] -79.35159
 
 ``` r
 median(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="Yes")])-median(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="No")])
 ```
 
-    ## [1] 7
+    ## [1] 9
 
 ``` r
 summary(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="Yes")])
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##    50.0    86.0   142.0   197.3   252.5   694.0
+    ##    50.0    87.0   142.0   197.4   245.0   694.0
 
 ``` r
 summary(hpv.pos.snv.apobec$SNV_count[which(hpv.pos.snv.apobec$APOBEC=="No")])
@@ -1883,14 +1921,14 @@ summary(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="Yes")])
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##    46.0   100.0   133.5   168.5   197.0   950.0
+    ##    46.0   100.0   135.0   170.2   195.5   950.0
 
 ``` r
 summary(hpv.neg.snv.apobec$SNV_count[which(hpv.neg.snv.apobec$APOBEC=="No")])
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##   46.00   91.25  126.50  236.20  232.25 3490.00
+    ##    46.0    91.0   126.0   249.5   233.0  3490.0
 
 ``` r
 # 
@@ -1958,20 +1996,20 @@ summary(log_regression)
     ## 
     ## Deviance Residuals: 
     ##     Min       1Q   Median       3Q      Max  
-    ## -1.1257  -0.4833  -0.3552  -0.3074   2.4802  
+    ## -1.1109  -0.4700  -0.3489  -0.2994   2.5009  
     ## 
     ## Coefficients:
     ##               Estimate Std. Error z value Pr(>|z|)    
-    ## (Intercept)    -3.0284     0.2729 -11.098  < 2e-16 ***
-    ## APOBEC_weight   3.3583     0.6617   5.075 3.87e-07 ***
+    ## (Intercept)    -3.0824     0.2713 -11.361  < 2e-16 ***
+    ## APOBEC_weight   3.3794     0.6494   5.204 1.95e-07 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## (Dispersion parameter for binomial family taken to be 1)
     ## 
-    ##     Null deviance: 292.98  on 431  degrees of freedom
-    ## Residual deviance: 267.16  on 430  degrees of freedom
-    ## AIC: 271.16
+    ##     Null deviance: 302.58  on 455  degrees of freedom
+    ## Residual deviance: 275.44  on 454  degrees of freedom
+    ## AIC: 279.44
     ## 
     ## Number of Fisher Scoring iterations: 5
 
@@ -1990,7 +2028,7 @@ message("HPV+ tumors with APOBEC signal")
 length(which(SNV.APOBEC.df.knownAPOBEC$APOBEC=="Yes" & SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV+"))/length(which(SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV+"))
 ```
 
-    ## [1] 0.826087
+    ## [1] 0.8297872
 
 ``` r
 message("HPV− tumors with APOBEC signal")
@@ -2002,7 +2040,7 @@ message("HPV− tumors with APOBEC signal")
 length(which(SNV.APOBEC.df.knownAPOBEC$APOBEC=="Yes" & SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV−"))/length(which(SNV.APOBEC.df.knownAPOBEC$HPV_status=="HPV−"))
 ```
 
-    ## [1] 0.6735751
+    ## [1] 0.6748166
 
 ``` r
 # Among samples with an APOBEC signal, total mutation load was... 
@@ -2016,13 +2054,13 @@ wilcox.test(data = subset(SNV.APOBEC.df,APOBEC=="Yes"),SNV_count~HPV_status,conf
     ##  Wilcoxon rank sum test with continuity correction
     ## 
     ## data:  SNV_count by HPV_status
-    ## W = 4927.5, p-value = 0.9807
+    ## W = 5414.5, p-value = 0.9521
     ## alternative hypothesis: true location shift is not equal to 0
     ## 95 percent confidence interval:
-    ##  -25.00004  28.00002
+    ##  -23.99999  29.99998
     ## sample estimates:
     ## difference in location 
-    ##             -0.9999884
+    ##              0.9999928
 
 ``` r
 wilcox.test(data = subset(SNV.APOBEC.df,APOBEC=="No"),SNV_count~HPV_status,conf.int=T)
@@ -2032,13 +2070,13 @@ wilcox.test(data = subset(SNV.APOBEC.df,APOBEC=="No"),SNV_count~HPV_status,conf.
     ##  Wilcoxon rank sum test with continuity correction
     ## 
     ## data:  SNV_count by HPV_status
-    ## W = 266.5, p-value = 0.02603
+    ## W = 278.5, p-value = 0.02414
     ## alternative hypothesis: true location shift is not equal to 0
     ## 95 percent confidence interval:
-    ##  -108.000089   -2.999956
+    ##  -108.000020   -3.000002
     ## sample estimates:
     ## difference in location 
-    ##                -42.524
+    ##              -41.06115
 
 ``` r
 # SNV.APOBEC.df$APOBEC <- factor(SNV.APOBEC.df$APOBEC,levels = c("No APOBEC Signature","APOBEC Signature","NA"))
@@ -2132,10 +2170,10 @@ SNV.APOBEC.df %>% group_by(HPV_status,APOBEC) %>% summarize(median(SNV_count))
     ##   <fct>                 <fct>                <dbl>
     ## 1 "HPV^{\n    \"+\"\n}" No                    74.5
     ## 2 "HPV^{\n    \"+\"\n}" Yes                  142  
-    ## 3 "HPV^{\n    \"+\"\n}" <NA>                  42.0
+    ## 3 "HPV^{\n    \"+\"\n}" <NA>                  41.0
     ## 4 "HPV^{\n    \"−\"\n}" No                   126  
-    ## 5 "HPV^{\n    \"−\"\n}" Yes                  134  
-    ## 6 "HPV^{\n    \"−\"\n}" <NA>                  34.0
+    ## 5 "HPV^{\n    \"−\"\n}" Yes                  135  
+    ## 6 "HPV^{\n    \"−\"\n}" <NA>                  33.0
 
 ``` r
 SNV.APOBEC.df %>% group_by(HPV_status,APOBEC) %>% summarize(mean(SNV_count)) 
@@ -2147,10 +2185,10 @@ SNV.APOBEC.df %>% group_by(HPV_status,APOBEC) %>% summarize(mean(SNV_count))
     ##   <fct>                 <fct>              <dbl>
     ## 1 "HPV^{\n    \"+\"\n}" No                  92.0
     ## 2 "HPV^{\n    \"+\"\n}" Yes                197  
-    ## 3 "HPV^{\n    \"+\"\n}" <NA>                38.9
-    ## 4 "HPV^{\n    \"−\"\n}" No                 236  
-    ## 5 "HPV^{\n    \"−\"\n}" Yes                169  
-    ## 6 "HPV^{\n    \"−\"\n}" <NA>                31.7
+    ## 3 "HPV^{\n    \"+\"\n}" <NA>                38.6
+    ## 4 "HPV^{\n    \"−\"\n}" No                 250  
+    ## 5 "HPV^{\n    \"−\"\n}" Yes                170  
+    ## 6 "HPV^{\n    \"−\"\n}" <NA>                31.3
 
 ``` r
 SNV.APOBEC.df$`Proportion TCW to TKW` <- NA
@@ -2176,13 +2214,13 @@ wilcox.test(data=SNV.APOBEC.df[which(SNV.APOBEC.df$APOBEC=="Yes"),],`Proportion 
     ##  Wilcoxon rank sum test with continuity correction
     ## 
     ## data:  Proportion TCW to TKW by HPV_status
-    ## W = 6708, p-value = 0.0003675
+    ## W = 7338.5, p-value = 0.0002389
     ## alternative hypothesis: true location shift is not equal to 0
     ## 95 percent confidence interval:
-    ##  0.04709324 0.17647540
+    ##  0.05079741 0.18093822
     ## sample estimates:
     ## difference in location 
-    ##              0.1076937
+    ##              0.1136811
 
 ``` r
 wilcox.test(data=SNV.APOBEC.df[which(SNV.APOBEC.df$APOBEC=="No"),],`Proportion TCW to TKW`~HPV_status,conf.int=T)
@@ -2192,13 +2230,13 @@ wilcox.test(data=SNV.APOBEC.df[which(SNV.APOBEC.df$APOBEC=="No"),],`Proportion T
     ##  Wilcoxon rank sum test with continuity correction
     ## 
     ## data:  Proportion TCW to TKW by HPV_status
-    ## W = 456.5, p-value = 0.6589
+    ## W = 482.5, p-value = 0.6623
     ## alternative hypothesis: true location shift is not equal to 0
     ## 95 percent confidence interval:
-    ##  -0.02406108  0.01768338
+    ##  -0.02411994  0.01835812
     ## sample estimates:
     ## difference in location 
-    ##            -0.00342477
+    ##           -0.003107094
 
 ``` r
 # ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_proportionTCW_forMS.png",plot = HPV.vs.APOBEC_proportion_ms)
@@ -2217,11 +2255,11 @@ SNV.APOBEC.df %>%
     ##   HPV_status            APOBEC `sum(total_TCW)`
     ##   <fct>                 <fct>             <dbl>
     ## 1 "HPV^{\n    \"+\"\n}" No                 53.0
-    ## 2 "HPV^{\n    \"+\"\n}" Yes              3408  
-    ## 3 "HPV^{\n    \"+\"\n}" <NA>              116  
-    ## 4 "HPV^{\n    \"−\"\n}" No               2089  
-    ## 5 "HPV^{\n    \"−\"\n}" Yes             11852  
-    ## 6 "HPV^{\n    \"−\"\n}" <NA>              150
+    ## 2 "HPV^{\n    \"+\"\n}" Yes              3509  
+    ## 3 "HPV^{\n    \"+\"\n}" <NA>              120  
+    ## 4 "HPV^{\n    \"−\"\n}" No               2514  
+    ## 5 "HPV^{\n    \"−\"\n}" Yes             13005  
+    ## 6 "HPV^{\n    \"−\"\n}" <NA>              153
 
 ``` r
 SNV.APOBEC.df %>% 
@@ -2234,10 +2272,10 @@ SNV.APOBEC.df %>%
     ##   HPV_status            APOBEC `sum(total_TCW_x_APOBEC_weight, na.rm = T)`
     ##   <fct>                 <fct>                                        <dbl>
     ## 1 "HPV^{\n    \"+\"\n}" No                                               0
-    ## 2 "HPV^{\n    \"+\"\n}" Yes                                           2278
+    ## 2 "HPV^{\n    \"+\"\n}" Yes                                           2340
     ## 3 "HPV^{\n    \"+\"\n}" <NA>                                             0
     ## 4 "HPV^{\n    \"−\"\n}" No                                               0
-    ## 5 "HPV^{\n    \"−\"\n}" Yes                                           5048
+    ## 5 "HPV^{\n    \"−\"\n}" Yes                                           5704
     ## 6 "HPV^{\n    \"−\"\n}" <NA>                                             0
 
 ``` r
@@ -2263,11 +2301,11 @@ SNV.APOBEC.tib
     ##   APOBEC HPV_status            `n()`
     ##   <fct>  <fct>                 <int>
     ## 1 No     "HPV^{\n    \"+\"\n}"     8
-    ## 2 No     "HPV^{\n    \"−\"\n}"   126
-    ## 3 Yes    "HPV^{\n    \"+\"\n}"    38
-    ## 4 Yes    "HPV^{\n    \"−\"\n}"   260
-    ## 5 <NA>   "HPV^{\n    \"+\"\n}"    21
-    ## 6 <NA>   "HPV^{\n    \"−\"\n}"    40
+    ## 2 No     "HPV^{\n    \"−\"\n}"   133
+    ## 3 Yes    "HPV^{\n    \"+\"\n}"    39
+    ## 4 Yes    "HPV^{\n    \"−\"\n}"   276
+    ## 5 <NA>   "HPV^{\n    \"+\"\n}"    22
+    ## 6 <NA>   "HPV^{\n    \"−\"\n}"    41
 
 ``` r
 # 7/(37+7)
@@ -2284,13 +2322,13 @@ fisher.test(matrix(data = SNV.APOBEC.tib$`n()`[1:4],nrow=2))
     ##  Fisher's Exact Test for Count Data
     ## 
     ## data:  matrix(data = SNV.APOBEC.tib$`n()`[1:4], nrow = 2)
-    ## p-value = 0.04208
+    ## p-value = 0.03043
     ## alternative hypothesis: true odds ratio is not equal to 1
     ## 95 percent confidence interval:
-    ##  0.1701955 0.9831748
+    ##  0.1673275 0.9591682
     ## sample estimates:
     ## odds ratio 
-    ##  0.4351451
+    ##  0.4263654
 
 Mutations that have the highest prevalence and selection intensity in HNSCC
 ---------------------------------------------------------------------------

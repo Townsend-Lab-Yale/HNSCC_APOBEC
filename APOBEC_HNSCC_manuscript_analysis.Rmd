@@ -75,10 +75,28 @@ for(i in 1:length(unique(HNSC.MAF$Unique_patient_identifier))){
   }
 }
 
-# assigning HPV status
+# assigning HPV status to PY tumors
 HNSC.MAF$HPV_call[which(startsWith(x = HNSC.MAF$Unique_patient_identifier,prefix = "PY"))] <- "HPV−"
 HNSC.MAF$HPV_call[which(HNSC.MAF$Unique_patient_identifier=="PY-16T")] <- "HPV+"
 
+# assigning HPV status to tumors with our VirusScan results
+# HNSC.MAF$HPV_call[which(HNSC.MAF$Unique_patient_identifier=="TCGA-QK-A6IF")] <- "HPV+"
+our_VirusScan_results <- read.csv(file = "input_data/VirusScan_RPHM_on_24_additional_TCGA_patients.txt",header = T,sep = "\t",stringsAsFactors = F)
+
+for(i in 1:nrow(our_VirusScan_results)){
+ if(length(which(HNSC.MAF$Unique_patient_identifier==our_VirusScan_results$patient_id[i]))>0){
+   HNSC.MAF$HPV_call[which(HNSC.MAF$Unique_patient_identifier==our_VirusScan_results$patient_id[i])] <- 
+     ifelse(our_VirusScan_results$rphm[i]>100,"HPV+","HPV−")
+   
+ }
+  
+}
+
+
+# results of two tumors that did not have RNA-seq data (we could not run Virusscan) but did have consistent results from 
+# p16 and ISH clinical data
+HNSC.MAF$HPV_call[which(HNSC.MAF$Unique_patient_identifier=="TCGA-CN-A63Y")] <- "HPV+"
+HNSC.MAF$HPV_call[which(HNSC.MAF$Unique_patient_identifier=="TCGA-IQ-A61L")] <- "HPV−"
 
 HNSC.MAF.hpvpos <- HNSC.MAF[which(HNSC.MAF$HPV_call=="HPV+"),]
 MAF_for_analysis <- HNSC.MAF.hpvpos
@@ -103,13 +121,26 @@ HNSC.MAF.hpvpos[which(HNSC.MAF.hpvpos$Hugo_Symbol=="TP53"),]
 
 ```
 
+The number of tumors in the whole dataset: `r length(unique(HNSC.MAF$Unique_patient_identifier)) `
+
+The number of tumors in the HPV+ dataset: `r  length(unique(HNSC.MAF.hpvpos$Unique_patient_identifier))  `
+
+The number of tumors in the HPV− dataset: `r length(unique(HNSC.MAF.hpvneg$Unique_patient_identifier))`
+
+Tumors that are HPV+ and also have a mutation in TP53: `r HNSC.MAF.hpvpos$Unique_patient_identifier[which(HNSC.MAF.hpvpos$Hugo_Symbol=="TP53")]` 
+
+Tumors that are from TCGA and HPV+: `r length(unique(HNSC.MAF$Unique_patient_identifier[which(HNSC.MAF$HPV_call=="HPV+" & startsWith(x=HNSC.MAF$Unique_patient_identifier,prefix="TCGA"))])) `
+
+Tumors that are from TCGA and HPV+: `r length(unique(HNSC.MAF$Unique_patient_identifier[which(HNSC.MAF$HPV_call=="HPV−" & startsWith(x=HNSC.MAF$Unique_patient_identifier,prefix="TCGA"))])) `
+
+
 # Trinucleotide heatmaps
 
 The SNV selection intensity pipeline was run on the HPV data. The pipeline may be found here: https://github.com/Townsend-Lab-Yale/SNV_selection_intensity and the associated manuscript is here: https://doi.org/10.1101/229724
 
 ```{r Figure trinuc context HPVpos, fig.height=2.5, fig.width=10}
 library(ggplot2)
-load("output_data/selection_from_cluster/HNSC_HPVpos/trinuc_output/trinuc_data_HNSC_HPVpos.RData")
+load("input_data/selection_from_cluster/HNSC_HPVpos/trinuc_output/trinuc_data_HNSC_HPVpos.RData")
 HPV.pos.trinuc.mutation_data <- trinuc.mutation_data
 HPV.pos.trinuc.heatmap <- ggplot(data=HPV.pos.trinuc.mutation_data, aes(Downstream, Upstream)) +
   geom_tile(aes(fill = proportion*100), colour = "white") + scale_fill_gradient(low = "white", high = "steelblue", name="Percent")
@@ -136,7 +167,7 @@ ggsave(paste("Figures/","HPVpos","_trinuc_heatmap.png",sep=""),height = 1.5,widt
 ```
 
 ```{r Figure trinuc context HPVneg, fig.height=2.5, fig.width=10}
-load("output_data/selection_from_cluster/HNSC_HPVneg/trinuc_output/trinuc_data_HNSC_HPVneg.RData")
+load("input_data/selection_from_cluster/HNSC_HPVneg/trinuc_output/trinuc_data_HNSC_HPVneg.RData")
 HPV.neg.trinuc.mutation_data <- trinuc.mutation_data
 HPV.neg.trinuc.heatmap <- ggplot(data=HPV.neg.trinuc.mutation_data, aes(Downstream, Upstream)) +
   geom_tile(aes(fill = proportion*100), colour = "white") + scale_fill_gradient(low = "white", high = "steelblue", name="Percent")
@@ -167,10 +198,10 @@ ggsave(filename = paste("Figures/","HPVneg","_trinuc_heatmap.png",sep=""),height
 
 ```{r mutation rate of HPV positive vs negative}
 
-HPV.pos.mut.rates <- read.csv(file = "output_data/selection_from_cluster/HNSC_HPVpos/mutsig_output/MAF_HNSC_HPVpos.txt.gene_rates.txt",header = T,sep = "\t",stringsAsFactors = F)
+HPV.pos.mut.rates <- read.csv(file = "input_data/selection_from_cluster/HNSC_HPVpos/mutsig_output/MAF_HNSC_HPVpos.txt.gene_rates.txt",header = T,sep = "\t",stringsAsFactors = F)
 # head(HPV.pos.mut.rates)
 
-HPV.neg.mut.rates <- read.csv(file = "output_data/selection_from_cluster/HNSC_HPVneg/mutsig_output/MAF_HNSC_HPVneg.txt.gene_rates.txt",header = T,sep = "\t",stringsAsFactors = F)
+HPV.neg.mut.rates <- read.csv(file = "input_data/selection_from_cluster/HNSC_HPVneg/mutsig_output/MAF_HNSC_HPVneg.txt.gene_rates.txt",header = T,sep = "\t",stringsAsFactors = F)
 # head(HPV.neg.mut.rates)
 
 # HPV.neg.mut.rates
@@ -262,7 +293,7 @@ save(trinuc.contexts,file="output_data/trinuc_contexts_HNSC_MAF.RData")
 
 ```{r load selection output and merge with APOBEC and HPV status}
 library(tidyverse)
-load("output_data/selection_from_cluster/HNSC/selection_output/HNSC_all_selection_output.RData")
+load("input_data/selection_from_cluster/HNSC/selection_output/HNSC_all_selection_output.RData")
 HNSC.selection.output <- as.tibble(selection.output$complete_mutation_data) %>%
   select(Gene, starts_with("Nucleo"), 
          Chromosome, starts_with("Reference"),
@@ -460,6 +491,9 @@ mean(trinuc.w.HPV$`Signature.13`[which(trinuc.w.HPV$HPV=="HPV−")])
 
 ```
 
+Number of tumors with greater than 50 mutations and a trinucleotide signature: `r nrow(trinuc.w.HPV)`
+
+
 
 ```{r prevalence prevalence plot, eval=T, include=T}
 
@@ -622,12 +656,12 @@ ggsave(plot = combined.plot.prev.and.muts.heat,filename = "Figures/selection_and
 ```{r gamma gamma plot, eval=T}
 
 
-load("output_data/selection_from_cluster/HNSC_HPVpos/selection_output/HNSC_HPVpos_selection_output.RData")
+load("input_data/selection_from_cluster/HNSC_HPVpos/selection_output/HNSC_HPVpos_selection_output.RData")
 HPV.pos.selectionoutput <- selection.output
 HPV.pos.selection_minrecur <- subset(HPV.pos.selectionoutput$all_mutations, freq>1)
 
 
-load("output_data/selection_from_cluster/HNSC_HPVneg/selection_output/HNSC_HPVneg_selection_output.RData")
+load("input_data/selection_from_cluster/HNSC_HPVneg/selection_output/HNSC_HPVneg_selection_output.RData")
 HPV.neg.selectionoutput <- selection.output
 HPV.neg.selection_minrecur <- subset(HPV.neg.selectionoutput$all_mutations, freq>1)
 
@@ -696,7 +730,7 @@ ggsave(filename = "Figures/gamma_gamma_plot.png",plot = gamma_plot,height = 2,wi
 # load in the HPV neg, load in the HPV pos, find all unique genes and generate color palette 
 # This will be sorted by selection, not frequency. 
 # Neg 
-load("output_data/selection_from_cluster/HNSC_HPVneg/selection_output/HNSC_HPVneg_selection_output.RData")
+load("input_data/selection_from_cluster/HNSC_HPVneg/selection_output/HNSC_HPVneg_selection_output.RData")
 
 selection.subset.neg <- selection.output$all_mutations[which(selection.output$all_mutations$freq>1),]
 selection.subset.neg <- selection.subset.neg[which(!is.na(selection.subset.neg$Gene)),]
@@ -732,7 +766,7 @@ selection.subset.neg.ordered$Name <- factor(selection.subset.neg.ordered$Name, l
 
 # Pos
 
-load("output_data/selection_from_cluster/HNSC_HPVpos/selection_output/HNSC_HPVpos_selection_output.RData")
+load("input_data/selection_from_cluster/HNSC_HPVpos/selection_output/HNSC_HPVpos_selection_output.RData")
 selection.subset.pos <- selection.output$all_mutations[which(selection.output$all_mutations$freq>1),]
 selection.subset.pos <- selection.subset.pos[which(!is.na(selection.subset.pos$Gene)),]
 selection.subset.pos <- selection.subset.pos[order(-selection.subset.pos$gamma_epistasis),]
@@ -889,12 +923,12 @@ g1 <- ggplot(data=selection.subset.neg.ordered,aes(x=Name,y=mu, fill=Gene)) +
         axis.title.y = element_blank(), 
         axis.text.y = element_blank(), axis.line=element_blank(),
         axis.ticks.y = element_blank(), panel.border = element_blank(),
-        plot.margin = unit(c(1,-1,1,1.5), "mm")) +
+        plot.margin = unit(c(1,-1,1,3.7), "mm")) +
   theme(panel.background = element_blank()) + scale_fill_manual("Legend", values = neg.colors) +
   theme(panel.grid.major =element_line(color="lightgrey"),panel.grid.minor =element_line(color="lightgrey")) +
   theme(panel.grid.major.y = element_blank(),panel.grid.minor.y = element_blank()) +
   # geom_text(aes(label=round(mu*1e5,2)), vjust=-0.5, hjust=0.5, position=position_dodge(width=0.9),size=4,angle=90) +
-  geom_text(aes(label=freq,y=-4e-8), position=position_dodge(width=0.9),size=common.text.size*(5/14),angle=0,color="black") +
+  geom_text(aes(label=freq,y=-8e-8), position=position_dodge(width=0.9),size=common.text.size*(5/14),angle=0,color="black") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(legend.position = 'none',axis.text.x = element_text(size=common.text.size,angle = 45, hjust = 1)) +
   scale_y_reverse(labels=fancy_scientific) + coord_flip() + 
@@ -1008,7 +1042,7 @@ library(ggplot2);library(ggrepel)
 gamma_plot <- ggplot(data = gamma.df) + 
   geom_point(aes(x = gamma_HPVneg, y = gamma_HPVpos),alpha=0.5,size=1.5,col="red") + 
   geom_text_repel(aes(x = gamma_HPVneg, y = gamma_HPVpos,label=Name),
-                  box.padding =.36,
+                  box.padding =.7,
                   size=common.text.size*(5/14),segment.alpha=0.2,
                   color="black") + 
   labs(x=bquote("Selection intensity in "~HPV^{"−"}~ "tumors"), y=bquote("Selection intensity in "~HPV^{"+"}~ "tumors")) +
@@ -1032,7 +1066,7 @@ Fig2 <- ggdraw() +
   geom_rect(data=data.frame(x=0.715,y=0.23),aes(xmin=x,xmax=x+.28,ymin=y,ymax=y+.52),color="white",fill="white") + 
   draw_plot(gamma_plot,  x=0.57, y=0.19,width = .55,height = .55) + 
   draw_plot_label(c("A", "B","C"), c(0, 0.43,.715), c(.985, .985,(.23+.52)), size = common.text.size)
-
+Fig2
 # Fig2
 ggsave(filename = "Figures/Fig4_tornadoplots.png",dpi = 600,width = 3.25*2,height =3,plot = Fig2)
 

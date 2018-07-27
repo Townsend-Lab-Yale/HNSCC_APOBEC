@@ -1,0 +1,24 @@
+Patient ID	Sex	Age at Diagnosis (yr)	Location of Primary Site	Path. stage	AJCC stage	Adjuvant treatment	Time to recurrence (mo)	Metastasis site	patient_type
+PY-1	M	78	oral cavity	T3 N1 M0	III	None	2.3	pharynx	metachronous_recurrent_tumor
+PY-3	F	67	oral cavity	T2 N2B M0	IVA	RT	6.3	oral cavity	metachronous_recurrent_tumor
+PY-4	M	44	?	T4A N2B M0	IVA	RT, Cisplatin, Vectibix	6.8	pharynx	metachronous_recurrent_tumor
+PY-5	M	52	oral cavity	T3 N0 M0	III	None	4.3	larynx	metachronous_recurrent_tumor
+PY-6	M	52	pharynx	TX NX MX		IMRT, cetuximab, pemetrexed	10.5	lymph node (cervical)	metachronous_recurrent_tumor
+PY-7	M	49	larynx	T4A N1 M0	IVA	None	2.9	lymph node (cervical)	metachronous_recurrent_tumor
+PY-8	M	76	oral cavity	TX NX MX		RT	33.9	pharynx	metachronous_recurrent_tumor
+PY-9	M	60	oral cavity	T2 N0 MX	II	None	4.7	lymph node (cervical)	metachronous_recurrent_tumor
+PY-10	M	58	oral cavity	TX NX MX		None	2.2	oral cavity	metachronous_recurrent_tumor
+PY-11	M	74	oral cavity	T3 N2C M0	IVA	RT, Cisplatin	9.7	oral cavity	metachronous_recurrent_tumor
+PY-12	F	46	oral cavity	T3 N2C M0	IVA				synchronous_nodal_metastasis
+PY-13	M	53	oral cavity	T3 N2B M0	IVA				synchronous_nodal_metastasis
+PY-14	M	71	larynx	T3 N1 MX	III				synchronous_nodal_metastasis
+PY-15	M	63	larynx	T3 N2C M0	IVA				synchronous_nodal_metastasis
+PY-16	M	70	pharynx	T1 N2B MX	IVA				synchronous_nodal_metastasis
+PY-17	F	68	larynx	T4A N2A MX	IVA				synchronous_nodal_metastasis
+PY-19	M	73	pharynx	T2 N1 MX	III				synchronous_nodal_metastasis
+PY-20	F	79	oral cavity	T1 N1 MX	III				synchronous_nodal_metastasis
+PY-21	M	49	larynx	T4A N2C MO	IVA				synchronous_nodal_metastasis
+PY-22	M	49	oral cavity	T4A N2C M0	IVA				synchronous_nodal_metastasis
+PY-23	M	56	pharynx	T4A N2B M0	IVA				synchronous_nodal_metastasis
+PY-24	M	73	oral cavity	T4A N2C M0	IVA				synchronous_nodal_metastasis
+PY-25	M	64	oral cavity	T1 N2 M0	IVA				synchronous_nodal_metastasis

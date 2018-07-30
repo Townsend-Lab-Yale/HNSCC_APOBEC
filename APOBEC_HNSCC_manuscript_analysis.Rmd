@@ -142,7 +142,7 @@ Tumors that are HPV+ and also have a mutation in TP53: `r HNSC.MAF.hpvpos$Unique
 
 Tumors that are from TCGA and HPV+: `r length(unique(HNSC.MAF$Unique_patient_identifier[which(HNSC.MAF$HPV_call=="HPV+" & startsWith(x=HNSC.MAF$Unique_patient_identifier,prefix="TCGA"))])) `
 
-Tumors that are from TCGA and HPV+: `r length(unique(HNSC.MAF$Unique_patient_identifier[which(HNSC.MAF$HPV_call=="HPV−" & startsWith(x=HNSC.MAF$Unique_patient_identifier,prefix="TCGA"))])) `
+Tumors that are from TCGA and HPV−: `r length(unique(HNSC.MAF$Unique_patient_identifier[which(HNSC.MAF$HPV_call=="HPV−" & startsWith(x=HNSC.MAF$Unique_patient_identifier,prefix="TCGA"))])) `
 
 
 # Trinucleotide heatmaps

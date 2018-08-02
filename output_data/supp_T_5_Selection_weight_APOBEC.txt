@@ -599,606 +599,906 @@ H3F3B K37M	Selection from NonAPOBEC	74.78
 HPN A 35557003 T NCSNV	Selection from NonAPOBEC	46.16
 POLI V117L	Selection from NonAPOBEC	101.18
 GABBR2 W149*	Selection from NonAPOBEC	9.92
-PIK3CA E545K	Selection from 1	2.4155857385399
-TP53 R283P	Selection from 1	0
-PIK3CA E542K	Selection from 1	73.6751966292135
-TP53 R196P	Selection from 1	3.44
-CCDC50 S.S.	Selection from 1	290.05
-HRAS G13V	Selection from 1	385.03
-TP53 R213*	Selection from 1	400.5
-TP53 P278S	Selection from 1	0
-TP53 E298*	Selection from 1	0
-TP53 R175H	Selection from 1	1289.72
-FAT1 E1994*	Selection from 1	0
-FBXW7 R505G	Selection from 1	37116.7037011885
-ZBTB10 C 81471465 G NCSNV	Selection from 1	11.18
-C9orf53 C 21968242 T NCSNV	Selection from 1	5.98
-TP53 E294*	Selection from 1	14.45
-BCAS1 C 52491801 G NCSNV	Selection from 1	0
-EPHA2 S419*	Selection from 1	0
-FAM21C E1034K	Selection from 1	10.36
-EPHA3 T802R	Selection from 1	82.8
-EYS G 66498423 A NCSNV	Selection from 1	36.09
-NOTCH1 E455K	Selection from 1	10.61
-TP53 R273C	Selection from 1	263.95
-TP53 G245S	Selection from 1	194.82
-CASP8 Q524*	Selection from 1	0.27
-TP53 R196*	Selection from 1	405.99
-AP1G2 D243N	Selection from 1	6.97
-NCOR1 P1081L	Selection from 1	26.65
-CASP8 R292W	Selection from 1	0
-TP53 E56*	Selection from 1	2.24
-HIST2H2BE F71L	Selection from 1	0.25
-MAPK1 E322K	Selection from 1	215.259192307692
-TGFBR2 E544K	Selection from 1	0
-TP53 Q144*	Selection from 1	15.36
-MAP2 E865*	Selection from 1	0
-MB21D2 Q311E	Selection from 1	0
-APC R283Q	Selection from 1	0
-TSHZ3 E841*	Selection from 1	4.88
-ZNF43 G422A	Selection from 1	0
-CNNM3 E422K	Selection from 1	5.35
-ZZZ3 R5Q	Selection from 1	22.56
-RAC1 A178V	Selection from 1	192.61
-NFE2L2 E79K	Selection from 1	0.69
-RHOA E40Q	Selection from 1	0
-TP53 H193L	Selection from 1	0
-TP53 S106R	Selection from 1	4.28
-ARHGAP9 G 57868406 A NCSNV	Selection from 1	20.58
-CASP8 R494*	Selection from 1	26.28
-FAT1 R885*	Selection from 1	4.03
-TP53 G266E	Selection from 1	1.81
-NFE2L2 D29H	Selection from 1	0
-KIAA1109 I225M	Selection from 1	0
-MYH9 E530K	Selection from 1	10.66
-TP53 E285K	Selection from 1	0.31
-HOXB5 E170K	Selection from 1	2.65
-SLC44A2 F459F	Selection from 1	8.41
-TP53 Q192*	Selection from 1	0.78
-TP53 V173M	Selection from 1	0
-FAM21C D460N	Selection from 1	0.15
-CDKN2A P135L	Selection from 1	345.24
-TP53 E68*	Selection from 1	1.42
-ZNF253 C 20003622 G NCSNV	Selection from 1	0
-TP53 R110L	Selection from 1	184.61
-NCOR1 E2306K	Selection from 1	0
-OR4F15 R183W	Selection from 1	1.21
-SMTN E901K	Selection from 1	1.41
-TP53 R158L	Selection from 1	28.35
-CDT1 C 88870221 T NCSNV	Selection from 1	4.33
-TP53 R248W	Selection from 1	268.07
-CCDC135 E313K	Selection from 1	0
-TP53 Y163C	Selection from 1	16.98
-TP53 R306*	Selection from 1	294.12
-CDK20 G 90744635 A NCSNV	Selection from 1	0.28
-HLA-B Q250E	Selection from 1	0
-ANKHD1 L376V	Selection from 1	0
-AL117190.3 C 101421722 T NCSNV	Selection from 1	0
-KRT14 G 39740666 A NCSNV	Selection from 1	0.27
-MYC S161L	Selection from 1	0.31
-B2M E97K	Selection from 1	0
-PLEKHG4 E744K	Selection from 1	0.61
-UMODL1 L581L	Selection from 1	1.54
-NSD1 R788*	Selection from 1	0
-SMPDL3B F275F	Selection from 1	4.4
-HRAS G12S	Selection from 1	232.67
-SLC27A1 F620F	Selection from 1	0.17
-WTAP E346K	Selection from 1	0
-TP53 R249S	Selection from 1	10.66
-TP53 Q331*	Selection from 1	0
-KIAA1407 R673W	Selection from 1	15.34
-TGFBR2 S320*	Selection from 1	0
-OR2D3 R70C	Selection from 1	8.53
-SP140L D419N	Selection from 1	17.18
-TSPYL5 S193L	Selection from 1	0
-NFE2L2 E79Q	Selection from 1	0
-HUWE1 E3771K	Selection from 1	0
-KIAA0226 G 197349060 A NCSNV	Selection from 1	3.67
-TP53 C176Y	Selection from 1	0
-FAT1 S3373*	Selection from 1	0
-FAT1 S1200*	Selection from 1	0
-HUWE1 E4177K	Selection from 1	0.21
-ITGB1 D158N	Selection from 1	25.12
-TP53 Q136*	Selection from 1	4.75
-CASP8 R472*	Selection from 1	41.14
-TP53 C242F	Selection from 1	0
-FLOT1 G 30698343 C NCSNV	Selection from 1	0
-GIGYF2 S221*	Selection from 1	0.84
-ZNF710 F388F	Selection from 1	3.25
-TP53 G245V	Selection from 1	13.63
-TBX21 E494K	Selection from 1	4.96
-TMCO6 C 140021368 T NCSNV	Selection from 1	0
-TNN D1091N	Selection from 1	1.3
-PARP2 M432I	Selection from 1	0.06
-SPRR2B P69P	Selection from 1	5.19
-CDKN2A G124V	Selection from 1	0.53
-MGAM S703F	Selection from 1	0
-PCDHGA12 A329A	Selection from 1	4.45
-LTN1 F1252F	Selection from 1	0
-HHIPL2 F67F	Selection from 1	4.35
-MYH9 E457K	Selection from 1	2.31
-CDKN2A P113L	Selection from 1	123.07
-FANCD2OS F33L	Selection from 1	0
-MRAP E28E	Selection from 1	0
-PADI3 P481P	Selection from 1	1.79
-ANKRD11 S769*	Selection from 1	0
-DNAH5 Q1797E	Selection from 1	0
-PIK3CG A156V	Selection from 1	6.12
-PSG8 S395F	Selection from 1	0
-NRXN3 E1218K	Selection from 1	0
-CEP68 C 65296555 T NCSNV	Selection from 1	9.1
-CCDC110 R111C	Selection from 1	55.23
-TP53 H179Y	Selection from 1	6.73
-CDKN2A G143V	Selection from 1	1.57
-CASP8 T 202137501 C NCSNV	Selection from 1	1.69
-LRRN3 L190V	Selection from 1	0
-PLCG2 L1038L	Selection from 1	0.1
-IFT140 E664K	Selection from 1	4.82
-TP53 P151S	Selection from 1	19.82
-BTBD8 F178F	Selection from 1	0
-TP53 Y220C	Selection from 1	0
-TP53 R273H	Selection from 1	143.55
-PRDM9 R77Q	Selection from 1	5.61
-ZNF510 S321*	Selection from 1	0.45
-PCDHA10 A481T	Selection from 1	0
-IKZF1 Q156Q	Selection from 1	0.04
-MCF2L R985Q	Selection from 1	27.73
-PGBD1 L412L	Selection from 1	0
-KCNA4 E280K	Selection from 1	0
-NRXN1 R1256H	Selection from 1	2.72
-FAT1 R3400*	Selection from 1	10.94
-CDKN2A R163L	Selection from 1	0
-DNAH6 R442H	Selection from 1	81.41
-FAT1 Q1694*	Selection from 1	0.49
-TP53 G 7578176 T NCSNV	Selection from 1	0
-TP53 V143M	Selection from 1	28.7
-AJUBA Q103*	Selection from 1	0.3
-PAMR1 I580I	Selection from 1	0.15
-KMT2D R1252*	Selection from 1	33.39
-C6orf118 T328T	Selection from 1	0
-TP53 H193P	Selection from 1	11.32
-TDRD6 E1997*	Selection from 1	1.41
-CDH7 Q225K	Selection from 1	1.4
-PTOV1 L99L	Selection from 1	1.95
-NLRP5 E751K	Selection from 1	0.11
-FLG A2503V	Selection from 1	7.24
-NCOA1 L1361L	Selection from 1	0.02
-NXPH1 T25T	Selection from 1	7.81
-NCOR1 R1561Q	Selection from 1	21.18
-KCNK9 L122L	Selection from 1	0.71
-ATP10B R311Q	Selection from 1	0
-MYO15A R3294W	Selection from 1	0
-FAT1 R937*	Selection from 1	10.39
-HRAS Q61L	Selection from 1	3.81
-TP53 R337C	Selection from 1	70.38
-TP53 H179R	Selection from 1	3.79
-METTL16 C 2323149 T NCSNV	Selection from 1	2.61
-SLC8A2 L195L	Selection from 1	0
-IFFO1 L292L	Selection from 1	0.04
-TP53 Q331Q	Selection from 1	9.53
-CNKSR1 L350L	Selection from 1	1.53
-PKHD1L1 R1654Q	Selection from 1	1.66
-HRAS G12D	Selection from 1	15.48
-FCRL3 V288V	Selection from 1	0.02
-DENND5B G1023E	Selection from 1	7.01
-TP53 Y234C	Selection from 1	25.62
-PIK3CA Q546R	Selection from 1	33.95
-LRRC4C E637Q	Selection from 1	0.06
-GPR158 L9L	Selection from 1	0
-HIST1H3C K37M	Selection from 1	8.21
-FCAR V233M	Selection from 1	5.52
-CDKN2A L165L	Selection from 1	0
-CSMD3 R3127Q	Selection from 1	0
-DPP10 T 116257182 A NCSNV	Selection from 1	1.2
-TP53 C238F	Selection from 1	9
-FBXW7 R543G	Selection from 1	17.19
-MFSD10 R138Q	Selection from 1	33.15
-CORO2B A156T	Selection from 1	18.42
-KIAA0100 V1227V	Selection from 1	0.16
-DUOXA1 R332C	Selection from 1	3.53
-HLA-B R7*	Selection from 1	24.24
-HLA-A R7*	Selection from 1	14.9
-SMARCA4 P913L	Selection from 1	20.13
-CDKN2A G 21971208 A NCSNV	Selection from 1	0.13
-AKAP9 Q3406K	Selection from 1	5.84
-EPHB3 R420H	Selection from 1	24.24
-CTNNA2 A67T	Selection from 1	4.45
-CDKN2A G166R	Selection from 1	0
-PPP4R4 T89M	Selection from 1	40.1
-TP53 R280G	Selection from 1	11.54
-REG1A C 79364340 T NCSNV	Selection from 1	0.4
-MAGEB3 V75A	Selection from 1	0
-ASXL1 R693*	Selection from 1	23.63
-MTTP G749G	Selection from 1	13.52
-C12orf60 T120T	Selection from 1	11.5
-CASP8 R127*	Selection from 1	30.4
-PDE3A L275L	Selection from 1	0.01
-SALL1 P1109P	Selection from 1	2.36
-OR8I2 A67S	Selection from 1	4.35
-FXYD5 R145W	Selection from 1	23.76
-KDM6A R526*	Selection from 1	10.15
-IZUMO4 T11T	Selection from 1	0.51
-HTR1A L166L	Selection from 1	0.05
-VPS39 P578P	Selection from 1	8.72
-RPA1 R31H	Selection from 1	4.42
-PHLDB2 V1139V	Selection from 1	3.61
-KIR3DL1 V405I	Selection from 1	35.53
-C9 D312N	Selection from 1	7.55
-GRM8 G50D	Selection from 1	2.68
-COL22A1 P1601L	Selection from 1	3.43
-TENM1 R366M	Selection from 1	0
-GFRA3 A208A	Selection from 1	7.42
-CDH9 T737M	Selection from 1	8.12
-MYH13 K1852N	Selection from 1	1.74
-SLC5A7 G336C	Selection from 1	5
-KSR2 T584M	Selection from 1	4.39
-CDKN2A G 21970900 T NCSNV	Selection from 1	0.41
-SLC34A1 R507H	Selection from 1	10.06
-NOTCH1 A465T	Selection from 1	21.65
-MAP3K7 Y300C	Selection from 1	0.48
-FBXL13 R308W	Selection from 1	11.32
-OBP2A T107M	Selection from 1	21.14
-TNIK R949H	Selection from 1	10.33
-SYT6 R249H	Selection from 1	8.74
-CDKN2A G 21971000 T NCSNV	Selection from 1	3.32
-ADAMTS18 H78H	Selection from 1	16.53
-THSD7A C728F	Selection from 1	2.47
-USH2A N3137N	Selection from 1	0
-HCN1 V381V	Selection from 1	0
-SLC24A4 E137K	Selection from 1	9.72
-PCDHA13 D481D	Selection from 1	2.94
-MYH7 V411I	Selection from 1	11.38
-OR4C6 A214A	Selection from 1	4.54
-CNTNAP2 C745C	Selection from 1	4.53
-PFAS Y1202Y	Selection from 1	8.68
-ZFHX4 G754R	Selection from 1	3.54
-TMEM132D A56V	Selection from 1	3.92
-PCDHA4 N451N	Selection from 1	3.17
-PIK3CA H1047R	Selection from 1	337.03
-TP53 R282W	Selection from 1	710.58
-TP53 R248Q	Selection from 1	334.11
-TP53 V157F	Selection from 1	0
-TP53 Y236C	Selection from 1	39.61
-TP53 R337L	Selection from 1	265.92
-TP53 T125T	Selection from 1	0
-MAGEB1 P274P	Selection from 1	0
-HRAS G13R	Selection from 1	217.94
-OR11H12 Q30K	Selection from 1	0
-TP53 L201*	Selection from 1	3.89
-TP53 V272M	Selection from 1	13.95
-TP53 T 7577017 G NCSNV	Selection from 1	2.26
-TP53 G 7579311 T NCSNV	Selection from 1	2.87
-CREBBP R1446C	Selection from 1	0
-SLCO1C1 S362R	Selection from 1	0.64
-CEP164 N79N	Selection from 1	5.57
-GUCY2C S606S	Selection from 1	0
-TMTC2 T409R	Selection from 1	0
-PLXND1 G913R	Selection from 1	0
-BZRAP1 R1376K	Selection from 1	0
-SGCE R173H	Selection from 1	0
-NLRP8 V428I	Selection from 1	9.07
-PDZD2 R953*	Selection from 1	0
-HRAS G12C	Selection from 1	12.26
-NRD1 E181E	Selection from 1	0
-EDIL3 Q173K	Selection from 1	0
-HIST1H3I K37M	Selection from 1	1.28
-IVD G408W	Selection from 1	0
-ATP7B V831I	Selection from 1	13.45
-MYOM1 R63Q	Selection from 1	0
-PCDH17 N579N	Selection from 1	0
-SLMAP A 57743311 G NCSNV	Selection from 1	2.98
-SDR9C7 A104A	Selection from 1	0
-TCF21 A124A	Selection from 1	4.51
-CCSER2 Y766C	Selection from 1	0.51
-CHCHD4 T92M	Selection from 1	12.97
-TRHR V272L	Selection from 1	0
-OR2T33 D153D	Selection from 1	5.49
-MASP1 T215A	Selection from 1	0
-PRB3 R39*	Selection from 1	8.44
-H3F3B K37M	Selection from 1	2.99
-HPN A 35557003 T NCSNV	Selection from 1	0
-POLI V117L	Selection from 1	5.06
-GABBR2 W149*	Selection from 1	0
-PIK3CA E545K	Selection from 2	2681.67758913413
-TP53 R283P	Selection from 2	703.46
-PIK3CA E542K	Selection from 2	1684.08146067416
-TP53 R196P	Selection from 2	58.41
-CCDC50 S.S.	Selection from 2	122.13
-HRAS G13V	Selection from 2	67.95
-TP53 R213*	Selection from 2	94.24
-TP53 P278S	Selection from 2	69.95
-TP53 E298*	Selection from 2	61.62
-TP53 R175H	Selection from 2	0
-FAT1 E1994*	Selection from 2	21.68
-FBXW7 R505G	Selection from 2	844.736332767402
-ZBTB10 C 81471465 G NCSNV	Selection from 2	3.05
-C9orf53 C 21968242 T NCSNV	Selection from 2	49.52
-TP53 E294*	Selection from 2	0
-BCAS1 C 52491801 G NCSNV	Selection from 2	4.01
-EPHA2 S419*	Selection from 2	4.45
-FAM21C E1034K	Selection from 2	32.7
-EPHA3 T802R	Selection from 2	33.64
-EYS G 66498423 A NCSNV	Selection from 2	1.6
-NOTCH1 E455K	Selection from 2	27.57
-TP53 R273C	Selection from 2	0
-TP53 G245S	Selection from 2	24.35
-CASP8 Q524*	Selection from 2	19.47
-TP53 R196*	Selection from 2	26.36
-AP1G2 D243N	Selection from 2	22.47
-NCOR1 P1081L	Selection from 2	24.6
-CASP8 R292W	Selection from 2	22.12
-TP53 E56*	Selection from 2	6.34
-HIST2H2BE F71L	Selection from 2	2.95
-MAPK1 E322K	Selection from 2	824.619807692308
-TGFBR2 E544K	Selection from 2	18.11
-TP53 Q144*	Selection from 2	16.46
-MAP2 E865*	Selection from 2	5.58
-MB21D2 Q311E	Selection from 2	2.87
-APC R283Q	Selection from 2	20.29
-TSHZ3 E841*	Selection from 2	6.71
-ZNF43 G422A	Selection from 2	0
-CNNM3 E422K	Selection from 2	18.02
-ZZZ3 R5Q	Selection from 2	17.35
-RAC1 A178V	Selection from 2	0
-NFE2L2 E79K	Selection from 2	16.8
-RHOA E40Q	Selection from 2	1.53
-TP53 H193L	Selection from 2	18.13
-TP53 S106R	Selection from 2	1.43
-ARHGAP9 G 57868406 A NCSNV	Selection from 2	17.72
-CASP8 R494*	Selection from 2	14.29
-FAT1 R885*	Selection from 2	13.89
-TP53 G266E	Selection from 2	12.87
-NFE2L2 D29H	Selection from 2	2.13
-KIAA1109 I225M	Selection from 2	1.04
-MYH9 E530K	Selection from 2	12.48
-TP53 E285K	Selection from 2	11.91
-HOXB5 E170K	Selection from 2	12.64
-SLC44A2 F459F	Selection from 2	12.61
-TP53 Q192*	Selection from 2	13.84
-TP53 V173M	Selection from 2	11.5
-FAM21C D460N	Selection from 2	9.43
-CDKN2A P135L	Selection from 2	13.63
-TP53 E68*	Selection from 2	3.56
-ZNF253 C 20003622 G NCSNV	Selection from 2	1.52
-TP53 R110L	Selection from 2	13.19
-NCOR1 E2306K	Selection from 2	9.52
-OR4F15 R183W	Selection from 2	11.24
-SMTN E901K	Selection from 2	10.57
-TP53 R158L	Selection from 2	10.31
-CDT1 C 88870221 T NCSNV	Selection from 2	9.7
-TP53 R248W	Selection from 2	11.66
-CCDC135 E313K	Selection from 2	8.87
-TP53 Y163C	Selection from 2	0
-TP53 R306*	Selection from 2	0
-CDK20 G 90744635 A NCSNV	Selection from 2	9.45
-HLA-B Q250E	Selection from 2	1.23
-ANKHD1 L376V	Selection from 2	1.43
-AL117190.3 C 101421722 T NCSNV	Selection from 2	9.98
-KRT14 G 39740666 A NCSNV	Selection from 2	9
-MYC S161L	Selection from 2	7.86
-B2M E97K	Selection from 2	6.41
-PLEKHG4 E744K	Selection from 2	5.89
-UMODL1 L581L	Selection from 2	6.37
-NSD1 R788*	Selection from 2	8.04
-SMPDL3B F275F	Selection from 2	6.41
-HRAS G12S	Selection from 2	8.51
-SLC27A1 F620F	Selection from 2	6.82
-WTAP E346K	Selection from 2	2.38
-TP53 R249S	Selection from 2	0.97
-TP53 Q331*	Selection from 2	4.87
-KIAA1407 R673W	Selection from 2	0.77
-TGFBR2 S320*	Selection from 2	0.58
-OR2D3 R70C	Selection from 2	6.4
-SP140L D419N	Selection from 2	6.35
-TSPYL5 S193L	Selection from 2	5.83
-NFE2L2 E79Q	Selection from 2	0.51
-HUWE1 E3771K	Selection from 2	5.48
-KIAA0226 G 197349060 A NCSNV	Selection from 2	3.14
-TP53 C176Y	Selection from 2	4.39
-FAT1 S3373*	Selection from 2	1.44
-FAT1 S1200*	Selection from 2	0.92
-HUWE1 E4177K	Selection from 2	5.28
-ITGB1 D158N	Selection from 2	5.94
-TP53 Q136*	Selection from 2	4.36
-CASP8 R472*	Selection from 2	6.21
-TP53 C242F	Selection from 2	3.45
-FLOT1 G 30698343 C NCSNV	Selection from 2	0.63
-GIGYF2 S221*	Selection from 2	0.6
-ZNF710 F388F	Selection from 2	5.17
-TP53 G245V	Selection from 2	0
-TBX21 E494K	Selection from 2	5.34
-TMCO6 C 140021368 T NCSNV	Selection from 2	3.5
-TNN D1091N	Selection from 2	4.71
-PARP2 M432I	Selection from 2	2.97
-SPRR2B P69P	Selection from 2	4.32
-CDKN2A G124V	Selection from 2	0.41
-MGAM S703F	Selection from 2	4.37
-PCDHGA12 A329A	Selection from 2	0.3
-LTN1 F1252F	Selection from 2	3.29
-HHIPL2 F67F	Selection from 2	4.35
-MYH9 E457K	Selection from 2	4.4
-CDKN2A P113L	Selection from 2	4.62
-FANCD2OS F33L	Selection from 2	0.52
-MRAP E28E	Selection from 2	3.93
-PADI3 P481P	Selection from 2	0.3
-ANKRD11 S769*	Selection from 2	0.41
-DNAH5 Q1797E	Selection from 2	0.22
-PIK3CG A156V	Selection from 2	0
-PSG8 S395F	Selection from 2	3.99
-NRXN3 E1218K	Selection from 2	3.73
-CEP68 C 65296555 T NCSNV	Selection from 2	4.05
-CCDC110 R111C	Selection from 2	0.67
-TP53 H179Y	Selection from 2	2.77
-CDKN2A G143V	Selection from 2	0.52
-CASP8 T 202137501 C NCSNV	Selection from 2	0
-LRRN3 L190V	Selection from 2	0.68
-PLCG2 L1038L	Selection from 2	3.02
-IFT140 E664K	Selection from 2	2.69
-TP53 P151S	Selection from 2	3.67
-BTBD8 F178F	Selection from 2	3.14
-TP53 Y220C	Selection from 2	0
-TP53 R273H	Selection from 2	3.42
-PRDM9 R77Q	Selection from 2	2.9
-ZNF510 S321*	Selection from 2	3.27
-PCDHA10 A481T	Selection from 2	0.22
-IKZF1 Q156Q	Selection from 2	2.57
-MCF2L R985Q	Selection from 2	2.87
-PGBD1 L412L	Selection from 2	0.28
-KCNA4 E280K	Selection from 2	2.26
-NRXN1 R1256H	Selection from 2	2.52
-FAT1 R3400*	Selection from 2	2.73
-CDKN2A R163L	Selection from 2	1.09
-DNAH6 R442H	Selection from 2	2.68
-FAT1 Q1694*	Selection from 2	1.74
-TP53 G 7578176 T NCSNV	Selection from 2	0
-TP53 V143M	Selection from 2	2.56
-AJUBA Q103*	Selection from 2	1.74
-PAMR1 I580I	Selection from 2	1.92
-KMT2D R1252*	Selection from 2	2.39
-C6orf118 T328T	Selection from 2	2.38
-TP53 H193P	Selection from 2	2.26
-TDRD6 E1997*	Selection from 2	2.25
-CDH7 Q225K	Selection from 2	0.28
-PTOV1 L99L	Selection from 2	1.47
-NLRP5 E751K	Selection from 2	1.87
-FLG A2503V	Selection from 2	0.8
-NCOA1 L1361L	Selection from 2	1.29
-NXPH1 T25T	Selection from 2	1.65
-NCOR1 R1561Q	Selection from 2	2.05
-KCNK9 L122L	Selection from 2	1.62
-ATP10B R311Q	Selection from 2	1.98
-MYO15A R3294W	Selection from 2	1.95
-FAT1 R937*	Selection from 2	1.91
-HRAS Q61L	Selection from 2	0.64
-TP53 R337C	Selection from 2	0
-TP53 H179R	Selection from 2	0
-METTL16 C 2323149 T NCSNV	Selection from 2	1.31
-SLC8A2 L195L	Selection from 2	1.27
-IFFO1 L292L	Selection from 2	1.29
-TP53 Q331Q	Selection from 2	1.19
-CNKSR1 L350L	Selection from 2	1.03
-PKHD1L1 R1654Q	Selection from 2	1.24
-HRAS G12D	Selection from 2	0.76
-FCRL3 V288V	Selection from 2	1.36
-DENND5B G1023E	Selection from 2	1.17
-TP53 Y234C	Selection from 2	0
-PIK3CA Q546R	Selection from 2	1.41
-LRRC4C E637Q	Selection from 2	0.14
-GPR158 L9L	Selection from 2	1.17
-HIST1H3C K37M	Selection from 2	1.37
-FCAR V233M	Selection from 2	1.2
-CDKN2A L165L	Selection from 2	0.83
-CSMD3 R3127Q	Selection from 2	0
-DPP10 T 116257182 A NCSNV	Selection from 2	0
-TP53 C238F	Selection from 2	0.6
-FBXW7 R543G	Selection from 2	1.15
-MFSD10 R138Q	Selection from 2	1.14
-CORO2B A156T	Selection from 2	0
-KIAA0100 V1227V	Selection from 2	0
-DUOXA1 R332C	Selection from 2	1.07
-HLA-B R7*	Selection from 2	1.01
-HLA-A R7*	Selection from 2	0.99
-SMARCA4 P913L	Selection from 2	0.94
-CDKN2A G 21971208 A NCSNV	Selection from 2	0.74
-AKAP9 Q3406K	Selection from 2	0.45
-EPHB3 R420H	Selection from 2	0
-CTNNA2 A67T	Selection from 2	0.22
-CDKN2A G166R	Selection from 2	0.57
-PPP4R4 T89M	Selection from 2	0.43
-TP53 R280G	Selection from 2	0.82
-REG1A C 79364340 T NCSNV	Selection from 2	0
-MAGEB3 V75A	Selection from 2	0
-ASXL1 R693*	Selection from 2	0
-MTTP G749G	Selection from 2	0
-C12orf60 T120T	Selection from 2	0
-CASP8 R127*	Selection from 2	0.69
-PDE3A L275L	Selection from 2	0.32
-SALL1 P1109P	Selection from 2	0.51
-OR8I2 A67S	Selection from 2	0
-FXYD5 R145W	Selection from 2	0.54
-KDM6A R526*	Selection from 2	0.51
-IZUMO4 T11T	Selection from 2	0
-HTR1A L166L	Selection from 2	0.39
-VPS39 P578P	Selection from 2	0.48
-RPA1 R31H	Selection from 2	0.36
-PHLDB2 V1139V	Selection from 2	0.22
-KIR3DL1 V405I	Selection from 2	0.43
-C9 D312N	Selection from 2	0
-GRM8 G50D	Selection from 2	0.41
-COL22A1 P1601L	Selection from 2	0.4
-TENM1 R366M	Selection from 2	0
-GFRA3 A208A	Selection from 2	0.38
-CDH9 T737M	Selection from 2	0.37
-MYH13 K1852N	Selection from 2	0.12
-SLC5A7 G336C	Selection from 2	0
-KSR2 T584M	Selection from 2	0.2
-CDKN2A G 21970900 T NCSNV	Selection from 2	0
-SLC34A1 R507H	Selection from 2	0
-NOTCH1 A465T	Selection from 2	0
-MAP3K7 Y300C	Selection from 2	0
-FBXL13 R308W	Selection from 2	0.24
-OBP2A T107M	Selection from 2	0.23
-TNIK R949H	Selection from 2	0
-SYT6 R249H	Selection from 2	0.09
-CDKN2A G 21971000 T NCSNV	Selection from 2	0
-ADAMTS18 H78H	Selection from 2	0.18
-THSD7A C728F	Selection from 2	0
-USH2A N3137N	Selection from 2	0.15
-HCN1 V381V	Selection from 2	0
-SLC24A4 E137K	Selection from 2	0
-PCDHA13 D481D	Selection from 2	0.12
-MYH7 V411I	Selection from 2	0.12
-OR4C6 A214A	Selection from 2	0.11
-CNTNAP2 C745C	Selection from 2	0
-PFAS Y1202Y	Selection from 2	0.09
-ZFHX4 G754R	Selection from 2	0.09
-TMEM132D A56V	Selection from 2	0
-PCDHA4 N451N	Selection from 2	0.06
-PIK3CA H1047R	Selection from 2	0
-TP53 R282W	Selection from 2	0
-TP53 R248Q	Selection from 2	0
-TP53 V157F	Selection from 2	0
-TP53 Y236C	Selection from 2	0
-TP53 R337L	Selection from 2	0
-TP53 T125T	Selection from 2	0
-MAGEB1 P274P	Selection from 2	0
-HRAS G13R	Selection from 2	0
-OR11H12 Q30K	Selection from 2	0
-TP53 L201*	Selection from 2	0
-TP53 V272M	Selection from 2	0
-TP53 T 7577017 G NCSNV	Selection from 2	0
-TP53 G 7579311 T NCSNV	Selection from 2	0
-CREBBP R1446C	Selection from 2	0
-SLCO1C1 S362R	Selection from 2	0
-CEP164 N79N	Selection from 2	0
-GUCY2C S606S	Selection from 2	0
-TMTC2 T409R	Selection from 2	0
-PLXND1 G913R	Selection from 2	0
-BZRAP1 R1376K	Selection from 2	0
-SGCE R173H	Selection from 2	0
-NLRP8 V428I	Selection from 2	0
-PDZD2 R953*	Selection from 2	0
-HRAS G12C	Selection from 2	0
-NRD1 E181E	Selection from 2	0
-EDIL3 Q173K	Selection from 2	0
-HIST1H3I K37M	Selection from 2	0
-IVD G408W	Selection from 2	0
-ATP7B V831I	Selection from 2	0
-MYOM1 R63Q	Selection from 2	0
-PCDH17 N579N	Selection from 2	0
-SLMAP A 57743311 G NCSNV	Selection from 2	0
-SDR9C7 A104A	Selection from 2	0
-TCF21 A124A	Selection from 2	0
-CCSER2 Y766C	Selection from 2	0
-CHCHD4 T92M	Selection from 2	0
-TRHR V272L	Selection from 2	0
-OR2T33 D153D	Selection from 2	0
-MASP1 T215A	Selection from 2	0
-PRB3 R39*	Selection from 2	0
-H3F3B K37M	Selection from 2	0
-HPN A 35557003 T NCSNV	Selection from 2	0
-POLI V117L	Selection from 2	0
-GABBR2 W149*	Selection from 2	0
+PIK3CA E545K	Other processes	44.3077079796265
+TP53 R283P	Other processes	675.33
+PIK3CA E542K	Other processes	465.347162921348
+TP53 R196P	Other processes	58.41
+CCDC50 S.S.	Other processes	0
+HRAS G13V	Other processes	158.54
+TP53 R213*	Other processes	54.97
+TP53 P278S	Other processes	5.6
+TP53 E298*	Other processes	246.46
+TP53 R175H	Other processes	103.77
+FAT1 E1994*	Other processes	0
+FBXW7 R505G	Other processes	130.275280135823
+ZBTB10 C 81471465 G NCSNV	Other processes	3.05
+C9orf53 C 21968242 T NCSNV	Other processes	13.66
+TP53 E294*	Other processes	27.79
+BCAS1 C 52491801 G NCSNV	Other processes	0
+EPHA2 S419*	Other processes	0
+FAM21C E1034K	Other processes	0.55
+EPHA3 T802R	Other processes	139.72
+EYS G 66498423 A NCSNV	Other processes	4.01
+NOTCH1 E455K	Other processes	10.18
+TP53 R273C	Other processes	101.81
+TP53 G245S	Other processes	51.41
+CASP8 Q524*	Other processes	0.27
+TP53 R196*	Other processes	84.36
+AP1G2 D243N	Other processes	5.42
+NCOR1 P1081L	Other processes	16.4
+CASP8 R292W	Other processes	0.51
+TP53 E56*	Other processes	1.49
+HIST2H2BE F71L	Other processes	0.25
+MAPK1 E322K	Other processes	162.342576923077
+TGFBR2 E544K	Other processes	0
+TP53 Q144*	Other processes	1.1
+MAP2 E865*	Other processes	133.83
+MB21D2 Q311E	Other processes	0
+APC R283Q	Other processes	19.45
+TSHZ3 E841*	Other processes	4.27
+ZNF43 G422A	Other processes	2.77
+CNNM3 E422K	Other processes	0.56
+ZZZ3 R5Q	Other processes	8.68
+RAC1 A178V	Other processes	27.19
+NFE2L2 E79K	Other processes	2.07
+RHOA E40Q	Other processes	0.38
+TP53 H193L	Other processes	580.14
+TP53 S106R	Other processes	18.09
+ARHGAP9 G 57868406 A NCSNV	Other processes	18.87
+CASP8 R494*	Other processes	10.86
+FAT1 R885*	Other processes	0.6
+TP53 G266E	Other processes	1.13
+NFE2L2 D29H	Other processes	0
+KIAA1109 I225M	Other processes	0
+MYH9 E530K	Other processes	0.26
+TP53 E285K	Other processes	0
+HOXB5 E170K	Other processes	3.26
+SLC44A2 F459F	Other processes	3.68
+TP53 Q192*	Other processes	0
+TP53 V173M	Other processes	5.75
+FAM21C D460N	Other processes	0.59
+CDKN2A P135L	Other processes	86.31
+TP53 E68*	Other processes	6.41
+ZNF253 C 20003622 G NCSNV	Other processes	0
+TP53 R110L	Other processes	0
+NCOR1 E2306K	Other processes	0
+OR4F15 R183W	Other processes	2.59
+SMTN E901K	Other processes	2.29
+TP53 R158L	Other processes	92.77
+CDT1 C 88870221 T NCSNV	Other processes	0
+TP53 R248W	Other processes	108.78
+CCDC135 E313K	Other processes	1.27
+TP53 Y163C	Other processes	19.81
+TP53 R306*	Other processes	71.64
+CDK20 G 90744635 A NCSNV	Other processes	2.26
+HLA-B Q250E	Other processes	0
+ANKHD1 L376V	Other processes	0.44
+AL117190.3 C 101421722 T NCSNV	Other processes	23.69
+KRT14 G 39740666 A NCSNV	Other processes	0.27
+MYC S161L	Other processes	0.51
+B2M E97K	Other processes	0
+PLEKHG4 E744K	Other processes	6.09
+UMODL1 L581L	Other processes	0.77
+NSD1 R788*	Other processes	33.23
+SMPDL3B F275F	Other processes	0
+HRAS G12S	Other processes	36.89
+SLC27A1 F620F	Other processes	0
+WTAP E346K	Other processes	0.31
+TP53 R249S	Other processes	38.78
+TP53 Q331*	Other processes	0.87
+KIAA1407 R673W	Other processes	2.68
+TGFBR2 S320*	Other processes	0
+OR2D3 R70C	Other processes	18.47
+SP140L D419N	Other processes	11.95
+TSPYL5 S193L	Other processes	9.16
+NFE2L2 E79Q	Other processes	0.15
+HUWE1 E3771K	Other processes	0
+KIAA0226 G 197349060 A NCSNV	Other processes	13.62
+TP53 C176Y	Other processes	24.14
+FAT1 S3373*	Other processes	0.07
+FAT1 S1200*	Other processes	0
+HUWE1 E4177K	Other processes	0.14
+ITGB1 D158N	Other processes	13.7
+TP53 Q136*	Other processes	3.56
+CASP8 R472*	Other processes	29.5
+TP53 C242F	Other processes	36.56
+FLOT1 G 30698343 C NCSNV	Other processes	0.21
+GIGYF2 S221*	Other processes	0.84
+ZNF710 F388F	Other processes	2.53
+TP53 G245V	Other processes	58.4
+TBX21 E494K	Other processes	1.78
+TMCO6 C 140021368 T NCSNV	Other processes	0
+TNN D1091N	Other processes	0
+PARP2 M432I	Other processes	0.29
+SPRR2B P69P	Other processes	0
+CDKN2A G124V	Other processes	0.06
+MGAM S703F	Other processes	2.18
+PCDHGA12 A329A	Other processes	0.3
+LTN1 F1252F	Other processes	1.2
+HHIPL2 F67F	Other processes	1.26
+MYH9 E457K	Other processes	4.16
+CDKN2A P113L	Other processes	21.54
+FANCD2OS F33L	Other processes	0.09
+MRAP E28E	Other processes	0.09
+PADI3 P481P	Other processes	15.55
+ANKRD11 S769*	Other processes	0
+DNAH5 Q1797E	Other processes	0
+PIK3CG A156V	Other processes	0.28
+PSG8 S395F	Other processes	5.53
+NRXN3 E1218K	Other processes	0.69
+CEP68 C 65296555 T NCSNV	Other processes	63.72
+CCDC110 R111C	Other processes	7.32
+TP53 H179Y	Other processes	22.18
+CDKN2A G143V	Other processes	4.33
+CASP8 T 202137501 C NCSNV	Other processes	50.64
+LRRN3 L190V	Other processes	0.13
+PLCG2 L1038L	Other processes	0.38
+IFT140 E664K	Other processes	2.58
+TP53 P151S	Other processes	46.98
+BTBD8 F178F	Other processes	3.57
+TP53 Y220C	Other processes	0
+TP53 R273H	Other processes	150.38
+PRDM9 R77Q	Other processes	0.37
+ZNF510 S321*	Other processes	1.55
+PCDHA10 A481T	Other processes	7.63
+IKZF1 Q156Q	Other processes	0.11
+MCF2L R985Q	Other processes	0.64
+PGBD1 L412L	Other processes	0
+KCNA4 E280K	Other processes	3.18
+NRXN1 R1256H	Other processes	1
+FAT1 R3400*	Other processes	8.75
+CDKN2A R163L	Other processes	1.9
+DNAH6 R442H	Other processes	2.68
+FAT1 Q1694*	Other processes	1.74
+TP53 G 7578176 T NCSNV	Other processes	47.65
+TP53 V143M	Other processes	19.99
+AJUBA Q103*	Other processes	0.05
+PAMR1 I580I	Other processes	2.21
+KMT2D R1252*	Other processes	81.09
+C6orf118 T328T	Other processes	6.77
+TP53 H193P	Other processes	74.71
+TDRD6 E1997*	Other processes	0.85
+CDH7 Q225K	Other processes	2.52
+PTOV1 L99L	Other processes	0.94
+NLRP5 E751K	Other processes	0.41
+FLG A2503V	Other processes	17.43
+NCOA1 L1361L	Other processes	0.32
+NXPH1 T25T	Other processes	0.88
+NCOR1 R1561Q	Other processes	43.05
+KCNK9 L122L	Other processes	0.64
+ATP10B R311Q	Other processes	14.19
+MYO15A R3294W	Other processes	12.5
+FAT1 R937*	Other processes	13.4
+HRAS Q61L	Other processes	31.78
+TP53 R337C	Other processes	22.83
+TP53 H179R	Other processes	39.79
+METTL16 C 2323149 T NCSNV	Other processes	36.54
+SLC8A2 L195L	Other processes	0.07
+IFFO1 L292L	Other processes	0.02
+TP53 Q331Q	Other processes	15.09
+CNKSR1 L350L	Other processes	1.23
+PKHD1L1 R1654Q	Other processes	10.64
+HRAS G12D	Other processes	20.77
+FCRL3 V288V	Other processes	0.1
+DENND5B G1023E	Other processes	17.24
+TP53 Y234C	Other processes	12.1
+PIK3CA Q546R	Other processes	41.02
+LRRC4C E637Q	Other processes	0.46
+GPR158 L9L	Other processes	2.07
+HIST1H3C K37M	Other processes	64.34
+FCAR V233M	Other processes	3.24
+CDKN2A L165L	Other processes	1.53
+CSMD3 R3127Q	Other processes	5.18
+DPP10 T 116257182 A NCSNV	Other processes	74.7
+TP53 C238F	Other processes	28.79
+FBXW7 R543G	Other processes	14.9
+MFSD10 R138Q	Other processes	3.43
+CORO2B A156T	Other processes	2.92
+KIAA0100 V1227V	Other processes	0.72
+DUOXA1 R332C	Other processes	10.59
+HLA-B R7*	Other processes	8.42
+HLA-A R7*	Other processes	0.17
+SMARCA4 P913L	Other processes	2.34
+CDKN2A G 21971208 A NCSNV	Other processes	1.38
+AKAP9 Q3406K	Other processes	33.25
+EPHB3 R420H	Other processes	3.25
+CTNNA2 A67T	Other processes	4.66
+CDKN2A G166R	Other processes	20.91
+PPP4R4 T89M	Other processes	1.71
+TP53 R280G	Other processes	70.06
+REG1A C 79364340 T NCSNV	Other processes	11.77
+MAGEB3 V75A	Other processes	51.36
+ASXL1 R693*	Other processes	1.05
+MTTP G749G	Other processes	4.07
+C12orf60 T120T	Other processes	2.33
+CASP8 R127*	Other processes	3.11
+PDE3A L275L	Other processes	0
+SALL1 P1109P	Other processes	0.15
+OR8I2 A67S	Other processes	7.62
+FXYD5 R145W	Other processes	1.35
+KDM6A R526*	Other processes	15.23
+IZUMO4 T11T	Other processes	5.1
+HTR1A L166L	Other processes	0.01
+VPS39 P578P	Other processes	6.5
+RPA1 R31H	Other processes	3.52
+PHLDB2 V1139V	Other processes	1.53
+KIR3DL1 V405I	Other processes	6.85
+C9 D312N	Other processes	12.8
+GRM8 G50D	Other processes	8.46
+COL22A1 P1601L	Other processes	0
+TENM1 R366M	Other processes	11.71
+GFRA3 A208A	Other processes	1.5
+CDH9 T737M	Other processes	0.74
+MYH13 K1852N	Other processes	3.71
+SLC5A7 G336C	Other processes	14.66
+KSR2 T584M	Other processes	4.1
+CDKN2A G 21970900 T NCSNV	Other processes	4.13
+SLC34A1 R507H	Other processes	17.13
+NOTCH1 A465T	Other processes	2.49
+MAP3K7 Y300C	Other processes	6.71
+FBXL13 R308W	Other processes	10.35
+OBP2A T107M	Other processes	1.16
+TNIK R949H	Other processes	7.63
+SYT6 R249H	Other processes	0
+CDKN2A G 21971000 T NCSNV	Other processes	12.56
+ADAMTS18 H78H	Other processes	0.9
+THSD7A C728F	Other processes	7.41
+USH2A N3137N	Other processes	0
+HCN1 V381V	Other processes	0.56
+SLC24A4 E137K	Other processes	3.81
+PCDHA13 D481D	Other processes	0.73
+MYH7 V411I	Other processes	0.12
+OR4C6 A214A	Other processes	0.89
+CNTNAP2 C745C	Other processes	5.56
+PFAS Y1202Y	Other processes	0.19
+ZFHX4 G754R	Other processes	4.93
+TMEM132D A56V	Other processes	4.35
+PCDHA4 N451N	Other processes	2.39
+PIK3CA H1047R	Other processes	524.27
+TP53 R282W	Other processes	77.99
+TP53 R248Q	Other processes	54.39
+TP53 V157F	Other processes	513.57
+TP53 Y236C	Other processes	93.38
+TP53 R337L	Other processes	57.81
+TP53 T125T	Other processes	46.18
+MAGEB1 P274P	Other processes	3.67
+HRAS G13R	Other processes	471.04
+OR11H12 Q30K	Other processes	20.41
+TP53 L201*	Other processes	124.56
+TP53 V272M	Other processes	10.28
+TP53 T 7577017 G NCSNV	Other processes	0
+TP53 G 7579311 T NCSNV	Other processes	26.41
+CREBBP R1446C	Other processes	11.1
+SLCO1C1 S362R	Other processes	3.31
+CEP164 N79N	Other processes	11.84
+GUCY2C S606S	Other processes	1.56
+TMTC2 T409R	Other processes	350.23
+PLXND1 G913R	Other processes	11.9
+BZRAP1 R1376K	Other processes	9.51
+SGCE R173H	Other processes	50.31
+NLRP8 V428I	Other processes	2.36
+PDZD2 R953*	Other processes	20.45
+HRAS G12C	Other processes	227.99
+NRD1 E181E	Other processes	53.19
+EDIL3 Q173K	Other processes	12.4
+HIST1H3I K37M	Other processes	11.53
+IVD G408W	Other processes	5.17
+ATP7B V831I	Other processes	2.75
+MYOM1 R63Q	Other processes	28.79
+PCDH17 N579N	Other processes	5.03
+SLMAP A 57743311 G NCSNV	Other processes	5.53
+SDR9C7 A104A	Other processes	8.04
+TCF21 A124A	Other processes	0.81
+CCSER2 Y766C	Other processes	4.08
+CHCHD4 T92M	Other processes	17.39
+TRHR V272L	Other processes	8.31
+OR2T33 D153D	Other processes	0.62
+MASP1 T215A	Other processes	8.74
+PRB3 R39*	Other processes	9.02
+H3F3B K37M	Other processes	6.73
+HPN A 35557003 T NCSNV	Other processes	8.77
+POLI V117L	Other processes	41.48
+GABBR2 W149*	Other processes	9.92
+PIK3CA E545K	Spontaneous deamination with age (1)	2.4155857385399
+TP53 R283P	Spontaneous deamination with age (1)	0
+PIK3CA E542K	Spontaneous deamination with age (1)	73.6751966292135
+TP53 R196P	Spontaneous deamination with age (1)	3.44
+CCDC50 S.S.	Spontaneous deamination with age (1)	290.05
+HRAS G13V	Spontaneous deamination with age (1)	385.03
+TP53 R213*	Spontaneous deamination with age (1)	400.5
+TP53 P278S	Spontaneous deamination with age (1)	0
+TP53 E298*	Spontaneous deamination with age (1)	0
+TP53 R175H	Spontaneous deamination with age (1)	1289.72
+FAT1 E1994*	Spontaneous deamination with age (1)	0
+FBXW7 R505G	Spontaneous deamination with age (1)	37116.7037011885
+ZBTB10 C 81471465 G NCSNV	Spontaneous deamination with age (1)	11.18
+C9orf53 C 21968242 T NCSNV	Spontaneous deamination with age (1)	5.98
+TP53 E294*	Spontaneous deamination with age (1)	14.45
+BCAS1 C 52491801 G NCSNV	Spontaneous deamination with age (1)	0
+EPHA2 S419*	Spontaneous deamination with age (1)	0
+FAM21C E1034K	Spontaneous deamination with age (1)	10.36
+EPHA3 T802R	Spontaneous deamination with age (1)	82.8
+EYS G 66498423 A NCSNV	Spontaneous deamination with age (1)	36.09
+NOTCH1 E455K	Spontaneous deamination with age (1)	10.61
+TP53 R273C	Spontaneous deamination with age (1)	263.95
+TP53 G245S	Spontaneous deamination with age (1)	194.82
+CASP8 Q524*	Spontaneous deamination with age (1)	0.27
+TP53 R196*	Spontaneous deamination with age (1)	405.99
+AP1G2 D243N	Spontaneous deamination with age (1)	6.97
+NCOR1 P1081L	Spontaneous deamination with age (1)	26.65
+CASP8 R292W	Spontaneous deamination with age (1)	0
+TP53 E56*	Spontaneous deamination with age (1)	2.24
+HIST2H2BE F71L	Spontaneous deamination with age (1)	0.25
+MAPK1 E322K	Spontaneous deamination with age (1)	215.259192307692
+TGFBR2 E544K	Spontaneous deamination with age (1)	0
+TP53 Q144*	Spontaneous deamination with age (1)	15.36
+MAP2 E865*	Spontaneous deamination with age (1)	0
+MB21D2 Q311E	Spontaneous deamination with age (1)	0
+APC R283Q	Spontaneous deamination with age (1)	0
+TSHZ3 E841*	Spontaneous deamination with age (1)	4.88
+ZNF43 G422A	Spontaneous deamination with age (1)	0
+CNNM3 E422K	Spontaneous deamination with age (1)	5.35
+ZZZ3 R5Q	Spontaneous deamination with age (1)	22.56
+RAC1 A178V	Spontaneous deamination with age (1)	192.61
+NFE2L2 E79K	Spontaneous deamination with age (1)	0.69
+RHOA E40Q	Spontaneous deamination with age (1)	0
+TP53 H193L	Spontaneous deamination with age (1)	0
+TP53 S106R	Spontaneous deamination with age (1)	4.28
+ARHGAP9 G 57868406 A NCSNV	Spontaneous deamination with age (1)	20.58
+CASP8 R494*	Spontaneous deamination with age (1)	26.28
+FAT1 R885*	Spontaneous deamination with age (1)	4.03
+TP53 G266E	Spontaneous deamination with age (1)	1.81
+NFE2L2 D29H	Spontaneous deamination with age (1)	0
+KIAA1109 I225M	Spontaneous deamination with age (1)	0
+MYH9 E530K	Spontaneous deamination with age (1)	10.66
+TP53 E285K	Spontaneous deamination with age (1)	0.31
+HOXB5 E170K	Spontaneous deamination with age (1)	2.65
+SLC44A2 F459F	Spontaneous deamination with age (1)	8.41
+TP53 Q192*	Spontaneous deamination with age (1)	0.78
+TP53 V173M	Spontaneous deamination with age (1)	0
+FAM21C D460N	Spontaneous deamination with age (1)	0.15
+CDKN2A P135L	Spontaneous deamination with age (1)	345.24
+TP53 E68*	Spontaneous deamination with age (1)	1.42
+ZNF253 C 20003622 G NCSNV	Spontaneous deamination with age (1)	0
+TP53 R110L	Spontaneous deamination with age (1)	184.61
+NCOR1 E2306K	Spontaneous deamination with age (1)	0
+OR4F15 R183W	Spontaneous deamination with age (1)	1.21
+SMTN E901K	Spontaneous deamination with age (1)	1.41
+TP53 R158L	Spontaneous deamination with age (1)	28.35
+CDT1 C 88870221 T NCSNV	Spontaneous deamination with age (1)	4.33
+TP53 R248W	Spontaneous deamination with age (1)	268.07
+CCDC135 E313K	Spontaneous deamination with age (1)	0
+TP53 Y163C	Spontaneous deamination with age (1)	16.98
+TP53 R306*	Spontaneous deamination with age (1)	294.12
+CDK20 G 90744635 A NCSNV	Spontaneous deamination with age (1)	0.28
+HLA-B Q250E	Spontaneous deamination with age (1)	0
+ANKHD1 L376V	Spontaneous deamination with age (1)	0
+AL117190.3 C 101421722 T NCSNV	Spontaneous deamination with age (1)	0
+KRT14 G 39740666 A NCSNV	Spontaneous deamination with age (1)	0.27
+MYC S161L	Spontaneous deamination with age (1)	0.31
+B2M E97K	Spontaneous deamination with age (1)	0
+PLEKHG4 E744K	Spontaneous deamination with age (1)	0.61
+UMODL1 L581L	Spontaneous deamination with age (1)	1.54
+NSD1 R788*	Spontaneous deamination with age (1)	0
+SMPDL3B F275F	Spontaneous deamination with age (1)	4.4
+HRAS G12S	Spontaneous deamination with age (1)	232.67
+SLC27A1 F620F	Spontaneous deamination with age (1)	0.17
+WTAP E346K	Spontaneous deamination with age (1)	0
+TP53 R249S	Spontaneous deamination with age (1)	10.66
+TP53 Q331*	Spontaneous deamination with age (1)	0
+KIAA1407 R673W	Spontaneous deamination with age (1)	15.34
+TGFBR2 S320*	Spontaneous deamination with age (1)	0
+OR2D3 R70C	Spontaneous deamination with age (1)	8.53
+SP140L D419N	Spontaneous deamination with age (1)	17.18
+TSPYL5 S193L	Spontaneous deamination with age (1)	0
+NFE2L2 E79Q	Spontaneous deamination with age (1)	0
+HUWE1 E3771K	Spontaneous deamination with age (1)	0
+KIAA0226 G 197349060 A NCSNV	Spontaneous deamination with age (1)	3.67
+TP53 C176Y	Spontaneous deamination with age (1)	0
+FAT1 S3373*	Spontaneous deamination with age (1)	0
+FAT1 S1200*	Spontaneous deamination with age (1)	0
+HUWE1 E4177K	Spontaneous deamination with age (1)	0.21
+ITGB1 D158N	Spontaneous deamination with age (1)	25.12
+TP53 Q136*	Spontaneous deamination with age (1)	4.75
+CASP8 R472*	Spontaneous deamination with age (1)	41.14
+TP53 C242F	Spontaneous deamination with age (1)	0
+FLOT1 G 30698343 C NCSNV	Spontaneous deamination with age (1)	0
+GIGYF2 S221*	Spontaneous deamination with age (1)	0.84
+ZNF710 F388F	Spontaneous deamination with age (1)	3.25
+TP53 G245V	Spontaneous deamination with age (1)	13.63
+TBX21 E494K	Spontaneous deamination with age (1)	4.96
+TMCO6 C 140021368 T NCSNV	Spontaneous deamination with age (1)	0
+TNN D1091N	Spontaneous deamination with age (1)	1.3
+PARP2 M432I	Spontaneous deamination with age (1)	0.06
+SPRR2B P69P	Spontaneous deamination with age (1)	5.19
+CDKN2A G124V	Spontaneous deamination with age (1)	0.53
+MGAM S703F	Spontaneous deamination with age (1)	0
+PCDHGA12 A329A	Spontaneous deamination with age (1)	4.45
+LTN1 F1252F	Spontaneous deamination with age (1)	0
+HHIPL2 F67F	Spontaneous deamination with age (1)	4.35
+MYH9 E457K	Spontaneous deamination with age (1)	2.31
+CDKN2A P113L	Spontaneous deamination with age (1)	123.07
+FANCD2OS F33L	Spontaneous deamination with age (1)	0
+MRAP E28E	Spontaneous deamination with age (1)	0
+PADI3 P481P	Spontaneous deamination with age (1)	1.79
+ANKRD11 S769*	Spontaneous deamination with age (1)	0
+DNAH5 Q1797E	Spontaneous deamination with age (1)	0
+PIK3CG A156V	Spontaneous deamination with age (1)	6.12
+PSG8 S395F	Spontaneous deamination with age (1)	0
+NRXN3 E1218K	Spontaneous deamination with age (1)	0
+CEP68 C 65296555 T NCSNV	Spontaneous deamination with age (1)	9.1
+CCDC110 R111C	Spontaneous deamination with age (1)	55.23
+TP53 H179Y	Spontaneous deamination with age (1)	6.73
+CDKN2A G143V	Spontaneous deamination with age (1)	1.57
+CASP8 T 202137501 C NCSNV	Spontaneous deamination with age (1)	1.69
+LRRN3 L190V	Spontaneous deamination with age (1)	0
+PLCG2 L1038L	Spontaneous deamination with age (1)	0.1
+IFT140 E664K	Spontaneous deamination with age (1)	4.82
+TP53 P151S	Spontaneous deamination with age (1)	19.82
+BTBD8 F178F	Spontaneous deamination with age (1)	0
+TP53 Y220C	Spontaneous deamination with age (1)	0
+TP53 R273H	Spontaneous deamination with age (1)	143.55
+PRDM9 R77Q	Spontaneous deamination with age (1)	5.61
+ZNF510 S321*	Spontaneous deamination with age (1)	0.45
+PCDHA10 A481T	Spontaneous deamination with age (1)	0
+IKZF1 Q156Q	Spontaneous deamination with age (1)	0.04
+MCF2L R985Q	Spontaneous deamination with age (1)	27.73
+PGBD1 L412L	Spontaneous deamination with age (1)	0
+KCNA4 E280K	Spontaneous deamination with age (1)	0
+NRXN1 R1256H	Spontaneous deamination with age (1)	2.72
+FAT1 R3400*	Spontaneous deamination with age (1)	10.94
+CDKN2A R163L	Spontaneous deamination with age (1)	0
+DNAH6 R442H	Spontaneous deamination with age (1)	81.41
+FAT1 Q1694*	Spontaneous deamination with age (1)	0.49
+TP53 G 7578176 T NCSNV	Spontaneous deamination with age (1)	0
+TP53 V143M	Spontaneous deamination with age (1)	28.7
+AJUBA Q103*	Spontaneous deamination with age (1)	0.3
+PAMR1 I580I	Spontaneous deamination with age (1)	0.15
+KMT2D R1252*	Spontaneous deamination with age (1)	33.39
+C6orf118 T328T	Spontaneous deamination with age (1)	0
+TP53 H193P	Spontaneous deamination with age (1)	11.32
+TDRD6 E1997*	Spontaneous deamination with age (1)	1.41
+CDH7 Q225K	Spontaneous deamination with age (1)	1.4
+PTOV1 L99L	Spontaneous deamination with age (1)	1.95
+NLRP5 E751K	Spontaneous deamination with age (1)	0.11
+FLG A2503V	Spontaneous deamination with age (1)	7.24
+NCOA1 L1361L	Spontaneous deamination with age (1)	0.02
+NXPH1 T25T	Spontaneous deamination with age (1)	7.81
+NCOR1 R1561Q	Spontaneous deamination with age (1)	21.18
+KCNK9 L122L	Spontaneous deamination with age (1)	0.71
+ATP10B R311Q	Spontaneous deamination with age (1)	0
+MYO15A R3294W	Spontaneous deamination with age (1)	0
+FAT1 R937*	Spontaneous deamination with age (1)	10.39
+HRAS Q61L	Spontaneous deamination with age (1)	3.81
+TP53 R337C	Spontaneous deamination with age (1)	70.38
+TP53 H179R	Spontaneous deamination with age (1)	3.79
+METTL16 C 2323149 T NCSNV	Spontaneous deamination with age (1)	2.61
+SLC8A2 L195L	Spontaneous deamination with age (1)	0
+IFFO1 L292L	Spontaneous deamination with age (1)	0.04
+TP53 Q331Q	Spontaneous deamination with age (1)	9.53
+CNKSR1 L350L	Spontaneous deamination with age (1)	1.53
+PKHD1L1 R1654Q	Spontaneous deamination with age (1)	1.66
+HRAS G12D	Spontaneous deamination with age (1)	15.48
+FCRL3 V288V	Spontaneous deamination with age (1)	0.02
+DENND5B G1023E	Spontaneous deamination with age (1)	7.01
+TP53 Y234C	Spontaneous deamination with age (1)	25.62
+PIK3CA Q546R	Spontaneous deamination with age (1)	33.95
+LRRC4C E637Q	Spontaneous deamination with age (1)	0.06
+GPR158 L9L	Spontaneous deamination with age (1)	0
+HIST1H3C K37M	Spontaneous deamination with age (1)	8.21
+FCAR V233M	Spontaneous deamination with age (1)	5.52
+CDKN2A L165L	Spontaneous deamination with age (1)	0
+CSMD3 R3127Q	Spontaneous deamination with age (1)	0
+DPP10 T 116257182 A NCSNV	Spontaneous deamination with age (1)	1.2
+TP53 C238F	Spontaneous deamination with age (1)	9
+FBXW7 R543G	Spontaneous deamination with age (1)	17.19
+MFSD10 R138Q	Spontaneous deamination with age (1)	33.15
+CORO2B A156T	Spontaneous deamination with age (1)	18.42
+KIAA0100 V1227V	Spontaneous deamination with age (1)	0.16
+DUOXA1 R332C	Spontaneous deamination with age (1)	3.53
+HLA-B R7*	Spontaneous deamination with age (1)	24.24
+HLA-A R7*	Spontaneous deamination with age (1)	14.9
+SMARCA4 P913L	Spontaneous deamination with age (1)	20.13
+CDKN2A G 21971208 A NCSNV	Spontaneous deamination with age (1)	0.13
+AKAP9 Q3406K	Spontaneous deamination with age (1)	5.84
+EPHB3 R420H	Spontaneous deamination with age (1)	24.24
+CTNNA2 A67T	Spontaneous deamination with age (1)	4.45
+CDKN2A G166R	Spontaneous deamination with age (1)	0
+PPP4R4 T89M	Spontaneous deamination with age (1)	40.1
+TP53 R280G	Spontaneous deamination with age (1)	11.54
+REG1A C 79364340 T NCSNV	Spontaneous deamination with age (1)	0.4
+MAGEB3 V75A	Spontaneous deamination with age (1)	0
+ASXL1 R693*	Spontaneous deamination with age (1)	23.63
+MTTP G749G	Spontaneous deamination with age (1)	13.52
+C12orf60 T120T	Spontaneous deamination with age (1)	11.5
+CASP8 R127*	Spontaneous deamination with age (1)	30.4
+PDE3A L275L	Spontaneous deamination with age (1)	0.01
+SALL1 P1109P	Spontaneous deamination with age (1)	2.36
+OR8I2 A67S	Spontaneous deamination with age (1)	4.35
+FXYD5 R145W	Spontaneous deamination with age (1)	23.76
+KDM6A R526*	Spontaneous deamination with age (1)	10.15
+IZUMO4 T11T	Spontaneous deamination with age (1)	0.51
+HTR1A L166L	Spontaneous deamination with age (1)	0.05
+VPS39 P578P	Spontaneous deamination with age (1)	8.72
+RPA1 R31H	Spontaneous deamination with age (1)	4.42
+PHLDB2 V1139V	Spontaneous deamination with age (1)	3.61
+KIR3DL1 V405I	Spontaneous deamination with age (1)	35.53
+C9 D312N	Spontaneous deamination with age (1)	7.55
+GRM8 G50D	Spontaneous deamination with age (1)	2.68
+COL22A1 P1601L	Spontaneous deamination with age (1)	3.43
+TENM1 R366M	Spontaneous deamination with age (1)	0
+GFRA3 A208A	Spontaneous deamination with age (1)	7.42
+CDH9 T737M	Spontaneous deamination with age (1)	8.12
+MYH13 K1852N	Spontaneous deamination with age (1)	1.74
+SLC5A7 G336C	Spontaneous deamination with age (1)	5
+KSR2 T584M	Spontaneous deamination with age (1)	4.39
+CDKN2A G 21970900 T NCSNV	Spontaneous deamination with age (1)	0.41
+SLC34A1 R507H	Spontaneous deamination with age (1)	10.06
+NOTCH1 A465T	Spontaneous deamination with age (1)	21.65
+MAP3K7 Y300C	Spontaneous deamination with age (1)	0.48
+FBXL13 R308W	Spontaneous deamination with age (1)	11.32
+OBP2A T107M	Spontaneous deamination with age (1)	21.14
+TNIK R949H	Spontaneous deamination with age (1)	10.33
+SYT6 R249H	Spontaneous deamination with age (1)	8.74
+CDKN2A G 21971000 T NCSNV	Spontaneous deamination with age (1)	3.32
+ADAMTS18 H78H	Spontaneous deamination with age (1)	16.53
+THSD7A C728F	Spontaneous deamination with age (1)	2.47
+USH2A N3137N	Spontaneous deamination with age (1)	0
+HCN1 V381V	Spontaneous deamination with age (1)	0
+SLC24A4 E137K	Spontaneous deamination with age (1)	9.72
+PCDHA13 D481D	Spontaneous deamination with age (1)	2.94
+MYH7 V411I	Spontaneous deamination with age (1)	11.38
+OR4C6 A214A	Spontaneous deamination with age (1)	4.54
+CNTNAP2 C745C	Spontaneous deamination with age (1)	4.53
+PFAS Y1202Y	Spontaneous deamination with age (1)	8.68
+ZFHX4 G754R	Spontaneous deamination with age (1)	3.54
+TMEM132D A56V	Spontaneous deamination with age (1)	3.92
+PCDHA4 N451N	Spontaneous deamination with age (1)	3.17
+PIK3CA H1047R	Spontaneous deamination with age (1)	337.03
+TP53 R282W	Spontaneous deamination with age (1)	710.58
+TP53 R248Q	Spontaneous deamination with age (1)	334.11
+TP53 V157F	Spontaneous deamination with age (1)	0
+TP53 Y236C	Spontaneous deamination with age (1)	39.61
+TP53 R337L	Spontaneous deamination with age (1)	265.92
+TP53 T125T	Spontaneous deamination with age (1)	0
+MAGEB1 P274P	Spontaneous deamination with age (1)	0
+HRAS G13R	Spontaneous deamination with age (1)	217.94
+OR11H12 Q30K	Spontaneous deamination with age (1)	0
+TP53 L201*	Spontaneous deamination with age (1)	3.89
+TP53 V272M	Spontaneous deamination with age (1)	13.95
+TP53 T 7577017 G NCSNV	Spontaneous deamination with age (1)	2.26
+TP53 G 7579311 T NCSNV	Spontaneous deamination with age (1)	2.87
+CREBBP R1446C	Spontaneous deamination with age (1)	0
+SLCO1C1 S362R	Spontaneous deamination with age (1)	0.64
+CEP164 N79N	Spontaneous deamination with age (1)	5.57
+GUCY2C S606S	Spontaneous deamination with age (1)	0
+TMTC2 T409R	Spontaneous deamination with age (1)	0
+PLXND1 G913R	Spontaneous deamination with age (1)	0
+BZRAP1 R1376K	Spontaneous deamination with age (1)	0
+SGCE R173H	Spontaneous deamination with age (1)	0
+NLRP8 V428I	Spontaneous deamination with age (1)	9.07
+PDZD2 R953*	Spontaneous deamination with age (1)	0
+HRAS G12C	Spontaneous deamination with age (1)	12.26
+NRD1 E181E	Spontaneous deamination with age (1)	0
+EDIL3 Q173K	Spontaneous deamination with age (1)	0
+HIST1H3I K37M	Spontaneous deamination with age (1)	1.28
+IVD G408W	Spontaneous deamination with age (1)	0
+ATP7B V831I	Spontaneous deamination with age (1)	13.45
+MYOM1 R63Q	Spontaneous deamination with age (1)	0
+PCDH17 N579N	Spontaneous deamination with age (1)	0
+SLMAP A 57743311 G NCSNV	Spontaneous deamination with age (1)	2.98
+SDR9C7 A104A	Spontaneous deamination with age (1)	0
+TCF21 A124A	Spontaneous deamination with age (1)	4.51
+CCSER2 Y766C	Spontaneous deamination with age (1)	0.51
+CHCHD4 T92M	Spontaneous deamination with age (1)	12.97
+TRHR V272L	Spontaneous deamination with age (1)	0
+OR2T33 D153D	Spontaneous deamination with age (1)	5.49
+MASP1 T215A	Spontaneous deamination with age (1)	0
+PRB3 R39*	Spontaneous deamination with age (1)	8.44
+H3F3B K37M	Spontaneous deamination with age (1)	2.99
+HPN A 35557003 T NCSNV	Spontaneous deamination with age (1)	0
+POLI V117L	Spontaneous deamination with age (1)	5.06
+GABBR2 W149*	Spontaneous deamination with age (1)	0
+PIK3CA E545K	APOBEC activity (2)	2681.67758913413
+TP53 R283P	APOBEC activity (2)	703.46
+PIK3CA E542K	APOBEC activity (2)	1684.08146067416
+TP53 R196P	APOBEC activity (2)	58.41
+CCDC50 S.S.	APOBEC activity (2)	122.13
+HRAS G13V	APOBEC activity (2)	67.95
+TP53 R213*	APOBEC activity (2)	94.24
+TP53 P278S	APOBEC activity (2)	69.95
+TP53 E298*	APOBEC activity (2)	61.62
+TP53 R175H	APOBEC activity (2)	0
+FAT1 E1994*	APOBEC activity (2)	21.68
+FBXW7 R505G	APOBEC activity (2)	844.736332767402
+ZBTB10 C 81471465 G NCSNV	APOBEC activity (2)	3.05
+C9orf53 C 21968242 T NCSNV	APOBEC activity (2)	49.52
+TP53 E294*	APOBEC activity (2)	0
+BCAS1 C 52491801 G NCSNV	APOBEC activity (2)	4.01
+EPHA2 S419*	APOBEC activity (2)	4.45
+FAM21C E1034K	APOBEC activity (2)	32.7
+EPHA3 T802R	APOBEC activity (2)	33.64
+EYS G 66498423 A NCSNV	APOBEC activity (2)	1.6
+NOTCH1 E455K	APOBEC activity (2)	27.57
+TP53 R273C	APOBEC activity (2)	0
+TP53 G245S	APOBEC activity (2)	24.35
+CASP8 Q524*	APOBEC activity (2)	19.47
+TP53 R196*	APOBEC activity (2)	26.36
+AP1G2 D243N	APOBEC activity (2)	22.47
+NCOR1 P1081L	APOBEC activity (2)	24.6
+CASP8 R292W	APOBEC activity (2)	22.12
+TP53 E56*	APOBEC activity (2)	6.34
+HIST2H2BE F71L	APOBEC activity (2)	2.95
+MAPK1 E322K	APOBEC activity (2)	824.619807692308
+TGFBR2 E544K	APOBEC activity (2)	18.11
+TP53 Q144*	APOBEC activity (2)	16.46
+MAP2 E865*	APOBEC activity (2)	5.58
+MB21D2 Q311E	APOBEC activity (2)	2.87
+APC R283Q	APOBEC activity (2)	20.29
+TSHZ3 E841*	APOBEC activity (2)	6.71
+ZNF43 G422A	APOBEC activity (2)	0
+CNNM3 E422K	APOBEC activity (2)	18.02
+ZZZ3 R5Q	APOBEC activity (2)	17.35
+RAC1 A178V	APOBEC activity (2)	0
+NFE2L2 E79K	APOBEC activity (2)	16.8
+RHOA E40Q	APOBEC activity (2)	1.53
+TP53 H193L	APOBEC activity (2)	18.13
+TP53 S106R	APOBEC activity (2)	1.43
+ARHGAP9 G 57868406 A NCSNV	APOBEC activity (2)	17.72
+CASP8 R494*	APOBEC activity (2)	14.29
+FAT1 R885*	APOBEC activity (2)	13.89
+TP53 G266E	APOBEC activity (2)	12.87
+NFE2L2 D29H	APOBEC activity (2)	2.13
+KIAA1109 I225M	APOBEC activity (2)	1.04
+MYH9 E530K	APOBEC activity (2)	12.48
+TP53 E285K	APOBEC activity (2)	11.91
+HOXB5 E170K	APOBEC activity (2)	12.64
+SLC44A2 F459F	APOBEC activity (2)	12.61
+TP53 Q192*	APOBEC activity (2)	13.84
+TP53 V173M	APOBEC activity (2)	11.5
+FAM21C D460N	APOBEC activity (2)	9.43
+CDKN2A P135L	APOBEC activity (2)	13.63
+TP53 E68*	APOBEC activity (2)	3.56
+ZNF253 C 20003622 G NCSNV	APOBEC activity (2)	1.52
+TP53 R110L	APOBEC activity (2)	13.19
+NCOR1 E2306K	APOBEC activity (2)	9.52
+OR4F15 R183W	APOBEC activity (2)	11.24
+SMTN E901K	APOBEC activity (2)	10.57
+TP53 R158L	APOBEC activity (2)	10.31
+CDT1 C 88870221 T NCSNV	APOBEC activity (2)	9.7
+TP53 R248W	APOBEC activity (2)	11.66
+CCDC135 E313K	APOBEC activity (2)	8.87
+TP53 Y163C	APOBEC activity (2)	0
+TP53 R306*	APOBEC activity (2)	0
+CDK20 G 90744635 A NCSNV	APOBEC activity (2)	9.45
+HLA-B Q250E	APOBEC activity (2)	1.23
+ANKHD1 L376V	APOBEC activity (2)	1.43
+AL117190.3 C 101421722 T NCSNV	APOBEC activity (2)	9.98
+KRT14 G 39740666 A NCSNV	APOBEC activity (2)	9
+MYC S161L	APOBEC activity (2)	7.86
+B2M E97K	APOBEC activity (2)	6.41
+PLEKHG4 E744K	APOBEC activity (2)	5.89
+UMODL1 L581L	APOBEC activity (2)	6.37
+NSD1 R788*	APOBEC activity (2)	8.04
+SMPDL3B F275F	APOBEC activity (2)	6.41
+HRAS G12S	APOBEC activity (2)	8.51
+SLC27A1 F620F	APOBEC activity (2)	6.82
+WTAP E346K	APOBEC activity (2)	2.38
+TP53 R249S	APOBEC activity (2)	0.97
+TP53 Q331*	APOBEC activity (2)	4.87
+KIAA1407 R673W	APOBEC activity (2)	0.77
+TGFBR2 S320*	APOBEC activity (2)	0.58
+OR2D3 R70C	APOBEC activity (2)	6.4
+SP140L D419N	APOBEC activity (2)	6.35
+TSPYL5 S193L	APOBEC activity (2)	5.83
+NFE2L2 E79Q	APOBEC activity (2)	0.51
+HUWE1 E3771K	APOBEC activity (2)	5.48
+KIAA0226 G 197349060 A NCSNV	APOBEC activity (2)	3.14
+TP53 C176Y	APOBEC activity (2)	4.39
+FAT1 S3373*	APOBEC activity (2)	1.44
+FAT1 S1200*	APOBEC activity (2)	0.92
+HUWE1 E4177K	APOBEC activity (2)	5.28
+ITGB1 D158N	APOBEC activity (2)	5.94
+TP53 Q136*	APOBEC activity (2)	4.36
+CASP8 R472*	APOBEC activity (2)	6.21
+TP53 C242F	APOBEC activity (2)	3.45
+FLOT1 G 30698343 C NCSNV	APOBEC activity (2)	0.63
+GIGYF2 S221*	APOBEC activity (2)	0.6
+ZNF710 F388F	APOBEC activity (2)	5.17
+TP53 G245V	APOBEC activity (2)	0
+TBX21 E494K	APOBEC activity (2)	5.34
+TMCO6 C 140021368 T NCSNV	APOBEC activity (2)	3.5
+TNN D1091N	APOBEC activity (2)	4.71
+PARP2 M432I	APOBEC activity (2)	2.97
+SPRR2B P69P	APOBEC activity (2)	4.32
+CDKN2A G124V	APOBEC activity (2)	0.41
+MGAM S703F	APOBEC activity (2)	4.37
+PCDHGA12 A329A	APOBEC activity (2)	0.3
+LTN1 F1252F	APOBEC activity (2)	3.29
+HHIPL2 F67F	APOBEC activity (2)	4.35
+MYH9 E457K	APOBEC activity (2)	4.4
+CDKN2A P113L	APOBEC activity (2)	4.62
+FANCD2OS F33L	APOBEC activity (2)	0.52
+MRAP E28E	APOBEC activity (2)	3.93
+PADI3 P481P	APOBEC activity (2)	0.3
+ANKRD11 S769*	APOBEC activity (2)	0.41
+DNAH5 Q1797E	APOBEC activity (2)	0.22
+PIK3CG A156V	APOBEC activity (2)	0
+PSG8 S395F	APOBEC activity (2)	3.99
+NRXN3 E1218K	APOBEC activity (2)	3.73
+CEP68 C 65296555 T NCSNV	APOBEC activity (2)	4.05
+CCDC110 R111C	APOBEC activity (2)	0.67
+TP53 H179Y	APOBEC activity (2)	2.77
+CDKN2A G143V	APOBEC activity (2)	0.52
+CASP8 T 202137501 C NCSNV	APOBEC activity (2)	0
+LRRN3 L190V	APOBEC activity (2)	0.68
+PLCG2 L1038L	APOBEC activity (2)	3.02
+IFT140 E664K	APOBEC activity (2)	2.69
+TP53 P151S	APOBEC activity (2)	3.67
+BTBD8 F178F	APOBEC activity (2)	3.14
+TP53 Y220C	APOBEC activity (2)	0
+TP53 R273H	APOBEC activity (2)	3.42
+PRDM9 R77Q	APOBEC activity (2)	2.9
+ZNF510 S321*	APOBEC activity (2)	3.27
+PCDHA10 A481T	APOBEC activity (2)	0.22
+IKZF1 Q156Q	APOBEC activity (2)	2.57
+MCF2L R985Q	APOBEC activity (2)	2.87
+PGBD1 L412L	APOBEC activity (2)	0.28
+KCNA4 E280K	APOBEC activity (2)	2.26
+NRXN1 R1256H	APOBEC activity (2)	2.52
+FAT1 R3400*	APOBEC activity (2)	2.73
+CDKN2A R163L	APOBEC activity (2)	1.09
+DNAH6 R442H	APOBEC activity (2)	2.68
+FAT1 Q1694*	APOBEC activity (2)	1.74
+TP53 G 7578176 T NCSNV	APOBEC activity (2)	0
+TP53 V143M	APOBEC activity (2)	2.56
+AJUBA Q103*	APOBEC activity (2)	1.74
+PAMR1 I580I	APOBEC activity (2)	1.92
+KMT2D R1252*	APOBEC activity (2)	2.39
+C6orf118 T328T	APOBEC activity (2)	2.38
+TP53 H193P	APOBEC activity (2)	2.26
+TDRD6 E1997*	APOBEC activity (2)	2.25
+CDH7 Q225K	APOBEC activity (2)	0.28
+PTOV1 L99L	APOBEC activity (2)	1.47
+NLRP5 E751K	APOBEC activity (2)	1.87
+FLG A2503V	APOBEC activity (2)	0.8
+NCOA1 L1361L	APOBEC activity (2)	1.29
+NXPH1 T25T	APOBEC activity (2)	1.65
+NCOR1 R1561Q	APOBEC activity (2)	2.05
+KCNK9 L122L	APOBEC activity (2)	1.62
+ATP10B R311Q	APOBEC activity (2)	1.98
+MYO15A R3294W	APOBEC activity (2)	1.95
+FAT1 R937*	APOBEC activity (2)	1.91
+HRAS Q61L	APOBEC activity (2)	0.64
+TP53 R337C	APOBEC activity (2)	0
+TP53 H179R	APOBEC activity (2)	0
+METTL16 C 2323149 T NCSNV	APOBEC activity (2)	1.31
+SLC8A2 L195L	APOBEC activity (2)	1.27
+IFFO1 L292L	APOBEC activity (2)	1.29
+TP53 Q331Q	APOBEC activity (2)	1.19
+CNKSR1 L350L	APOBEC activity (2)	1.03
+PKHD1L1 R1654Q	APOBEC activity (2)	1.24
+HRAS G12D	APOBEC activity (2)	0.76
+FCRL3 V288V	APOBEC activity (2)	1.36
+DENND5B G1023E	APOBEC activity (2)	1.17
+TP53 Y234C	APOBEC activity (2)	0
+PIK3CA Q546R	APOBEC activity (2)	1.41
+LRRC4C E637Q	APOBEC activity (2)	0.14
+GPR158 L9L	APOBEC activity (2)	1.17
+HIST1H3C K37M	APOBEC activity (2)	1.37
+FCAR V233M	APOBEC activity (2)	1.2
+CDKN2A L165L	APOBEC activity (2)	0.83
+CSMD3 R3127Q	APOBEC activity (2)	0
+DPP10 T 116257182 A NCSNV	APOBEC activity (2)	0
+TP53 C238F	APOBEC activity (2)	0.6
+FBXW7 R543G	APOBEC activity (2)	1.15
+MFSD10 R138Q	APOBEC activity (2)	1.14
+CORO2B A156T	APOBEC activity (2)	0
+KIAA0100 V1227V	APOBEC activity (2)	0
+DUOXA1 R332C	APOBEC activity (2)	1.07
+HLA-B R7*	APOBEC activity (2)	1.01
+HLA-A R7*	APOBEC activity (2)	0.99
+SMARCA4 P913L	APOBEC activity (2)	0.94
+CDKN2A G 21971208 A NCSNV	APOBEC activity (2)	0.74
+AKAP9 Q3406K	APOBEC activity (2)	0.45
+EPHB3 R420H	APOBEC activity (2)	0
+CTNNA2 A67T	APOBEC activity (2)	0.22
+CDKN2A G166R	APOBEC activity (2)	0.57
+PPP4R4 T89M	APOBEC activity (2)	0.43
+TP53 R280G	APOBEC activity (2)	0.82
+REG1A C 79364340 T NCSNV	APOBEC activity (2)	0
+MAGEB3 V75A	APOBEC activity (2)	0
+ASXL1 R693*	APOBEC activity (2)	0
+MTTP G749G	APOBEC activity (2)	0
+C12orf60 T120T	APOBEC activity (2)	0
+CASP8 R127*	APOBEC activity (2)	0.69
+PDE3A L275L	APOBEC activity (2)	0.32
+SALL1 P1109P	APOBEC activity (2)	0.51
+OR8I2 A67S	APOBEC activity (2)	0
+FXYD5 R145W	APOBEC activity (2)	0.54
+KDM6A R526*	APOBEC activity (2)	0.51
+IZUMO4 T11T	APOBEC activity (2)	0
+HTR1A L166L	APOBEC activity (2)	0.39
+VPS39 P578P	APOBEC activity (2)	0.48
+RPA1 R31H	APOBEC activity (2)	0.36
+PHLDB2 V1139V	APOBEC activity (2)	0.22
+KIR3DL1 V405I	APOBEC activity (2)	0.43
+C9 D312N	APOBEC activity (2)	0
+GRM8 G50D	APOBEC activity (2)	0.41
+COL22A1 P1601L	APOBEC activity (2)	0.4
+TENM1 R366M	APOBEC activity (2)	0
+GFRA3 A208A	APOBEC activity (2)	0.38
+CDH9 T737M	APOBEC activity (2)	0.37
+MYH13 K1852N	APOBEC activity (2)	0.12
+SLC5A7 G336C	APOBEC activity (2)	0
+KSR2 T584M	APOBEC activity (2)	0.2
+CDKN2A G 21970900 T NCSNV	APOBEC activity (2)	0
+SLC34A1 R507H	APOBEC activity (2)	0
+NOTCH1 A465T	APOBEC activity (2)	0
+MAP3K7 Y300C	APOBEC activity (2)	0
+FBXL13 R308W	APOBEC activity (2)	0.24
+OBP2A T107M	APOBEC activity (2)	0.23
+TNIK R949H	APOBEC activity (2)	0
+SYT6 R249H	APOBEC activity (2)	0.09
+CDKN2A G 21971000 T NCSNV	APOBEC activity (2)	0
+ADAMTS18 H78H	APOBEC activity (2)	0.18
+THSD7A C728F	APOBEC activity (2)	0
+USH2A N3137N	APOBEC activity (2)	0.15
+HCN1 V381V	APOBEC activity (2)	0
+SLC24A4 E137K	APOBEC activity (2)	0
+PCDHA13 D481D	APOBEC activity (2)	0.12
+MYH7 V411I	APOBEC activity (2)	0.12
+OR4C6 A214A	APOBEC activity (2)	0.11
+CNTNAP2 C745C	APOBEC activity (2)	0
+PFAS Y1202Y	APOBEC activity (2)	0.09
+ZFHX4 G754R	APOBEC activity (2)	0.09
+TMEM132D A56V	APOBEC activity (2)	0
+PCDHA4 N451N	APOBEC activity (2)	0.06
+PIK3CA H1047R	APOBEC activity (2)	0
+TP53 R282W	APOBEC activity (2)	0
+TP53 R248Q	APOBEC activity (2)	0
+TP53 V157F	APOBEC activity (2)	0
+TP53 Y236C	APOBEC activity (2)	0
+TP53 R337L	APOBEC activity (2)	0
+TP53 T125T	APOBEC activity (2)	0
+MAGEB1 P274P	APOBEC activity (2)	0
+HRAS G13R	APOBEC activity (2)	0
+OR11H12 Q30K	APOBEC activity (2)	0
+TP53 L201*	APOBEC activity (2)	0
+TP53 V272M	APOBEC activity (2)	0
+TP53 T 7577017 G NCSNV	APOBEC activity (2)	0
+TP53 G 7579311 T NCSNV	APOBEC activity (2)	0
+CREBBP R1446C	APOBEC activity (2)	0
+SLCO1C1 S362R	APOBEC activity (2)	0
+CEP164 N79N	APOBEC activity (2)	0
+GUCY2C S606S	APOBEC activity (2)	0
+TMTC2 T409R	APOBEC activity (2)	0
+PLXND1 G913R	APOBEC activity (2)	0
+BZRAP1 R1376K	APOBEC activity (2)	0
+SGCE R173H	APOBEC activity (2)	0
+NLRP8 V428I	APOBEC activity (2)	0
+PDZD2 R953*	APOBEC activity (2)	0
+HRAS G12C	APOBEC activity (2)	0
+NRD1 E181E	APOBEC activity (2)	0
+EDIL3 Q173K	APOBEC activity (2)	0
+HIST1H3I K37M	APOBEC activity (2)	0
+IVD G408W	APOBEC activity (2)	0
+ATP7B V831I	APOBEC activity (2)	0
+MYOM1 R63Q	APOBEC activity (2)	0
+PCDH17 N579N	APOBEC activity (2)	0
+SLMAP A 57743311 G NCSNV	APOBEC activity (2)	0
+SDR9C7 A104A	APOBEC activity (2)	0
+TCF21 A124A	APOBEC activity (2)	0
+CCSER2 Y766C	APOBEC activity (2)	0
+CHCHD4 T92M	APOBEC activity (2)	0
+TRHR V272L	APOBEC activity (2)	0
+OR2T33 D153D	APOBEC activity (2)	0
+MASP1 T215A	APOBEC activity (2)	0
+PRB3 R39*	APOBEC activity (2)	0
+H3F3B K37M	APOBEC activity (2)	0
+HPN A 35557003 T NCSNV	APOBEC activity (2)	0
+POLI V117L	APOBEC activity (2)	0
+GABBR2 W149*	APOBEC activity (2)	0
 PIK3CA E545K	Selection from 3	2.4155857385399
 TP53 R283P	Selection from 3	675.33
 PIK3CA E542K	Selection from 3	0
@@ -1499,306 +1799,306 @@ H3F3B K37M	Selection from 3	0
 HPN A 35557003 T NCSNV	Selection from 3	1.85
 POLI V117L	Selection from 3	11.13
 GABBR2 W149*	Selection from 3	0
-PIK3CA E545K	Selection from 4	0
-TP53 R283P	Selection from 4	0
-PIK3CA E542K	Selection from 4	0
-TP53 R196P	Selection from 4	0
-CCDC50 S.S.	Selection from 4	0
-HRAS G13V	Selection from 4	0
-TP53 R213*	Selection from 4	0
-TP53 P278S	Selection from 4	0
-TP53 E298*	Selection from 4	1068
-TP53 R175H	Selection from 4	0
-FAT1 E1994*	Selection from 4	0
-FBXW7 R505G	Selection from 4	0
-ZBTB10 C 81471465 G NCSNV	Selection from 4	0
-C9orf53 C 21968242 T NCSNV	Selection from 4	0
-TP53 E294*	Selection from 4	0
-BCAS1 C 52491801 G NCSNV	Selection from 4	0
-EPHA2 S419*	Selection from 4	0
-FAM21C E1034K	Selection from 4	0
-EPHA3 T802R	Selection from 4	0
-EYS G 66498423 A NCSNV	Selection from 4	0
-NOTCH1 E455K	Selection from 4	0
-TP53 R273C	Selection from 4	0
-TP53 G245S	Selection from 4	0
-CASP8 Q524*	Selection from 4	0
-TP53 R196*	Selection from 4	0
-AP1G2 D243N	Selection from 4	0.39
-NCOR1 P1081L	Selection from 4	0
-CASP8 R292W	Selection from 4	0
-TP53 E56*	Selection from 4	0
-HIST2H2BE F71L	Selection from 4	0
-MAPK1 E322K	Selection from 4	0
-TGFBR2 E544K	Selection from 4	0
-TP53 Q144*	Selection from 4	0
-MAP2 E865*	Selection from 4	0
-MB21D2 Q311E	Selection from 4	0
-APC R283Q	Selection from 4	0.42
-TSHZ3 E841*	Selection from 4	0
-ZNF43 G422A	Selection from 4	0
-CNNM3 E422K	Selection from 4	0
-ZZZ3 R5Q	Selection from 4	0
-RAC1 A178V	Selection from 4	0
-NFE2L2 E79K	Selection from 4	0
-RHOA E40Q	Selection from 4	0
-TP53 H193L	Selection from 4	0
-TP53 S106R	Selection from 4	0
-ARHGAP9 G 57868406 A NCSNV	Selection from 4	0
-CASP8 R494*	Selection from 4	0
-FAT1 R885*	Selection from 4	0
-TP53 G266E	Selection from 4	0
-NFE2L2 D29H	Selection from 4	0
-KIAA1109 I225M	Selection from 4	0
-MYH9 E530K	Selection from 4	0
-TP53 E285K	Selection from 4	0
-HOXB5 E170K	Selection from 4	0
-SLC44A2 F459F	Selection from 4	0
-TP53 Q192*	Selection from 4	0
-TP53 V173M	Selection from 4	0
-FAM21C D460N	Selection from 4	0
-CDKN2A P135L	Selection from 4	0
-TP53 E68*	Selection from 4	6.76
-ZNF253 C 20003622 G NCSNV	Selection from 4	0
-TP53 R110L	Selection from 4	0
-NCOR1 E2306K	Selection from 4	0
-OR4F15 R183W	Selection from 4	0
-SMTN E901K	Selection from 4	0
-TP53 R158L	Selection from 4	113.38
-CDT1 C 88870221 T NCSNV	Selection from 4	0
-TP53 R248W	Selection from 4	0
-CCDC135 E313K	Selection from 4	0
-TP53 Y163C	Selection from 4	0
-TP53 R306*	Selection from 4	0
-CDK20 G 90744635 A NCSNV	Selection from 4	0.14
-HLA-B Q250E	Selection from 4	0
-ANKHD1 L376V	Selection from 4	0
-AL117190.3 C 101421722 T NCSNV	Selection from 4	7.07
-KRT14 G 39740666 A NCSNV	Selection from 4	0
-MYC S161L	Selection from 4	0
-B2M E97K	Selection from 4	0
-PLEKHG4 E744K	Selection from 4	1.62
-UMODL1 L581L	Selection from 4	0
-NSD1 R788*	Selection from 4	0
-SMPDL3B F275F	Selection from 4	0
-HRAS G12S	Selection from 4	0
-SLC27A1 F620F	Selection from 4	0
-WTAP E346K	Selection from 4	0
-TP53 R249S	Selection from 4	0
-TP53 Q331*	Selection from 4	0
-KIAA1407 R673W	Selection from 4	0
-TGFBR2 S320*	Selection from 4	0
-OR2D3 R70C	Selection from 4	0
-SP140L D419N	Selection from 4	0
-TSPYL5 S193L	Selection from 4	0.17
-NFE2L2 E79Q	Selection from 4	0
-HUWE1 E3771K	Selection from 4	0
-KIAA0226 G 197349060 A NCSNV	Selection from 4	0
-TP53 C176Y	Selection from 4	0
-FAT1 S3373*	Selection from 4	0
-FAT1 S1200*	Selection from 4	0
-HUWE1 E4177K	Selection from 4	0
-ITGB1 D158N	Selection from 4	0
-TP53 Q136*	Selection from 4	0
-CASP8 R472*	Selection from 4	0
-TP53 C242F	Selection from 4	26.21
-FLOT1 G 30698343 C NCSNV	Selection from 4	0
-GIGYF2 S221*	Selection from 4	0
-ZNF710 F388F	Selection from 4	0
-TP53 G245V	Selection from 4	0
-TBX21 E494K	Selection from 4	0
-TMCO6 C 140021368 T NCSNV	Selection from 4	0
-TNN D1091N	Selection from 4	0
-PARP2 M432I	Selection from 4	0
-SPRR2B P69P	Selection from 4	0
-CDKN2A G124V	Selection from 4	0
-MGAM S703F	Selection from 4	2.87
-PCDHGA12 A329A	Selection from 4	0
-LTN1 F1252F	Selection from 4	0
-HHIPL2 F67F	Selection from 4	0.34
-MYH9 E457K	Selection from 4	0
-CDKN2A P113L	Selection from 4	0
-FANCD2OS F33L	Selection from 4	0
-MRAP E28E	Selection from 4	0
-PADI3 P481P	Selection from 4	0
-ANKRD11 S769*	Selection from 4	0
-DNAH5 Q1797E	Selection from 4	0
-PIK3CG A156V	Selection from 4	0
-PSG8 S395F	Selection from 4	0.1
-NRXN3 E1218K	Selection from 4	1.48
-CEP68 C 65296555 T NCSNV	Selection from 4	25.28
-CCDC110 R111C	Selection from 4	0
-TP53 H179Y	Selection from 4	0
-CDKN2A G143V	Selection from 4	0
-CASP8 T 202137501 C NCSNV	Selection from 4	0
-LRRN3 L190V	Selection from 4	0
-PLCG2 L1038L	Selection from 4	0
-IFT140 E664K	Selection from 4	0
-TP53 P151S	Selection from 4	0
-BTBD8 F178F	Selection from 4	0
-TP53 Y220C	Selection from 4	0
-TP53 R273H	Selection from 4	0
-PRDM9 R77Q	Selection from 4	0
-ZNF510 S321*	Selection from 4	0
-PCDHA10 A481T	Selection from 4	0
-IKZF1 Q156Q	Selection from 4	0
-MCF2L R985Q	Selection from 4	0
-PGBD1 L412L	Selection from 4	0
-KCNA4 E280K	Selection from 4	0
-NRXN1 R1256H	Selection from 4	0
-FAT1 R3400*	Selection from 4	0
-CDKN2A R163L	Selection from 4	19.31
-DNAH6 R442H	Selection from 4	0
-FAT1 Q1694*	Selection from 4	0
-TP53 G 7578176 T NCSNV	Selection from 4	0
-TP53 V143M	Selection from 4	0
-AJUBA Q103*	Selection from 4	0
-PAMR1 I580I	Selection from 4	0
-KMT2D R1252*	Selection from 4	2.39
-C6orf118 T328T	Selection from 4	0
-TP53 H193P	Selection from 4	0
-TDRD6 E1997*	Selection from 4	10.99
-CDH7 Q225K	Selection from 4	10.92
-PTOV1 L99L	Selection from 4	0
-NLRP5 E751K	Selection from 4	0
-FLG A2503V	Selection from 4	0
-NCOA1 L1361L	Selection from 4	0
-NXPH1 T25T	Selection from 4	0
-NCOR1 R1561Q	Selection from 4	0
-KCNK9 L122L	Selection from 4	0
-ATP10B R311Q	Selection from 4	0.54
-MYO15A R3294W	Selection from 4	0
-FAT1 R937*	Selection from 4	0
-HRAS Q61L	Selection from 4	14.62
-TP53 R337C	Selection from 4	0
-TP53 H179R	Selection from 4	0
-METTL16 C 2323149 T NCSNV	Selection from 4	0
-SLC8A2 L195L	Selection from 4	0
-IFFO1 L292L	Selection from 4	0
-TP53 Q331Q	Selection from 4	0
-CNKSR1 L350L	Selection from 4	0
-PKHD1L1 R1654Q	Selection from 4	0
-HRAS G12D	Selection from 4	0
-FCRL3 V288V	Selection from 4	0
-DENND5B G1023E	Selection from 4	0
-TP53 Y234C	Selection from 4	0
-PIK3CA Q546R	Selection from 4	0
-LRRC4C E637Q	Selection from 4	0
-GPR158 L9L	Selection from 4	0.53
-HIST1H3C K37M	Selection from 4	0
-FCAR V233M	Selection from 4	0
-CDKN2A L165L	Selection from 4	0
-CSMD3 R3127Q	Selection from 4	0.43
-DPP10 T 116257182 A NCSNV	Selection from 4	18.07
-TP53 C238F	Selection from 4	15
-FBXW7 R543G	Selection from 4	0
-MFSD10 R138Q	Selection from 4	0
-CORO2B A156T	Selection from 4	0
-KIAA0100 V1227V	Selection from 4	0.13
-DUOXA1 R332C	Selection from 4	0
-HLA-B R7*	Selection from 4	0
-HLA-A R7*	Selection from 4	0
-SMARCA4 P913L	Selection from 4	0
-CDKN2A G 21971208 A NCSNV	Selection from 4	0.03
-AKAP9 Q3406K	Selection from 4	0
-EPHB3 R420H	Selection from 4	0
-CTNNA2 A67T	Selection from 4	0
-CDKN2A G166R	Selection from 4	0
-PPP4R4 T89M	Selection from 4	0
-TP53 R280G	Selection from 4	0
-REG1A C 79364340 T NCSNV	Selection from 4	0
-MAGEB3 V75A	Selection from 4	14.45
-ASXL1 R693*	Selection from 4	0
-MTTP G749G	Selection from 4	0
-C12orf60 T120T	Selection from 4	0
-CASP8 R127*	Selection from 4	0
-PDE3A L275L	Selection from 4	0
-SALL1 P1109P	Selection from 4	0
-OR8I2 A67S	Selection from 4	19.59
-FXYD5 R145W	Selection from 4	0
-KDM6A R526*	Selection from 4	0
-IZUMO4 T11T	Selection from 4	0
-HTR1A L166L	Selection from 4	0
-VPS39 P578P	Selection from 4	0
-RPA1 R31H	Selection from 4	0.27
-PHLDB2 V1139V	Selection from 4	0
-KIR3DL1 V405I	Selection from 4	0
-C9 D312N	Selection from 4	0
-GRM8 G50D	Selection from 4	1.03
-COL22A1 P1601L	Selection from 4	0
-TENM1 R366M	Selection from 4	26.53
-GFRA3 A208A	Selection from 4	0
-CDH9 T737M	Selection from 4	0
-MYH13 K1852N	Selection from 4	1.86
-SLC5A7 G336C	Selection from 4	9.66
-KSR2 T584M	Selection from 4	0
-CDKN2A G 21970900 T NCSNV	Selection from 4	1.76
-SLC34A1 R507H	Selection from 4	0
-NOTCH1 A465T	Selection from 4	0
-MAP3K7 Y300C	Selection from 4	0.96
-FBXL13 R308W	Selection from 4	0.48
-OBP2A T107M	Selection from 4	0
-TNIK R949H	Selection from 4	3.37
-SYT6 R249H	Selection from 4	0
-CDKN2A G 21971000 T NCSNV	Selection from 4	0
-ADAMTS18 H78H	Selection from 4	0
-THSD7A C728F	Selection from 4	6.25
-USH2A N3137N	Selection from 4	0
-HCN1 V381V	Selection from 4	4.76
-SLC24A4 E137K	Selection from 4	0
-PCDHA13 D481D	Selection from 4	0
-MYH7 V411I	Selection from 4	0
-OR4C6 A214A	Selection from 4	0
-CNTNAP2 C745C	Selection from 4	0
-PFAS Y1202Y	Selection from 4	0
-ZFHX4 G754R	Selection from 4	0
-TMEM132D A56V	Selection from 4	0
-PCDHA4 N451N	Selection from 4	0.39
-PIK3CA H1047R	Selection from 4	0
-TP53 R282W	Selection from 4	0
-TP53 R248Q	Selection from 4	0
-TP53 V157F	Selection from 4	821.71
-TP53 Y236C	Selection from 4	0
-TP53 R337L	Selection from 4	260.14
-TP53 T125T	Selection from 4	51.46
-MAGEB1 P274P	Selection from 4	0
-HRAS G13R	Selection from 4	0
-OR11H12 Q30K	Selection from 4	22.56
-TP53 L201*	Selection from 4	0
-TP53 V272M	Selection from 4	19.09
-TP53 T 7577017 G NCSNV	Selection from 4	0
-TP53 G 7579311 T NCSNV	Selection from 4	21.82
-CREBBP R1446C	Selection from 4	10.17
-SLCO1C1 S362R	Selection from 4	3.56
-CEP164 N79N	Selection from 4	0
-GUCY2C S606S	Selection from 4	8.03
-TMTC2 T409R	Selection from 4	214.66
-PLXND1 G913R	Selection from 4	0
-BZRAP1 R1376K	Selection from 4	3.75
-SGCE R173H	Selection from 4	0
-NLRP8 V428I	Selection from 4	0
-PDZD2 R953*	Selection from 4	2.89
-HRAS G12C	Selection from 4	0
-NRD1 E181E	Selection from 4	4.63
-EDIL3 Q173K	Selection from 4	57.88
-HIST1H3I K37M	Selection from 4	0
-IVD G408W	Selection from 4	38.8
-ATP7B V831I	Selection from 4	0
-MYOM1 R63Q	Selection from 4	16.05
-PCDH17 N579N	Selection from 4	0.33
-SLMAP A 57743311 G NCSNV	Selection from 4	0
-SDR9C7 A104A	Selection from 4	0
-TCF21 A124A	Selection from 4	0
-CCSER2 Y766C	Selection from 4	3.57
-CHCHD4 T92M	Selection from 4	0.63
-TRHR V272L	Selection from 4	0
-OR2T33 D153D	Selection from 4	0
-MASP1 T215A	Selection from 4	20.05
-PRB3 R39*	Selection from 4	0
-H3F3B K37M	Selection from 4	0
-HPN A 35557003 T NCSNV	Selection from 4	30.01
-POLI V117L	Selection from 4	20.24
-GABBR2 W149*	Selection from 4	0
+PIK3CA E545K	Exposure to tobacco carcinogens (4)	0
+TP53 R283P	Exposure to tobacco carcinogens (4)	0
+PIK3CA E542K	Exposure to tobacco carcinogens (4)	0
+TP53 R196P	Exposure to tobacco carcinogens (4)	0
+CCDC50 S.S.	Exposure to tobacco carcinogens (4)	0
+HRAS G13V	Exposure to tobacco carcinogens (4)	0
+TP53 R213*	Exposure to tobacco carcinogens (4)	0
+TP53 P278S	Exposure to tobacco carcinogens (4)	0
+TP53 E298*	Exposure to tobacco carcinogens (4)	1068
+TP53 R175H	Exposure to tobacco carcinogens (4)	0
+FAT1 E1994*	Exposure to tobacco carcinogens (4)	0
+FBXW7 R505G	Exposure to tobacco carcinogens (4)	0
+ZBTB10 C 81471465 G NCSNV	Exposure to tobacco carcinogens (4)	0
+C9orf53 C 21968242 T NCSNV	Exposure to tobacco carcinogens (4)	0
+TP53 E294*	Exposure to tobacco carcinogens (4)	0
+BCAS1 C 52491801 G NCSNV	Exposure to tobacco carcinogens (4)	0
+EPHA2 S419*	Exposure to tobacco carcinogens (4)	0
+FAM21C E1034K	Exposure to tobacco carcinogens (4)	0
+EPHA3 T802R	Exposure to tobacco carcinogens (4)	0
+EYS G 66498423 A NCSNV	Exposure to tobacco carcinogens (4)	0
+NOTCH1 E455K	Exposure to tobacco carcinogens (4)	0
+TP53 R273C	Exposure to tobacco carcinogens (4)	0
+TP53 G245S	Exposure to tobacco carcinogens (4)	0
+CASP8 Q524*	Exposure to tobacco carcinogens (4)	0
+TP53 R196*	Exposure to tobacco carcinogens (4)	0
+AP1G2 D243N	Exposure to tobacco carcinogens (4)	0.39
+NCOR1 P1081L	Exposure to tobacco carcinogens (4)	0
+CASP8 R292W	Exposure to tobacco carcinogens (4)	0
+TP53 E56*	Exposure to tobacco carcinogens (4)	0
+HIST2H2BE F71L	Exposure to tobacco carcinogens (4)	0
+MAPK1 E322K	Exposure to tobacco carcinogens (4)	0
+TGFBR2 E544K	Exposure to tobacco carcinogens (4)	0
+TP53 Q144*	Exposure to tobacco carcinogens (4)	0
+MAP2 E865*	Exposure to tobacco carcinogens (4)	0
+MB21D2 Q311E	Exposure to tobacco carcinogens (4)	0
+APC R283Q	Exposure to tobacco carcinogens (4)	0.42
+TSHZ3 E841*	Exposure to tobacco carcinogens (4)	0
+ZNF43 G422A	Exposure to tobacco carcinogens (4)	0
+CNNM3 E422K	Exposure to tobacco carcinogens (4)	0
+ZZZ3 R5Q	Exposure to tobacco carcinogens (4)	0
+RAC1 A178V	Exposure to tobacco carcinogens (4)	0
+NFE2L2 E79K	Exposure to tobacco carcinogens (4)	0
+RHOA E40Q	Exposure to tobacco carcinogens (4)	0
+TP53 H193L	Exposure to tobacco carcinogens (4)	0
+TP53 S106R	Exposure to tobacco carcinogens (4)	0
+ARHGAP9 G 57868406 A NCSNV	Exposure to tobacco carcinogens (4)	0
+CASP8 R494*	Exposure to tobacco carcinogens (4)	0
+FAT1 R885*	Exposure to tobacco carcinogens (4)	0
+TP53 G266E	Exposure to tobacco carcinogens (4)	0
+NFE2L2 D29H	Exposure to tobacco carcinogens (4)	0
+KIAA1109 I225M	Exposure to tobacco carcinogens (4)	0
+MYH9 E530K	Exposure to tobacco carcinogens (4)	0
+TP53 E285K	Exposure to tobacco carcinogens (4)	0
+HOXB5 E170K	Exposure to tobacco carcinogens (4)	0
+SLC44A2 F459F	Exposure to tobacco carcinogens (4)	0
+TP53 Q192*	Exposure to tobacco carcinogens (4)	0
+TP53 V173M	Exposure to tobacco carcinogens (4)	0
+FAM21C D460N	Exposure to tobacco carcinogens (4)	0
+CDKN2A P135L	Exposure to tobacco carcinogens (4)	0
+TP53 E68*	Exposure to tobacco carcinogens (4)	6.76
+ZNF253 C 20003622 G NCSNV	Exposure to tobacco carcinogens (4)	0
+TP53 R110L	Exposure to tobacco carcinogens (4)	0
+NCOR1 E2306K	Exposure to tobacco carcinogens (4)	0
+OR4F15 R183W	Exposure to tobacco carcinogens (4)	0
+SMTN E901K	Exposure to tobacco carcinogens (4)	0
+TP53 R158L	Exposure to tobacco carcinogens (4)	113.38
+CDT1 C 88870221 T NCSNV	Exposure to tobacco carcinogens (4)	0
+TP53 R248W	Exposure to tobacco carcinogens (4)	0
+CCDC135 E313K	Exposure to tobacco carcinogens (4)	0
+TP53 Y163C	Exposure to tobacco carcinogens (4)	0
+TP53 R306*	Exposure to tobacco carcinogens (4)	0
+CDK20 G 90744635 A NCSNV	Exposure to tobacco carcinogens (4)	0.14
+HLA-B Q250E	Exposure to tobacco carcinogens (4)	0
+ANKHD1 L376V	Exposure to tobacco carcinogens (4)	0
+AL117190.3 C 101421722 T NCSNV	Exposure to tobacco carcinogens (4)	7.07
+KRT14 G 39740666 A NCSNV	Exposure to tobacco carcinogens (4)	0
+MYC S161L	Exposure to tobacco carcinogens (4)	0
+B2M E97K	Exposure to tobacco carcinogens (4)	0
+PLEKHG4 E744K	Exposure to tobacco carcinogens (4)	1.62
+UMODL1 L581L	Exposure to tobacco carcinogens (4)	0
+NSD1 R788*	Exposure to tobacco carcinogens (4)	0
+SMPDL3B F275F	Exposure to tobacco carcinogens (4)	0
+HRAS G12S	Exposure to tobacco carcinogens (4)	0
+SLC27A1 F620F	Exposure to tobacco carcinogens (4)	0
+WTAP E346K	Exposure to tobacco carcinogens (4)	0
+TP53 R249S	Exposure to tobacco carcinogens (4)	0
+TP53 Q331*	Exposure to tobacco carcinogens (4)	0
+KIAA1407 R673W	Exposure to tobacco carcinogens (4)	0
+TGFBR2 S320*	Exposure to tobacco carcinogens (4)	0
+OR2D3 R70C	Exposure to tobacco carcinogens (4)	0
+SP140L D419N	Exposure to tobacco carcinogens (4)	0
+TSPYL5 S193L	Exposure to tobacco carcinogens (4)	0.17
+NFE2L2 E79Q	Exposure to tobacco carcinogens (4)	0
+HUWE1 E3771K	Exposure to tobacco carcinogens (4)	0
+KIAA0226 G 197349060 A NCSNV	Exposure to tobacco carcinogens (4)	0
+TP53 C176Y	Exposure to tobacco carcinogens (4)	0
+FAT1 S3373*	Exposure to tobacco carcinogens (4)	0
+FAT1 S1200*	Exposure to tobacco carcinogens (4)	0
+HUWE1 E4177K	Exposure to tobacco carcinogens (4)	0
+ITGB1 D158N	Exposure to tobacco carcinogens (4)	0
+TP53 Q136*	Exposure to tobacco carcinogens (4)	0
+CASP8 R472*	Exposure to tobacco carcinogens (4)	0
+TP53 C242F	Exposure to tobacco carcinogens (4)	26.21
+FLOT1 G 30698343 C NCSNV	Exposure to tobacco carcinogens (4)	0
+GIGYF2 S221*	Exposure to tobacco carcinogens (4)	0
+ZNF710 F388F	Exposure to tobacco carcinogens (4)	0
+TP53 G245V	Exposure to tobacco carcinogens (4)	0
+TBX21 E494K	Exposure to tobacco carcinogens (4)	0
+TMCO6 C 140021368 T NCSNV	Exposure to tobacco carcinogens (4)	0
+TNN D1091N	Exposure to tobacco carcinogens (4)	0
+PARP2 M432I	Exposure to tobacco carcinogens (4)	0
+SPRR2B P69P	Exposure to tobacco carcinogens (4)	0
+CDKN2A G124V	Exposure to tobacco carcinogens (4)	0
+MGAM S703F	Exposure to tobacco carcinogens (4)	2.87
+PCDHGA12 A329A	Exposure to tobacco carcinogens (4)	0
+LTN1 F1252F	Exposure to tobacco carcinogens (4)	0
+HHIPL2 F67F	Exposure to tobacco carcinogens (4)	0.34
+MYH9 E457K	Exposure to tobacco carcinogens (4)	0
+CDKN2A P113L	Exposure to tobacco carcinogens (4)	0
+FANCD2OS F33L	Exposure to tobacco carcinogens (4)	0
+MRAP E28E	Exposure to tobacco carcinogens (4)	0
+PADI3 P481P	Exposure to tobacco carcinogens (4)	0
+ANKRD11 S769*	Exposure to tobacco carcinogens (4)	0
+DNAH5 Q1797E	Exposure to tobacco carcinogens (4)	0
+PIK3CG A156V	Exposure to tobacco carcinogens (4)	0
+PSG8 S395F	Exposure to tobacco carcinogens (4)	0.1
+NRXN3 E1218K	Exposure to tobacco carcinogens (4)	1.48
+CEP68 C 65296555 T NCSNV	Exposure to tobacco carcinogens (4)	25.28
+CCDC110 R111C	Exposure to tobacco carcinogens (4)	0
+TP53 H179Y	Exposure to tobacco carcinogens (4)	0
+CDKN2A G143V	Exposure to tobacco carcinogens (4)	0
+CASP8 T 202137501 C NCSNV	Exposure to tobacco carcinogens (4)	0
+LRRN3 L190V	Exposure to tobacco carcinogens (4)	0
+PLCG2 L1038L	Exposure to tobacco carcinogens (4)	0
+IFT140 E664K	Exposure to tobacco carcinogens (4)	0
+TP53 P151S	Exposure to tobacco carcinogens (4)	0
+BTBD8 F178F	Exposure to tobacco carcinogens (4)	0
+TP53 Y220C	Exposure to tobacco carcinogens (4)	0
+TP53 R273H	Exposure to tobacco carcinogens (4)	0
+PRDM9 R77Q	Exposure to tobacco carcinogens (4)	0
+ZNF510 S321*	Exposure to tobacco carcinogens (4)	0
+PCDHA10 A481T	Exposure to tobacco carcinogens (4)	0
+IKZF1 Q156Q	Exposure to tobacco carcinogens (4)	0
+MCF2L R985Q	Exposure to tobacco carcinogens (4)	0
+PGBD1 L412L	Exposure to tobacco carcinogens (4)	0
+KCNA4 E280K	Exposure to tobacco carcinogens (4)	0
+NRXN1 R1256H	Exposure to tobacco carcinogens (4)	0
+FAT1 R3400*	Exposure to tobacco carcinogens (4)	0
+CDKN2A R163L	Exposure to tobacco carcinogens (4)	19.31
+DNAH6 R442H	Exposure to tobacco carcinogens (4)	0
+FAT1 Q1694*	Exposure to tobacco carcinogens (4)	0
+TP53 G 7578176 T NCSNV	Exposure to tobacco carcinogens (4)	0
+TP53 V143M	Exposure to tobacco carcinogens (4)	0
+AJUBA Q103*	Exposure to tobacco carcinogens (4)	0
+PAMR1 I580I	Exposure to tobacco carcinogens (4)	0
+KMT2D R1252*	Exposure to tobacco carcinogens (4)	2.39
+C6orf118 T328T	Exposure to tobacco carcinogens (4)	0
+TP53 H193P	Exposure to tobacco carcinogens (4)	0
+TDRD6 E1997*	Exposure to tobacco carcinogens (4)	10.99
+CDH7 Q225K	Exposure to tobacco carcinogens (4)	10.92
+PTOV1 L99L	Exposure to tobacco carcinogens (4)	0
+NLRP5 E751K	Exposure to tobacco carcinogens (4)	0
+FLG A2503V	Exposure to tobacco carcinogens (4)	0
+NCOA1 L1361L	Exposure to tobacco carcinogens (4)	0
+NXPH1 T25T	Exposure to tobacco carcinogens (4)	0
+NCOR1 R1561Q	Exposure to tobacco carcinogens (4)	0
+KCNK9 L122L	Exposure to tobacco carcinogens (4)	0
+ATP10B R311Q	Exposure to tobacco carcinogens (4)	0.54
+MYO15A R3294W	Exposure to tobacco carcinogens (4)	0
+FAT1 R937*	Exposure to tobacco carcinogens (4)	0
+HRAS Q61L	Exposure to tobacco carcinogens (4)	14.62
+TP53 R337C	Exposure to tobacco carcinogens (4)	0
+TP53 H179R	Exposure to tobacco carcinogens (4)	0
+METTL16 C 2323149 T NCSNV	Exposure to tobacco carcinogens (4)	0
+SLC8A2 L195L	Exposure to tobacco carcinogens (4)	0
+IFFO1 L292L	Exposure to tobacco carcinogens (4)	0
+TP53 Q331Q	Exposure to tobacco carcinogens (4)	0
+CNKSR1 L350L	Exposure to tobacco carcinogens (4)	0
+PKHD1L1 R1654Q	Exposure to tobacco carcinogens (4)	0
+HRAS G12D	Exposure to tobacco carcinogens (4)	0
+FCRL3 V288V	Exposure to tobacco carcinogens (4)	0
+DENND5B G1023E	Exposure to tobacco carcinogens (4)	0
+TP53 Y234C	Exposure to tobacco carcinogens (4)	0
+PIK3CA Q546R	Exposure to tobacco carcinogens (4)	0
+LRRC4C E637Q	Exposure to tobacco carcinogens (4)	0
+GPR158 L9L	Exposure to tobacco carcinogens (4)	0.53
+HIST1H3C K37M	Exposure to tobacco carcinogens (4)	0
+FCAR V233M	Exposure to tobacco carcinogens (4)	0
+CDKN2A L165L	Exposure to tobacco carcinogens (4)	0
+CSMD3 R3127Q	Exposure to tobacco carcinogens (4)	0.43
+DPP10 T 116257182 A NCSNV	Exposure to tobacco carcinogens (4)	18.07
+TP53 C238F	Exposure to tobacco carcinogens (4)	15
+FBXW7 R543G	Exposure to tobacco carcinogens (4)	0
+MFSD10 R138Q	Exposure to tobacco carcinogens (4)	0
+CORO2B A156T	Exposure to tobacco carcinogens (4)	0
+KIAA0100 V1227V	Exposure to tobacco carcinogens (4)	0.13
+DUOXA1 R332C	Exposure to tobacco carcinogens (4)	0
+HLA-B R7*	Exposure to tobacco carcinogens (4)	0
+HLA-A R7*	Exposure to tobacco carcinogens (4)	0
+SMARCA4 P913L	Exposure to tobacco carcinogens (4)	0
+CDKN2A G 21971208 A NCSNV	Exposure to tobacco carcinogens (4)	0.03
+AKAP9 Q3406K	Exposure to tobacco carcinogens (4)	0
+EPHB3 R420H	Exposure to tobacco carcinogens (4)	0
+CTNNA2 A67T	Exposure to tobacco carcinogens (4)	0
+CDKN2A G166R	Exposure to tobacco carcinogens (4)	0
+PPP4R4 T89M	Exposure to tobacco carcinogens (4)	0
+TP53 R280G	Exposure to tobacco carcinogens (4)	0
+REG1A C 79364340 T NCSNV	Exposure to tobacco carcinogens (4)	0
+MAGEB3 V75A	Exposure to tobacco carcinogens (4)	14.45
+ASXL1 R693*	Exposure to tobacco carcinogens (4)	0
+MTTP G749G	Exposure to tobacco carcinogens (4)	0
+C12orf60 T120T	Exposure to tobacco carcinogens (4)	0
+CASP8 R127*	Exposure to tobacco carcinogens (4)	0
+PDE3A L275L	Exposure to tobacco carcinogens (4)	0
+SALL1 P1109P	Exposure to tobacco carcinogens (4)	0
+OR8I2 A67S	Exposure to tobacco carcinogens (4)	19.59
+FXYD5 R145W	Exposure to tobacco carcinogens (4)	0
+KDM6A R526*	Exposure to tobacco carcinogens (4)	0
+IZUMO4 T11T	Exposure to tobacco carcinogens (4)	0
+HTR1A L166L	Exposure to tobacco carcinogens (4)	0
+VPS39 P578P	Exposure to tobacco carcinogens (4)	0
+RPA1 R31H	Exposure to tobacco carcinogens (4)	0.27
+PHLDB2 V1139V	Exposure to tobacco carcinogens (4)	0
+KIR3DL1 V405I	Exposure to tobacco carcinogens (4)	0
+C9 D312N	Exposure to tobacco carcinogens (4)	0
+GRM8 G50D	Exposure to tobacco carcinogens (4)	1.03
+COL22A1 P1601L	Exposure to tobacco carcinogens (4)	0
+TENM1 R366M	Exposure to tobacco carcinogens (4)	26.53
+GFRA3 A208A	Exposure to tobacco carcinogens (4)	0
+CDH9 T737M	Exposure to tobacco carcinogens (4)	0
+MYH13 K1852N	Exposure to tobacco carcinogens (4)	1.86
+SLC5A7 G336C	Exposure to tobacco carcinogens (4)	9.66
+KSR2 T584M	Exposure to tobacco carcinogens (4)	0
+CDKN2A G 21970900 T NCSNV	Exposure to tobacco carcinogens (4)	1.76
+SLC34A1 R507H	Exposure to tobacco carcinogens (4)	0
+NOTCH1 A465T	Exposure to tobacco carcinogens (4)	0
+MAP3K7 Y300C	Exposure to tobacco carcinogens (4)	0.96
+FBXL13 R308W	Exposure to tobacco carcinogens (4)	0.48
+OBP2A T107M	Exposure to tobacco carcinogens (4)	0
+TNIK R949H	Exposure to tobacco carcinogens (4)	3.37
+SYT6 R249H	Exposure to tobacco carcinogens (4)	0
+CDKN2A G 21971000 T NCSNV	Exposure to tobacco carcinogens (4)	0
+ADAMTS18 H78H	Exposure to tobacco carcinogens (4)	0
+THSD7A C728F	Exposure to tobacco carcinogens (4)	6.25
+USH2A N3137N	Exposure to tobacco carcinogens (4)	0
+HCN1 V381V	Exposure to tobacco carcinogens (4)	4.76
+SLC24A4 E137K	Exposure to tobacco carcinogens (4)	0
+PCDHA13 D481D	Exposure to tobacco carcinogens (4)	0
+MYH7 V411I	Exposure to tobacco carcinogens (4)	0
+OR4C6 A214A	Exposure to tobacco carcinogens (4)	0
+CNTNAP2 C745C	Exposure to tobacco carcinogens (4)	0
+PFAS Y1202Y	Exposure to tobacco carcinogens (4)	0
+ZFHX4 G754R	Exposure to tobacco carcinogens (4)	0
+TMEM132D A56V	Exposure to tobacco carcinogens (4)	0
+PCDHA4 N451N	Exposure to tobacco carcinogens (4)	0.39
+PIK3CA H1047R	Exposure to tobacco carcinogens (4)	0
+TP53 R282W	Exposure to tobacco carcinogens (4)	0
+TP53 R248Q	Exposure to tobacco carcinogens (4)	0
+TP53 V157F	Exposure to tobacco carcinogens (4)	821.71
+TP53 Y236C	Exposure to tobacco carcinogens (4)	0
+TP53 R337L	Exposure to tobacco carcinogens (4)	260.14
+TP53 T125T	Exposure to tobacco carcinogens (4)	51.46
+MAGEB1 P274P	Exposure to tobacco carcinogens (4)	0
+HRAS G13R	Exposure to tobacco carcinogens (4)	0
+OR11H12 Q30K	Exposure to tobacco carcinogens (4)	22.56
+TP53 L201*	Exposure to tobacco carcinogens (4)	0
+TP53 V272M	Exposure to tobacco carcinogens (4)	19.09
+TP53 T 7577017 G NCSNV	Exposure to tobacco carcinogens (4)	0
+TP53 G 7579311 T NCSNV	Exposure to tobacco carcinogens (4)	21.82
+CREBBP R1446C	Exposure to tobacco carcinogens (4)	10.17
+SLCO1C1 S362R	Exposure to tobacco carcinogens (4)	3.56
+CEP164 N79N	Exposure to tobacco carcinogens (4)	0
+GUCY2C S606S	Exposure to tobacco carcinogens (4)	8.03
+TMTC2 T409R	Exposure to tobacco carcinogens (4)	214.66
+PLXND1 G913R	Exposure to tobacco carcinogens (4)	0
+BZRAP1 R1376K	Exposure to tobacco carcinogens (4)	3.75
+SGCE R173H	Exposure to tobacco carcinogens (4)	0
+NLRP8 V428I	Exposure to tobacco carcinogens (4)	0
+PDZD2 R953*	Exposure to tobacco carcinogens (4)	2.89
+HRAS G12C	Exposure to tobacco carcinogens (4)	0
+NRD1 E181E	Exposure to tobacco carcinogens (4)	4.63
+EDIL3 Q173K	Exposure to tobacco carcinogens (4)	57.88
+HIST1H3I K37M	Exposure to tobacco carcinogens (4)	0
+IVD G408W	Exposure to tobacco carcinogens (4)	38.8
+ATP7B V831I	Exposure to tobacco carcinogens (4)	0
+MYOM1 R63Q	Exposure to tobacco carcinogens (4)	16.05
+PCDH17 N579N	Exposure to tobacco carcinogens (4)	0.33
+SLMAP A 57743311 G NCSNV	Exposure to tobacco carcinogens (4)	0
+SDR9C7 A104A	Exposure to tobacco carcinogens (4)	0
+TCF21 A124A	Exposure to tobacco carcinogens (4)	0
+CCSER2 Y766C	Exposure to tobacco carcinogens (4)	3.57
+CHCHD4 T92M	Exposure to tobacco carcinogens (4)	0.63
+TRHR V272L	Exposure to tobacco carcinogens (4)	0
+OR2T33 D153D	Exposure to tobacco carcinogens (4)	0
+MASP1 T215A	Exposure to tobacco carcinogens (4)	20.05
+PRB3 R39*	Exposure to tobacco carcinogens (4)	0
+H3F3B K37M	Exposure to tobacco carcinogens (4)	0
+HPN A 35557003 T NCSNV	Exposure to tobacco carcinogens (4)	30.01
+POLI V117L	Exposure to tobacco carcinogens (4)	20.24
+GABBR2 W149*	Exposure to tobacco carcinogens (4)	0
 PIK3CA E545K	Selection from 5	0
 TP53 R283P	Selection from 5	0
 PIK3CA E542K	Selection from 5	0
@@ -4199,306 +4499,306 @@ H3F3B K37M	Selection from 12	0
 HPN A 35557003 T NCSNV	Selection from 12	0
 POLI V117L	Selection from 12	0
 GABBR2 W149*	Selection from 12	0
-PIK3CA E545K	Selection from 13	510.03156196944
-TP53 R283P	Selection from 13	28.14
-PIK3CA E542K	Selection from 13	207.238426966292
-TP53 R196P	Selection from 13	226.76
-CCDC50 S.S.	Selection from 13	30.53
-HRAS G13V	Selection from 13	75.5
-TP53 R213*	Selection from 13	39.26
-TP53 P278S	Selection from 13	8.39
-TP53 E298*	Selection from 13	61.62
-TP53 R175H	Selection from 13	59.3
-FAT1 E1994*	Selection from 13	41.92
-FBXW7 R505G	Selection from 13	3804.67915110357
-ZBTB10 C 81471465 G NCSNV	Selection from 13	50.84
-C9orf53 C 21968242 T NCSNV	Selection from 13	10.25
-TP53 E294*	Selection from 13	46.69
-BCAS1 C 52491801 G NCSNV	Selection from 13	41.79
-EPHA2 S419*	Selection from 13	39.58
-FAM21C E1034K	Selection from 13	8.18
-EPHA3 T802R	Selection from 13	2.59
-EYS G 66498423 A NCSNV	Selection from 13	36.09
-NOTCH1 E455K	Selection from 13	2.97
-TP53 R273C	Selection from 13	26.4
-TP53 G245S	Selection from 13	0
-CASP8 Q524*	Selection from 13	7.68
-TP53 R196*	Selection from 13	0
-AP1G2 D243N	Selection from 13	3.1
-NCOR1 P1081L	Selection from 13	0.68
-CASP8 R292W	Selection from 13	2.8
-TP53 E56*	Selection from 13	17.91
-HIST2H2BE F71L	Selection from 13	21.15
-MAPK1 E322K	Selection from 13	50.5825576923077
-TGFBR2 E544K	Selection from 13	5.72
-TP53 Q144*	Selection from 13	7.13
-MAP2 E865*	Selection from 13	16.73
-MB21D2 Q311E	Selection from 13	19.23
-APC R283Q	Selection from 13	1.69
-TSHZ3 E841*	Selection from 13	14.04
-ZNF43 G422A	Selection from 13	21.05
-CNNM3 E422K	Selection from 13	2.82
-ZZZ3 R5Q	Selection from 13	3.47
-RAC1 A178V	Selection from 13	20.39
-NFE2L2 E79K	Selection from 13	3.45
-RHOA E40Q	Selection from 13	17.03
-TP53 H193L	Selection from 13	0
-TP53 S106R	Selection from 13	16.66
-ARHGAP9 G 57868406 A NCSNV	Selection from 13	0
-CASP8 R494*	Selection from 13	2.29
-FAT1 R885*	Selection from 13	1.61
-TP53 G266E	Selection from 13	2.48
-NFE2L2 D29H	Selection from 13	12.8
-KIAA1109 I225M	Selection from 13	13.86
-MYH9 E530K	Selection from 13	2.34
-TP53 E285K	Selection from 13	2.78
-HOXB5 E170K	Selection from 13	1.84
-SLC44A2 F459F	Selection from 13	1.31
-TP53 Q192*	Selection from 13	3.7
-TP53 V173M	Selection from 13	2.3
-FAM21C D460N	Selection from 13	4.13
-CDKN2A P135L	Selection from 13	0
-TP53 E68*	Selection from 13	9.97
-ZNF253 C 20003622 G NCSNV	Selection from 13	11.74
-TP53 R110L	Selection from 13	0
-NCOR1 E2306K	Selection from 13	3.67
-OR4F15 R183W	Selection from 13	2.08
-SMTN E901K	Selection from 13	2.64
-TP53 R158L	Selection from 13	2.58
-CDT1 C 88870221 T NCSNV	Selection from 13	2.08
-TP53 R248W	Selection from 13	0
-CCDC135 E313K	Selection from 13	2.53
-TP53 Y163C	Selection from 13	11.32
-TP53 R306*	Selection from 13	11.31
-CDK20 G 90744635 A NCSNV	Selection from 13	1.69
-HLA-B Q250E	Selection from 13	9.88
-ANKHD1 L376V	Selection from 13	9.11
-AL117190.3 C 101421722 T NCSNV	Selection from 13	0.83
-KRT14 G 39740666 A NCSNV	Selection from 13	1.36
-MYC S161L	Selection from 13	2.04
-B2M E97K	Selection from 13	2.92
-PLEKHG4 E744K	Selection from 13	2.84
-UMODL1 L581L	Selection from 13	2.31
-NSD1 R788*	Selection from 13	0
-SMPDL3B F275F	Selection from 13	2.14
-HRAS G12S	Selection from 13	0
-SLC27A1 F620F	Selection from 13	1.54
-WTAP E346K	Selection from 13	5.89
-TP53 R249S	Selection from 13	7.76
-TP53 Q331*	Selection from 13	2.52
-KIAA1407 R673W	Selection from 13	6.9
-TGFBR2 S320*	Selection from 13	6.55
-OR2D3 R70C	Selection from 13	0.71
-SP140L D419N	Selection from 13	0.75
-TSPYL5 S193L	Selection from 13	1.33
-NFE2L2 E79Q	Selection from 13	6.35
-HUWE1 E3771K	Selection from 13	1.37
-KIAA0226 G 197349060 A NCSNV	Selection from 13	3.67
-TP53 C176Y	Selection from 13	2.19
-FAT1 S3373*	Selection from 13	5.05
-FAT1 S1200*	Selection from 13	5.64
-HUWE1 E4177K	Selection from 13	1.23
-ITGB1 D158N	Selection from 13	0.91
-TP53 Q136*	Selection from 13	1.98
-CASP8 R472*	Selection from 13	0
-TP53 C242F	Selection from 13	2.07
-FLOT1 G 30698343 C NCSNV	Selection from 13	5.31
-GIGYF2 S221*	Selection from 13	5.29
-ZNF710 F388F	Selection from 13	0.72
-TP53 G245V	Selection from 13	3.89
-TBX21 E494K	Selection from 13	0.51
-TMCO6 C 140021368 T NCSNV	Selection from 13	2.17
-TNN D1091N	Selection from 13	0.87
-PARP2 M432I	Selection from 13	2.44
-SPRR2B P69P	Selection from 13	1.19
-CDKN2A G124V	Selection from 13	4.79
-MGAM S703F	Selection from 13	0.82
-PCDHGA12 A329A	Selection from 13	4.85
-LTN1 F1252F	Selection from 13	1.9
-HHIPL2 F67F	Selection from 13	0.46
-MYH9 E457K	Selection from 13	0.35
-CDKN2A P113L	Selection from 13	0
-FANCD2OS F33L	Selection from 13	4.1
-MRAP E28E	Selection from 13	0.61
-PADI3 P481P	Selection from 13	4.49
-ANKRD11 S769*	Selection from 13	4.03
-DNAH5 Q1797E	Selection from 13	4.14
-PIK3CG A156V	Selection from 13	4.17
-PSG8 S395F	Selection from 13	0.31
-NRXN3 E1218K	Selection from 13	0.61
-CEP68 C 65296555 T NCSNV	Selection from 13	0
-CCDC110 R111C	Selection from 13	3.99
-TP53 H179Y	Selection from 13	1.19
-CDKN2A G143V	Selection from 13	3.41
-CASP8 T 202137501 C NCSNV	Selection from 13	3.94
-LRRN3 L190V	Selection from 13	3.17
-PLCG2 L1038L	Selection from 13	0.81
-IFT140 E664K	Selection from 13	1.01
-TP53 P151S	Selection from 13	0
-BTBD8 F178F	Selection from 13	0.36
-TP53 Y220C	Selection from 13	0
-TP53 R273H	Selection from 13	0
-PRDM9 R77Q	Selection from 13	0.37
-ZNF510 S321*	Selection from 13	0
-PCDHA10 A481T	Selection from 13	3.05
-IKZF1 Q156Q	Selection from 13	0.65
-MCF2L R985Q	Selection from 13	0.32
-PGBD1 L412L	Selection from 13	2.8
-KCNA4 E280K	Selection from 13	0.67
-NRXN1 R1256H	Selection from 13	0.33
-FAT1 R3400*	Selection from 13	0
-CDKN2A R163L	Selection from 13	1.63
-DNAH6 R442H	Selection from 13	0.89
-FAT1 Q1694*	Selection from 13	0.93
-TP53 G 7578176 T NCSNV	Selection from 13	1.29
-TP53 V143M	Selection from 13	0
-AJUBA Q103*	Selection from 13	0.69
-PAMR1 I580I	Selection from 13	0.44
-KMT2D R1252*	Selection from 13	0
-C6orf118 T328T	Selection from 13	0.09
-TP53 H193P	Selection from 13	0
-TDRD6 E1997*	Selection from 13	0
-CDH7 Q225K	Selection from 13	1.96
-PTOV1 L99L	Selection from 13	0.71
-NLRP5 E751K	Selection from 13	0.3
-FLG A2503V	Selection from 13	1.34
-NCOA1 L1361L	Selection from 13	0.84
-NXPH1 T25T	Selection from 13	0.33
-NCOR1 R1561Q	Selection from 13	0
-KCNK9 L122L	Selection from 13	0.41
-ATP10B R311Q	Selection from 13	0.18
-MYO15A R3294W	Selection from 13	0
-FAT1 R937*	Selection from 13	0
-HRAS Q61L	Selection from 13	1.27
-TP53 R337C	Selection from 13	0.95
-TP53 H179R	Selection from 13	0
-METTL16 C 2323149 T NCSNV	Selection from 13	0.87
-SLC8A2 L195L	Selection from 13	0.45
-IFFO1 L292L	Selection from 13	0.45
-TP53 Q331Q	Selection from 13	0.4
-CNKSR1 L350L	Selection from 13	0.54
-PKHD1L1 R1654Q	Selection from 13	0.28
-HRAS G12D	Selection from 13	0.76
-FCRL3 V288V	Selection from 13	0.12
-DENND5B G1023E	Selection from 13	0.29
-TP53 Y234C	Selection from 13	1.42
-PIK3CA Q546R	Selection from 13	0
-LRRC4C E637Q	Selection from 13	1.24
-GPR158 L9L	Selection from 13	0.21
-HIST1H3C K37M	Selection from 13	0
-FCAR V233M	Selection from 13	0.12
-CDKN2A L165L	Selection from 13	0.45
-CSMD3 R3127Q	Selection from 13	1.21
-DPP10 T 116257182 A NCSNV	Selection from 13	1.2
-TP53 C238F	Selection from 13	0.6
-FBXW7 R543G	Selection from 13	0
-MFSD10 R138Q	Selection from 13	0
-CORO2B A156T	Selection from 13	1.12
-KIAA0100 V1227V	Selection from 13	1.11
-DUOXA1 R332C	Selection from 13	0.15
-HLA-B R7*	Selection from 13	0
-HLA-A R7*	Selection from 13	0
-SMARCA4 P913L	Selection from 13	0
-CDKN2A G 21971208 A NCSNV	Selection from 13	0.19
-AKAP9 Q3406K	Selection from 13	0.45
-EPHB3 R420H	Selection from 13	0.89
-CTNNA2 A67T	Selection from 13	0.65
-CDKN2A G166R	Selection from 13	0.29
-PPP4R4 T89M	Selection from 13	0
-TP53 R280G	Selection from 13	0
-REG1A C 79364340 T NCSNV	Selection from 13	0.8
-MAGEB3 V75A	Selection from 13	0.8
-ASXL1 R693*	Selection from 13	0.53
-MTTP G749G	Selection from 13	0.56
-C12orf60 T120T	Selection from 13	0.73
-CASP8 R127*	Selection from 13	0
-PDE3A L275L	Selection from 13	0.31
-SALL1 P1109P	Selection from 13	0.1
-OR8I2 A67S	Selection from 13	0.54
-FXYD5 R145W	Selection from 13	0
-KDM6A R526*	Selection from 13	0
-IZUMO4 T11T	Selection from 13	0.51
-HTR1A L166L	Selection from 13	0.09
-VPS39 P578P	Selection from 13	0
-RPA1 R31H	Selection from 13	0.09
-PHLDB2 V1139V	Selection from 13	0.22
-KIR3DL1 V405I	Selection from 13	0
-C9 D312N	Selection from 13	0.42
-GRM8 G50D	Selection from 13	0
-COL22A1 P1601L	Selection from 13	0.13
-TENM1 R366M	Selection from 13	0.39
-GFRA3 A208A	Selection from 13	0
-CDH9 T737M	Selection from 13	0
-MYH13 K1852N	Selection from 13	0.23
-SLC5A7 G336C	Selection from 13	0.33
-KSR2 T584M	Selection from 13	0.1
-CDKN2A G 21970900 T NCSNV	Selection from 13	0.2
-SLC34A1 R507H	Selection from 13	0.27
-NOTCH1 A465T	Selection from 13	0.25
-MAP3K7 Y300C	Selection from 13	0
-FBXL13 R308W	Selection from 13	0
-OBP2A T107M	Selection from 13	0
-TNIK R949H	Selection from 13	0.22
-SYT6 R249H	Selection from 13	0
-CDKN2A G 21971000 T NCSNV	Selection from 13	0.18
-ADAMTS18 H78H	Selection from 13	0
-THSD7A C728F	Selection from 13	0
-USH2A N3137N	Selection from 13	0
-HCN1 V381V	Selection from 13	0.14
-SLC24A4 E137K	Selection from 13	0.14
-PCDHA13 D481D	Selection from 13	0.04
-MYH7 V411I	Selection from 13	0
-OR4C6 A214A	Selection from 13	0
-CNTNAP2 C745C	Selection from 13	0.1
-PFAS Y1202Y	Selection from 13	0
-ZFHX4 G754R	Selection from 13	0
-TMEM132D A56V	Selection from 13	0.09
-PCDHA4 N451N	Selection from 13	0
-PIK3CA H1047R	Selection from 13	0
-TP53 R282W	Selection from 13	0
-TP53 R248Q	Selection from 13	0
-TP53 V157F	Selection from 13	0
-TP53 Y236C	Selection from 13	0
-TP53 R337L	Selection from 13	0
-TP53 T125T	Selection from 13	0
-MAGEB1 P274P	Selection from 13	0
-HRAS G13R	Selection from 13	0
-OR11H12 Q30K	Selection from 13	0
-TP53 L201*	Selection from 13	0
-TP53 V272M	Selection from 13	0
-TP53 T 7577017 G NCSNV	Selection from 13	0
-TP53 G 7579311 T NCSNV	Selection from 13	0
-CREBBP R1446C	Selection from 13	0
-SLCO1C1 S362R	Selection from 13	0
-CEP164 N79N	Selection from 13	0
-GUCY2C S606S	Selection from 13	0
-TMTC2 T409R	Selection from 13	0
-PLXND1 G913R	Selection from 13	0
-BZRAP1 R1376K	Selection from 13	0
-SGCE R173H	Selection from 13	0
-NLRP8 V428I	Selection from 13	0
-PDZD2 R953*	Selection from 13	0
-HRAS G12C	Selection from 13	0
-NRD1 E181E	Selection from 13	0
-EDIL3 Q173K	Selection from 13	0
-HIST1H3I K37M	Selection from 13	0
-IVD G408W	Selection from 13	0
-ATP7B V831I	Selection from 13	0
-MYOM1 R63Q	Selection from 13	0
-PCDH17 N579N	Selection from 13	0
-SLMAP A 57743311 G NCSNV	Selection from 13	0
-SDR9C7 A104A	Selection from 13	0
-TCF21 A124A	Selection from 13	0
-CCSER2 Y766C	Selection from 13	0
-CHCHD4 T92M	Selection from 13	0
-TRHR V272L	Selection from 13	0
-OR2T33 D153D	Selection from 13	0
-MASP1 T215A	Selection from 13	0
-PRB3 R39*	Selection from 13	0
-H3F3B K37M	Selection from 13	0
-HPN A 35557003 T NCSNV	Selection from 13	0
-POLI V117L	Selection from 13	0
-GABBR2 W149*	Selection from 13	0
+PIK3CA E545K	APOBEC activity (13)	510.03156196944
+TP53 R283P	APOBEC activity (13)	28.14
+PIK3CA E542K	APOBEC activity (13)	207.238426966292
+TP53 R196P	APOBEC activity (13)	226.76
+CCDC50 S.S.	APOBEC activity (13)	30.53
+HRAS G13V	APOBEC activity (13)	75.5
+TP53 R213*	APOBEC activity (13)	39.26
+TP53 P278S	APOBEC activity (13)	8.39
+TP53 E298*	APOBEC activity (13)	61.62
+TP53 R175H	APOBEC activity (13)	59.3
+FAT1 E1994*	APOBEC activity (13)	41.92
+FBXW7 R505G	APOBEC activity (13)	3804.67915110357
+ZBTB10 C 81471465 G NCSNV	APOBEC activity (13)	50.84
+C9orf53 C 21968242 T NCSNV	APOBEC activity (13)	10.25
+TP53 E294*	APOBEC activity (13)	46.69
+BCAS1 C 52491801 G NCSNV	APOBEC activity (13)	41.79
+EPHA2 S419*	APOBEC activity (13)	39.58
+FAM21C E1034K	APOBEC activity (13)	8.18
+EPHA3 T802R	APOBEC activity (13)	2.59
+EYS G 66498423 A NCSNV	APOBEC activity (13)	36.09
+NOTCH1 E455K	APOBEC activity (13)	2.97
+TP53 R273C	APOBEC activity (13)	26.4
+TP53 G245S	APOBEC activity (13)	0
+CASP8 Q524*	APOBEC activity (13)	7.68
+TP53 R196*	APOBEC activity (13)	0
+AP1G2 D243N	APOBEC activity (13)	3.1
+NCOR1 P1081L	APOBEC activity (13)	0.68
+CASP8 R292W	APOBEC activity (13)	2.8
+TP53 E56*	APOBEC activity (13)	17.91
+HIST2H2BE F71L	APOBEC activity (13)	21.15
+MAPK1 E322K	APOBEC activity (13)	50.5825576923077
+TGFBR2 E544K	APOBEC activity (13)	5.72
+TP53 Q144*	APOBEC activity (13)	7.13
+MAP2 E865*	APOBEC activity (13)	16.73
+MB21D2 Q311E	APOBEC activity (13)	19.23
+APC R283Q	APOBEC activity (13)	1.69
+TSHZ3 E841*	APOBEC activity (13)	14.04
+ZNF43 G422A	APOBEC activity (13)	21.05
+CNNM3 E422K	APOBEC activity (13)	2.82
+ZZZ3 R5Q	APOBEC activity (13)	3.47
+RAC1 A178V	APOBEC activity (13)	20.39
+NFE2L2 E79K	APOBEC activity (13)	3.45
+RHOA E40Q	APOBEC activity (13)	17.03
+TP53 H193L	APOBEC activity (13)	0
+TP53 S106R	APOBEC activity (13)	16.66
+ARHGAP9 G 57868406 A NCSNV	APOBEC activity (13)	0
+CASP8 R494*	APOBEC activity (13)	2.29
+FAT1 R885*	APOBEC activity (13)	1.61
+TP53 G266E	APOBEC activity (13)	2.48
+NFE2L2 D29H	APOBEC activity (13)	12.8
+KIAA1109 I225M	APOBEC activity (13)	13.86
+MYH9 E530K	APOBEC activity (13)	2.34
+TP53 E285K	APOBEC activity (13)	2.78
+HOXB5 E170K	APOBEC activity (13)	1.84
+SLC44A2 F459F	APOBEC activity (13)	1.31
+TP53 Q192*	APOBEC activity (13)	3.7
+TP53 V173M	APOBEC activity (13)	2.3
+FAM21C D460N	APOBEC activity (13)	4.13
+CDKN2A P135L	APOBEC activity (13)	0
+TP53 E68*	APOBEC activity (13)	9.97
+ZNF253 C 20003622 G NCSNV	APOBEC activity (13)	11.74
+TP53 R110L	APOBEC activity (13)	0
+NCOR1 E2306K	APOBEC activity (13)	3.67
+OR4F15 R183W	APOBEC activity (13)	2.08
+SMTN E901K	APOBEC activity (13)	2.64
+TP53 R158L	APOBEC activity (13)	2.58
+CDT1 C 88870221 T NCSNV	APOBEC activity (13)	2.08
+TP53 R248W	APOBEC activity (13)	0
+CCDC135 E313K	APOBEC activity (13)	2.53
+TP53 Y163C	APOBEC activity (13)	11.32
+TP53 R306*	APOBEC activity (13)	11.31
+CDK20 G 90744635 A NCSNV	APOBEC activity (13)	1.69
+HLA-B Q250E	APOBEC activity (13)	9.88
+ANKHD1 L376V	APOBEC activity (13)	9.11
+AL117190.3 C 101421722 T NCSNV	APOBEC activity (13)	0.83
+KRT14 G 39740666 A NCSNV	APOBEC activity (13)	1.36
+MYC S161L	APOBEC activity (13)	2.04
+B2M E97K	APOBEC activity (13)	2.92
+PLEKHG4 E744K	APOBEC activity (13)	2.84
+UMODL1 L581L	APOBEC activity (13)	2.31
+NSD1 R788*	APOBEC activity (13)	0
+SMPDL3B F275F	APOBEC activity (13)	2.14
+HRAS G12S	APOBEC activity (13)	0
+SLC27A1 F620F	APOBEC activity (13)	1.54
+WTAP E346K	APOBEC activity (13)	5.89
+TP53 R249S	APOBEC activity (13)	7.76
+TP53 Q331*	APOBEC activity (13)	2.52
+KIAA1407 R673W	APOBEC activity (13)	6.9
+TGFBR2 S320*	APOBEC activity (13)	6.55
+OR2D3 R70C	APOBEC activity (13)	0.71
+SP140L D419N	APOBEC activity (13)	0.75
+TSPYL5 S193L	APOBEC activity (13)	1.33
+NFE2L2 E79Q	APOBEC activity (13)	6.35
+HUWE1 E3771K	APOBEC activity (13)	1.37
+KIAA0226 G 197349060 A NCSNV	APOBEC activity (13)	3.67
+TP53 C176Y	APOBEC activity (13)	2.19
+FAT1 S3373*	APOBEC activity (13)	5.05
+FAT1 S1200*	APOBEC activity (13)	5.64
+HUWE1 E4177K	APOBEC activity (13)	1.23
+ITGB1 D158N	APOBEC activity (13)	0.91
+TP53 Q136*	APOBEC activity (13)	1.98
+CASP8 R472*	APOBEC activity (13)	0
+TP53 C242F	APOBEC activity (13)	2.07
+FLOT1 G 30698343 C NCSNV	APOBEC activity (13)	5.31
+GIGYF2 S221*	APOBEC activity (13)	5.29
+ZNF710 F388F	APOBEC activity (13)	0.72
+TP53 G245V	APOBEC activity (13)	3.89
+TBX21 E494K	APOBEC activity (13)	0.51
+TMCO6 C 140021368 T NCSNV	APOBEC activity (13)	2.17
+TNN D1091N	APOBEC activity (13)	0.87
+PARP2 M432I	APOBEC activity (13)	2.44
+SPRR2B P69P	APOBEC activity (13)	1.19
+CDKN2A G124V	APOBEC activity (13)	4.79
+MGAM S703F	APOBEC activity (13)	0.82
+PCDHGA12 A329A	APOBEC activity (13)	4.85
+LTN1 F1252F	APOBEC activity (13)	1.9
+HHIPL2 F67F	APOBEC activity (13)	0.46
+MYH9 E457K	APOBEC activity (13)	0.35
+CDKN2A P113L	APOBEC activity (13)	0
+FANCD2OS F33L	APOBEC activity (13)	4.1
+MRAP E28E	APOBEC activity (13)	0.61
+PADI3 P481P	APOBEC activity (13)	4.49
+ANKRD11 S769*	APOBEC activity (13)	4.03
+DNAH5 Q1797E	APOBEC activity (13)	4.14
+PIK3CG A156V	APOBEC activity (13)	4.17
+PSG8 S395F	APOBEC activity (13)	0.31
+NRXN3 E1218K	APOBEC activity (13)	0.61
+CEP68 C 65296555 T NCSNV	APOBEC activity (13)	0
+CCDC110 R111C	APOBEC activity (13)	3.99
+TP53 H179Y	APOBEC activity (13)	1.19
+CDKN2A G143V	APOBEC activity (13)	3.41
+CASP8 T 202137501 C NCSNV	APOBEC activity (13)	3.94
+LRRN3 L190V	APOBEC activity (13)	3.17
+PLCG2 L1038L	APOBEC activity (13)	0.81
+IFT140 E664K	APOBEC activity (13)	1.01
+TP53 P151S	APOBEC activity (13)	0
+BTBD8 F178F	APOBEC activity (13)	0.36
+TP53 Y220C	APOBEC activity (13)	0
+TP53 R273H	APOBEC activity (13)	0
+PRDM9 R77Q	APOBEC activity (13)	0.37
+ZNF510 S321*	APOBEC activity (13)	0
+PCDHA10 A481T	APOBEC activity (13)	3.05
+IKZF1 Q156Q	APOBEC activity (13)	0.65
+MCF2L R985Q	APOBEC activity (13)	0.32
+PGBD1 L412L	APOBEC activity (13)	2.8
+KCNA4 E280K	APOBEC activity (13)	0.67
+NRXN1 R1256H	APOBEC activity (13)	0.33
+FAT1 R3400*	APOBEC activity (13)	0
+CDKN2A R163L	APOBEC activity (13)	1.63
+DNAH6 R442H	APOBEC activity (13)	0.89
+FAT1 Q1694*	APOBEC activity (13)	0.93
+TP53 G 7578176 T NCSNV	APOBEC activity (13)	1.29
+TP53 V143M	APOBEC activity (13)	0
+AJUBA Q103*	APOBEC activity (13)	0.69
+PAMR1 I580I	APOBEC activity (13)	0.44
+KMT2D R1252*	APOBEC activity (13)	0
+C6orf118 T328T	APOBEC activity (13)	0.09
+TP53 H193P	APOBEC activity (13)	0
+TDRD6 E1997*	APOBEC activity (13)	0
+CDH7 Q225K	APOBEC activity (13)	1.96
+PTOV1 L99L	APOBEC activity (13)	0.71
+NLRP5 E751K	APOBEC activity (13)	0.3
+FLG A2503V	APOBEC activity (13)	1.34
+NCOA1 L1361L	APOBEC activity (13)	0.84
+NXPH1 T25T	APOBEC activity (13)	0.33
+NCOR1 R1561Q	APOBEC activity (13)	0
+KCNK9 L122L	APOBEC activity (13)	0.41
+ATP10B R311Q	APOBEC activity (13)	0.18
+MYO15A R3294W	APOBEC activity (13)	0
+FAT1 R937*	APOBEC activity (13)	0
+HRAS Q61L	APOBEC activity (13)	1.27
+TP53 R337C	APOBEC activity (13)	0.95
+TP53 H179R	APOBEC activity (13)	0
+METTL16 C 2323149 T NCSNV	APOBEC activity (13)	0.87
+SLC8A2 L195L	APOBEC activity (13)	0.45
+IFFO1 L292L	APOBEC activity (13)	0.45
+TP53 Q331Q	APOBEC activity (13)	0.4
+CNKSR1 L350L	APOBEC activity (13)	0.54
+PKHD1L1 R1654Q	APOBEC activity (13)	0.28
+HRAS G12D	APOBEC activity (13)	0.76
+FCRL3 V288V	APOBEC activity (13)	0.12
+DENND5B G1023E	APOBEC activity (13)	0.29
+TP53 Y234C	APOBEC activity (13)	1.42
+PIK3CA Q546R	APOBEC activity (13)	0
+LRRC4C E637Q	APOBEC activity (13)	1.24
+GPR158 L9L	APOBEC activity (13)	0.21
+HIST1H3C K37M	APOBEC activity (13)	0
+FCAR V233M	APOBEC activity (13)	0.12
+CDKN2A L165L	APOBEC activity (13)	0.45
+CSMD3 R3127Q	APOBEC activity (13)	1.21
+DPP10 T 116257182 A NCSNV	APOBEC activity (13)	1.2
+TP53 C238F	APOBEC activity (13)	0.6
+FBXW7 R543G	APOBEC activity (13)	0
+MFSD10 R138Q	APOBEC activity (13)	0
+CORO2B A156T	APOBEC activity (13)	1.12
+KIAA0100 V1227V	APOBEC activity (13)	1.11
+DUOXA1 R332C	APOBEC activity (13)	0.15
+HLA-B R7*	APOBEC activity (13)	0
+HLA-A R7*	APOBEC activity (13)	0
+SMARCA4 P913L	APOBEC activity (13)	0
+CDKN2A G 21971208 A NCSNV	APOBEC activity (13)	0.19
+AKAP9 Q3406K	APOBEC activity (13)	0.45
+EPHB3 R420H	APOBEC activity (13)	0.89
+CTNNA2 A67T	APOBEC activity (13)	0.65
+CDKN2A G166R	APOBEC activity (13)	0.29
+PPP4R4 T89M	APOBEC activity (13)	0
+TP53 R280G	APOBEC activity (13)	0
+REG1A C 79364340 T NCSNV	APOBEC activity (13)	0.8
+MAGEB3 V75A	APOBEC activity (13)	0.8
+ASXL1 R693*	APOBEC activity (13)	0.53
+MTTP G749G	APOBEC activity (13)	0.56
+C12orf60 T120T	APOBEC activity (13)	0.73
+CASP8 R127*	APOBEC activity (13)	0
+PDE3A L275L	APOBEC activity (13)	0.31
+SALL1 P1109P	APOBEC activity (13)	0.1
+OR8I2 A67S	APOBEC activity (13)	0.54
+FXYD5 R145W	APOBEC activity (13)	0
+KDM6A R526*	APOBEC activity (13)	0
+IZUMO4 T11T	APOBEC activity (13)	0.51
+HTR1A L166L	APOBEC activity (13)	0.09
+VPS39 P578P	APOBEC activity (13)	0
+RPA1 R31H	APOBEC activity (13)	0.09
+PHLDB2 V1139V	APOBEC activity (13)	0.22
+KIR3DL1 V405I	APOBEC activity (13)	0
+C9 D312N	APOBEC activity (13)	0.42
+GRM8 G50D	APOBEC activity (13)	0
+COL22A1 P1601L	APOBEC activity (13)	0.13
+TENM1 R366M	APOBEC activity (13)	0.39
+GFRA3 A208A	APOBEC activity (13)	0
+CDH9 T737M	APOBEC activity (13)	0
+MYH13 K1852N	APOBEC activity (13)	0.23
+SLC5A7 G336C	APOBEC activity (13)	0.33
+KSR2 T584M	APOBEC activity (13)	0.1
+CDKN2A G 21970900 T NCSNV	APOBEC activity (13)	0.2
+SLC34A1 R507H	APOBEC activity (13)	0.27
+NOTCH1 A465T	APOBEC activity (13)	0.25
+MAP3K7 Y300C	APOBEC activity (13)	0
+FBXL13 R308W	APOBEC activity (13)	0
+OBP2A T107M	APOBEC activity (13)	0
+TNIK R949H	APOBEC activity (13)	0.22
+SYT6 R249H	APOBEC activity (13)	0
+CDKN2A G 21971000 T NCSNV	APOBEC activity (13)	0.18
+ADAMTS18 H78H	APOBEC activity (13)	0
+THSD7A C728F	APOBEC activity (13)	0
+USH2A N3137N	APOBEC activity (13)	0
+HCN1 V381V	APOBEC activity (13)	0.14
+SLC24A4 E137K	APOBEC activity (13)	0.14
+PCDHA13 D481D	APOBEC activity (13)	0.04
+MYH7 V411I	APOBEC activity (13)	0
+OR4C6 A214A	APOBEC activity (13)	0
+CNTNAP2 C745C	APOBEC activity (13)	0.1
+PFAS Y1202Y	APOBEC activity (13)	0
+ZFHX4 G754R	APOBEC activity (13)	0
+TMEM132D A56V	APOBEC activity (13)	0.09
+PCDHA4 N451N	APOBEC activity (13)	0
+PIK3CA H1047R	APOBEC activity (13)	0
+TP53 R282W	APOBEC activity (13)	0
+TP53 R248Q	APOBEC activity (13)	0
+TP53 V157F	APOBEC activity (13)	0
+TP53 Y236C	APOBEC activity (13)	0
+TP53 R337L	APOBEC activity (13)	0
+TP53 T125T	APOBEC activity (13)	0
+MAGEB1 P274P	APOBEC activity (13)	0
+HRAS G13R	APOBEC activity (13)	0
+OR11H12 Q30K	APOBEC activity (13)	0
+TP53 L201*	APOBEC activity (13)	0
+TP53 V272M	APOBEC activity (13)	0
+TP53 T 7577017 G NCSNV	APOBEC activity (13)	0
+TP53 G 7579311 T NCSNV	APOBEC activity (13)	0
+CREBBP R1446C	APOBEC activity (13)	0
+SLCO1C1 S362R	APOBEC activity (13)	0
+CEP164 N79N	APOBEC activity (13)	0
+GUCY2C S606S	APOBEC activity (13)	0
+TMTC2 T409R	APOBEC activity (13)	0
+PLXND1 G913R	APOBEC activity (13)	0
+BZRAP1 R1376K	APOBEC activity (13)	0
+SGCE R173H	APOBEC activity (13)	0
+NLRP8 V428I	APOBEC activity (13)	0
+PDZD2 R953*	APOBEC activity (13)	0
+HRAS G12C	APOBEC activity (13)	0
+NRD1 E181E	APOBEC activity (13)	0
+EDIL3 Q173K	APOBEC activity (13)	0
+HIST1H3I K37M	APOBEC activity (13)	0
+IVD G408W	APOBEC activity (13)	0
+ATP7B V831I	APOBEC activity (13)	0
+MYOM1 R63Q	APOBEC activity (13)	0
+PCDH17 N579N	APOBEC activity (13)	0
+SLMAP A 57743311 G NCSNV	APOBEC activity (13)	0
+SDR9C7 A104A	APOBEC activity (13)	0
+TCF21 A124A	APOBEC activity (13)	0
+CCSER2 Y766C	APOBEC activity (13)	0
+CHCHD4 T92M	APOBEC activity (13)	0
+TRHR V272L	APOBEC activity (13)	0
+OR2T33 D153D	APOBEC activity (13)	0
+MASP1 T215A	APOBEC activity (13)	0
+PRB3 R39*	APOBEC activity (13)	0
+H3F3B K37M	APOBEC activity (13)	0
+HPN A 35557003 T NCSNV	APOBEC activity (13)	0
+POLI V117L	APOBEC activity (13)	0
+GABBR2 W149*	APOBEC activity (13)	0
 PIK3CA E545K	Selection from 14	0
 TP53 R283P	Selection from 14	0
 PIK3CA E542K	Selection from 14	0
@@ -5099,306 +5399,306 @@ H3F3B K37M	Selection from 15	0
 HPN A 35557003 T NCSNV	Selection from 15	0
 POLI V117L	Selection from 15	0
 GABBR2 W149*	Selection from 15	0
-PIK3CA E545K	Selection from 16	7.2444142614601
-TP53 R283P	Selection from 16	0
-PIK3CA E542K	Selection from 16	0.949719101123596
-TP53 R196P	Selection from 16	0
-CCDC50 S.S.	Selection from 16	1083.89
-HRAS G13V	Selection from 16	0
-TP53 R213*	Selection from 16	23.56
-TP53 P278S	Selection from 16	23.78
-TP53 E298*	Selection from 16	369.69
-TP53 R175H	Selection from 16	29.65
-FAT1 E1994*	Selection from 16	80.95
-FBXW7 R505G	Selection from 16	15.7235653650255
-ZBTB10 C 81471465 G NCSNV	Selection from 16	33.55
-C9orf53 C 21968242 T NCSNV	Selection from 16	0
-TP53 E294*	Selection from 16	20.01
-BCAS1 C 52491801 G NCSNV	Selection from 16	11.45
-EPHA2 S419*	Selection from 16	0
-FAM21C E1034K	Selection from 16	2.73
-EPHA3 T802R	Selection from 16	0
-EYS G 66498423 A NCSNV	Selection from 16	3.21
-NOTCH1 E455K	Selection from 16	0
-TP53 R273C	Selection from 16	0
-TP53 G245S	Selection from 16	0
-CASP8 Q524*	Selection from 16	0
-TP53 R196*	Selection from 16	0
-AP1G2 D243N	Selection from 16	0.39
-NCOR1 P1081L	Selection from 16	0
-CASP8 R292W	Selection from 16	0
-TP53 E56*	Selection from 16	9.33
-HIST2H2BE F71L	Selection from 16	0
-MAPK1 E322K	Selection from 16	0
-TGFBR2 E544K	Selection from 16	0
-TP53 Q144*	Selection from 16	14.81
-MAP2 E865*	Selection from 16	29.74
-MB21D2 Q311E	Selection from 16	0
-APC R283Q	Selection from 16	0.42
-TSHZ3 E841*	Selection from 16	30.52
-ZNF43 G422A	Selection from 16	3.88
-CNNM3 E422K	Selection from 16	1.41
-ZZZ3 R5Q	Selection from 16	5.21
-RAC1 A178V	Selection from 16	0
-NFE2L2 E79K	Selection from 16	0
-RHOA E40Q	Selection from 16	0
-TP53 H193L	Selection from 16	0
-TP53 S106R	Selection from 16	7.61
-ARHGAP9 G 57868406 A NCSNV	Selection from 16	0
-CASP8 R494*	Selection from 16	0
-FAT1 R885*	Selection from 16	0
-TP53 G266E	Selection from 16	4.52
-NFE2L2 D29H	Selection from 16	0.98
-KIAA1109 I225M	Selection from 16	0
-MYH9 E530K	Selection from 16	0
-TP53 E285K	Selection from 16	0.62
-HOXB5 E170K	Selection from 16	0
-SLC44A2 F459F	Selection from 16	0
-TP53 Q192*	Selection from 16	3.12
-TP53 V173M	Selection from 16	45.98
-FAM21C D460N	Selection from 16	0.44
-CDKN2A P135L	Selection from 16	4.54
-TP53 E68*	Selection from 16	7.12
-ZNF253 C 20003622 G NCSNV	Selection from 16	1.98
-TP53 R110L	Selection from 16	1120.82
-NCOR1 E2306K	Selection from 16	0.41
-OR4F15 R183W	Selection from 16	0.35
-SMTN E901K	Selection from 16	0.7
-TP53 R158L	Selection from 16	15.46
-CDT1 C 88870221 T NCSNV	Selection from 16	1.04
-TP53 R248W	Selection from 16	0
-CCDC135 E313K	Selection from 16	0
-TP53 Y163C	Selection from 16	243.35
-TP53 R306*	Selection from 16	0
-CDK20 G 90744635 A NCSNV	Selection from 16	0.28
-HLA-B Q250E	Selection from 16	0
-ANKHD1 L376V	Selection from 16	0.11
-AL117190.3 C 101421722 T NCSNV	Selection from 16	0
-KRT14 G 39740666 A NCSNV	Selection from 16	2.73
-MYC S161L	Selection from 16	0
-B2M E97K	Selection from 16	0.09
-PLEKHG4 E744K	Selection from 16	3.05
-UMODL1 L581L	Selection from 16	0
-NSD1 R788*	Selection from 16	11.79
-SMPDL3B F275F	Selection from 16	0.4
-HRAS G12S	Selection from 16	0
-SLC27A1 F620F	Selection from 16	0
-WTAP E346K	Selection from 16	1.76
-TP53 R249S	Selection from 16	38.78
-TP53 Q331*	Selection from 16	0.35
-KIAA1407 R673W	Selection from 16	13.04
-TGFBR2 S320*	Selection from 16	0
-OR2D3 R70C	Selection from 16	1.42
-SP140L D419N	Selection from 16	1.12
-TSPYL5 S193L	Selection from 16	0.33
-NFE2L2 E79Q	Selection from 16	0.22
-HUWE1 E3771K	Selection from 16	0
-KIAA0226 G 197349060 A NCSNV	Selection from 16	2.1
-TP53 C176Y	Selection from 16	24.14
-FAT1 S3373*	Selection from 16	0
-FAT1 S1200*	Selection from 16	0
-HUWE1 E4177K	Selection from 16	0.07
-ITGB1 D158N	Selection from 16	0.46
-TP53 Q136*	Selection from 16	24.95
-CASP8 R472*	Selection from 16	0
-TP53 C242F	Selection from 16	0
-FLOT1 G 30698343 C NCSNV	Selection from 16	0.84
-GIGYF2 S221*	Selection from 16	4.57
-ZNF710 F388F	Selection from 16	0.36
-TP53 G245V	Selection from 16	114.85
-TBX21 E494K	Selection from 16	0.13
-TMCO6 C 140021368 T NCSNV	Selection from 16	0.36
-TNN D1091N	Selection from 16	0.36
-PARP2 M432I	Selection from 16	0.06
-SPRR2B P69P	Selection from 16	0.11
-CDKN2A G124V	Selection from 16	0
-MGAM S703F	Selection from 16	3.55
-PCDHGA12 A329A	Selection from 16	0
-LTN1 F1252F	Selection from 16	0
-HHIPL2 F67F	Selection from 16	0.69
-MYH9 E457K	Selection from 16	0.35
-CDKN2A P113L	Selection from 16	0
-FANCD2OS F33L	Selection from 16	0
-MRAP E28E	Selection from 16	0
-PADI3 P481P	Selection from 16	7.77
-ANKRD11 S769*	Selection from 16	0.09
-DNAH5 Q1797E	Selection from 16	0.04
-PIK3CG A156V	Selection from 16	3.2
-PSG8 S395F	Selection from 16	0.31
-NRXN3 E1218K	Selection from 16	2.17
-CEP68 C 65296555 T NCSNV	Selection from 16	0
-CCDC110 R111C	Selection from 16	0
-TP53 H179Y	Selection from 16	7.13
-CDKN2A G143V	Selection from 16	2.75
-CASP8 T 202137501 C NCSNV	Selection from 16	0
-LRRN3 L190V	Selection from 16	0.21
-PLCG2 L1038L	Selection from 16	0.48
-IFT140 E664K	Selection from 16	0
-TP53 P151S	Selection from 16	2.94
-BTBD8 F178F	Selection from 16	0
-TP53 Y220C	Selection from 16	325.66
-TP53 R273H	Selection from 16	34.18
-PRDM9 R77Q	Selection from 16	0
-ZNF510 S321*	Selection from 16	3.82
-PCDHA10 A481T	Selection from 16	0
-IKZF1 Q156Q	Selection from 16	0.25
-MCF2L R985Q	Selection from 16	0.32
-PGBD1 L412L	Selection from 16	0.06
-KCNA4 E280K	Selection from 16	0
-NRXN1 R1256H	Selection from 16	0
-FAT1 R3400*	Selection from 16	4.92
-CDKN2A R163L	Selection from 16	3.26
-DNAH6 R442H	Selection from 16	2.68
-FAT1 Q1694*	Selection from 16	0.6
-TP53 G 7578176 T NCSNV	Selection from 16	65.68
-TP53 V143M	Selection from 16	0
-AJUBA Q103*	Selection from 16	2.23
-PAMR1 I580I	Selection from 16	0.2
-KMT2D R1252*	Selection from 16	0
-C6orf118 T328T	Selection from 16	0
-TP53 H193P	Selection from 16	138.1
-TDRD6 E1997*	Selection from 16	12.97
-CDH7 Q225K	Selection from 16	10.64
-PTOV1 L99L	Selection from 16	0.83
-NLRP5 E751K	Selection from 16	0
-FLG A2503V	Selection from 16	0
-NCOA1 L1361L	Selection from 16	0
-NXPH1 T25T	Selection from 16	0.22
-NCOR1 R1561Q	Selection from 16	2.05
-KCNK9 L122L	Selection from 16	0
-ATP10B R311Q	Selection from 16	1.08
-MYO15A R3294W	Selection from 16	1.79
-FAT1 R937*	Selection from 16	1.37
-HRAS Q61L	Selection from 16	11.44
-TP53 R337C	Selection from 16	0
-TP53 H179R	Selection from 16	140.22
-METTL16 C 2323149 T NCSNV	Selection from 16	3.05
-SLC8A2 L195L	Selection from 16	0
-IFFO1 L292L	Selection from 16	0.02
-TP53 Q331Q	Selection from 16	13.5
-CNKSR1 L350L	Selection from 16	0.59
-PKHD1L1 R1654Q	Selection from 16	0
-HRAS G12D	Selection from 16	0
-FCRL3 V288V	Selection from 16	0.07
-DENND5B G1023E	Selection from 16	3.21
-TP53 Y234C	Selection from 16	31.31
-PIK3CA Q546R	Selection from 16	63.65
-LRRC4C E637Q	Selection from 16	0.98
-GPR158 L9L	Selection from 16	1.32
-HIST1H3C K37M	Selection from 16	62.97
-FCAR V233M	Selection from 16	1.92
-CDKN2A L165L	Selection from 16	2.24
-CSMD3 R3127Q	Selection from 16	0.28
-DPP10 T 116257182 A NCSNV	Selection from 16	25.3
-TP53 C238F	Selection from 16	6
-FBXW7 R543G	Selection from 16	24.07
-MFSD10 R138Q	Selection from 16	0
-CORO2B A156T	Selection from 16	0
-KIAA0100 V1227V	Selection from 16	0.53
-DUOXA1 R332C	Selection from 16	0
-HLA-B R7*	Selection from 16	0
-HLA-A R7*	Selection from 16	0.5
-SMARCA4 P913L	Selection from 16	0
-CDKN2A G 21971208 A NCSNV	Selection from 16	0.19
-AKAP9 Q3406K	Selection from 16	4.94
-EPHB3 R420H	Selection from 16	1.18
-CTNNA2 A67T	Selection from 16	0.87
-CDKN2A G166R	Selection from 16	1.72
-PPP4R4 T89M	Selection from 16	0
-TP53 R280G	Selection from 16	0
-REG1A C 79364340 T NCSNV	Selection from 16	0.54
-MAGEB3 V75A	Selection from 16	13.64
-ASXL1 R693*	Selection from 16	0.53
-MTTP G749G	Selection from 16	0.19
-C12orf60 T120T	Selection from 16	0
-CASP8 R127*	Selection from 16	0.35
-PDE3A L275L	Selection from 16	0.3
-SALL1 P1109P	Selection from 16	1.95
-OR8I2 A67S	Selection from 16	22.32
-FXYD5 R145W	Selection from 16	1.35
-KDM6A R526*	Selection from 16	25.38
-IZUMO4 T11T	Selection from 16	4.08
-HTR1A L166L	Selection from 16	0.07
-VPS39 P578P	Selection from 16	0.16
-RPA1 R31H	Selection from 16	0.45
-PHLDB2 V1139V	Selection from 16	5.36
-KIR3DL1 V405I	Selection from 16	0
-C9 D312N	Selection from 16	0.21
-GRM8 G50D	Selection from 16	8.25
-COL22A1 P1601L	Selection from 16	9.24
-TENM1 R366M	Selection from 16	0
-GFRA3 A208A	Selection from 16	0.09
-CDH9 T737M	Selection from 16	0
-MYH13 K1852N	Selection from 16	3.94
-SLC5A7 G336C	Selection from 16	3.67
-KSR2 T584M	Selection from 16	0.98
-CDKN2A G 21970900 T NCSNV	Selection from 16	0.27
-SLC34A1 R507H	Selection from 16	0
-NOTCH1 A465T	Selection from 16	0.25
-MAP3K7 Y300C	Selection from 16	15.81
-FBXL13 R308W	Selection from 16	1.69
-OBP2A T107M	Selection from 16	0.46
-TNIK R949H	Selection from 16	0.67
-SYT6 R249H	Selection from 16	0.47
-CDKN2A G 21971000 T NCSNV	Selection from 16	2.22
-ADAMTS18 H78H	Selection from 16	0.18
-THSD7A C728F	Selection from 16	0
-USH2A N3137N	Selection from 16	14.6
-HCN1 V381V	Selection from 16	1.54
-SLC24A4 E137K	Selection from 16	0.42
-PCDHA13 D481D	Selection from 16	0.04
-MYH7 V411I	Selection from 16	0.12
-OR4C6 A214A	Selection from 16	0
-CNTNAP2 C745C	Selection from 16	0
-PFAS Y1202Y	Selection from 16	0.37
-ZFHX4 G754R	Selection from 16	0
-TMEM132D A56V	Selection from 16	0.09
-PCDHA4 N451N	Selection from 16	0.45
-PIK3CA H1047R	Selection from 16	2883.5
-TP53 R282W	Selection from 16	0
-TP53 R248Q	Selection from 16	7.77
-TP53 V157F	Selection from 16	575.2
-TP53 Y236C	Selection from 16	116.01
-TP53 R337L	Selection from 16	0
-TP53 T125T	Selection from 16	0
-MAGEB1 P274P	Selection from 16	2.54
-HRAS G13R	Selection from 16	0
-OR11H12 Q30K	Selection from 16	5.91
-TP53 L201*	Selection from 16	66.17
-TP53 V272M	Selection from 16	29.36
-TP53 T 7577017 G NCSNV	Selection from 16	224.13
-TP53 G 7579311 T NCSNV	Selection from 16	6.32
-CREBBP R1446C	Selection from 16	1.85
-SLCO1C1 S362R	Selection from 16	5.09
-CEP164 N79N	Selection from 16	0
-GUCY2C S606S	Selection from 16	1.56
-TMTC2 T409R	Selection from 16	0
-PLXND1 G913R	Selection from 16	0.12
-BZRAP1 R1376K	Selection from 16	0.13
-SGCE R173H	Selection from 16	0
-NLRP8 V428I	Selection from 16	0.24
-PDZD2 R953*	Selection from 16	0.72
-HRAS G12C	Selection from 16	4.9
-NRD1 E181E	Selection from 16	0
-EDIL3 Q173K	Selection from 16	12.4
-HIST1H3I K37M	Selection from 16	12.81
-IVD G408W	Selection from 16	8.28
-ATP7B V831I	Selection from 16	0
-MYOM1 R63Q	Selection from 16	2.36
-PCDH17 N579N	Selection from 16	0.11
-SLMAP A 57743311 G NCSNV	Selection from 16	34
-SDR9C7 A104A	Selection from 16	0
-TCF21 A124A	Selection from 16	0
-CCSER2 Y766C	Selection from 16	42.84
-CHCHD4 T92M	Selection from 16	0.63
-TRHR V272L	Selection from 16	8.31
-OR2T33 D153D	Selection from 16	0
-MASP1 T215A	Selection from 16	22.63
-PRB3 R39*	Selection from 16	1.54
-H3F3B K37M	Selection from 16	65.06
-HPN A 35557003 T NCSNV	Selection from 16	7.39
-POLI V117L	Selection from 16	34.4
-GABBR2 W149*	Selection from 16	0
+PIK3CA E545K	Unknown (16)	7.2444142614601
+TP53 R283P	Unknown (16)	0
+PIK3CA E542K	Unknown (16)	0.949719101123596
+TP53 R196P	Unknown (16)	0
+CCDC50 S.S.	Unknown (16)	1083.89
+HRAS G13V	Unknown (16)	0
+TP53 R213*	Unknown (16)	23.56
+TP53 P278S	Unknown (16)	23.78
+TP53 E298*	Unknown (16)	369.69
+TP53 R175H	Unknown (16)	29.65
+FAT1 E1994*	Unknown (16)	80.95
+FBXW7 R505G	Unknown (16)	15.7235653650255
+ZBTB10 C 81471465 G NCSNV	Unknown (16)	33.55
+C9orf53 C 21968242 T NCSNV	Unknown (16)	0
+TP53 E294*	Unknown (16)	20.01
+BCAS1 C 52491801 G NCSNV	Unknown (16)	11.45
+EPHA2 S419*	Unknown (16)	0
+FAM21C E1034K	Unknown (16)	2.73
+EPHA3 T802R	Unknown (16)	0
+EYS G 66498423 A NCSNV	Unknown (16)	3.21
+NOTCH1 E455K	Unknown (16)	0
+TP53 R273C	Unknown (16)	0
+TP53 G245S	Unknown (16)	0
+CASP8 Q524*	Unknown (16)	0
+TP53 R196*	Unknown (16)	0
+AP1G2 D243N	Unknown (16)	0.39
+NCOR1 P1081L	Unknown (16)	0
+CASP8 R292W	Unknown (16)	0
+TP53 E56*	Unknown (16)	9.33
+HIST2H2BE F71L	Unknown (16)	0
+MAPK1 E322K	Unknown (16)	0
+TGFBR2 E544K	Unknown (16)	0
+TP53 Q144*	Unknown (16)	14.81
+MAP2 E865*	Unknown (16)	29.74
+MB21D2 Q311E	Unknown (16)	0
+APC R283Q	Unknown (16)	0.42
+TSHZ3 E841*	Unknown (16)	30.52
+ZNF43 G422A	Unknown (16)	3.88
+CNNM3 E422K	Unknown (16)	1.41
+ZZZ3 R5Q	Unknown (16)	5.21
+RAC1 A178V	Unknown (16)	0
+NFE2L2 E79K	Unknown (16)	0
+RHOA E40Q	Unknown (16)	0
+TP53 H193L	Unknown (16)	0
+TP53 S106R	Unknown (16)	7.61
+ARHGAP9 G 57868406 A NCSNV	Unknown (16)	0
+CASP8 R494*	Unknown (16)	0
+FAT1 R885*	Unknown (16)	0
+TP53 G266E	Unknown (16)	4.52
+NFE2L2 D29H	Unknown (16)	0.98
+KIAA1109 I225M	Unknown (16)	0
+MYH9 E530K	Unknown (16)	0
+TP53 E285K	Unknown (16)	0.62
+HOXB5 E170K	Unknown (16)	0
+SLC44A2 F459F	Unknown (16)	0
+TP53 Q192*	Unknown (16)	3.12
+TP53 V173M	Unknown (16)	45.98
+FAM21C D460N	Unknown (16)	0.44
+CDKN2A P135L	Unknown (16)	4.54
+TP53 E68*	Unknown (16)	7.12
+ZNF253 C 20003622 G NCSNV	Unknown (16)	1.98
+TP53 R110L	Unknown (16)	1120.82
+NCOR1 E2306K	Unknown (16)	0.41
+OR4F15 R183W	Unknown (16)	0.35
+SMTN E901K	Unknown (16)	0.7
+TP53 R158L	Unknown (16)	15.46
+CDT1 C 88870221 T NCSNV	Unknown (16)	1.04
+TP53 R248W	Unknown (16)	0
+CCDC135 E313K	Unknown (16)	0
+TP53 Y163C	Unknown (16)	243.35
+TP53 R306*	Unknown (16)	0
+CDK20 G 90744635 A NCSNV	Unknown (16)	0.28
+HLA-B Q250E	Unknown (16)	0
+ANKHD1 L376V	Unknown (16)	0.11
+AL117190.3 C 101421722 T NCSNV	Unknown (16)	0
+KRT14 G 39740666 A NCSNV	Unknown (16)	2.73
+MYC S161L	Unknown (16)	0
+B2M E97K	Unknown (16)	0.09
+PLEKHG4 E744K	Unknown (16)	3.05
+UMODL1 L581L	Unknown (16)	0
+NSD1 R788*	Unknown (16)	11.79
+SMPDL3B F275F	Unknown (16)	0.4
+HRAS G12S	Unknown (16)	0
+SLC27A1 F620F	Unknown (16)	0
+WTAP E346K	Unknown (16)	1.76
+TP53 R249S	Unknown (16)	38.78
+TP53 Q331*	Unknown (16)	0.35
+KIAA1407 R673W	Unknown (16)	13.04
+TGFBR2 S320*	Unknown (16)	0
+OR2D3 R70C	Unknown (16)	1.42
+SP140L D419N	Unknown (16)	1.12
+TSPYL5 S193L	Unknown (16)	0.33
+NFE2L2 E79Q	Unknown (16)	0.22
+HUWE1 E3771K	Unknown (16)	0
+KIAA0226 G 197349060 A NCSNV	Unknown (16)	2.1
+TP53 C176Y	Unknown (16)	24.14
+FAT1 S3373*	Unknown (16)	0
+FAT1 S1200*	Unknown (16)	0
+HUWE1 E4177K	Unknown (16)	0.07
+ITGB1 D158N	Unknown (16)	0.46
+TP53 Q136*	Unknown (16)	24.95
+CASP8 R472*	Unknown (16)	0
+TP53 C242F	Unknown (16)	0
+FLOT1 G 30698343 C NCSNV	Unknown (16)	0.84
+GIGYF2 S221*	Unknown (16)	4.57
+ZNF710 F388F	Unknown (16)	0.36
+TP53 G245V	Unknown (16)	114.85
+TBX21 E494K	Unknown (16)	0.13
+TMCO6 C 140021368 T NCSNV	Unknown (16)	0.36
+TNN D1091N	Unknown (16)	0.36
+PARP2 M432I	Unknown (16)	0.06
+SPRR2B P69P	Unknown (16)	0.11
+CDKN2A G124V	Unknown (16)	0
+MGAM S703F	Unknown (16)	3.55
+PCDHGA12 A329A	Unknown (16)	0
+LTN1 F1252F	Unknown (16)	0
+HHIPL2 F67F	Unknown (16)	0.69
+MYH9 E457K	Unknown (16)	0.35
+CDKN2A P113L	Unknown (16)	0
+FANCD2OS F33L	Unknown (16)	0
+MRAP E28E	Unknown (16)	0
+PADI3 P481P	Unknown (16)	7.77
+ANKRD11 S769*	Unknown (16)	0.09
+DNAH5 Q1797E	Unknown (16)	0.04
+PIK3CG A156V	Unknown (16)	3.2
+PSG8 S395F	Unknown (16)	0.31
+NRXN3 E1218K	Unknown (16)	2.17
+CEP68 C 65296555 T NCSNV	Unknown (16)	0
+CCDC110 R111C	Unknown (16)	0
+TP53 H179Y	Unknown (16)	7.13
+CDKN2A G143V	Unknown (16)	2.75
+CASP8 T 202137501 C NCSNV	Unknown (16)	0
+LRRN3 L190V	Unknown (16)	0.21
+PLCG2 L1038L	Unknown (16)	0.48
+IFT140 E664K	Unknown (16)	0
+TP53 P151S	Unknown (16)	2.94
+BTBD8 F178F	Unknown (16)	0
+TP53 Y220C	Unknown (16)	325.66
+TP53 R273H	Unknown (16)	34.18
+PRDM9 R77Q	Unknown (16)	0
+ZNF510 S321*	Unknown (16)	3.82
+PCDHA10 A481T	Unknown (16)	0
+IKZF1 Q156Q	Unknown (16)	0.25
+MCF2L R985Q	Unknown (16)	0.32
+PGBD1 L412L	Unknown (16)	0.06
+KCNA4 E280K	Unknown (16)	0
+NRXN1 R1256H	Unknown (16)	0
+FAT1 R3400*	Unknown (16)	4.92
+CDKN2A R163L	Unknown (16)	3.26
+DNAH6 R442H	Unknown (16)	2.68
+FAT1 Q1694*	Unknown (16)	0.6
+TP53 G 7578176 T NCSNV	Unknown (16)	65.68
+TP53 V143M	Unknown (16)	0
+AJUBA Q103*	Unknown (16)	2.23
+PAMR1 I580I	Unknown (16)	0.2
+KMT2D R1252*	Unknown (16)	0
+C6orf118 T328T	Unknown (16)	0
+TP53 H193P	Unknown (16)	138.1
+TDRD6 E1997*	Unknown (16)	12.97
+CDH7 Q225K	Unknown (16)	10.64
+PTOV1 L99L	Unknown (16)	0.83
+NLRP5 E751K	Unknown (16)	0
+FLG A2503V	Unknown (16)	0
+NCOA1 L1361L	Unknown (16)	0
+NXPH1 T25T	Unknown (16)	0.22
+NCOR1 R1561Q	Unknown (16)	2.05
+KCNK9 L122L	Unknown (16)	0
+ATP10B R311Q	Unknown (16)	1.08
+MYO15A R3294W	Unknown (16)	1.79
+FAT1 R937*	Unknown (16)	1.37
+HRAS Q61L	Unknown (16)	11.44
+TP53 R337C	Unknown (16)	0
+TP53 H179R	Unknown (16)	140.22
+METTL16 C 2323149 T NCSNV	Unknown (16)	3.05
+SLC8A2 L195L	Unknown (16)	0
+IFFO1 L292L	Unknown (16)	0.02
+TP53 Q331Q	Unknown (16)	13.5
+CNKSR1 L350L	Unknown (16)	0.59
+PKHD1L1 R1654Q	Unknown (16)	0
+HRAS G12D	Unknown (16)	0
+FCRL3 V288V	Unknown (16)	0.07
+DENND5B G1023E	Unknown (16)	3.21
+TP53 Y234C	Unknown (16)	31.31
+PIK3CA Q546R	Unknown (16)	63.65
+LRRC4C E637Q	Unknown (16)	0.98
+GPR158 L9L	Unknown (16)	1.32
+HIST1H3C K37M	Unknown (16)	62.97
+FCAR V233M	Unknown (16)	1.92
+CDKN2A L165L	Unknown (16)	2.24
+CSMD3 R3127Q	Unknown (16)	0.28
+DPP10 T 116257182 A NCSNV	Unknown (16)	25.3
+TP53 C238F	Unknown (16)	6
+FBXW7 R543G	Unknown (16)	24.07
+MFSD10 R138Q	Unknown (16)	0
+CORO2B A156T	Unknown (16)	0
+KIAA0100 V1227V	Unknown (16)	0.53
+DUOXA1 R332C	Unknown (16)	0
+HLA-B R7*	Unknown (16)	0
+HLA-A R7*	Unknown (16)	0.5
+SMARCA4 P913L	Unknown (16)	0
+CDKN2A G 21971208 A NCSNV	Unknown (16)	0.19
+AKAP9 Q3406K	Unknown (16)	4.94
+EPHB3 R420H	Unknown (16)	1.18
+CTNNA2 A67T	Unknown (16)	0.87
+CDKN2A G166R	Unknown (16)	1.72
+PPP4R4 T89M	Unknown (16)	0
+TP53 R280G	Unknown (16)	0
+REG1A C 79364340 T NCSNV	Unknown (16)	0.54
+MAGEB3 V75A	Unknown (16)	13.64
+ASXL1 R693*	Unknown (16)	0.53
+MTTP G749G	Unknown (16)	0.19
+C12orf60 T120T	Unknown (16)	0
+CASP8 R127*	Unknown (16)	0.35
+PDE3A L275L	Unknown (16)	0.3
+SALL1 P1109P	Unknown (16)	1.95
+OR8I2 A67S	Unknown (16)	22.32
+FXYD5 R145W	Unknown (16)	1.35
+KDM6A R526*	Unknown (16)	25.38
+IZUMO4 T11T	Unknown (16)	4.08
+HTR1A L166L	Unknown (16)	0.07
+VPS39 P578P	Unknown (16)	0.16
+RPA1 R31H	Unknown (16)	0.45
+PHLDB2 V1139V	Unknown (16)	5.36
+KIR3DL1 V405I	Unknown (16)	0
+C9 D312N	Unknown (16)	0.21
+GRM8 G50D	Unknown (16)	8.25
+COL22A1 P1601L	Unknown (16)	9.24
+TENM1 R366M	Unknown (16)	0
+GFRA3 A208A	Unknown (16)	0.09
+CDH9 T737M	Unknown (16)	0
+MYH13 K1852N	Unknown (16)	3.94
+SLC5A7 G336C	Unknown (16)	3.67
+KSR2 T584M	Unknown (16)	0.98
+CDKN2A G 21970900 T NCSNV	Unknown (16)	0.27
+SLC34A1 R507H	Unknown (16)	0
+NOTCH1 A465T	Unknown (16)	0.25
+MAP3K7 Y300C	Unknown (16)	15.81
+FBXL13 R308W	Unknown (16)	1.69
+OBP2A T107M	Unknown (16)	0.46
+TNIK R949H	Unknown (16)	0.67
+SYT6 R249H	Unknown (16)	0.47
+CDKN2A G 21971000 T NCSNV	Unknown (16)	2.22
+ADAMTS18 H78H	Unknown (16)	0.18
+THSD7A C728F	Unknown (16)	0
+USH2A N3137N	Unknown (16)	14.6
+HCN1 V381V	Unknown (16)	1.54
+SLC24A4 E137K	Unknown (16)	0.42
+PCDHA13 D481D	Unknown (16)	0.04
+MYH7 V411I	Unknown (16)	0.12
+OR4C6 A214A	Unknown (16)	0
+CNTNAP2 C745C	Unknown (16)	0
+PFAS Y1202Y	Unknown (16)	0.37
+ZFHX4 G754R	Unknown (16)	0
+TMEM132D A56V	Unknown (16)	0.09
+PCDHA4 N451N	Unknown (16)	0.45
+PIK3CA H1047R	Unknown (16)	2883.5
+TP53 R282W	Unknown (16)	0
+TP53 R248Q	Unknown (16)	7.77
+TP53 V157F	Unknown (16)	575.2
+TP53 Y236C	Unknown (16)	116.01
+TP53 R337L	Unknown (16)	0
+TP53 T125T	Unknown (16)	0
+MAGEB1 P274P	Unknown (16)	2.54
+HRAS G13R	Unknown (16)	0
+OR11H12 Q30K	Unknown (16)	5.91
+TP53 L201*	Unknown (16)	66.17
+TP53 V272M	Unknown (16)	29.36
+TP53 T 7577017 G NCSNV	Unknown (16)	224.13
+TP53 G 7579311 T NCSNV	Unknown (16)	6.32
+CREBBP R1446C	Unknown (16)	1.85
+SLCO1C1 S362R	Unknown (16)	5.09
+CEP164 N79N	Unknown (16)	0
+GUCY2C S606S	Unknown (16)	1.56
+TMTC2 T409R	Unknown (16)	0
+PLXND1 G913R	Unknown (16)	0.12
+BZRAP1 R1376K	Unknown (16)	0.13
+SGCE R173H	Unknown (16)	0
+NLRP8 V428I	Unknown (16)	0.24
+PDZD2 R953*	Unknown (16)	0.72
+HRAS G12C	Unknown (16)	4.9
+NRD1 E181E	Unknown (16)	0
+EDIL3 Q173K	Unknown (16)	12.4
+HIST1H3I K37M	Unknown (16)	12.81
+IVD G408W	Unknown (16)	8.28
+ATP7B V831I	Unknown (16)	0
+MYOM1 R63Q	Unknown (16)	2.36
+PCDH17 N579N	Unknown (16)	0.11
+SLMAP A 57743311 G NCSNV	Unknown (16)	34
+SDR9C7 A104A	Unknown (16)	0
+TCF21 A124A	Unknown (16)	0
+CCSER2 Y766C	Unknown (16)	42.84
+CHCHD4 T92M	Unknown (16)	0.63
+TRHR V272L	Unknown (16)	8.31
+OR2T33 D153D	Unknown (16)	0
+MASP1 T215A	Unknown (16)	22.63
+PRB3 R39*	Unknown (16)	1.54
+H3F3B K37M	Unknown (16)	65.06
+HPN A 35557003 T NCSNV	Unknown (16)	7.39
+POLI V117L	Unknown (16)	34.4
+GABBR2 W149*	Unknown (16)	0
 PIK3CA E545K	Selection from 17	0
 TP53 R283P	Selection from 17	0
 PIK3CA E542K	Selection from 17	0
@@ -9600,7 +9900,7 @@ HPN A 35557003 T NCSNV	Selection from 30	0
 POLI V117L	Selection from 30	0
 GABBR2 W149*	Selection from 30	0
 FGFR3 S249C	Selection from APOBEC	1943.57
-FABP3 C 31838696 T NCSNV	Selection from APOBEC	1416.94
+FABP3 NCSNV	Selection from APOBEC	1416.94
 DHX15 R399H	Selection from APOBEC	946.28
 IFNGR1 R123*	Selection from APOBEC	740.75
 MYH7 E149K	Selection from APOBEC	636.68
@@ -9610,7 +9910,7 @@ MUC16 E1409Q	Selection from APOBEC	286.1
 ALPK3 Q860Q	Selection from APOBEC	180.74
 PCDHA6 S608S	Selection from APOBEC	169.05
 FGFR3 S249C	Selection from NonAPOBEC	342.98
-FABP3 C 31838696 T NCSNV	Selection from NonAPOBEC	697.89
+FABP3 NCSNV	Selection from NonAPOBEC	697.89
 DHX15 R399H	Selection from NonAPOBEC	946.28
 IFNGR1 R123*	Selection from NonAPOBEC	711.7
 MYH7 E149K	Selection from NonAPOBEC	0
@@ -9619,28 +9919,38 @@ EP300 D1399N	Selection from NonAPOBEC	4268.8
 MUC16 E1409Q	Selection from NonAPOBEC	5.84
 ALPK3 Q860Q	Selection from NonAPOBEC	22.34
 PCDHA6 S608S	Selection from NonAPOBEC	190.63
-FGFR3 S249C	Selection from 1	68.6
-FABP3 C 31838696 T NCSNV	Selection from 1	697.89
-DHX15 R399H	Selection from 1	927.35
-IFNGR1 R123*	Selection from 1	566.45
-MYH7 E149K	Selection from 1	0
-PIK3CA R88Q	Selection from 1	381.46
-EP300 D1399N	Selection from 1	4222.9
-MUC16 E1409Q	Selection from 1	0
-ALPK3 Q860Q	Selection from 1	0
-PCDHA6 S608S	Selection from 1	158.26
-FGFR3 S249C	Selection from 2	0
-FABP3 C 31838696 T NCSNV	Selection from 2	1015.12
-DHX15 R399H	Selection from 2	113.55
-IFNGR1 R123*	Selection from 2	726.22
-MYH7 E149K	Selection from 2	560.28
-PIK3CA R88Q	Selection from 2	300.55
-EP300 D1399N	Selection from 2	321.31
-MUC16 E1409Q	Selection from 2	78.82
-ALPK3 Q860Q	Selection from 2	154.34
-PCDHA6 S608S	Selection from 2	151.07
+FGFR3 S249C	Other processes	0
+FABP3 NCSNV	Other processes	0
+DHX15 R399H	Other processes	18.93
+IFNGR1 R123*	Other processes	145.24
+MYH7 E149K	Other processes	0
+PIK3CA R88Q	Other processes	404.58
+EP300 D1399N	Other processes	45.9
+MUC16 E1409Q	Other processes	0
+ALPK3 Q860Q	Other processes	18.28
+PCDHA6 S608S	Other processes	32.37
+FGFR3 S249C	Spontaneous deamination with age (1)	68.6
+FABP3 NCSNV	Spontaneous deamination with age (1)	697.89
+DHX15 R399H	Spontaneous deamination with age (1)	927.35
+IFNGR1 R123*	Spontaneous deamination with age (1)	566.45
+MYH7 E149K	Spontaneous deamination with age (1)	0
+PIK3CA R88Q	Spontaneous deamination with age (1)	381.46
+EP300 D1399N	Spontaneous deamination with age (1)	4222.9
+MUC16 E1409Q	Spontaneous deamination with age (1)	0
+ALPK3 Q860Q	Spontaneous deamination with age (1)	0
+PCDHA6 S608S	Spontaneous deamination with age (1)	158.26
+FGFR3 S249C	APOBEC activity (2)	0
+FABP3 NCSNV	APOBEC activity (2)	1015.12
+DHX15 R399H	APOBEC activity (2)	113.55
+IFNGR1 R123*	APOBEC activity (2)	726.22
+MYH7 E149K	APOBEC activity (2)	560.28
+PIK3CA R88Q	APOBEC activity (2)	300.55
+EP300 D1399N	APOBEC activity (2)	321.31
+MUC16 E1409Q	APOBEC activity (2)	78.82
+ALPK3 Q860Q	APOBEC activity (2)	154.34
+PCDHA6 S608S	APOBEC activity (2)	151.07
 FGFR3 S249C	Selection from 3	0
-FABP3 C 31838696 T NCSNV	Selection from 3	0
+FABP3 NCSNV	Selection from 3	0
 DHX15 R399H	Selection from 3	0
 IFNGR1 R123*	Selection from 3	0
 MYH7 E149K	Selection from 3	0
@@ -9649,18 +9959,18 @@ EP300 D1399N	Selection from 3	0
 MUC16 E1409Q	Selection from 3	0
 ALPK3 Q860Q	Selection from 3	0
 PCDHA6 S608S	Selection from 3	32.37
-FGFR3 S249C	Selection from 4	0
-FABP3 C 31838696 T NCSNV	Selection from 4	0
-DHX15 R399H	Selection from 4	0
-IFNGR1 R123*	Selection from 4	0
-MYH7 E149K	Selection from 4	0
-PIK3CA R88Q	Selection from 4	0
-EP300 D1399N	Selection from 4	0
-MUC16 E1409Q	Selection from 4	0
-ALPK3 Q860Q	Selection from 4	0
-PCDHA6 S608S	Selection from 4	0
+FGFR3 S249C	Exposure to tobacco carcinogens (4)	0
+FABP3 NCSNV	Exposure to tobacco carcinogens (4)	0
+DHX15 R399H	Exposure to tobacco carcinogens (4)	0
+IFNGR1 R123*	Exposure to tobacco carcinogens (4)	0
+MYH7 E149K	Exposure to tobacco carcinogens (4)	0
+PIK3CA R88Q	Exposure to tobacco carcinogens (4)	0
+EP300 D1399N	Exposure to tobacco carcinogens (4)	0
+MUC16 E1409Q	Exposure to tobacco carcinogens (4)	0
+ALPK3 Q860Q	Exposure to tobacco carcinogens (4)	0
+PCDHA6 S608S	Exposure to tobacco carcinogens (4)	0
 FGFR3 S249C	Selection from 5	0
-FABP3 C 31838696 T NCSNV	Selection from 5	0
+FABP3 NCSNV	Selection from 5	0
 DHX15 R399H	Selection from 5	0
 IFNGR1 R123*	Selection from 5	29.05
 MYH7 E149K	Selection from 5	0
@@ -9670,7 +9980,7 @@ MUC16 E1409Q	Selection from 5	0
 ALPK3 Q860Q	Selection from 5	2.03
 PCDHA6 S608S	Selection from 5	0
 FGFR3 S249C	Selection from 6	0
-FABP3 C 31838696 T NCSNV	Selection from 6	0
+FABP3 NCSNV	Selection from 6	0
 DHX15 R399H	Selection from 6	0
 IFNGR1 R123*	Selection from 6	0
 MYH7 E149K	Selection from 6	0
@@ -9680,7 +9990,7 @@ MUC16 E1409Q	Selection from 6	0
 ALPK3 Q860Q	Selection from 6	0
 PCDHA6 S608S	Selection from 6	0
 FGFR3 S249C	Selection from 7	0
-FABP3 C 31838696 T NCSNV	Selection from 7	0
+FABP3 NCSNV	Selection from 7	0
 DHX15 R399H	Selection from 7	0
 IFNGR1 R123*	Selection from 7	29.05
 MYH7 E149K	Selection from 7	0
@@ -9690,7 +10000,7 @@ MUC16 E1409Q	Selection from 7	0
 ALPK3 Q860Q	Selection from 7	0
 PCDHA6 S608S	Selection from 7	0
 FGFR3 S249C	Selection from 8	0
-FABP3 C 31838696 T NCSNV	Selection from 8	0
+FABP3 NCSNV	Selection from 8	0
 DHX15 R399H	Selection from 8	0
 IFNGR1 R123*	Selection from 8	14.52
 MYH7 E149K	Selection from 8	0
@@ -9700,7 +10010,7 @@ MUC16 E1409Q	Selection from 8	0
 ALPK3 Q860Q	Selection from 8	8.12
 PCDHA6 S608S	Selection from 8	0
 FGFR3 S249C	Selection from 9	0
-FABP3 C 31838696 T NCSNV	Selection from 9	0
+FABP3 NCSNV	Selection from 9	0
 DHX15 R399H	Selection from 9	0
 IFNGR1 R123*	Selection from 9	0
 MYH7 E149K	Selection from 9	0
@@ -9710,7 +10020,7 @@ MUC16 E1409Q	Selection from 9	0
 ALPK3 Q860Q	Selection from 9	6.09
 PCDHA6 S608S	Selection from 9	0
 FGFR3 S249C	Selection from 10	0
-FABP3 C 31838696 T NCSNV	Selection from 10	0
+FABP3 NCSNV	Selection from 10	0
 DHX15 R399H	Selection from 10	0
 IFNGR1 R123*	Selection from 10	0
 MYH7 E149K	Selection from 10	0
@@ -9720,7 +10030,7 @@ MUC16 E1409Q	Selection from 10	0
 ALPK3 Q860Q	Selection from 10	0
 PCDHA6 S608S	Selection from 10	0
 FGFR3 S249C	Selection from 11	0
-FABP3 C 31838696 T NCSNV	Selection from 11	0
+FABP3 NCSNV	Selection from 11	0
 DHX15 R399H	Selection from 11	0
 IFNGR1 R123*	Selection from 11	0
 MYH7 E149K	Selection from 11	0
@@ -9730,7 +10040,7 @@ MUC16 E1409Q	Selection from 11	0
 ALPK3 Q860Q	Selection from 11	0
 PCDHA6 S608S	Selection from 11	0
 FGFR3 S249C	Selection from 12	0
-FABP3 C 31838696 T NCSNV	Selection from 12	0
+FABP3 NCSNV	Selection from 12	0
 DHX15 R399H	Selection from 12	0
 IFNGR1 R123*	Selection from 12	0
 MYH7 E149K	Selection from 12	0
@@ -9739,18 +10049,18 @@ EP300 D1399N	Selection from 12	45.9
 MUC16 E1409Q	Selection from 12	0
 ALPK3 Q860Q	Selection from 12	0
 PCDHA6 S608S	Selection from 12	0
-FGFR3 S249C	Selection from 13	1943.57
-FABP3 C 31838696 T NCSNV	Selection from 13	401.82
-DHX15 R399H	Selection from 13	832.73
-IFNGR1 R123*	Selection from 13	14.52
-MYH7 E149K	Selection from 13	76.4
-PIK3CA R88Q	Selection from 13	46.24
-EP300 D1399N	Selection from 13	0
-MUC16 E1409Q	Selection from 13	210.19
-ALPK3 Q860Q	Selection from 13	26.4
-PCDHA6 S608S	Selection from 13	17.98
+FGFR3 S249C	APOBEC activity (13)	1943.57
+FABP3 NCSNV	APOBEC activity (13)	401.82
+DHX15 R399H	APOBEC activity (13)	832.73
+IFNGR1 R123*	APOBEC activity (13)	14.52
+MYH7 E149K	APOBEC activity (13)	76.4
+PIK3CA R88Q	APOBEC activity (13)	46.24
+EP300 D1399N	APOBEC activity (13)	0
+MUC16 E1409Q	APOBEC activity (13)	210.19
+ALPK3 Q860Q	APOBEC activity (13)	26.4
+PCDHA6 S608S	APOBEC activity (13)	17.98
 FGFR3 S249C	Selection from 14	0
-FABP3 C 31838696 T NCSNV	Selection from 14	0
+FABP3 NCSNV	Selection from 14	0
 DHX15 R399H	Selection from 14	0
 IFNGR1 R123*	Selection from 14	43.57
 MYH7 E149K	Selection from 14	0
@@ -9760,7 +10070,7 @@ MUC16 E1409Q	Selection from 14	0
 ALPK3 Q860Q	Selection from 14	0
 PCDHA6 S608S	Selection from 14	0
 FGFR3 S249C	Selection from 15	0
-FABP3 C 31838696 T NCSNV	Selection from 15	0
+FABP3 NCSNV	Selection from 15	0
 DHX15 R399H	Selection from 15	0
 IFNGR1 R123*	Selection from 15	0
 MYH7 E149K	Selection from 15	0
@@ -9769,18 +10079,18 @@ EP300 D1399N	Selection from 15	0
 MUC16 E1409Q	Selection from 15	0
 ALPK3 Q860Q	Selection from 15	0
 PCDHA6 S608S	Selection from 15	0
-FGFR3 S249C	Selection from 16	0
-FABP3 C 31838696 T NCSNV	Selection from 16	0
-DHX15 R399H	Selection from 16	18.93
-IFNGR1 R123*	Selection from 16	0
-MYH7 E149K	Selection from 16	0
-PIK3CA R88Q	Selection from 16	23.12
-EP300 D1399N	Selection from 16	0
-MUC16 E1409Q	Selection from 16	2.92
-ALPK3 Q860Q	Selection from 16	4.06
-PCDHA6 S608S	Selection from 16	0
+FGFR3 S249C	Unknown (16)	0
+FABP3 NCSNV	Unknown (16)	0
+DHX15 R399H	Unknown (16)	18.93
+IFNGR1 R123*	Unknown (16)	0
+MYH7 E149K	Unknown (16)	0
+PIK3CA R88Q	Unknown (16)	23.12
+EP300 D1399N	Unknown (16)	0
+MUC16 E1409Q	Unknown (16)	2.92
+ALPK3 Q860Q	Unknown (16)	4.06
+PCDHA6 S608S	Unknown (16)	0
 FGFR3 S249C	Selection from 17	0
-FABP3 C 31838696 T NCSNV	Selection from 17	0
+FABP3 NCSNV	Selection from 17	0
 DHX15 R399H	Selection from 17	0
 IFNGR1 R123*	Selection from 17	14.52
 MYH7 E149K	Selection from 17	0
@@ -9790,7 +10100,7 @@ MUC16 E1409Q	Selection from 17	0
 ALPK3 Q860Q	Selection from 17	0
 PCDHA6 S608S	Selection from 17	0
 FGFR3 S249C	Selection from 18	0
-FABP3 C 31838696 T NCSNV	Selection from 18	0
+FABP3 NCSNV	Selection from 18	0
 DHX15 R399H	Selection from 18	0
 IFNGR1 R123*	Selection from 18	14.52
 MYH7 E149K	Selection from 18	0
@@ -9800,7 +10110,7 @@ MUC16 E1409Q	Selection from 18	0
 ALPK3 Q860Q	Selection from 18	0
 PCDHA6 S608S	Selection from 18	0
 FGFR3 S249C	Selection from 19	0
-FABP3 C 31838696 T NCSNV	Selection from 19	0
+FABP3 NCSNV	Selection from 19	0
 DHX15 R399H	Selection from 19	0
 IFNGR1 R123*	Selection from 19	0
 MYH7 E149K	Selection from 19	0
@@ -9810,7 +10120,7 @@ MUC16 E1409Q	Selection from 19	0
 ALPK3 Q860Q	Selection from 19	0
 PCDHA6 S608S	Selection from 19	0
 FGFR3 S249C	Selection from 20	0
-FABP3 C 31838696 T NCSNV	Selection from 20	0
+FABP3 NCSNV	Selection from 20	0
 DHX15 R399H	Selection from 20	0
 IFNGR1 R123*	Selection from 20	0
 MYH7 E149K	Selection from 20	0
@@ -9820,7 +10130,7 @@ MUC16 E1409Q	Selection from 20	0
 ALPK3 Q860Q	Selection from 20	0
 PCDHA6 S608S	Selection from 20	0
 FGFR3 S249C	Selection from 21	0
-FABP3 C 31838696 T NCSNV	Selection from 21	0
+FABP3 NCSNV	Selection from 21	0
 DHX15 R399H	Selection from 21	0
 IFNGR1 R123*	Selection from 21	0
 MYH7 E149K	Selection from 21	0
@@ -9830,7 +10140,7 @@ MUC16 E1409Q	Selection from 21	0
 ALPK3 Q860Q	Selection from 21	0
 PCDHA6 S608S	Selection from 21	0
 FGFR3 S249C	Selection from 22	0
-FABP3 C 31838696 T NCSNV	Selection from 22	0
+FABP3 NCSNV	Selection from 22	0
 DHX15 R399H	Selection from 22	0
 IFNGR1 R123*	Selection from 22	0
 MYH7 E149K	Selection from 22	0
@@ -9840,7 +10150,7 @@ MUC16 E1409Q	Selection from 22	0
 ALPK3 Q860Q	Selection from 22	0
 PCDHA6 S608S	Selection from 22	0
 FGFR3 S249C	Selection from 23	0
-FABP3 C 31838696 T NCSNV	Selection from 23	0
+FABP3 NCSNV	Selection from 23	0
 DHX15 R399H	Selection from 23	0
 IFNGR1 R123*	Selection from 23	0
 MYH7 E149K	Selection from 23	0
@@ -9850,7 +10160,7 @@ MUC16 E1409Q	Selection from 23	0
 ALPK3 Q860Q	Selection from 23	0
 PCDHA6 S608S	Selection from 23	0
 FGFR3 S249C	Selection from 24	0
-FABP3 C 31838696 T NCSNV	Selection from 24	0
+FABP3 NCSNV	Selection from 24	0
 DHX15 R399H	Selection from 24	0
 IFNGR1 R123*	Selection from 24	0
 MYH7 E149K	Selection from 24	0
@@ -9860,7 +10170,7 @@ MUC16 E1409Q	Selection from 24	0
 ALPK3 Q860Q	Selection from 24	0
 PCDHA6 S608S	Selection from 24	0
 FGFR3 S249C	Selection from 25	0
-FABP3 C 31838696 T NCSNV	Selection from 25	0
+FABP3 NCSNV	Selection from 25	0
 DHX15 R399H	Selection from 25	0
 IFNGR1 R123*	Selection from 25	0
 MYH7 E149K	Selection from 25	0
@@ -9870,7 +10180,7 @@ MUC16 E1409Q	Selection from 25	0
 ALPK3 Q860Q	Selection from 25	0
 PCDHA6 S608S	Selection from 25	0
 FGFR3 S249C	Selection from 26	0
-FABP3 C 31838696 T NCSNV	Selection from 26	0
+FABP3 NCSNV	Selection from 26	0
 DHX15 R399H	Selection from 26	0
 IFNGR1 R123*	Selection from 26	0
 MYH7 E149K	Selection from 26	0
@@ -9880,7 +10190,7 @@ MUC16 E1409Q	Selection from 26	0
 ALPK3 Q860Q	Selection from 26	0
 PCDHA6 S608S	Selection from 26	0
 FGFR3 S249C	Selection from 27	0
-FABP3 C 31838696 T NCSNV	Selection from 27	0
+FABP3 NCSNV	Selection from 27	0
 DHX15 R399H	Selection from 27	0
 IFNGR1 R123*	Selection from 27	0
 MYH7 E149K	Selection from 27	0
@@ -9890,7 +10200,7 @@ MUC16 E1409Q	Selection from 27	0
 ALPK3 Q860Q	Selection from 27	0
 PCDHA6 S608S	Selection from 27	0
 FGFR3 S249C	Selection from 28	0
-FABP3 C 31838696 T NCSNV	Selection from 28	0
+FABP3 NCSNV	Selection from 28	0
 DHX15 R399H	Selection from 28	0
 IFNGR1 R123*	Selection from 28	0
 MYH7 E149K	Selection from 28	0
@@ -9900,7 +10210,7 @@ MUC16 E1409Q	Selection from 28	0
 ALPK3 Q860Q	Selection from 28	0
 PCDHA6 S608S	Selection from 28	0
 FGFR3 S249C	Selection from 29	0
-FABP3 C 31838696 T NCSNV	Selection from 29	0
+FABP3 NCSNV	Selection from 29	0
 DHX15 R399H	Selection from 29	0
 IFNGR1 R123*	Selection from 29	0
 MYH7 E149K	Selection from 29	0
@@ -9910,7 +10220,7 @@ MUC16 E1409Q	Selection from 29	0
 ALPK3 Q860Q	Selection from 29	0
 PCDHA6 S608S	Selection from 29	0
 FGFR3 S249C	Selection from 30	0
-FABP3 C 31838696 T NCSNV	Selection from 30	0
+FABP3 NCSNV	Selection from 30	0
 DHX15 R399H	Selection from 30	0
 IFNGR1 R123*	Selection from 30	0
 MYH7 E149K	Selection from 30	0

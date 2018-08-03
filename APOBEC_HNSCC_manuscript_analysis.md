@@ -2514,8 +2514,9 @@ wilcox.test(data=prev.df.combined, `Selection intensity`~`APOBEC type TCW`)
 ``` r
 ggsave(filename = "Figures/Fig4_selection_vs_TCW.png",plot = distribution.of.APOBEC.TCW.combined,width = 3.25,height = 3.25,dpi = 600)
 
+supp.T2 <- prev.df.combined[,c("Short name","Frequency","Selection intensity","Mutation rate","prevalence","APOBEC type TCW","HPV_status")]
 
-write.table(x = prev.df.combined,file = "output_data/supp_T_2_selection_vs_TCW.txt",sep = "\t",row.names = F,quote = F)
+write.table(x = supp.T2,file = "output_data/supp_T_2_selection_vs_TCW.txt",sep = "\t",row.names = F,quote = F)
 
 
 distribution.of.APOBEC.TCW.combined_HPVfill <- ggplot(data = prev.df.combined) + 
@@ -2819,8 +2820,13 @@ selection.from.contexts.labels
 ``` r
 ggsave(filename = "Figures/Fig5_selection_from_process_labels.png",plot = selection.from.contexts.labels,width = 6.5,height = 4,dpi = 600)
 
+supp_T5 <- prev.df.split.combined[,c("Short name","variable","Selection from mutational context weighted")]
 
-write.table(x = prev.df.split.combined[,c("Short name","variable","Selection from mutational context weighted")],file = "output_data/supp_T_5_Selection_weight_APOBEC.txt",quote = F,row.names = F,sep="\t")
+colnames(supp_T5)[2] <- "Mutational process (signature)"
+
+supp_T5$`Mutational process (signature)` <- gsub(pattern = "Selection from ",replacement = "Signature ",x = supp_T5$`Mutational process (signature)`)
+
+write.table(x = supp_T5,file = "output_data/supp_T_5_Net_realized_selection_intensity.txt",quote = F,row.names = F,sep="\t")
 ```
 
 ``` r

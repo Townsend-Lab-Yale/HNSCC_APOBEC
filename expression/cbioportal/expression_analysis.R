@@ -8,6 +8,8 @@
 # Enter all APOBEC3* genes
 # Click download
 
+library(reshape2)
+
 APOBEC_RSEM_data <- read.delim(file = "expression/cbioportal/cBioPortal_data.txt",header = T,stringsAsFactors = F)
 APOBEC_RSEM_data <- APOBEC_RSEM_data[,-1]
 
@@ -37,17 +39,21 @@ APOBEC_RSEM_data_melt <- APOBEC_RSEM_data_melt[!is.na(APOBEC_RSEM_data_melt$HPV_
 # APOBEC_expression_data_melted <- melt(data = APOBEC_expression_data[,-1],id.vars = c("SAMPLE_ID_short","HPV_classification"))
 
 # head(APOBEC_expression_data_melted)
+# 
+# APOBEC_RSEM_data_melt[which(APOBEC_RSEM_data_melt$value>28000),]
+# 
+# APOBEC_RSEM_data_melt <- APOBEC_RSEM_data_melt[-which(APOBEC_RSEM_data_melt$value>28000),]
 
 library(ggplot2)
 APOBEC_RSEM_data_melt <- APOBEC_RSEM_data_melt[-which(is.na(APOBEC_RSEM_data_melt$value )),]
 
 plot_text_size <- 12
 
-apobec_plots <- ggplot(data = APOBEC_RSEM_data_melt, aes(x=HPV_classification,y=value)) + geom_boxplot(outlier.shape = NA) + geom_jitter(alpha=0.2,width = 0.2)  + facet_wrap(~COMMON,scales = "free") + theme_classic()  + labs(x="HPV classification", y="mRNA expression") + theme(strip.text = element_text(size=plot_text_size), axis.title = element_text(size=plot_text_size),axis.text = element_text(size=plot_text_size))
+apobec_plots <- ggplot(data = APOBEC_RSEM_data_melt, aes(x=HPV_classification,y=value)) + geom_boxplot(outlier.shape = NA) + geom_jitter(alpha=0.2,width = 0.2)  + facet_wrap(~COMMON,scales = "free",ncol = 4) + theme_classic()  + labs(x="HPV classification", y="mRNA expression") + theme(strip.text = element_text(size=plot_text_size), axis.title = element_text(size=plot_text_size),axis.text = element_text(size=plot_text_size))
 
 ggsave(apobec_plots,filename = "Figures/apobec_expression.png",width = 6.5,height = 6.5)
 
-ggsave(filename = "Figures/FigS1_A3_expression.eps",plot = apobec_plots,width = 6.5,height = 6.5,dpi = 300,device=cairo_ps, fallback_resolution = 300)
+ggsave(filename = "Figures/FigS1_A3_expression.eps",plot = apobec_plots,width = 8.5,height = 6.5,dpi = 300,device=cairo_ps, fallback_resolution = 300)
 
 t.test(data=subset(APOBEC_RSEM_data_melt, COMMON=="APOBEC3A"), value~HPV_classification,alternative="greater")
 

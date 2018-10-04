@@ -280,7 +280,7 @@ HPV.pos.trinuc.heatmap
 ![](APOBEC_HNSCC_manuscript_analysis_files/figure-markdown_github/Figure%20trinuc%20context%20HPVpos-1.png)
 
 ``` r
-ggsave(paste("Figures/","HPVpos","_trinuc_heatmap.png",sep=""),height = 1.5,width = 7,plot = HPV.pos.trinuc.heatmap,dpi=300)
+ggsave(paste("Figures/","HPVpos","_trinuc_heatmap.eps",sep=""),height = 1.5,width = 7,plot = HPV.pos.trinuc.heatmap,dpi=300,device=cairo_ps, fallback_resolution = 300)
 ```
 
 ``` r
@@ -307,7 +307,7 @@ HPV.neg.trinuc.heatmap
 ![](APOBEC_HNSCC_manuscript_analysis_files/figure-markdown_github/Figure%20trinuc%20context%20HPVneg-1.png)
 
 ``` r
-ggsave(filename = paste("Figures/","HPVneg","_trinuc_heatmap.png",sep=""),height = 1.5,width = 7,plot = HPV.neg.trinuc.heatmap,dpi = 300)
+ggsave(filename = paste("Figures/","HPVneg","_trinuc_heatmap.eps",sep=""),height = 1.5,width = 7,plot = HPV.neg.trinuc.heatmap,dpi = 300,device=cairo_ps, fallback_resolution = 300)
 ```
 
 Gene-level mutation rates
@@ -382,9 +382,9 @@ summary(lm(data = mutation_rates,formula = positive_mut_rates~negative_mut_rates
     ## F-statistic:  3837 on 1 and 19445 DF,  p-value: < 2.2e-16
 
 ``` r
-ggsave(plot = mutation_rates_full_scatter,filename = "Figures/mutation_rates_full_scatter.png",height = 3,width = 8,dpi=300)
+ggsave(plot = mutation_rates_full_scatter,filename = "Figures/mutation_rates_full_scatter.eps",height = 3,width = 8,dpi=300,device=cairo_ps, fallback_resolution = 300)
 
-ggsave(plot = mutation_rates_reduced,filename = "Figures/mutation_rates_reduced.png",height = 2.5,width = 2.5)
+ggsave(plot = mutation_rates_reduced,filename = "Figures/mutation_rates_reduced.eps",height = 2.5,width = 2.5,device=cairo_ps, fallback_resolution = 300)
 ```
 
 Calculating trinucleotide context with weights for each tumor
@@ -450,7 +450,7 @@ library(tidyverse)
 
     ## Warning: package 'tidyverse' was built under R version 3.4.2
 
-    ## ── Attaching packages ──────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ────────────────── tidyverse 1.2.1 ──
 
     ## ✔ tibble  1.4.2     ✔ purrr   0.2.5
     ## ✔ tidyr   0.8.1     ✔ dplyr   0.7.5
@@ -469,7 +469,7 @@ library(tidyverse)
 
     ## Warning: package 'forcats' was built under R version 3.4.3
 
-    ## ── Conflicts ─────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ───────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::collapse()   masks IRanges::collapse()
     ## ✖ dplyr::combine()    masks BiocGenerics::combine()
     ## ✖ dplyr::desc()       masks IRanges::desc()
@@ -1007,7 +1007,7 @@ library(gridExtra)
 
 ``` r
 prev_plot_grob <- arrangeGrob(prev_plot_gridoff)
-ggsave(filename = "Figures/prevalence_plot.png",plot = prev_plot_grob,height = 1.2,width = 3.25,dpi = 600)
+ggsave(filename = "Figures/prevalence_plot.eps",plot = prev_plot_grob,height = 1.2,width = 3.25,dpi = 300,device=cairo_ps, fallback_resolution = 300)
 
 
 mutation_rates_full_scatter <- ggplot(data = mutation_rates, aes(x=positive_mut_rates,y=negative_mut_rates)) +
@@ -1041,14 +1041,14 @@ mutation_rates_gridoff$layout$clip[mutation_rates_gridoff$layout$name == "panel"
 mutation_rates_plot_grob <- arrangeGrob(mutation_rates_gridoff)
 
 
-ggsave(plot = mutation_rates_plot_grob,filename = "Figures/mutation_rates_full_scatter.png",height = 1.2,width = 3.25,dpi=600)
+ggsave(plot = mutation_rates_plot_grob,filename = "Figures/mutation_rates_full_scatter.eps",height = 1.2,width = 3.25,dpi=300,device=cairo_ps, fallback_resolution = 300)
 
 
 library(cowplot)
 
 combined.plot.prev.and.muts <- plot_grid(prev_plot,mutation_rates_full_scatter,nrow = 2,align='v')
 
-ggsave(plot = combined.plot.prev.and.muts,filename = "Figures/selection_and_mutrates_combined.png",height = 1.2*2,width = 3.25,dpi=600)
+ggsave(plot = combined.plot.prev.and.muts,filename = "Figures/selection_and_mutrates_combined.eps",height = 1.2*2,width = 3.25,dpi=300,device=cairo_ps, fallback_resolution = 300)
 
 HPV.neg.trinuc.heatmap <- ggplot(data=HPV.neg.trinuc.mutation_data, aes(Downstream, Upstream)) +
   geom_tile(aes(fill = proportion*100), colour = "white") + scale_fill_gradient(low = "white", high = "steelblue", name="Percent") + facet_grid(.~section_labels, labeller = label_parsed)  +  #geom_text(aes(label = round(proportion, 4)*100),size=.8) +
@@ -1097,7 +1097,7 @@ HPV.pos.trinuc.heatmap <- ggplot(data=HPV.pos.trinuc.mutation_data, aes(Downstre
 
 combined.plot.prev.and.muts.heat <- plot_grid(prev_plot_gridoff,mutation_rates_gridoff,HPV.neg.trinuc.heatmap,HPV.pos.trinuc.heatmap,nrow = 4,align='v',axis='l',rel_heights = c(1,1,.4,.4),labels = "AUTO",label_size = 6)
 
-ggsave(plot = combined.plot.prev.and.muts.heat,filename = "Figures/selection_and_mutrates_heat_combined.png",height = 1*4,width = 3.25,dpi=600)
+ggsave(plot = combined.plot.prev.and.muts.heat,filename = "Figures/selection_and_mutrates_heat_combined.eps",height = 1*4,width = 3.25,dpi=300,device=cairo_ps, fallback_resolution = 300)
 ```
 
 Selection and tornado plots
@@ -1173,7 +1173,7 @@ gamma_plot
 ![](APOBEC_HNSCC_manuscript_analysis_files/figure-markdown_github/gamma%20gamma%20plot-1.png)
 
 ``` r
-ggsave(filename = "Figures/gamma_gamma_plot.png",plot = gamma_plot,height = 2,width = 2,dpi=600)
+ggsave(filename = "Figures/gamma_gamma_plot.eps",plot = gamma_plot,height = 2,width = 2,dpi=300,device=cairo_ps, fallback_resolution = 300)
 ```
 
     ## Warning: Removed 308 rows containing missing values (geom_point).
@@ -1411,7 +1411,7 @@ combined_neg_gamma_plot
 ![](APOBEC_HNSCC_manuscript_analysis_files/figure-markdown_github/hpv%20neg%20tornado%20plot-1.png)
 
 ``` r
-ggsave(filename = "Figures/combined_neg_gamma.png",plot = combined_neg_gamma_plot,width = 3.25,dpi = 600,height = 2.8)
+ggsave(filename = "Figures/combined_neg_gamma.eps",plot = combined_neg_gamma_plot,width = 3.25,dpi = 300,height = 2.8,device=cairo_ps, fallback_resolution = 300)
 ```
 
 Then HPV positive.
@@ -1481,10 +1481,10 @@ combined_pos_gamma_plot
 ![](APOBEC_HNSCC_manuscript_analysis_files/figure-markdown_github/hpv%20pos%20tornado%20plot-1.png)
 
 ``` r
-ggsave(filename = "Figures/combined_pos_gamma.png",plot = combined_pos_gamma_plot,width = 3.25,dpi = 600,height = 2.8)
+ggsave(filename = "Figures/combined_pos_gamma.eps",plot = combined_pos_gamma_plot,width = 3.25,dpi = 300,height = 2.8,device=cairo_ps, fallback_resolution = 300)
 
 combined_both_gamma <- plot_grid(g1,g.mid,g2,g1.pos,g.mid.pos,g2.pos,align = 'h',axis="t",nrow=1,rel_widths = c(1,.6,1,1,.6,1))
-ggsave(filename = "Figures/combined_both_gamma.png",plot = combined_both_gamma,width = 3.25*2,dpi = 600,height = 2.8)
+ggsave(filename = "Figures/combined_both_gamma.eps",plot = combined_both_gamma,width = 3.25*2,dpi = 300,height = 2.8,device=cairo_ps, fallback_resolution = 300)
 
 #
 ```
@@ -1548,7 +1548,7 @@ Fig4
 
 ``` r
 # Fig2
-ggsave(filename = "Figures/Fig3_tornadoplots.png",dpi = 600,width = 3.25*2,height =3,plot = Fig4)
+ggsave(filename = "Figures/Fig3_tornadoplots.eps",dpi = 300,width = 3.25*2,height =3,plot = Fig4,device=cairo_ps, fallback_resolution = 300)
 ```
 
 heatmap and dendrogram of the signatures
@@ -1796,7 +1796,7 @@ heatmap_and_dendro <- plot_grid(NULL,plt_dendr_signature,plt_dendr, plt_hmap, al
 heatmap_and_dendro_wbar <- plot_grid(NULL,NULL,plt_dendr_signature,plt_dendr,plt_dendr_subset, plt_hmap, align = 'hv', rel_widths = c(0.2,.05, 1), rel_heights = c(.4,2))
 # heatmap_and_dendro
 
-ggsave(filename = "Figures/heatmap_and_dendro.png",plot = heatmap_and_dendro,height = 5,width = 7)
+ggsave(filename = "Figures/heatmap_and_dendro.eps",plot = heatmap_and_dendro,height = 5,width = 7,device=cairo_ps, fallback_resolution = 300)
 
 dendro_and_heatmap_labs <- ggdraw() + 
   draw_plot(plot_grid(NULL,heatmap_and_dendro,rel_widths = c(.05,1),nrow=1)) +
@@ -1809,7 +1809,7 @@ dendro_and_heatmap_labs
 ![](APOBEC_HNSCC_manuscript_analysis_files/figure-markdown_github/generate%20heatmap-1.png)
 
 ``` r
-ggsave(filename = "Figures/heatmap_and_dendro_w_labs.png",plot = dendro_and_heatmap_labs,height = 4,width = 6.5)
+ggsave(filename = "Figures/heatmap_and_dendro_w_labs.eps",plot = dendro_and_heatmap_labs,height = 4,width = 6.5,device=cairo_ps, fallback_resolution = 300)
 ```
 
 Figure 1 combined plots
@@ -1823,7 +1823,7 @@ library(cowplot)
 
 combined_prev_mut_heat_dendro <- plot_grid(combined.plot.prev.and.muts.heat,NULL,nrow = 2,ncol=1,rel_heights = c(1,.6),labels = c("","E"),label_size = common.text.size,rel_widths = c(1,5))
 
-# save_plot(combined_prev_mut_heat_dendro,filename = "Figures/prev_mut_heat_dendro.png",base_height =  8,base_width  = 3.25,dpi=600)
+# save_plot(combined_prev_mut_heat_dendro,filename = "Figures/prev_mut_heat_dendro.eps",base_height =  8,base_width  = 3.25,dpi=600)
 
 combined_prev_mut_heat_dendro2 <- ggdraw(combined_prev_mut_heat_dendro) + draw_plot(heatmap_and_dendro,y = 0,x = .05,height = .37,width = .94) +
   geom_text(x=.55,y=.35,label="Signatures",size=common.text.size*(5/14)) + 
@@ -1835,7 +1835,7 @@ combined_prev_mut_heat_dendro2
 ![](APOBEC_HNSCC_manuscript_analysis_files/figure-markdown_github/combining%20prevalence%20mutation%20and%20heatmaps-1.png)
 
 ``` r
-save_plot(combined_prev_mut_heat_dendro2,filename = "Figures/Fig1_prev_mut_heat_dendro.png",base_height =  8,base_width  = 3.25,dpi=600)
+save_plot(combined_prev_mut_heat_dendro2,filename = "Figures/Fig1_prev_mut_heat_dendro.eps",base_height =  8,base_width  = 3.25,dpi=300,device=cairo_ps, fallback_resolution = 300)
 ```
 
 HPV vs SNP count
@@ -1883,7 +1883,7 @@ SNV.APOBEC.df.combined <- rbind(SNV.APOBEC.HPVneg.df,SNV.APOBEC.HPVpos.df)
 
 HPV.vs.APOBEC <- ggplot(data = SNV.APOBEC.df.combined) + geom_boxplot(aes(y=SNV_count,x=APOBEC),color="dark red") + geom_jitter(aes(y=SNV_count,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + scale_y_log10(labels=fancy_scientific) + labs(x="APOBEC signature detected",y="SNV count")
 
-ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_SNV.png",plot = HPV.vs.APOBEC)
+ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_SNV.eps",plot = HPV.vs.APOBEC,device=cairo_ps, fallback_resolution = 300)
 ```
 
     ## Saving 7 x 5 in image
@@ -2017,7 +2017,7 @@ library(grid)
 library(gridExtra)
 
 g <- arrangeGrob(HPV_vs_APOBEC_gridoff)
-ggsave(plot = g, filename ="Figures/HPV_status_APOBEC_weight.png",width = 3.25,height = 2,dpi = 600)
+ggsave(plot = g, filename ="Figures/HPV_status_APOBEC_weight.eps",width = 3.25,height = 2,dpi = 300,device=cairo_ps, fallback_resolution = 300)
 
 # library(ggplot2)
 HPV_status_vs_APOBEC_weight
@@ -2026,7 +2026,7 @@ HPV_status_vs_APOBEC_weight
 ![](APOBEC_HNSCC_manuscript_analysis_files/figure-markdown_github/logistic%20regression%20HPV%20APOBEC-1.png)
 
 ``` r
-ggsave(plot = HPV_status_vs_APOBEC_weight, filename ="Figures/Fig2_HPVvsAPOBEC.png",width = 3.25,height = 2,dpi = 600)
+ggsave(plot = HPV_status_vs_APOBEC_weight, filename ="Figures/Fig2_HPVvsAPOBEC.eps",width = 3.25,height = 2,dpi = 300,device=cairo_ps, fallback_resolution = 300)
 
 log_regression <- glm(HPV_status_value~APOBEC_weight,data = SNV.APOBEC.df.knownAPOBEC,family = binomial)
 
@@ -2126,7 +2126,7 @@ SNV_count_comparing_APOBEC_plot <- ggplot(data = subset(SNV.APOBEC.df.comparingA
 
 # SNV_count_comparing_APOBEC_plot
 
-ggsave(filename = "Figures/SNV_count_comparing_APOBEC.png",plot = SNV_count_comparing_APOBEC_plot)
+ggsave(filename = "Figures/SNV_count_comparing_APOBEC.eps",plot = SNV_count_comparing_APOBEC_plot,device=cairo_ps, fallback_resolution = 300)
 ```
 
     ## Saving 7 x 5 in image
@@ -2182,7 +2182,7 @@ combined_HPV_APOBEC_plot
 ![](APOBEC_HNSCC_manuscript_analysis_files/figure-markdown_github/combining%20SNV%20HPV%20APOBEC%20plots-1.png)
 
 ``` r
-# ggsave(plot = combined_HPV_APOBEC_plot,filename = "Figures/Fig3_combined_APOBEC_vs_HPV.png",height = 3,width = 3.25*2)
+# ggsave(plot = combined_HPV_APOBEC_plot,filename = "Figures/Fig3_combined_APOBEC_vs_HPV.eps",height = 3,width = 3.25*2)
 
 library(dplyr)
 unique(SNV.APOBEC.df.combined$HPV_status)
@@ -2234,7 +2234,7 @@ for(i in 1:nrow(SNV.APOBEC.df.combined)){
 
 HPV.vs.APOBEC_proportion <- ggplot(data = SNV.APOBEC.df.combined) + geom_boxplot(aes(y=`Proportion TCW to TKW`,x=APOBEC),color="dark red") + geom_jitter(aes(y=`Proportion TCW to TKW`,x=APOBEC),width= 0.2,alpha=0.5) + facet_grid(.~HPV_status) + theme_bw() + labs(x="APOBEC signature detected")
 
-ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_proportionTCW.png",plot = HPV.vs.APOBEC_proportion)
+ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_proportionTCW.eps",plot = HPV.vs.APOBEC_proportion,device=cairo_ps, fallback_resolution = 300)
 ```
 
     ## Saving 7 x 5 in image
@@ -2272,7 +2272,7 @@ wilcox.test(data=SNV.APOBEC.df.combined[which(SNV.APOBEC.df.combined$APOBEC=="No
     ##            -0.05365103
 
 ``` r
-# ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_proportionTCW_forMS.png",plot = HPV.vs.APOBEC_proportion_ms)
+# ggsave(filename = "Figures/HPV_status_and_APOBEC_vs_proportionTCW_forMS.eps",plot = HPV.vs.APOBEC_proportion_ms)
 
 
 SNV.APOBEC.df.combined$total_TCW <- SNV.APOBEC.df.combined$SNV_count * SNV.APOBEC.df.combined$`Proportion TCW to TKW`
@@ -2512,7 +2512,7 @@ wilcox.test(data=prev.df.combined, `Selection intensity`~`APOBEC type TCW`)
     ## alternative hypothesis: true location shift is not equal to 0
 
 ``` r
-ggsave(filename = "Figures/Fig4_selection_vs_TCW.png",plot = distribution.of.APOBEC.TCW.combined,width = 3.25,height = 3.25,dpi = 600)
+ggsave(filename = "Figures/Fig4_selection_vs_TCW.eps",plot = distribution.of.APOBEC.TCW.combined,width = 3.25,height = 3.25,dpi = 300,device=cairo_ps, fallback_resolution = 300)
 
 supp.T2 <- prev.df.combined[,c("Short name","Frequency","Selection intensity","Mutation rate","prevalence","APOBEC type TCW","HPV_status")]
 
@@ -2530,7 +2530,7 @@ distribution.of.APOBEC.TCW.combined_HPVfill <- ggplot(data = prev.df.combined) +
   theme(axis.text=element_text(size=common.text.size.large3), axis.title=element_text(size=common.text.size.large3,face="bold")) + 
   labs(x=expression(TCW %->% TKW))
 
-ggsave(filename = "Figures/selection_vs_TCW_fillHPV.png",plot = distribution.of.APOBEC.TCW.combined_HPVfill,width = 3.25,height = 3.25,dpi = 600)
+ggsave(filename = "Figures/selection_vs_TCW_fillHPV.eps",plot = distribution.of.APOBEC.TCW.combined_HPVfill,width = 3.25,height = 3.25,dpi = 300,device=cairo_ps, fallback_resolution = 300)
 
 wilcox.test(data=prev.df.combined, `Selection intensity`~`APOBEC type TCW`)
 ```
@@ -2818,7 +2818,7 @@ selection.from.contexts.labels
 ![](APOBEC_HNSCC_manuscript_analysis_files/figure-markdown_github/updated%20Fig%206-1.png)
 
 ``` r
-ggsave(filename = "Figures/Fig5_selection_from_process_labels.png",plot = selection.from.contexts.labels,width = 6.5,height = 4,dpi = 600)
+ggsave(filename = "Figures/Fig5_selection_from_process_labels.eps",plot = selection.from.contexts.labels,width = 6.5,height = 4,dpi = 300,device=cairo_ps, fallback_resolution = 300)
 
 supp_T5 <- prev.df.split.combined[,c("Short name","variable","Selection from mutational context weighted")]
 
